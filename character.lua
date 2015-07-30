@@ -1,28 +1,33 @@
 character={}
 local characterSpeed=300
 local characterX,characterY=love.graphics.getDimensions( )
-local characterHeight=32
-local characterWidth=32
+local characterHeight=100
+local characterWidth=100
 --character.__index = character
 
-function character:load()
+function character_load()
+    require "battle"
+    battle_load()
     characterX=characterX/2
     characterY=characterY/2
     characterCreate()
     characterLoad()
 end
 
-function character:update(dt)
+function character_update(dt)
     characterUpdate(dt)
 	if love.keyboard.isDown("-") then
         character.hp=character.hp-1
     end
+    battle_update(dt)
 end
 
-function character:draw()
+
+function character_draw()
     love.graphics.setBackgroundColor(255,255,255)
 	love.graphics.setColor(255,255,255,255)
 	characterDraw()
+    battle_attack(500, 200)
 end
 
 --------------------------characterCreat-----------------------------------

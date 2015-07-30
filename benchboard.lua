@@ -1,6 +1,6 @@
 benchboard = {}
 
-function benchboard:load()
+function benchboard_load()
     --load image
     benchboard.settings = love.graphics.newImage("img/settings.png")
     --get width and height of windows
@@ -12,7 +12,7 @@ function benchboard:load()
     benchboard.hpFont = love.graphics.newFont(16)
 end
 
-function benchboard:draw()
+function benchboard_draw()
     love.graphics.setBackgroundColor(255, 255, 255)
     --draw hp
     love.graphics.setColor(255, 20, 147)

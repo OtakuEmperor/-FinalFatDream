@@ -1,6 +1,6 @@
 battle = {}
 
-function battle:load()
+function battle_load()
     --attack
     attackImg = love.graphics.newImage("img/attack.png")
     quads = {}
@@ -20,7 +20,7 @@ function battle:load()
     hitSound3 = love.audio.newSource("audio/a3.ogg", "static")
 end
 
-function battle:update(dt)
+function battle_update(dt)
     if atk == true then
         hitSoundChoose = math.random(3)
         if hitSoundChoose == 1 then hitSound1:play()
@@ -40,12 +40,12 @@ function battle:update(dt)
     end
 end
 
-function battle:keyPress(key)
+function battle_keyPress(key)
     if quads[key] then
         atk = true
     end
 end
 
-function battle:attack(x, y)
+function battle_attack(x, y)
     love.graphics.draw(attackImg, quads[" "][iteration], x, y)
 end
