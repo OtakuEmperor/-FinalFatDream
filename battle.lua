@@ -20,7 +20,7 @@ function battle_load()
     hitSound3 = love.audio.newSource("audio/a3.ogg", "static")
 end
 
-function battle:update(dt)
+function battle_update(dt)
     -- attack sound
     if atk == true then
         hitSoundChoose = math.random(3)
@@ -43,12 +43,12 @@ function battle:update(dt)
 end
 
 function battle_keyPress(key)
-    if quads[key] then
+    if love.keyboard.isDown(" ") then
         atk = true
     end
 end
 
-function battle:attack(x, y, face)
+function battle_attack(x, y, face)
     if face == "left" then
         x = x-100
     elseif face == "right" then

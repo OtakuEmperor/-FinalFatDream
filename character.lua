@@ -20,6 +20,7 @@ function character_update(dt)
         character.hp=character.hp-1
     end
     battle_update(dt)
+    battle_keyPress(key)
 end
 
 
@@ -27,7 +28,7 @@ function character_draw()
     love.graphics.setBackgroundColor(255,255,255)
 	love.graphics.setColor(255,255,255,255)
 	characterDraw()
-    battle_attack(500, 200)
+    battle_attack(characterX,characterY,character.faceDir)
 end
 
 --------------------------characterCreat-----------------------------------
@@ -45,6 +46,7 @@ function characterCreate()
 		["Down"] = 1,
 		["Right"] = 4
 	}
+    character.faceDir = "left"
 end
 
 ------------------------characterLoad--------------------------------------
@@ -84,15 +86,19 @@ function characterUpdate(dt)
     if character.die==false then
         if love.keyboard.isDown("left") then
             characterMove(character.Directions.Left, dt)
+            character.faceDir = "left"
             character.animation.sound:play()
 	    elseif love.keyboard.isDown("right") then
             characterMove(character.Directions.Right, dt)
+            character.faceDir = "right"
             character.animation.sound:play()
 	    elseif love.keyboard.isDown("up") then
             characterMove(character.Directions.Up, dt)
+            character.faceDir = "up"
             character.animation.sound:play()
 	    elseif love.keyboard.isDown("down") then
             characterMove(character.Directions.Down, dt)
+            character.faceDir = "down"
             character.animation.sound:play()
         else
 		    characterStop()
