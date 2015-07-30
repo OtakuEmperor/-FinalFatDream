@@ -1,7 +1,7 @@
 battle = {}
 
 function battle:load()
-    --attack
+    -- attack animate load
     attackImg = love.graphics.newImage("img/attack.png")
     quads = {}
     quads[" "] = {}
@@ -14,13 +14,14 @@ function battle:load()
     timer = 0.1
     max = 6
 
-    --sound
+    -- sound load
     hitSound1 = love.audio.newSource("audio/a1.ogg", "static")
     hitSound2 = love.audio.newSource("audio/a2.ogg", "static")
     hitSound3 = love.audio.newSource("audio/a3.ogg", "static")
 end
 
 function battle:update(dt)
+    -- attack sound
     if atk == true then
         hitSoundChoose = math.random(3)
         if hitSoundChoose == 1 then hitSound1:play()
@@ -28,6 +29,7 @@ function battle:update(dt)
         elseif hitSoundChoose == 3 then hitSound3:play()
         end
 
+        -- attack animate
         timer = timer + dt
         if timer > 0.05 then
             timer = 0.01
@@ -46,6 +48,16 @@ function battle:keyPress(key)
     end
 end
 
-function battle:attack(x, y)
-    love.graphics.draw(attackImg, quads[" "][iteration], x, y)
+function battle:attack(x, y, face)
+    if face == "left" then
+        x = x-100
+    elseif face == "right" then
+        x = x+100
+    elseif face == "up" then
+        y = y-100
+    elseif face == "down" then
+        y = y+100
+    end
+ 
+    love.graphics.draw(attackImg, quads[" "][iteration], x, y, 0, 1/2, 1/2)
 end
