@@ -1,1 +1,17 @@
-function love.load()    require "character"    require "benchboard"    character_load()    benchboard_load()endfunction love.update(dt)    character_update(dt)endfunction love.draw()    character_draw()    benchboard_draw()end
+function love.load()
+    
+    require "world"
+    
+    world_load()
+end
+
+function love.update(dt)
+    world_update(dt)
+            
+end
+
+
+function love.draw()
+    
+    world_draw()
+end

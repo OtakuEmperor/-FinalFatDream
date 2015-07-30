@@ -4,10 +4,9 @@ function battle_load()
     --attack
     attackImg = love.graphics.newImage("img/attack.png")
     quads = {}
-    quads[" "] = {}
-    quads[" "][1] = love.graphics.newQuad(-192, 0, 192, 192, 960, 768)
+    quads[1] = love.graphics.newQuad(-192, 0, 192, 192, 960, 768)
     for i=1, 5 do
-        quads[" "][i+1] = love.graphics.newQuad((i-1)*192, 0, 192, 192, 960, 768)
+        quads[i+1] = love.graphics.newQuad((i-1)*192, 0, 192, 192, 960, 768)
     end
     iteration = 1
     atk = false
@@ -59,5 +58,6 @@ function battle_attack(x, y, face)
         y = y+100
     end
 
-    love.graphics.draw(attackImg, quads[" "][iteration], x, y, 0, 1/2, 1/2)
+    love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.draw(attackImg, quads[iteration], x, y, 0, 1/2, 1/2)
 end
