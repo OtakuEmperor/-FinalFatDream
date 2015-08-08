@@ -225,7 +225,7 @@ function characterMove(direction, dt)
             character.temp = true
         end
         characterSetDirection( character.animation.Directions.Left)
-    end 
+    end
     if direction == character.animation.Directions.Right then
         if character.count == false then
             if character.temp == true then
@@ -272,7 +272,7 @@ function characterMove(direction, dt)
         end
         characterSetDirection( character.animation.Directions.Up)
     end
-     
+
     -- keep the character on the screen
     if character.nx > love.graphics.getWidth()-characterWidth+8 then 
         character.nx = love.graphics.getWidth()-characterWidth+8

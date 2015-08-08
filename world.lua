@@ -35,7 +35,7 @@ function isBarrier(barrierX,barrierY)
         character.animation.walking = true
         character.animation.sound:play()
     end
-    
+
 end
 
 function barrier_draw()
