@@ -1,15 +1,15 @@
 character={}
-local characterSpeed=300
+local characterSpeed=200
 local characterX,characterY=love.graphics.getDimensions( )
-local characterHeight=100
-local characterWidth=100
+characterHeight=100
+characterWidth=100
 --character.__index = character
 
 function character_load()
     require "battle"
     battle_load()
-    characterX=characterX/2
-    characterY=characterY/2
+    characterX=500
+    characterY=300
     characterCreate()
     characterLoad()
 end
@@ -35,6 +35,8 @@ end
 function characterCreate()
     character.x = characterX
     character.y = characterY
+    character.nx=characterX
+    character.ny=characterY
     character.hp=100
     character.die=false
     character.speed = characterSpeed
@@ -46,7 +48,7 @@ function characterCreate()
         ["Down"] = 1,
         ["Right"] = 4
     }
-    character.faceDir = "left"
+    character.faceDir = "down"
 end
 
 ------------------------characterLoad--------------------------------------
@@ -111,24 +113,41 @@ end
 function characterMove(direction, dt)
     if direction == character.animation.Directions.Down then
         character.animation.walking = true
+        if math.abs(character.y-character.ny) > characterHeight*4/10 and character.y > character.ny then
+            character.ny = character.ny + characterHeight
+        end
         character.y = character.y + character.speed * dt
+        character.y = math.ceil(character.y)
         characterSetDirection( character.animation.Directions.Down)
     end
     if direction == character.animation.Directions.Left then
         character.animation.walking = true
+        if math.abs(character.x-character.nx) > characterWidth*4/10 and character.x < character.nx then
+            character.nx = character.nx - characterWidth
+        end
         character.x = character.x - character.speed * dt
+        character.x = math.ceil(character.x)
         characterSetDirection( character.animation.Directions.Left)
     end
     if direction == character.animation.Directions.Right then
         character.animation.walking = true
+        if math.abs(character.x-character.nx) > characterWidth*4/10 and character.x > character.nx then
+            character.nx = character.nx + characterWidth
+        end
         character.x = character.x + character.speed * dt
+        character.x = math.ceil(character.x)
         characterSetDirection( character.animation.Directions.Right)
     end
     if direction == character.animation.Directions.Up then
         character.animation.walking = true
+        if math.abs(character.y-character.ny) > characterHeight*4/10 and character.y < character.ny then
+            character.ny = character.ny - characterHeight
+        end
         character.y = character.y - character.speed * dt
+        character.y = math.ceil(character.y)
         characterSetDirection( character.animation.Directions.Up)
     end
+
     -- keep the character on the screen
     if character.x > love.graphics.getWidth()-characterWidth then character.x = love.graphics.getWidth()-characterWidth
     end
@@ -151,6 +170,8 @@ function characterStop()
     character.animation.walking = false
     if not character.animation.walking then
         character.animation.nowFrame = 1
+        character.x = character.nx
+        character.y = character.ny
     end
 end
 
@@ -198,4 +219,12 @@ function disappearCreate()
     die.delay=0.3
     die.count=0
     return die
+end
+
+function getHeroX()
+    return character.x
+end
+
+function getHeroY()
+    return character.y
 end
