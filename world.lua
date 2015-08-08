@@ -26,12 +26,14 @@ function barrierCreat()
 end
 
 function isBarrier(barrierX,barrierY)
-    if character.x >barrierX-characterWidth and character.x<barrierX+characterWidth and character.y > barrierY-characterHeight and character.y<barrierY+characterHeight then 
-        if character.nx == barrierX and character.ny == barrierY then
-            character.nx = character.nx - characterWidth
-        end
-        character.x =character.nx
-        character.y =character.ny
+    if character.nx >barrierX-characterWidth and character.nx<barrierX+characterWidth and character.ny > barrierY-characterHeight and character.ny<barrierY+characterHeight then 
+        --if character.nx == barrierX and character.ny == barrierY then
+          --  character.nx = character.nx - characterWidth
+        --end
+        character.nx =character.px
+        character.ny =character.py
+        character.animation.walking = true
+        character.animation.sound:play()
     end
     
 end
