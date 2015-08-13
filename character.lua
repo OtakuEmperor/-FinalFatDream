@@ -92,85 +92,69 @@ function characterUpdate(dt)
 
     if character.die==false then
         if character.x<character.px and character.faceDir == "right" then
-            if character.count1 == false then
             character.animation.walking = true
             if character.x + character.speed * 0.05<character.px then
                 character.x = character.x + character.speed * 0.05
             else
                 character.x=character.px
-                    character.count1=true
-                end
-            end
-            if character.x==character.nx then
-            character.count1=true
+                character.count1=true
             end
         elseif character.x>character.px and character.faceDir == "left" then
-            if character.count1 == false then
             character.animation.walking = true
             if character.x - character.speed * 0.05>character.px then
                 character.x = character.x - character.speed * 0.05
             else
                 character.x=character.px
-                    character.count1=true
-                end
-            end
-            if character.x==character.nx then
-            character.count1=true
+                character.count1=true
             end
         elseif character.y<character.py and character.faceDir == "down" then
-            if character.count1 == false then
             character.animation.walking = true
             if character.y + character.speed * 0.05<character.py then
                 character.y = character.y + character.speed * 0.05
             else
                 character.y=character.py
-                    character.count1=true
-                end
-            end
-            if character.y==character.ny then
-            character.count1=true
+                character.count1=true
             end
         elseif character.y>character.py and character.faceDir == "up" then
-            if character.count1 == false then
             character.animation.walking = true
             if character.y - character.speed * 0.05>character.py then
                 character.y = character.y - character.speed * 0.05
             else
                 character.y=character.py
-                    character.count1=true
-                end
-            end
-            if character.y==character.ny then
-            character.count1=true
+                character.count1=true
             end
         elseif love.keyboard.isDown("left") then
             if character.count1 == true or character.faceDir == "left" then
-                character.count1 = false
-            characterMove(character.Directions.Left, dt)
-            character.faceDir = "left"
-            
+                character.ny=character.py
+                characterMove(character.Directions.Left, dt)
+                character.faceDir = "left"
+            elseif character.count1 == false then
+                characterStop()
             end
         elseif love.keyboard.isDown("right") then
             if character.count1 == true or character.faceDir == "right" then
-                character.count1 = false
+                character.ny=character.py
                 characterMove(character.Directions.Right, dt)
-            character.faceDir = "right"
-            
+                character.faceDir = "right"
+            elseif character.count1 == false then
+                characterStop()
             end
         elseif love.keyboard.isDown("up") then
             if character.count1 == true or character.faceDir == "up" then
-                character.count1 = false
-            characterMove(character.Directions.Up, dt)
-            character.faceDir = "up"
-            
-                end
+                character.nx=character.px
+                characterMove(character.Directions.Up, dt)
+                character.faceDir = "up"
+            elseif character.count1 == false then 
+                characterStop()
+            end
         elseif love.keyboard.isDown("down") then
             if character.count1 == true or character.faceDir == "down" then
-                character.count1 = false
-            characterMove(character.Directions.Down, dt)
-            character.faceDir = "down"
-            
-                end
+                character.nx=character.px
+                characterMove(character.Directions.Down, dt)
+                character.faceDir = "down"
+            elseif character.count1 == false then   
+                characterStop()
+            end
         else
             characterStop()
             character.animation.sound:stop()
@@ -190,11 +174,14 @@ function characterMove(direction, dt)
         else
             character.animation.walking = true
             character.animation.sound:play()
-            character.y = character.y + character.speed * 0.02
-            character.y = math.ceil(character.y)
-            if character.y>=character.ny then
+            if character.y + character.speed * 0.03<character.ny then
+                character.y = character.y + character.speed * 0.03
+                character.y = math.ceil(character.y)
+            else
+                character.y=character.ny
                 character.count=false
             end
+            character.count1 = false
         end
         if math.abs(character.y-character.ny) > characterWidth*4/10 then
             character.count=true
@@ -213,11 +200,14 @@ function characterMove(direction, dt)
         else
             character.animation.walking = true
             character.animation.sound:play()
-            character.x = character.x - character.speed * 0.02
-            character.x = math.ceil(character.x)
-            if character.x<=character.nx then
+            if character.x - character.speed * 0.03>character.nx then
+                character.x = character.x - character.speed * 0.03
+                character.x = math.ceil(character.x)
+            else
+                character.x=character.nx
                 character.count=false
             end
+            character.count1 = false
         end
         if math.abs(character.x-character.nx) > characterWidth*4/10 then
             character.count=true
@@ -236,11 +226,14 @@ function characterMove(direction, dt)
         else
             character.animation.walking = true
             character.animation.sound:play()
-            character.x = character.x + character.speed * 0.02
-            character.x = math.ceil(character.x)
-            if character.x>=character.nx then
+            if character.x + character.speed * 0.03<character.nx then
+                character.x = character.x + character.speed * 0.03
+                character.x = math.ceil(character.x)
+            else
+                character.x=character.nx
                 character.count=false
             end
+            character.count1 = false
         end
         if math.abs(character.x-character.nx) > characterWidth*4/10 then
             character.count=true
@@ -259,11 +252,14 @@ function characterMove(direction, dt)
         else
             character.animation.walking = true
             character.animation.sound:play()
-            character.y = character.y - character.speed * 0.02
-            character.y = math.ceil(character.y)
-            if character.y<=character.ny then
+            if character.y - character.speed * 0.03>character.ny then
+                character.y = character.y - character.speed * 0.03
+                character.y = math.ceil(character.y)
+            else
+                character.y=character.ny
                 character.count=false
             end
+            character.count1 = false
         end
         if math.abs(character.y-character.ny) > characterWidth*4/10 then
             character.count=true
@@ -313,19 +309,19 @@ function characterStop()
             character.count1 = true
         else
             if character.faceDir == "right" then 
-            character.px=character.px+characterWidth
+                character.px=character.px+characterWidth
             end
             if character.faceDir == "left" then
-            character.px=character.px-characterWidth
+                character.px=character.px-characterWidth
             end
             if character.faceDir == "down" then
                 character.py=character.py+characterHeight
             end
             if character.faceDir == "up" then
-            character.py=character.py-characterHeight
-                end
-        character.count = false
-        character.temp = true
+                character.py=character.py-characterHeight
+            end
+            character.count = false
+            character.temp = true
         end
     end
 end
