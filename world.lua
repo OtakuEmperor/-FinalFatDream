@@ -3,19 +3,23 @@ tree={}
 function world_load()
     require "character"
     require "benchboard"
+    require "monster"
     character_load()
     benchboard_load()
+    monster_load()
     barrierCreat()
 end
 
 function world_update(dt)
    character_update(dt)
+   monster_update(dt)
 end
 
 function world_draw()
     character_draw()
     benchboard_draw()
     barrier_draw()
+    monster_draw()
 end
 
 function barrierCreat()
@@ -26,7 +30,7 @@ function barrierCreat()
 end
 
 function isBarrier(barrierX,barrierY)
-    if character.nx >barrierX-characterWidth and character.nx<barrierX+characterWidth and character.ny > barrierY-characterHeight and character.ny<barrierY+characterHeight then 
+    if character.nx >barrierX-characterWidth and character.nx<barrierX+characterWidth and character.ny > barrierY-characterHeight and character.ny<barrierY+characterHeight then
         --if character.nx == barrierX and character.ny == barrierY then
           --  character.nx = character.nx - characterWidth
         --end
