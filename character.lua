@@ -25,8 +25,6 @@ end
 
 
 function character_draw()
-    love.graphics.setBackgroundColor(255,255,255)
-    love.graphics.setColor(255,255,255,255)
     characterDraw()
     battle_attack(character.x,character.y,character.faceDir)
 end
@@ -81,6 +79,7 @@ function characterUpdate(dt)
     if character.hp<=0 then
         character.die=true
     end
+    
     if character.die==true then
         character.animation.characterImage = love.graphics.newImage("img/baddies.png")
         character.disappear.count = character.disappear.count + dt
@@ -99,6 +98,7 @@ function characterUpdate(dt)
                 character.x=character.px
                 character.count1=true
             end
+        
         elseif character.x>character.px and character.faceDir == "left" then
             character.animation.walking = true
             if character.x - character.speed * 0.05>character.px then
@@ -107,6 +107,7 @@ function characterUpdate(dt)
                 character.x=character.px
                 character.count1=true
             end
+        
         elseif character.y<character.py and character.faceDir == "down" then
             character.animation.walking = true
             if character.y + character.speed * 0.05<character.py then
@@ -115,6 +116,7 @@ function characterUpdate(dt)
                 character.y=character.py
                 character.count1=true
             end
+        
         elseif character.y>character.py and character.faceDir == "up" then
             character.animation.walking = true
             if character.y - character.speed * 0.05>character.py then
@@ -123,7 +125,8 @@ function characterUpdate(dt)
                 character.y=character.py
                 character.count1=true
             end
-        elseif love.keyboard.isDown("left") then
+        
+        elseif love.keyboard.isDown("left")  and character.y%100 == 0 and character.y == character.py then
             if character.count1 == true or character.faceDir == "left" then
                 character.ny=character.py
                 characterMove(character.Directions.Left, dt)
@@ -131,7 +134,8 @@ function characterUpdate(dt)
             elseif character.count1 == false then
                 characterStop()
             end
-        elseif love.keyboard.isDown("right") then
+        
+        elseif love.keyboard.isDown("right") and character.y%100 == 0  and character.y == character.py then
             if character.count1 == true or character.faceDir == "right" then
                 character.ny=character.py
                 characterMove(character.Directions.Right, dt)
@@ -139,7 +143,8 @@ function characterUpdate(dt)
             elseif character.count1 == false then
                 characterStop()
             end
-        elseif love.keyboard.isDown("up") then
+        
+        elseif love.keyboard.isDown("up") and character.x%100 == 0  and character.x == character.px then
             if character.count1 == true or character.faceDir == "up" then
                 character.nx=character.px
                 characterMove(character.Directions.Up, dt)
@@ -147,7 +152,8 @@ function characterUpdate(dt)
             elseif character.count1 == false then 
                 characterStop()
             end
-        elseif love.keyboard.isDown("down") then
+        
+        elseif love.keyboard.isDown("down") and character.x%100 == 0  and character.x == character.px then
             if character.count1 == true or character.faceDir == "down" then
                 character.nx=character.px
                 characterMove(character.Directions.Down, dt)
@@ -155,6 +161,7 @@ function characterUpdate(dt)
             elseif character.count1 == false then   
                 characterStop()
             end
+        
         else
             characterStop()
             character.animation.sound:stop()
@@ -183,6 +190,7 @@ function characterMove(direction, dt)
             end
             character.count1 = false
         end
+        
         if math.abs(character.y-character.ny) > characterWidth*4/10 then
             character.count=true
             character.ny = character.py + characterWidth
@@ -190,6 +198,7 @@ function characterMove(direction, dt)
         end
         characterSetDirection( character.animation.Directions.Down)
     end
+    
     if direction == character.animation.Directions.Left then
         if character.count == false then
             if character.temp == true then
@@ -209,6 +218,7 @@ function characterMove(direction, dt)
             end
             character.count1 = false
         end
+        
         if math.abs(character.x-character.nx) > characterWidth*4/10 then
             character.count=true
             character.nx = character.px - characterWidth
@@ -216,6 +226,7 @@ function characterMove(direction, dt)
         end
         characterSetDirection( character.animation.Directions.Left)
     end
+    
     if direction == character.animation.Directions.Right then
         if character.count == false then
             if character.temp == true then
@@ -235,6 +246,7 @@ function characterMove(direction, dt)
             end
             character.count1 = false
         end
+        
         if math.abs(character.x-character.nx) > characterWidth*4/10 then
             character.count=true
             character.nx = character.px + characterWidth
@@ -242,6 +254,7 @@ function characterMove(direction, dt)
         end
         characterSetDirection( character.animation.Directions.Right)
     end
+    
     if direction == character.animation.Directions.Up then
         if character.count == false then
             if character.temp == true then
@@ -261,6 +274,7 @@ function characterMove(direction, dt)
             end
             character.count1 = false
         end
+        
         if math.abs(character.y-character.ny) > characterWidth*4/10 then
             character.count=true
             character.ny = character.py - characterWidth
@@ -275,16 +289,19 @@ function characterMove(direction, dt)
         character.animation.walking = true
         character.animation.sound:play()
     end
+    
     if character.nx < 0 then 
         character.nx = 0
         character.animation.walking = true
         character.animation.sound:play()
     end
+    
     if character.ny > love.graphics.getHeight()-characterHeight then 
         character.ny = love.graphics.getHeight()-characterHeight
         character.animation.walking = true
         character.animation.sound:play()
     end
+    
     if character.ny < 0 then 
         character.ny = 0
         character.animation.walking = true
@@ -334,14 +351,8 @@ function characterDraw()
     end
     if character.hp>=0 then
         love.graphics.setColor(255,0,0,255)
-        love.graphics.rectangle("fill", 10, 10, character.hp*3, 5 )
+        --love.graphics.rectangle("fill", 10, 10, character.hp*3, 5 )
     end
-    love.graphics.print(character.x, 300, 500)
-    love.graphics.print(character.nx, 500, 500)
-    love.graphics.print(character.px, 700, 500)
-    love.graphics.print(character.y, 300, 100)
-    love.graphics.print(character.ny, 500, 100)
-    love.graphics.print(character.py, 700, 100)
 end
 
 --------------------walkCreate-----------------------------------------
