@@ -22,22 +22,16 @@ function triggerKeyPress(dt)
     
     local switch = {
         ["right"] = function()    -- for case 1
-            if (character.x+world.x+100)==tree.x and (character.y+world.y)== tree.y then
-                question = true
-                questionNum=1
+            for i=1,3 do
+                if (character.x+world.x+100)==questionMark[i].x and (character.y+world.y)== questionMark[i].y then
+                    question = true
+                    questionNum=i
+                end
             end
             if (character.x+world.x+100)==q2key.x and (character.y+world.y)== q2key.y then
                 question = true
                 questionNum=2
                 showKey = true
-            end
-            if (character.x+world.x+100)==questionMark2.x and (character.y+world.y)== questionMark2.y then
-                question = true
-                questionNum=2
-            end
-            if (character.x+world.x+100)==questionMark3.x and (character.y+world.y)== questionMark3.y then
-                question = true
-                questionNum=3
             end
             if (character.x+world.x+100)==q3key.x and (character.y+world.y)== q3key.y then
                 question = true
@@ -46,75 +40,61 @@ function triggerKeyPress(dt)
             end
         end,
         ["left"] = function()    -- for case 2
-            if (character.x+world.x-100)==tree.x and (character.y+world.y)== tree.y then
-                question = true
-                questionNum=1
+            for i=1,3 do
+                if (character.x+world.x-100)==questionMark[i].x and (character.y+world.y)== questionMark[i].y then
+                    question = true
+                    questionNum=i
+                end
             end
             if (character.x+world.x-100)==q2key.x and (character.y+world.y)== q2key.y then
                 question = true
                 questionNum=2
                 showKey = true
             end
-            if (character.x+world.x-100)==questionMark2.x and (character.y+world.y)== questionMark2.y then
-                question = true
-                questionNum=2
-            end
+            
             if (character.x+world.x-100)==q3key.x and (character.y+world.y)== q3key.y then
                 question = true
                 questionNum=3
                 showQ3Answer = true
             end
-            if (character.x+world.x-100)==questionMark3.x and (character.y+world.y)== questionMark3.y then
-                question = true
-                questionNum=3
-            end
+
         end,
         ["down"] = function()    -- for case 3
-            if (character.x+world.x)==tree.x and (character.y+world.y+100)== tree.y then
-                question = true
-                questionNum=1
+            for i=1,3 do
+                if (character.x+world.x)==questionMark[i].x and (character.y+world.y+100)== questionMark[i].y then
+                    question = true
+                    questionNum=i
+                end
             end
             if (character.x+world.x)==q2key.x and (character.y+world.y+100)== q2key.y then
                 question = true
                 questionNum=2
                 showKey = true
             end
-            if (character.x+world.x)==questionMark2.x and (character.y+world.y+100)== questionMark2.y then
-                question = true
-                questionNum=2
-            end
+            
             if (character.x+world.x)==q3key.x and (character.y+world.y+100)== q3key.y then
                 question = true
                 questionNum=3
                 showQ3Answer = true
             end
-            if (character.x+world.x)==questionMark3.x and (character.y+world.y+100)== questionMark3.y then
-                question = true
-                questionNum=3
-            end
+            
         end,
         ["up"] = function()    -- for case 4
-            if (character.x+world.x)==tree.x and (character.y+world.y-100)== tree.y then
-                question = true
-                questionNum=1
+            for i=1,3 do
+                if (character.x+world.x)==questionMark[i].x and (character.y+world.y-100)== questionMark[i].y then
+                    question = true
+                    questionNum=i
+                end
             end
             if (character.x+world.x)==q2key.x and (character.y+world.y-100)== q2key.y then
                 question = true
                 questionNum=2
                 showKey = true
             end
-            if (character.x+world.x)==questionMark2.x and (character.y+world.y-100)== questionMark2.y then
-                question = true
-                questionNum=2
-            end
             if (character.x+world.x)==q3key.x and (character.y+world.y-100)== q3key.y then
                 question = true
                 questionNum=3
                 showQ3Answer = true
-            end
-            if (character.x+world.x)==questionMark3.x and (character.y+world.y-100)== questionMark3.y then
-                question = true
-                questionNum=3
             end
         end
     }

@@ -1,3 +1,9 @@
+questionMark1={}
+-- this function is for OOP
+function newObject(o, class)
+    class.__index = class
+    return setmetatable(o, class)
+end
 function question1_load()
     questionImage = love.graphics.newImage("img/question1.jpg")
     imageWidth=661
@@ -231,4 +237,15 @@ function question1_draw()
     love.graphics.print(blockNum3, 620, 393)
     love.graphics.print(blockNum4, 820, 393)
     
+end
+
+function questionMark1.new (originPointX,originPointY)
+    local obj = {
+        Image = love.graphics.newImage("img/tree.png"),
+        Barrier=true,
+        x = originPointX,
+        y = originPointY
+    }
+    obj = newObject(obj, q3Trap)
+    return obj
 end
