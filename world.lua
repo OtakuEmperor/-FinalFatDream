@@ -6,7 +6,6 @@ function world_load()
     require "benchboard"
     require "slime"
     monster1 = slime.new(700,500)
-    monster2 = slime.new(800,600)
     character_load()
     benchboard_load()
     barrierCreate()
@@ -14,8 +13,6 @@ function world_load()
 end
 
 function world_update(dt)
-    monster1:update(dt)
-    monster2:update(dt)
     if world.rightMove and world.x<world.px and character.faceDir == "right" then
         character.animation.walking = true
         if world.x + world.speed * 0.05<world.px then
@@ -107,6 +104,7 @@ function world_update(dt)
             world.upMove = true
         end
     end
+    monster1:update(dt,character.x+world.x,character.y+world.y)
 end
 
 function world_draw()
@@ -343,6 +341,5 @@ function barrier_draw()
     if tree.Barrier then
         isBarrier(tree.x-world.x,tree.y-world.y)
     end
-    love.graphics.draw(monster1.slimeImgFile, monster1.slimeQuads[monster1.moveMode[monster1.moveIndex]][monster1.animationIndex], monster1.nowX-world.x, monster1.nowY-world.y)
-    love.graphics.draw(monster2.slimeImgFile, monster2.slimeQuads[monster2.moveMode[monster2.moveIndex]][monster2.animationIndex], monster2.nowX-world.x, monster2.nowY-world.y)
+    love.graphics.draw(monster1.slimeImgFile, monster1.slimeQuads[monster1.moveStep[monster1.moveIndex]][monster1.animationIndex], monster1.nowX-world.x, monster1.nowY-world.y)
 end
