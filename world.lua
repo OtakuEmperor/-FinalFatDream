@@ -1,10 +1,10 @@
 world={}
-tree={}
 local screenWidth,screenHeight=love.graphics.getDimensions( )
 function world_load()
     require "character"
     require "benchboard"
     require "slime"
+    require "barrierCreate"
     monster1 = slime.new(700,500)
     character_load()
     benchboard_load()
@@ -13,6 +13,7 @@ function world_load()
 end
 
 function world_update(dt)
+    q3Trap[1]:update(dt)
     if world.rightMove and world.x<world.px and character.faceDir == "right" then
         character.animation.walking = true
         if world.x + world.speed * 0.05<world.px then
@@ -47,7 +48,7 @@ function world_update(dt)
             world.y=world.py
             world.count1=true
         end
-    elseif world.rightMove and love.keyboard.isDown("right") and character.y%100 == 0  and character.y == character.py then
+    elseif world.rightMove and love.keyboard.isDown("right") and character.y%100 == 0  and character.y == character.py and question==false then
         map_run(dt)
         if world.count1 == true or character.faceDir == "right" then
             world.ny=world.py
@@ -57,7 +58,7 @@ function world_update(dt)
             mapStop()
         end
     
-    elseif world.leftMove and love.keyboard.isDown("left") and character.y%100 == 0  and character.y == character.py then
+    elseif world.leftMove and love.keyboard.isDown("left") and character.y%100 == 0  and character.y == character.py and question==false then
         map_run(dt)
         if world.count1 == true or character.faceDir == "left" then
             world.ny=world.py
@@ -67,7 +68,7 @@ function world_update(dt)
             mapStop()
         end
     
-    elseif world.upMove and love.keyboard.isDown("up") and character.x%100 == 0  and character.x == character.px then
+    elseif world.upMove and love.keyboard.isDown("up") and character.x%100 == 0  and character.x == character.px and question==false then
         map_run(dt)
         if world.count1 == true or world.faceDir == "up" then
             world.nx=world.px
@@ -77,7 +78,7 @@ function world_update(dt)
             mapStop()
         end
         
-    elseif world.downMove and love.keyboard.isDown("down") and character.x%100 == 0  and character.x == character.px then
+    elseif world.downMove and love.keyboard.isDown("down") and character.x%100 == 0  and character.x == character.px and question==false then
         map_run(dt)
         if world.count1 == true or world.faceDir == "down" then
             world.nx=world.px
@@ -111,6 +112,7 @@ function world_draw()
     character_draw()
     benchboard_draw()
     barrier_draw()
+    triggerDraw()
     -- monster_draw()
 end
 
@@ -134,10 +136,14 @@ function mapCreate()
 end
 
 function barrierCreate()
-    tree.x=300
-    tree.y=300
-    tree.Image = love.graphics.newImage("img/tree.png")
-    tree.Barrier=true
+    tree[1] = tree.new(200,200)
+    questionMark[1] = questionMark1.new(300,300)
+    q3Trap[1] = q3Trap.new(500,500)
+    q3Trap[2] = q3Trap.new(900,500)
+    questionMark[2] = questionMark2.new(800,300)
+    q2key = q2key.new(500,800)
+    questionMark[3] = questionMark3.new(700,600)
+    q3key = q3key.new(700,200)
 end
 
 function map_run(dt)
@@ -334,12 +340,45 @@ function isBarrier(barrierX,barrierY)
         character.animation.walking = true
         character.animation.sound:play()
     end
+   -- if world.nx >barrierX-characterWidth and world.nx<barrierX+characterWidth and world.ny > barrierY-characterHeight and world.ny<barrierY+characterHeight then 
+     --   world.nx =world.px
+       -- world.ny =world.py
+        --character.animation.walking = true
+        --character.animation.sound:play()
+    --end
 end
 
 function barrier_draw()
-    love.graphics.draw(tree.Image,tree.x-world.x,tree.y-world.y)
-    if tree.Barrier then
-        isBarrier(tree.x-world.x,tree.y-world.y)
+    for i=1,1 do
+        love.graphics.draw(tree[i].Image,tree[i].x-world.x,tree[i].y-world.y)
+        if tree[i].Barrier then
+            isBarrier(tree[i].x-world.x,tree[i].y-world.y)
+        end
+    end
+    for i=1,3 do 
+        love.graphics.draw(questionMark[i].Image,questionMark[i].x-world.x,questionMark[i].y-world.y)
+        if questionMark[i].Barrier then
+            isBarrier(questionMark[i].x-world.x,questionMark[i].y-world.y)
+        end
+    end
+    for i=1,2 do
+        love.graphics.draw(q3Trap[i].Image,q3Trap[i].x-world.x,q3Trap[i].y-world.y)
+        if q3Trap[i].Barrier then
+            isBarrier(q3Trap[i].x-world.x,q3Trap[i].y-world.y)
+        end
+    end
+    
+    love.graphics.draw(q3key.Image,q3key.x-world.x,q3key.y-world.y)
+    if q3key.Barrier then
+        isBarrier(q3key.x-world.x,q3key.y-world.y)
+    end
+    love.graphics.draw(q2key.Image,q2key.x-world.x,q2key.y-world.y)
+    if q2key.Barrier then
+        isBarrier(q2key.x-world.x,q2key.y-world.y)
+    end
+    if q3Trap[1].showBar == true then
+        love.graphics.setColor(255,0,0)
+        love.graphics.rectangle("fill", q3Trap[1].x-world.x+100,q3Trap[1].y-world.y+50 , q3Trap[2].x-q3Trap[1].x-100, 10 )
     end
     love.graphics.draw(monster1.slimeImgFile, monster1.slimeQuads[monster1.moveStep[monster1.moveIndex]][monster1.animationIndex], monster1.nowX-world.x, monster1.nowY-world.y)
 end

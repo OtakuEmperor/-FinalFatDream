@@ -7,7 +7,9 @@ characterWidth=100
 
 function character_load()
     require "battle"
+    require "trigger"
     battle_load()
+    triggerLoad()
     characterX=500
     characterY=300
     characterCreate()
@@ -21,12 +23,16 @@ function character_update(dt)
     end
     battle_update(dt)
     battle_keyPress(key)
+    triggerUpdate(dt)
+    triggerKeyPress(key)
 end
 
 
 function character_draw()
+    love.graphics.setColor(255,255,255)
     characterDraw()
     battle_attack(character.x,character.y,character.faceDir)
+    
 end
 
 --------------------------characterCreat-----------------------------------
@@ -52,6 +58,8 @@ function characterCreate()
         ["Right"] = 4
     }
     character.faceDir = "down"
+    character.delay=0.15
+    character.delta=0
 end
 
 ------------------------characterLoad--------------------------------------
@@ -80,14 +88,14 @@ function characterUpdate(dt)
         character.die=true
     end
     
-    if character.die==true then
-        character.animation.characterImage = love.graphics.newImage("img/baddies.png")
-        character.disappear.count = character.disappear.count + dt
-        if character.disappear.count >=character.disappear.delay then
-            character.disappear.disappearFlog=true
-            character.disappear.count = 0
-        end
-    end
+    --if character.die==true then
+      --  character.animation.characterImage = love.graphics.newImage("img/baddies.png")
+        --character.disappear.count = character.disappear.count + dt
+        --if character.disappear.count >=character.disappear.delay then
+          --  character.disappear.disappearFlog=true
+        --    character.disappear.count = 0
+        --end
+    --end
 
     if character.die==false then
         if character.x<character.px and character.faceDir == "right" then
@@ -171,7 +179,7 @@ end
 
 -----------------characterMove----------------------------------------------
 function characterMove(direction, dt)
-    if direction == character.animation.Directions.Down then
+    if direction == character.animation.Directions.Down and question==false then
         if character.count == false then
             if character.temp == true then
                 character.py=character.y
@@ -199,7 +207,7 @@ function characterMove(direction, dt)
         characterSetDirection( character.animation.Directions.Down)
     end
     
-    if direction == character.animation.Directions.Left then
+    if direction == character.animation.Directions.Left and question==false then
         if character.count == false then
             if character.temp == true then
                 character.px=character.x
@@ -227,7 +235,7 @@ function characterMove(direction, dt)
         characterSetDirection( character.animation.Directions.Left)
     end
     
-    if direction == character.animation.Directions.Right then
+    if direction == character.animation.Directions.Right and question==false then
         if character.count == false then
             if character.temp == true then
                 character.px=character.x
@@ -255,7 +263,7 @@ function characterMove(direction, dt)
         characterSetDirection( character.animation.Directions.Right)
     end
     
-    if direction == character.animation.Directions.Up then
+    if direction == character.animation.Directions.Up and question==false then
         if character.count == false then
             if character.temp == true then
                 character.py=character.y
