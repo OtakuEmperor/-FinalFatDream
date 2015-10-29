@@ -389,6 +389,11 @@ end
 function monsterDraw()
     for i, monster in ipairs(monsters) do
         if monster.alive == true then
+            if monster.underAttacking == true then
+                love.graphics.setColor(255,0,0)
+            else
+                love.graphics.setColor(255,255,255)
+            end
             love.graphics.draw(monster.slimeImgFile, monster.slimeQuads[monster.moveStep[monster.moveIndex]][monster.animationIndex], monster.nowX-world.x, monster.nowY-world.y)
         end
     end

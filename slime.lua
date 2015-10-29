@@ -13,6 +13,7 @@ function slime.new (originPointX,originPointY)
     local obj = {
         alive = true,
         hp = 10,
+        underAttacking = false,
         slimeImgFile = love.graphics.newImage("img/slime.png"),
         slimeMoveSound = love.audio.newSource("audio/slime1.ogg", "static"),
         slimeQuads = {},
@@ -47,6 +48,7 @@ function slime:update(dt,charX,charY)
     self.timeTick = self.timeTick + dt
     if self.alive == true then
         if self.timeTick > self.moveSpeed then
+            self.underAttacking = false
             self.timeTick = 0 
             self.animationIndex = self.animationIndex + 1
             if self.animationIndex > 4  then
@@ -115,6 +117,7 @@ function slime:getPositionY()
 end
 
 function slime:underAttack(faceDir,damageBlood)
+    self.underAttacking = true
     self.hp = self.hp - damageBlood
     if self.hp <= 0 then
         self.alive = flase
