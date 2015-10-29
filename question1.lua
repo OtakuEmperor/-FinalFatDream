@@ -1,4 +1,6 @@
 questionMark1={}
+local imageWidth=1015
+local imageHeight=353
 -- this function is for OOP
 function newObject(o, class)
     class.__index = class
@@ -6,8 +8,7 @@ function newObject(o, class)
 end
 function question1_load()
     questionImage = love.graphics.newImage("img/question1.jpg")
-    imageWidth=661
-    imageHeight=419
+    
     block1=true
     block2=false
     block3=false
@@ -187,55 +188,72 @@ function question1_update(dt)
             q1delta = 0
 		end  
     end
-    if blockNum1 == 1 and blockNum2 == 2 then
-        if blockNum3 == 3 and blockNum4 == 4 then
-            question=false
-            blockNum1=0
-            blockNum2=0
-            blockNum3=0
-            blockNum4=0
-            block1=true
-            block2=false
-            block3=false
-            block4=false
+    if blockNum1 == 0 and blockNum2 == 9 then
+        if blockNum3 == 0 and blockNum4 == 0 then
+            q1delta = q1delta + dt
+            if q1delta >= 0.5 then
+                question=false
+                blockNum1=0
+                blockNum2=0
+                blockNum3=0
+                blockNum4=0
+                block1=true
+                block2=false
+                block3=false
+                block4=false
+                q1delta = 0
+            end
         end
     end
 end
 
 function question1_draw()
+    love.graphics.setColor(0,0,0,150)
+    love.graphics.rectangle("fill", 0,0, 1100, 614)
+    love.graphics.setColor(0,0,0)
+    love.graphics.rectangle("fill", 40, (love.graphics.getHeight()*2/3-imageHeight)/2-3, 1021, 359 )
     love.graphics.setColor(255,255,255)
-    love.graphics.rectangle("fill", 0, 307, 1100, 307 )
-    love.graphics.draw(questionImage, 0, 0,0,1100/imageWidth,307/imageHeight )
+    --love.graphics.rectangle("fill", 0, love.graphics.getHeight()*2/3, love.graphics.getWidth(), love.graphics.getHeight()*1/3)
+    --love.graphics.rectangle("fill", 0, 378, 1100, 307 )
+    love.graphics.draw(questionImage, 43, (love.graphics.getHeight()*2/3-imageHeight)/2 )
     if block1 == true then
         love.graphics.setColor(255,0,0)
     else
         love.graphics.setColor(0,0,0)
     end
-    love.graphics.rectangle("line", 200, 400, 100, 100 )
+    love.graphics.rectangle("fill", 197, love.graphics.getHeight()*2/3+(love.graphics.getHeight()*1/3-100)/2-3, 106, 106 )
+    
     if block2 == true then
         love.graphics.setColor(255,0,0)
     else
         love.graphics.setColor(0,0,0)
     end
-    love.graphics.rectangle("line", 400, 400, 100, 100 )
+    love.graphics.rectangle("fill", 397,love.graphics.getHeight()*2/3+(love.graphics.getHeight()*1/3-100)/2-3, 106, 106 )
+    
     if block3 == true then
         love.graphics.setColor(255,0,0)
     else
         love.graphics.setColor(0,0,0)
     end
-    love.graphics.rectangle("line", 600, 400, 100, 100 )
+    love.graphics.rectangle("fill", 597, love.graphics.getHeight()*2/3+(love.graphics.getHeight()*1/3-100)/2-3, 106, 106 )
+    
     if block4 == true then
         love.graphics.setColor(255,0,0)
     else
         love.graphics.setColor(0,0,0)
     end
-     love.graphics.rectangle("line", 800, 400, 100, 100 )
+    love.graphics.rectangle("fill", 797, love.graphics.getHeight()*2/3+(love.graphics.getHeight()*1/3-100)/2-3, 106, 106 )
+    love.graphics.setColor(255,255,255)
+    love.graphics.rectangle("fill", 200, love.graphics.getHeight()*2/3+(love.graphics.getHeight()*1/3-100)/2, 100, 100 ) 
+    love.graphics.rectangle("fill", 400, love.graphics.getHeight()*2/3+(love.graphics.getHeight()*1/3-100)/2, 100, 100 )
+    love.graphics.rectangle("fill", 600, love.graphics.getHeight()*2/3+(love.graphics.getHeight()*1/3-100)/2, 100, 100 )
+    love.graphics.rectangle("fill", 800, love.graphics.getHeight()*2/3+(love.graphics.getHeight()*1/3-100)/2, 100, 100 )
     love.graphics.setColor(0,0,0)
     love.graphics.setFont(love.graphics.newFont(100))
-    love.graphics.print(blockNum1, 220, 393)
-    love.graphics.print(blockNum2, 420, 393)
-    love.graphics.print(blockNum3, 620, 393)
-    love.graphics.print(blockNum4, 820, 393)
+    love.graphics.print(blockNum1, 220, 453)
+    love.graphics.print(blockNum2, 420, 453)
+    love.graphics.print(blockNum3, 620, 453)
+    love.graphics.print(blockNum4, 820, 453)
     
 end
 

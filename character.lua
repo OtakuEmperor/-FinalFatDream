@@ -1,4 +1,5 @@
 character={}
+local hpDecrease=0
 local characterSpeed=200
 local characterX,characterY=love.graphics.getDimensions( )
 characterHeight=100
@@ -403,4 +404,13 @@ end
 
 function getHeroY()
     return character.y
+end
+
+function hpDecline(hpDecrease)
+    character.hp=character.hp-hpDecrease
+    return character.hp
+end
+
+function getHeroHP()
+    return character.hp
 end

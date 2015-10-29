@@ -1,732 +1,165 @@
 q2key={}
 questionMark2={}
+local bar={}
+local barHeight={}
+local keyWidth=670
+local keyHeight=390
+local delay = 0.15
+local delta = 0
 -- this function is for OOP
 function newObject(o, class)
     class.__index = class
     return setmetatable(o, class)
 end
 function question2_load()
-    keyImage = love.graphics.newImage("img/key.jpg")
+    keyImage = love.graphics.newImage("img/key2.jpg")
     questionImage2 = love.graphics.newImage("img/question2.png")
     imageWidth2=1166
     imageHeight2=565
-    bar1 = true
-    bar2 = false
-    bar3 = false
-    bar4 = false
-    bar5 = false
-    bar6 = false
-    bar7 = false
-    bar8 = false
-    bar9 = false
-    bar10 = false
-    bar11 = false
-    bar12 = false
-    barHeight1 = 3
-    barHeight2 = 3
-    barHeight3 = 3
-    barHeight4 = 3
-    barHeight5 = 2
-    barHeight6 = 2
-    barHeight7 = 2
-    barHeight8 = 2
-    barHeight9 = 1
-    barHeight10 = 1
-    barHeight11 = 1
-    barHeight12 = 1
-    q2delay=0.15
-    q2delta=0
+    for i=1,12 do
+        bar[i]= false
+        barHeight[i]=1
+    end
+    bar[1]=true
 end
 function question2_update(dt)
     local count
-    if bar1 == true then 
-        count=1
-    elseif bar2 == true then
-        count=2
-    elseif bar3 == true then
-        count=3
-    elseif bar4 == true then
-        count=4
-    elseif bar5 == true then
-        count=5
-    elseif bar6 == true then
-        count=6
-    elseif bar7 == true then
-        count=7
-    elseif bar8 == true then
-        count=8
-    elseif bar9 == true then
-        count=9
-    elseif bar10 == true then
-        count=10
-    elseif bar11 == true then
-        count=11
-    elseif bar12 == true then
-        count=12
+    for i=1,12 do
+        if bar[i]==true then
+            count=i
+        end
     end
     
-    local switchR = {
-        [1] = function()    -- for case 1
-            bar1 = false
-            bar2 = true
-            bar3 = false
-            bar4 = false
-            bar5 = false
-            bar6 = false
-            bar7 = false
-            bar8 = false
-            bar9 = false
-            bar10 = false
-            bar11 = false
-            bar12 = false
-        end,
-        [2] = function()    -- for case 2
-            bar1 = false
-            bar2 = false
-            bar3 = true
-            bar4 = false
-            bar5 = false
-            bar6 = false
-            bar7 = false
-            bar8 = false
-            bar9 = false
-            bar10 = false
-            bar11 = false
-            bar12 = false
-        end,
-        [3] = function()    -- for case 3
-            bar1 = false
-            bar2 = false
-            bar3 = false
-            bar4 = true
-            bar5 = false
-            bar6 = false
-            bar7 = false
-            bar8 = false
-            bar9 = false
-            bar10 = false
-            bar11 = false
-            bar12 = false
-        end,
-        [4] = function()    -- for case 4
-            bar1 = false
-            bar2 = false
-            bar3 = false
-            bar4 = false
-            bar5 = true
-            bar6 = false
-            bar7 = false
-            bar8 = false
-            bar9 = false
-            bar10 = false
-            bar11 = false
-            bar12 = false 
-        end,
-        [5] = function()    -- for case 4
-            bar1 = false
-            bar2 = false
-            bar3 = false
-            bar4 = false
-            bar5 = false
-            bar6 = true
-            bar7 = false
-            bar8 = false
-            bar9 = false
-            bar10 = false
-            bar11 = false
-            bar12 = false 
-        end,
-        [6] = function()    -- for case 4
-            bar1 = false
-            bar2 = false
-            bar3 = false
-            bar4 = false
-            bar5 = false
-            bar6 = false
-            bar7 = true
-            bar8 = false
-            bar9 = false
-            bar10 = false
-            bar11 = false
-            bar12 = false 
-        end,
-        [7] = function()    -- for case 4
-            bar1 = false
-            bar2 = false
-            bar3 = false
-            bar4 = false
-            bar5 = false
-            bar6 = false
-            bar7 = false
-            bar8 = true
-            bar9 = false
-            bar10 = false
-            bar11 = false
-            bar12 = false 
-        end,
-        [8] = function()    -- for case 4
-            bar1 = false
-            bar2 = false
-            bar3 = false
-            bar4 = false
-            bar5 = false
-            bar6 = false
-            bar7 = false
-            bar8 = false
-            bar9 = true
-            bar10 = false
-            bar11 = false
-            bar12 = false 
-        end,
-        [9] = function()    -- for case 4
-            bar1 = false
-            bar2 = false
-            bar3 = false
-            bar4 = false
-            bar5 = false
-            bar6 = false
-            bar7 = false
-            bar8 = false
-            bar9 = false
-            bar10 = true
-            bar11 = false
-            bar12 = false 
-        end,
-        [10] = function()    -- for case 4
-            bar1 = false
-            bar2 = false
-            bar3 = false
-            bar4 = false
-            bar5 = false
-            bar6 = false
-            bar7 = false
-            bar8 = false
-            bar9 = false
-            bar10 = false
-            bar11 = true
-            bar12 = false 
-        end,
-        [11] = function()    -- for case 4
-            bar1 = false
-            bar2 = false
-            bar3 = false
-            bar4 = false
-            bar5 = false
-            bar6 = false
-            bar7 = false
-            bar8 = false
-            bar9 = false
-            bar10 = false
-            bar11 = false
-            bar12 = true 
-        end,
-        [12] = function()    -- for case 4
-            bar1 = true
-            bar2 = false
-            bar3 = false
-            bar4 = false
-            bar5 = false
-            bar6 = false
-            bar7 = false
-            bar8 = false
-            bar9 = false
-            bar10 = false
-            bar11 = false
-            bar12 = false 
+    local switchR = {}
+    for i=1,11 do
+        switchR[i]=function()
+            for j=1,12 do
+                bar[j]=false
+            end
+            bar[i+1]=true
         end
-    }
-    local switchL = {
-        [1] = function()    -- for case 1
-            bar1 = false
-            bar2 = false
-            bar3 = false
-            bar4 = false
-            bar5 = false
-            bar6 = false
-            bar7 = false
-            bar8 = false
-            bar9 = false
-            bar10 = false
-            bar11 = false
-            bar12 = true
-        end,
-        [2] = function()    -- for case 2
-            bar1 = true
-            bar2 = false
-            bar3 = false
-            bar4 = false
-            bar5 = false
-            bar6 = false
-            bar7 = false
-            bar8 = false
-            bar9 = false
-            bar10 = false
-            bar11 = false
-            bar12 = false
-        end,
-        [3] = function()    -- for case 3
-            bar1 = false
-            bar2 = true
-            bar3 = false
-            bar4 = false
-            bar5 = false
-            bar6 = false
-            bar7 = false
-            bar8 = false
-            bar9 = false
-            bar10 = false
-            bar11 = false
-            bar12 = false
-        end,
-        [4] = function()    -- for case 4
-            bar1 = false
-            bar2 = false
-            bar3 = true
-            bar4 = false
-            bar5 = false
-            bar6 = false
-            bar7 = false
-            bar8 = false
-            bar9 = false
-            bar10 = false
-            bar11 = false
-            bar12 = false 
-        end,
-        [5] = function()    -- for case 4
-            bar1 = false
-            bar2 = false
-            bar3 = false
-            bar4 = true
-            bar5 = false
-            bar6 = false
-            bar7 = false
-            bar8 = false
-            bar9 = false
-            bar10 = false
-            bar11 = false
-            bar12 = false 
-        end,
-        [6] = function()    -- for case 4
-            bar1 = false
-            bar2 = false
-            bar3 = false
-            bar4 = false
-            bar5 = true
-            bar6 = false
-            bar7 = false
-            bar8 = false
-            bar9 = false
-            bar10 = false
-            bar11 = false
-            bar12 = false 
-        end,
-        [7] = function()    -- for case 4
-            bar1 = false
-            bar2 = false
-            bar3 = false
-            bar4 = false
-            bar5 = false
-            bar6 = true
-            bar7 = false
-            bar8 = false
-            bar9 = false
-            bar10 = false
-            bar11 = false
-            bar12 = false 
-        end,
-        [8] = function()    -- for case 4
-            bar1 = false
-            bar2 = false
-            bar3 = false
-            bar4 = false
-            bar5 = false
-            bar6 = false
-            bar7 = true
-            bar8 = false
-            bar9 = false
-            bar10 = false
-            bar11 = false
-            bar12 = false 
-        end,
-        [9] = function()    -- for case 4
-            bar1 = false
-            bar2 = false
-            bar3 = false
-            bar4 = false
-            bar5 = false
-            bar6 = false
-            bar7 = false
-            bar8 = true
-            bar9 = false
-            bar10 = false
-            bar11 = false
-            bar12 = false 
-        end,
-        [10] = function()    -- for case 4
-            bar1 = false
-            bar2 = false
-            bar3 = false
-            bar4 = false
-            bar5 = false
-            bar6 = false
-            bar7 = false
-            bar8 = false
-            bar9 = true
-            bar10 = false
-            bar11 = false
-            bar12 = false 
-        end,
-        [11] = function()    -- for case 4
-            bar1 = false
-            bar2 = false
-            bar3 = false
-            bar4 = false
-            bar5 = false
-            bar6 = false
-            bar7 = false
-            bar8 = false
-            bar9 = false
-            bar10 = true
-            bar11 = false
-            bar12 = false 
-        end,
-        [12] = function()    -- for case 4
-            bar1 = false
-            bar2 = false
-            bar3 = false
-            bar4 = false
-            bar5 = false
-            bar6 = false
-            bar7 = false
-            bar8 = false
-            bar9 = false
-            bar10 = false
-            bar11 = true
-            bar12 = false 
+    end
+    switchR[12]=function()
+            for j=1,12 do
+                bar[j]=false
+            end
+            bar[1]=true
+    end
+   
+    local switchL = {}
+    for i=2,12 do
+        switchL[i]=function()
+            for j=1,12 do
+                bar[j]=false
+            end
+            bar[i-1]=true
         end
-    }
-    local switchU = {
-        [1] = function()    -- for case 1
-           if barHeight1 ~= 3 then
-                barHeight1=barHeight1+1
-            elseif barHeight1 == 3 then
-                barHeight1=3
+    end
+    switchL[1]=function()
+            for j=1,12 do
+                bar[j]=false
             end
-        end,
-        [2] = function()    -- for case 2
-            if barHeight2 ~= 3 then
-                barHeight2=barHeight2+1
-            elseif barHeight2 == 3 then
-                barHeight2=3
-            end
-        end,
-        [3] = function()    -- for case 3
-           if barHeight3 ~= 3 then
-                barHeight3=barHeight3+1
-            elseif barHeight3 == 3 then
-                barHeight3=3
-            end
-        end,
-        [4] = function()    -- for case 4
-            if barHeight4 ~= 3 then
-                barHeight4=barHeight4+1
-            elseif barHeight4 == 3 then
-                barHeight4=3
-            end
-        end,
-        [5] = function()    -- for case 4
-            if barHeight5 ~= 3 then
-                barHeight5=barHeight5+1
-            elseif barHeight5 == 3 then
-                barHeight5=3
-            end
-        end,
-        [6] = function()    -- for case 4
-            if barHeight6 ~= 3 then
-                barHeight6=barHeight6+1
-            elseif barHeight6 == 3 then
-                barHeight6=3
-            end
-        end,
-        [7] = function()    -- for case 4
-            if barHeight7 ~= 3 then
-                barHeight7=barHeight7+1
-            elseif barHeight7 == 3 then
-                barHeight7=3
-            end
-        end,
-        [8] = function()    -- for case 4
-            if barHeight8 ~= 3 then
-                barHeight8=barHeight8+1
-            elseif barHeight8 == 3 then
-                barHeight8=3
-            end
-        end,
-        [9] = function()    -- for case 4
-            if barHeight9 ~= 3 then
-                barHeight9=barHeight9+1
-            elseif barHeight9 == 3 then
-                barHeight9=3
-            end
-        end,
-        [10] = function()    -- for case 4
-            if barHeight10 ~= 3 then
-                barHeight10=barHeight10+1
-            elseif barHeight10 == 3 then
-                barHeight10=3
-            end
-        end,
-        [11] = function()    -- for case 4
-            if barHeight11 ~= 3 then
-                barHeight11=barHeight11+1
-            elseif barHeight11 == 3 then
-                barHeight11=3
-            end
-        end,
-        [12] = function()    -- for case 4
-            if barHeight12 ~= 3 then
-                barHeight12=barHeight12+1
-            elseif barHeight12 == 3 then
-                barHeight12=3
+            bar[12]=true
+    end
+        
+    local switchU = {}
+    
+    for i=1,12 do 
+        switchU[i]=function()
+            if barHeight[i] ~=2 then
+                barHeight[i]=barHeight[i]+1
+            else 
+                barHeight[i]=2
             end
         end
-    }
-    local switchD = {
-        [1] = function()    -- for case 1
-           if barHeight1 ~= 1 then
-                barHeight1=barHeight1-1
-            elseif barHeight1 == 1 then
-                barHeight1=1
-            end
-        end,
-        [2] = function()    -- for case 2
-            if barHeight2 ~= 1 then
-                barHeight2=barHeight2-1
-            elseif barHeight2 == 1 then
-                barHeight2=1
-            end
-        end,
-        [3] = function()    -- for case 3
-           if barHeight3 ~= 1 then
-                barHeight3=barHeight3-1
-            elseif barHeight3 == 1 then
-                barHeight3=1
-            end
-        end,
-        [4] = function()    -- for case 4
-            if barHeight4 ~= 1 then
-                barHeight4=barHeight4-1
-            elseif barHeight4 == 1 then
-                barHeight4=1
-            end
-        end,
-        [5] = function()    -- for case 4
-            if barHeight5 ~= 1 then
-                barHeight5=barHeight5-1
-            elseif barHeight5 == 1 then
-                barHeight5=1
-            end
-        end,
-        [6] = function()    -- for case 4
-            if barHeight6 ~= 1 then
-                barHeight6=barHeight6-1
-            elseif barHeight6 == 1 then
-                barHeight6=1
-            end
-        end,
-        [7] = function()    -- for case 4
-            if barHeight7 ~= 1 then
-                barHeight7=barHeight7-1
-            elseif barHeight7 == 1 then
-                barHeight7=1
-            end
-        end,
-        [8] = function()    -- for case 4
-            if barHeight8 ~= 1 then
-                barHeight8=barHeight8-1
-            elseif barHeight8 == 1 then
-                barHeight8=1
-            end
-        end,
-        [9] = function()    -- for case 4
-            if barHeight9 ~= 1 then
-                barHeight9=barHeight9-1
-            elseif barHeight9 == 1 then
-                barHeight9=1
-            end
-        end,
-        [10] = function()    -- for case 4
-            if barHeight10 ~= 1 then
-                barHeight10=barHeight10-1
-            elseif barHeight10 == 1 then
-                barHeight10=1
-            end
-        end,
-        [11] = function()    -- for case 4
-            if barHeight11 ~= 1 then
-                barHeight11=barHeight11-1
-            elseif barHeight11 == 1 then
-                barHeight11=1
-            end
-        end,
-        [12] = function()    -- for case 4
-            if barHeight12 ~= 1 then
-                barHeight12=barHeight12-1
-            elseif barHeight12 == 1 then
-                barHeight12=1
+    end
+    
+    
+    local switchD = {}
+    for i=1,12 do 
+        switchD[i]=function()
+            if barHeight[i] ~=0 then
+                barHeight[i]=barHeight[i]-1
+            else 
+                barHeight[i]=0
             end
         end
-    }
+    end
+        
     if love.keyboard.isDown("right") and question == true then
          --switch&case()
-        q2delta = q2delta + dt
+        delta = delta + dt
         local selectR = switchR[count]
-        if q2delta >= q2delay then
+        if delta >= delay then
             if(selectR) then
                 selectR()
             end
-            q2delta = 0
+            delta = 0
 		end  
     end
     if love.keyboard.isDown("left") and question == true then
          --switch&case()
-        q2delta = q2delta + dt
+        delta = delta + dt
         local selectL = switchL[count]
-        if q2delta >= q2delay then
+        if delta >= delay then
             if(selectL) then
                 selectL()
             end
-            q2delta = 0
+            delta = 0
 		end  
     end
     if love.keyboard.isDown("up") and question == true then
          --switch&case()
-        q2delta = q2delta + dt
+        delta = delta + dt
         local selectU= switchU[count]
-        if q2delta >= q2delay then
+        if delta >= delay then
             if(selectU) then
                 selectU()
             end
-            q2delta = 0
+            delta = 0
 		end  
     end
     if love.keyboard.isDown("down") and question == true then
          --switch&case()
-        q2delta = q2delta + dt
+        delta = delta + dt
         local selectD= switchD[count]
-        if q2delta >= q2delay then
+        if delta >= delay then
             if(selectD) then
                 selectD()
             end
-            q2delta = 0
+            delta = 0
 		end  
     end
-    if barHeight1 == 3 and barHeight2 == 3 and barHeight3 == 3 and barHeight4 == 3 and barHeight5 == 3 and barHeight6 == 3 and barHeight7 == 3 and barHeight8 == 3 and barHeight9 == 3 and barHeight10 == 3 and barHeight11 == 3 and barHeight12 == 3 then
+    if barHeight[1] == 2 and barHeight[2] == 1 and barHeight[3] == 2 and barHeight[4] == 0 and barHeight[5] == 0 and barHeight[6] == 2 and barHeight[7] == 0 and barHeight[8] == 1 and barHeight[9] == 2 and barHeight[10] == 1 and barHeight[11] == 0 and barHeight[12] == 2 then
         question=false
-        bar1 = true
-        bar2 = false
-        bar3 = false
-        bar4 = false
-        bar5 = false
-        bar6 = false
-        bar7 = false
-        bar8 = false
-        bar9 = false
-        bar10 = false
-        bar11 = false
-        bar12 = false
-        barHeight1 = 3
-        barHeight2 = 3
-        barHeight3 = 3
-        barHeight4 = 3
-        barHeight5 = 2
-        barHeight6 = 2
-        barHeight7 = 2
-        barHeight8 = 2
-        barHeight9 = 1
-        barHeight10 = 1
-        barHeight11 = 1
-        barHeight12 = 1
+        for i=1,12 do
+        bar[i]= false
+        barHeight[i]=1
+        end
+        bar[1]=true
     end
 end
 function question2_draw()
+    love.graphics.setColor(0,0,0,150)
+    love.graphics.rectangle("fill", 0,0, 1100, 614)
     love.graphics.setColor(255,255,255)
     if showKey == true then
-        love.graphics.draw(keyImage, 0, 0)
+        love.graphics.setColor(0,0,0)
+        love.graphics.rectangle("fill", (1100-keyWidth)/2-3,(614*2/3-keyHeight)/2-3, keyWidth+6,keyHeight+6)
+        love.graphics.setColor(255,255,255)
+        love.graphics.draw(keyImage, (1100-keyWidth)/2, (614*2/3-keyHeight)/2)
+        --love.graphics.setColor(255,255,0,150)
+    --love.graphics.rectangle("fill", 0, love.graphics.getHeight()*2/3, love.graphics.getWidth(), love.graphics.getHeight()*1/3)
     else
         love.graphics.draw(questionImage2, 0, 0,0,1100/imageWidth2,614/imageHeight2)
-        if bar1 == true then
-            love.graphics.setColor(255,0,0)
-        else
-            love.graphics.setColor(0,0,0)
+        for i=1,12 do
+           if bar[i]==true then
+                love.graphics.setColor(255,0,0)
+            else
+                love.graphics.setColor(0,0,0) 
+            end
+            love.graphics.rectangle("fill", 1000*i/13,600-(550*barHeight[i]/3) , 700/12, 530*barHeight[i]/3 )
         end
-        love.graphics.rectangle("fill", 400/13,600-(550*barHeight1/3) , 700/12, 530*barHeight1/3 )
-        if bar2 == true then
-            love.graphics.setColor(255,0,0)
-        else
-            love.graphics.setColor(0,0,0)
-        end
-        love.graphics.rectangle("fill", (400*2/13)+(700/12),600-(550*barHeight2/3) , 700/12, 530*barHeight2/3 )
-        if bar3 == true then
-            love.graphics.setColor(255,0,0)
-        else
-            love.graphics.setColor(0,0,0)
-        end
-        love.graphics.rectangle("fill", (400*3/13)+(700*2/12),600-(550*barHeight3/3) , 700/12, 530*barHeight3/3 )
-        if bar4 == true then
-            love.graphics.setColor(255,0,0)
-        else
-            love.graphics.setColor(0,0,0)
-        end
-        love.graphics.rectangle("fill", (400*4/13)+(700*3/12),600-(550*barHeight4/3) , 700/12, 530*barHeight4/3 )
-        if bar5 == true then
-            love.graphics.setColor(255,0,0)
-        else
-            love.graphics.setColor(0,0,0)
-        end
-        love.graphics.rectangle("fill", (400*5/13)+(700*4/12),600-(550*barHeight5/3) , 700/12, 530*barHeight5/3 )
-        if bar6 == true then
-            love.graphics.setColor(255,0,0)
-        else
-            love.graphics.setColor(0,0,0)
-        end
-        love.graphics.rectangle("fill", (400*6/13)+(700*5/12),600-(550*barHeight6/3) , 700/12, 530*barHeight6/3 )
-        if bar7 == true then
-            love.graphics.setColor(255,0,0)
-        else
-            love.graphics.setColor(0,0,0)
-        end
-        love.graphics.rectangle("fill", (400*7/13)+(700*6/12),600-(550*barHeight7/3) , 700/12, 530*barHeight7/3 )
-        if bar8 == true then
-            love.graphics.setColor(255,0,0)
-        else
-            love.graphics.setColor(0,0,0)
-        end
-        love.graphics.rectangle("fill", (400*8/13)+(700*7/12),600-(550*barHeight8/3) , 700/12, 530*barHeight8/3 )
-        if bar9 == true then
-            love.graphics.setColor(255,0,0)
-        else
-            love.graphics.setColor(0,0,0)
-        end
-        love.graphics.rectangle("fill", (400*9/13)+(700*8/12),600-(550*barHeight9/3) , 700/12, 530*barHeight9/3 )
-        if bar10 == true then
-            love.graphics.setColor(255,0,0)
-        else
-            love.graphics.setColor(0,0,0)
-        end
-        love.graphics.rectangle("fill", (400*10/13)+(700*9/12),600-(550*barHeight10/3) , 700/12, 530*barHeight10/3 )
-        if bar11 == true then
-            love.graphics.setColor(255,0,0)
-        else
-            love.graphics.setColor(0,0,0)
-        end
-        love.graphics.rectangle("fill", (400*11/13)+(700*10/12),600-(550*barHeight11/3) , 700/12, 530*barHeight11/3 )
-        if bar12 == true then
-            love.graphics.setColor(255,0,0)
-        else
-            love.graphics.setColor(0,0,0)
-        end
-        love.graphics.rectangle("fill", (400*12/13)+(700*11/12),600-(550*barHeight12/3) , 700/12, 530*barHeight12/3 )
     end
 end
 
