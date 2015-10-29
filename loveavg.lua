@@ -3,9 +3,9 @@
 -- who, says something, force go to dialog number, choose A, choose A go to dialog, choose B, choose B go to dialog, choose C, choose C go to dialog
 -- if something null please enter "nil" eg. nil,blah blah...
 -- if there is no force go to dialog, default is dialog_state +1
+loveavg = {}
 
-
-function love.load()
+function loveavg_load()
     fat = love.graphics.newImage("img/cg/fat.png")
     clicksound = love.audio.newSource("audio/click.wav", "stream")
     night_bgm = love.audio.newSource("audio/平和のハンモック.mp3", "stream")
@@ -16,8 +16,8 @@ function love.load()
     onefloor_light = love.graphics.newImage("img/cg/onefloor_light.jpg")
     restaurant_light = love.graphics.newImage("img/cg/restaurant_light.jpg")
     schoolroad_sunset = love.graphics.newImage("img/cg/schoolroad_sunset.jpg")
-    font = love.graphics.newFont("font/msjh.ttc", 25)
-    love.graphics.setFont(font)
+    -- font = love.graphics.newFont("font/msjh.ttc", 25)
+    -- love.graphics.setFont(font)
     choose = {}
     chooseLock = true
     dialogLock = false
@@ -32,7 +32,7 @@ function love.load()
     end
 end
 
-function love.keypressed(key)
+function loveavg_keypressed(key)
     if not chooseLock then
         if love.keyboard.isDown("up") then
             clicksound:play()
@@ -77,7 +77,7 @@ function love.keypressed(key)
     end
 end
 
-function love.draw()
+function loveavg_draw()
     dialog_element = {}
     print_background(day_state, dialog_state)
     play_bgm(day_state, dialog_state)
@@ -85,7 +85,10 @@ function love.draw()
         table.insert(dialog_element, i)
     end
     ele_len = table.getn(dialog_element)
-
+    if ele_len == 1 and dialog_element[1] == "###" then
+        love.audio.stop()
+        gameStage = 3
+    end
     -- tachie
     if dialog_element[1] == "我" then
         tachie(fat, "left")
