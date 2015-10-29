@@ -5,9 +5,9 @@ function world_load()
     require "benchboard"
     require "slime"
     require "barrierCreate"
-    monster1 = slime.new(700,500)
     monsters = {}
-    table.insert(monsters, monster1)
+    monsters[1] = slime.new(700,500)
+    monsters[2] = slime.new(1200,500)
     character_load()
     benchboard_load()
     barrierCreate()
@@ -16,7 +16,6 @@ end
 
 function world_update(dt)
     q3Trap[1]:update(dt)
-    monster1:update(dt,character.x+world.x,character.y+world.y)
     character_run(dt)
     if world.x<world.nx and character.faceDir == "right" then
             character.animation.walking = true 
@@ -86,7 +85,9 @@ function world_update(dt)
             end
             character.animation.sound:stop()
         end
-   
+    for i, monster in ipairs(monsters) do
+        monster:update(dt,character.x+world.x,character.y+world.y)
+    end
 end
 
 function world_draw()
@@ -94,7 +95,7 @@ function world_draw()
     benchboard_draw()
     barrier_draw()
     triggerDraw()
-    -- monster_draw()
+    monster_draw()
 end
 
 function mapCreate()
@@ -297,5 +298,16 @@ function barrier_draw()
         love.graphics.setColor(255,0,0)
         love.graphics.rectangle("fill", q3Trap[1].x-world.x+100,q3Trap[1].y-world.y+50 , q3Trap[2].x-q3Trap[1].x-100, 10 )
     end
-    love.graphics.draw(monster1.slimeImgFile, monster1.slimeQuads[monster1.moveStep[monster1.moveIndex]][monster1.animationIndex], monster1.nowX-world.x, monster1.nowY-world.y)
+end
+function monster_draw()
+    for i, monster in ipairs(monsters) do
+        if monster.alive then
+            if monster.underAttacking == true then
+                love.graphics.setColor(255,0,0)
+            else
+                love.graphics.setColor(255,255,255)
+            end
+            love.graphics.draw(monster.slimeImgFile, monster.slimeQuads[monster.moveStep[monster.moveIndex]][monster.animationIndex], monster.nowX-world.x, monster.nowY-world.y)
+        end
+    end
 end
