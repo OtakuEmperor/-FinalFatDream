@@ -18,10 +18,13 @@ function world_load()
 end
 
 function world_update(dt)
+    triggerUpdate(dt)
+    triggerKeyPress(key)
     q3Trap[1]:update(dt)
     character_run(dt)
     character.py = character.y
     character.px = character.x
+    if question==false then
     moveStageCheck() 
     if world.x<world.nx and character.faceDir == "right" then
             character.animation.walking = true
@@ -101,6 +104,7 @@ function world_update(dt)
             world.px = world.x
             character.animation.sound:stop()
         end
+    end
     for i, monster in ipairs(monsters) do
         monster:update(dt,character.x+world.x,character.y+world.y)
     end

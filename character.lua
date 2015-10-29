@@ -25,8 +25,6 @@ function character_update(dt)
     end
     battle_update(dt)
     battle_keyPress(key)
-    triggerUpdate(dt)
-    triggerKeyPress(key)
 end
 
 
@@ -95,7 +93,7 @@ function characterUpdate(dt)
         --end
     --end
 
-    if character.die==false then
+    if character.die==false and question==false then
         moveStageCheck()
         if character.x<character.nx and character.faceDir == "right" then
              character.animation.walking = true 
