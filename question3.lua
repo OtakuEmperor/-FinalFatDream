@@ -1,6 +1,8 @@
 q3Trap={}
 q3key={}
 questionMark3={}
+local keyWidth=1080
+local keyHeight=527
 local q3Block={}
 local q3BlockNum={}
 local delay=0.15
@@ -12,7 +14,7 @@ function newObject(o, class)
 end
 
 function question3_load()
-    q3KeyImage = love.graphics.newImage("img/key.jpg")
+    q3KeyImage = love.graphics.newImage("img/key3.jpg")
     questionImage3 = love.graphics.newImage("img/question2.png")
     imageWidth3=1166
     imageHeight3=565
@@ -245,9 +247,12 @@ end
 function question3_draw()
     local blockWidth=60
     local blockHeight=60
+    love.graphics.setColor(0,0,0,150)
+    love.graphics.rectangle("fill", 0,0, 1100, 614)
     love.graphics.setColor(255,255,255)
     if showQ3Answer == true then
-        love.graphics.draw(q3KeyImage, 0, 0)
+        love.graphics.draw(q3KeyImage, (1100-keyWidth)/2, (614-keyHeight)/2, 0)
+        love.graphics.setColor(255,255,255)
     else
         love.graphics.draw(questionImage3, 0, 0,0,1100/imageWidth3,614/imageHeight3)
         for i=1,5 do
