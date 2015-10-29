@@ -2,6 +2,7 @@ character={}
 local hpDecrease=0
 local characterSpeed=200
 local characterX,characterY=love.graphics.getDimensions( )
+local screenWidth,screenHeight=love.graphics.getDimensions( )
 characterHeight=100
 characterWidth=100
 --character.__index = character
@@ -77,13 +78,8 @@ end
 
 --------------------characterUpdate--------------------------------------
 function characterUpdate(dt)
-    if character.animation.walking then
-        character.animation.count = character.animation.count + dt
-        if character.animation.count >= character.animation.delay then
-            character.animation.nowFrame = (character.animation.nowFrame % character.animation.frames) + 1
-            character.animation.count = 0
-        end
-    end
+   -- character_run(dt)
+    
 
     if character.hp<=0 then
         character.die=true
@@ -99,79 +95,94 @@ function characterUpdate(dt)
     --end
 
     if character.die==false then
-        if character.x<character.px and character.faceDir == "right" then
-            character.animation.walking = true
-            if character.x + character.speed * 0.05<character.px then
-                character.x = character.x + character.speed * 0.05
-            else
-                character.x=character.px
-                character.count1=true
-            end
+        if  character.x  < 400 and world.x ~= 0 then
+            world.leftMove = true
+        else
+            world.leftMove = false
+        end
+    
+        if character.x > 600 and world.x + screenWidth < world.width then
+            world.rightMove = true
+        else
+            world.rightMove = false
+        end
+        if  character.y > 300 and world.y + screenHeight < world.height then
+            world.downMove = true
+        else
+            world.downMove = false
+        end
+        if  character.y  < 100 and world.y ~= 0 then
+            world.upMove = true
+        else
+            world.upMove = false
+        end
+        if character.x<character.nx and character.faceDir == "right" then
+             character.animation.walking = true 
+            characterMove(character.Directions.Right, dt)
         
-        elseif character.x>character.px and character.faceDir == "left" then
+        elseif character.x>character.nx and character.faceDir == "left" then
             character.animation.walking = true
-            if character.x - character.speed * 0.05>character.px then
-                character.x = character.x - character.speed * 0.05
-            else
-                character.x=character.px
-                character.count1=true
-            end
+            characterMove(character.Directions.Left, dt)
+            
         
-        elseif character.y<character.py and character.faceDir == "down" then
+        elseif character.y<character.ny and character.faceDir == "down" then
             character.animation.walking = true
-            if character.y + character.speed * 0.05<character.py then
-                character.y = character.y + character.speed * 0.05
-            else
-                character.y=character.py
-                character.count1=true
-            end
+            characterMove(character.Directions.Down, dt)
         
-        elseif character.y>character.py and character.faceDir == "up" then
+        elseif character.y>character.ny and character.faceDir == "up" then
             character.animation.walking = true
-            if character.y - character.speed * 0.05>character.py then
-                character.y = character.y - character.speed * 0.05
-            else
-                character.y=character.py
-                character.count1=true
-            end
-        
-        elseif love.keyboard.isDown("left")  and character.y%100 == 0 and character.y == character.py then
-            if character.count1 == true or character.faceDir == "left" then
-                character.ny=character.py
+            characterMove(character.Directions.Up, dt)
+         elseif love.keyboard.isDown("left") and character.y%100 == 0 and character.y == character.ny and character.x%100 == 0 and character.x == character.nx then
+            character.delta = character.delta + dt
+            if character.delta >= character.delay then
+                if character.nx ~= 0 and world.leftMove==false then
+                    character.nx = character.x - 100
+                end
+                if character.animation.walking == false then
+                    character.delta=0
+                end
                 characterMove(character.Directions.Left, dt)
                 character.faceDir = "left"
-            elseif character.count1 == false then
-                characterStop()
             end
-        
-        elseif love.keyboard.isDown("right") and character.y%100 == 0  and character.y == character.py then
-            if character.count1 == true or character.faceDir == "right" then
-                character.ny=character.py
+             elseif love.keyboard.isDown("right") and character.y%100 == 0 and character.y == character.ny and character.x%100 == 0 and character.x == character.nx then
+            character.delta = character.delta + dt
+            if character.delta >= character.delay then
+                if character.nx ~= 1000 and world.rightMove==false then
+                    character.nx = character.x + 100
+                end
+                if character.animation.walking == false then
+                    character.delta=0
+                end
                 characterMove(character.Directions.Right, dt)
                 character.faceDir = "right"
-            elseif character.count1 == false then
-                characterStop()
             end
-        
-        elseif love.keyboard.isDown("up") and character.x%100 == 0  and character.x == character.px then
-            if character.count1 == true or character.faceDir == "up" then
-                character.nx=character.px
+             elseif love.keyboard.isDown("up") and character.y%100 == 0 and character.y == character.ny and character.x%100 == 0 and character.x == character.nx  then
+            character.delta = character.delta + dt
+            if character.delta >= character.delay then
+                if character.ny ~= 0 and world.upMove==false then
+                    character.ny = character.y - 100
+                end
+                if character.animation.walking == false then
+                    character.delta=0
+                end
                 characterMove(character.Directions.Up, dt)
                 character.faceDir = "up"
-            elseif character.count1 == false then 
-                characterStop()
             end
-        
-        elseif love.keyboard.isDown("down") and character.x%100 == 0  and character.x == character.px then
-            if character.count1 == true or character.faceDir == "down" then
-                character.nx=character.px
+             elseif love.keyboard.isDown("down") and character.y%100 == 0 and character.y == character.ny and character.x%100 == 0 and character.x == character.nx  then
+            character.delta = character.delta + dt
+            if character.delta >= character.delay then
+                if character.ny ~= 500 and world.downMove==false then
+                    character.ny = character.y + 100
+                end
+                if character.animation.walking == false then
+                    character.delta=0
+                end
                 characterMove(character.Directions.Down, dt)
                 character.faceDir = "down"
-            elseif character.count1 == false then   
-                characterStop()
             end
-        
+
         else
+            character.delta = 0
             characterStop()
             character.animation.sound:stop()
         end
@@ -181,141 +192,58 @@ end
 -----------------characterMove----------------------------------------------
 function characterMove(direction, dt)
     if direction == character.animation.Directions.Down and question==false then
-        if character.count == false then
-            if character.temp == true then
-                character.py=character.y
-                character.temp = false
-            end
-            character.ny = character.ny + character.speed * dt
-        else
+        if character.y < character.ny then
             character.animation.walking = true
             character.animation.sound:play()
-            if character.y + character.speed * 0.03<character.ny then
-                character.y = character.y + character.speed * 0.03
-                character.y = math.ceil(character.y)
-            else
-                character.y=character.ny
-                character.count=false
-            end
-            character.count1 = false
+            character.y = character.y + character.speed * dt
         end
-        
-        if math.abs(character.y-character.ny) > characterWidth*4/10 then
-            character.count=true
-            character.ny = character.py + characterWidth
-            character.temp = true
+        if character.y + character.speed * dt>character.ny then
+            character.y = character.ny
         end
         characterSetDirection( character.animation.Directions.Down)
+        
     end
     
     if direction == character.animation.Directions.Left and question==false then
-        if character.count == false then
-            if character.temp == true then
-                character.px=character.x
-                character.temp = false
-            end
-            character.nx = character.nx - character.speed * dt
-        else
+        if character.x > character.nx then
             character.animation.walking = true
             character.animation.sound:play()
-            if character.x - character.speed * 0.03>character.nx then
-                character.x = character.x - character.speed * 0.03
-                character.x = math.ceil(character.x)
-            else
-                character.x=character.nx
-                character.count=false
-            end
-            character.count1 = false
+            character.x = character.x - character.speed * dt
         end
-        
-        if math.abs(character.x-character.nx) > characterWidth*4/10 then
-            character.count=true
-            character.nx = character.px - characterWidth
-            character.temp = true
+        if character.x - character.speed * dt<character.nx then
+            character.x = character.nx
         end
         characterSetDirection( character.animation.Directions.Left)
+       
     end
     
     if direction == character.animation.Directions.Right and question==false then
-        if character.count == false then
-            if character.temp == true then
-                character.px=character.x
-                character.temp = false
-            end
-            character.nx = character.nx + character.speed * dt
-        else
+         if character.x < character.nx then
             character.animation.walking = true
             character.animation.sound:play()
-            if character.x + character.speed * 0.03<character.nx then
-                character.x = character.x + character.speed * 0.03
-                character.x = math.ceil(character.x)
-            else
-                character.x=character.nx
-                character.count=false
-            end
-            character.count1 = false
+            character.x = character.x + character.speed * dt
         end
-        
-        if math.abs(character.x-character.nx) > characterWidth*4/10 then
-            character.count=true
-            character.nx = character.px + characterWidth
-            character.temp = true
+        if character.x + character.speed * dt>character.nx then
+            character.x = character.nx
         end
         characterSetDirection( character.animation.Directions.Right)
+        
     end
     
     if direction == character.animation.Directions.Up and question==false then
-        if character.count == false then
-            if character.temp == true then
-                character.py=character.y
-                character.temp = false
-            end
-            character.ny = character.ny - character.speed * dt
-        else
+        if character.y > character.ny then
             character.animation.walking = true
             character.animation.sound:play()
-            if character.y - character.speed * 0.03>character.ny then
-                character.y = character.y - character.speed * 0.03
-                character.y = math.ceil(character.y)
-            else
-                character.y=character.ny
-                character.count=false
-            end
-            character.count1 = false
+            character.y = character.y - character.speed * dt
         end
-        
-        if math.abs(character.y-character.ny) > characterWidth*4/10 then
-            character.count=true
-            character.ny = character.py - characterWidth
-            character.temp = true
+        if character.y - character.speed * dt<character.ny then
+            character.y = character.ny
         end
         characterSetDirection( character.animation.Directions.Up)
+       
     end
 
-    -- keep the character on the screen
-    if character.nx > love.graphics.getWidth()-characterWidth+8 then 
-        character.nx = love.graphics.getWidth()-characterWidth+8
-        character.animation.walking = true
-        character.animation.sound:play()
-    end
     
-    if character.nx < 0 then 
-        character.nx = 0
-        character.animation.walking = true
-        character.animation.sound:play()
-    end
-    
-    if character.ny > love.graphics.getHeight()-characterHeight then 
-        character.ny = love.graphics.getHeight()-characterHeight
-        character.animation.walking = true
-        character.animation.sound:play()
-    end
-    
-    if character.ny < 0 then 
-        character.ny = 0
-        character.animation.walking = true
-        character.animation.sound:play()
-    end
 end
 
 ----------------------characterSetDirection------------------------------------
@@ -329,29 +257,18 @@ function characterStop()
     character.animation.walking = false
     if not character.animation.walking then
         character.animation.nowFrame = 1 
-        if character.count == false then
-            character.nx=character.px
-            character.ny=character.py
-            character.count1 = true
-        else
-            if character.faceDir == "right" then 
-                character.px=character.px+characterWidth
-            end
-            if character.faceDir == "left" then
-                character.px=character.px-characterWidth
-            end
-            if character.faceDir == "down" then
-                character.py=character.py+characterHeight
-            end
-            if character.faceDir == "up" then
-                character.py=character.py-characterHeight
-            end
-            character.count = false
-            character.temp = true
-        end
     end
 end
 
+function character_run(dt)
+    if character.animation.walking then
+        character.animation.count = character.animation.count + dt
+        if character.animation.count >= character.animation.delay then
+            character.animation.nowFrame = (character.animation.nowFrame % character.animation.frames) + 1
+            character.animation.count = 0
+        end
+    end
+end
 --------------------characterDraw-----------------------------------------------
 function characterDraw()
     if character.disappear.disappearFlog==false then
@@ -362,6 +279,17 @@ function characterDraw()
         love.graphics.setColor(255,0,0,255)
         --love.graphics.rectangle("fill", 10, 10, character.hp*3, 5 )
     end
+   -- love.graphics.print(character.y, 100, 100 )
+--    love.graphics.print(character.ny, 300, 100 )
+  --  love.graphics.print(character.x, 100, 150 )
+--    love.graphics.print(character.nx, 300, 150 )
+  --  love.graphics.print(world.y, 700, 100 )
+--    love.graphics.print(world.ny, 900, 100 )
+  --  love.graphics.print(world.x, 700, 150 )
+--    love.graphics.print(world.nx, 900, 150 )
+  --  if world.rightMove == false then
+    --    love.graphics.print("false", 300, 200 )
+--    end
 end
 
 --------------------walkCreate-----------------------------------------

@@ -1,5 +1,5 @@
 world={}
-local screenWidth,screenHeight=love.graphics.getDimensions( )
+
 function world_load()
     require "character"
     require "benchboard"
@@ -16,98 +16,77 @@ end
 
 function world_update(dt)
     q3Trap[1]:update(dt)
-    if world.rightMove and world.x<world.px and character.faceDir == "right" then
-        character.animation.walking = true
-        if world.x + world.speed * 0.05<world.px then
-            world.x = world.x + world.speed * 0.05
-        else
-            world.x=world.px
-            world.count1=true
-        end
-    
-    elseif world.leftMove and world.x>world.px and character.faceDir == "left" then
-        character.animation.walking = true
-        if world.x - world.speed * 0.05>world.px then
-            world.x = world.x - world.speed * 0.05
-        else
-            world.x=world.px
-            world.count1=true
-        end
-    elseif world.downMove and world.y<world.py and character.faceDir == "down" then
-        character.animation.walking = true
-        if world.y + world.speed * 0.05<world.py then
-            world.y = world.y + world.speed * 0.05
-        else
-            world.y=world.py
-            world.count1=true
-        end
-        
-    elseif world.upMove and world.y>world.py and character.faceDir == "up" then
-        character.animation.walking = true
-        if world.y - world.speed * 0.05>world.py then
-            world.y = world.y - world.speed * 0.05
-        else
-            world.y=world.py
-            world.count1=true
-        end
-    elseif world.rightMove and love.keyboard.isDown("right") and character.y%100 == 0  and character.y == character.py and question==false then
-        map_run(dt)
-        if world.count1 == true or character.faceDir == "right" then
-            world.ny=world.py
-            mapMove(character.Directions.Right, dt)
-            character.faceDir = "right"
-        elseif world.count1 == false then
-            mapStop()
-        end
-    
-    elseif world.leftMove and love.keyboard.isDown("left") and character.y%100 == 0  and character.y == character.py and question==false then
-        map_run(dt)
-        if world.count1 == true or character.faceDir == "left" then
-            world.ny=world.py
-            mapMove(character.Directions.Left, dt)
-            character.faceDir = "left"
-        elseif world.count1 == false then
-            mapStop()
-        end
-    
-    elseif world.upMove and love.keyboard.isDown("up") and character.x%100 == 0  and character.x == character.px and question==false then
-        map_run(dt)
-        if world.count1 == true or world.faceDir == "up" then
-            world.nx=world.px
-            mapMove(character.Directions.Up, dt)
-            character.faceDir = "up"
-        elseif world.count1 == false then 
-            mapStop()
-        end
-        
-    elseif world.downMove and love.keyboard.isDown("down") and character.x%100 == 0  and character.x == character.px and question==false then
-        map_run(dt)
-        if world.count1 == true or world.faceDir == "down" then
-            world.nx=world.px
-            mapMove(character.Directions.Down, dt)
-            character.faceDir = "down"
-        elseif world.count1 == false then   
-            mapStop()
-        end
-    else
-        if world.leftMove or world.rightMove or world.upMove or world.downMove then
-            mapStop()
-        end
-        if world.y%100 == 0  and world.y == world.py and world.x%100 == 0  and world.x == world.px then
-            character_update(dt)
-        end
-        if character.faceDir == "left" and character.nx  < 400 and world.x ~= 0 then
-            world.leftMove = true
-    
-        elseif character.faceDir == "right" and character.nx > 600 and world.x + screenWidth < world.width then
-            world.rightMove = true
-        elseif character.faceDir == "down" and character.ny > 400 and world.y + screenHeight < world.height then
-            world.downMove = true
-        elseif character.faceDir == "up" and character.ny  < 200 and world.y ~= 0 then
-            world.upMove = true
-        end
-    end
     monster1:update(dt,character.x+world.x,character.y+world.y)
+    character_run(dt)
+    if world.x<world.nx and character.faceDir == "right" then
+            character.animation.walking = true 
+            mapMove(character.Directions.Right, dt)
+           
+    elseif world.x>world.nx and character.faceDir == "left" then
+            character.animation.walking = true
+            mapMove(character.Directions.Left, dt)
+    elseif world.y<world.ny and character.faceDir == "down" then
+            character.animation.walking = true
+            mapMove(character.Directions.Down, dt)
+    elseif world.y>world.ny and character.faceDir == "up" then
+            character.animation.walking = true
+            mapMove(character.Directions.Up, dt) 
+    elseif love.keyboard.isDown("left") and world.y%100 == 0 and world.y == world.ny and world.x%100 == 0 and world.x == world.nx and world.leftMove==true  and character.y%100 == 0 and character.y == character.ny and character.x%100 == 0 and character.x == character.nx then
+            world.delta = world.delta + dt
+            if world.delta >= world.delay then
+                if world.nx ~= 0  then
+                    world.nx = world.x - 100
+                end
+                if character.animation.walking == false then
+                    character.delta=0
+                end
+                mapMove(character.Directions.Left, dt)
+                character.faceDir = "left"
+            end
+    elseif love.keyboard.isDown("right") and world.y%100 == 0 and world.y == world.ny and world.x%100 == 0 and world.x == world.nx and world.rightMove==true and character.y%100 == 0 and character.y == character.ny and character.x%100 == 0 and character.x == character.nx then
+            world.delta = world.delta + dt
+            if world.delta >= world.delay then
+                if world.nx ~= 1000  then
+                    world.nx = world.x + 100
+                end
+                if character.animation.walking == false then
+                    world.delta=0
+                end
+                mapMove(character.Directions.Right, dt)
+                character.faceDir = "right"
+            end
+    elseif love.keyboard.isDown("up") and world.y%100 == 0 and world.y == world.ny and world.x%100 == 0 and world.x == world.nx and world.upMove==true and character.y%100 == 0 and character.y == character.ny and character.x%100 == 0 and character.x == character.nx then
+            world.delta = world.delta + dt
+            if world.delta >= world.delay then
+                if world.ny ~= 0 then
+                    world.ny = world.y - 100
+                end
+                if character.animation.walking == false then
+                    world.delta=0
+                end
+                mapMove(character.Directions.Up, dt)
+                character.faceDir = "up"
+            end
+    elseif love.keyboard.isDown("down") and world.y%100 == 0 and world.y == world.ny and world.x%100 == 0 and world.x == world.nx and world.downMove==true and character.y%100 == 0 and character.y == character.ny and character.x%100 == 0 and character.x == character.nx then
+            world.delta = world.delta + dt
+            if world.delta >= world.delay then
+                if world.ny ~= 500  then
+                    world.ny = world.y + 100
+                end
+                if character.animation.walking == false then
+                    world.delta=0
+                end
+                mapMove(character.Directions.Down, dt)
+                character.faceDir = "down"
+            end
+        else
+            world.delta = 0
+            if world.y%100 == 0  and world.y == world.ny and world.x%100 == 0  and world.x == world.nx then
+                character_update(dt)
+            end
+            character.animation.sound:stop()
+        end
+    
 end
 
 function world_draw()
@@ -135,6 +114,8 @@ function mapCreate()
     world.px=0
     world.py=0
     world.speed = 200
+    world.delta=0
+    world.delay=0.15
 end
 
 function barrierCreate()
@@ -148,191 +129,62 @@ function barrierCreate()
     q3key = q3key.new(700,200)
 end
 
-function map_run(dt)
-    character.animation.count = character.animation.count + dt
-    if character.animation.count >= character.animation.delay then
-        character.animation.nowFrame = (character.animation.nowFrame % character.animation.frames) + 1
-        character.animation.count = 0
-    end
-    character.animation.sound:play()
-end
+
 
 function mapMove(direction, dt)
-    if direction == character.animation.Directions.Right then
-        if world.count == false then
-            if world.temp == true then
-                world.px=world.x
-                world.temp = false
-            end
-            world.nx = world.nx + world.speed * dt
-        else
-            character.animation.walking = true
-            character.animation.sound:play()
-            if world.x + world.speed * 0.03<world.nx then
-                world.x = world.x + world.speed * 0.03
-                world.x = math.ceil(world.x)
-            else
-                world.x=world.nx
-                world.count=false
-            end
-            world.count1 = false
-        end
-        
-        if math.abs(world.x-world.nx) > characterWidth*4/10 then
-            world.count=true
-            world.nx = world.px + characterWidth
-            world.temp = true
-        end
-        characterSetDirection( character.animation.Directions.Right)
-    end
     
-    if direction == character.animation.Directions.Left then
-        if world.count == false then
-            if world.temp == true then
-                world.px=world.x
-                world.temp = false
-            end
-            world.nx = world.nx - world.speed * dt
-        else
+     if direction == character.animation.Directions.Down and question==false then
+        if world.y < world.ny then
             character.animation.walking = true
             character.animation.sound:play()
-            if world.x - world.speed * 0.03>world.nx then
-                world.x = world.x - world.speed * 0.03
-                world.x = math.ceil(world.x)
-            else
-                world.x=world.nx
-                world.count=false
-            end
-            world.count1 = false
+            world.y = world.y + world.speed * dt
         end
-        
-        if math.abs(world.x-world.nx) > characterWidth*4/10 then
-            world.count=true
-            world.nx = world.px - characterWidth
-            world.temp = true
-        end
-        characterSetDirection( character.animation.Directions.Left)
-    end
-    
-    if direction == character.animation.Directions.Down then
-        if world.count == false then
-            if world.temp == true then
-                world.py=world.y
-                world.temp = false
-            end
-            world.ny = world.ny + world.speed * dt
-        else
-            character.animation.walking = true
-            character.animation.sound:play()
-            if world.y + world.speed * 0.03<world.ny then
-                world.y = world.y + world.speed * 0.03
-                world.y = math.ceil(world.y)
-            else
-                world.y=world.ny
-                world.count=false
-            end
-            world.count1 = false
-        end
-        
-        if math.abs(world.y-world.ny) > characterWidth*4/10 then
-            world.count=true
-            world.ny = world.py + characterWidth
-            world.temp = true
+        if world.y + world.speed * dt>world.ny then
+            world.y = world.ny
         end
         characterSetDirection( character.animation.Directions.Down)
+       
     end
     
-    if direction == character.animation.Directions.Up then
-        if world.count == false then
-            if world.temp == true then
-                world.py=world.y
-                world.temp = false
-            end
-            world.ny = world.ny - world.speed * dt
-        else
+    if direction == character.animation.Directions.Left and question==false then
+        if world.x > world.nx then
             character.animation.walking = true
             character.animation.sound:play()
-            if world.y - world.speed * 0.03>world.ny then
-                world.y = world.y - world.speed * 0.03
-                world.y = math.ceil(world.y)
-            else
-                world.y=world.ny
-                world.count=false
-            end
-            world.count1 = false
+            world.x = world.x - world.speed * dt
         end
-        
-        if math.abs(world.y-world.ny) > characterWidth*4/10 then
-            world.count=true
-            world.ny = world.py - characterWidth
-            world.temp = true
+        if world.x - world.speed * dt<world.nx then
+            world.x = world.nx
+        end
+        characterSetDirection( character.animation.Directions.Left)
+
+    end
+    
+    if direction == character.animation.Directions.Right and question==false then
+         if world.x < world.nx then
+            character.animation.walking = true
+            character.animation.sound:play()
+            world.x = world.x + world.speed * dt
+        end
+        if world.x + world.speed * dt>world.nx then
+            world.x = world.nx
+        end
+        characterSetDirection( character.animation.Directions.Right)
+
+    end
+    
+    if direction == character.animation.Directions.Up and question==false then
+        if world.y > world.ny then
+            character.animation.walking = true
+            character.animation.sound:play()
+            world.y = world.y - world.speed * dt
+        end
+        if world.y - world.speed * dt<world.ny then
+            world.y = world.ny
         end
         characterSetDirection( character.animation.Directions.Up)
+        
     end
-    
-    if character.faceDir == "right" and world.x + screenWidth  >= world.width then
-        world.x=world.nx
-        world.px=world.nx
-        world.rightMove = false
-    end
-    
-    if character.nx < 600 then
-        world.rightMove = false
-    end
-    
-    if character.faceDir == "left" and world.x == 0 then
-        world.px=0
-        world.nx=0
-        world.leftMove = false
-    end
-    
-    if character.nx > 400 then
-        world.leftMove = false
-    end
-    
-    if character.faceDir == "down" and world.ny + screenHeight-characterHeight >= world.height then
-        world.y=world.ny
-        world.py=world.ny
-        world.downMove = false
-    end
-    
-    if character.ny < 400 then
-        world.downMove = false
-    end
-    
-    if character.faceDir == "up" and world.y == 0 then
-        world.py=0
-        world.ny=0
-        world.upMove = false
-    end
-    
-    if character.ny > 200 then
-        world.upMove = false
-    end
-end
-
-function mapStop()
-    character.animation.nowFrame = 1 
-    if world.count == false then
-        world.nx=world.px
-        world.ny=world.py
-        world.count1 = true
-    else
-        if character.faceDir == "right" then 
-            world.px=world.px+characterWidth
-        end
-        if character.faceDir == "left" then
-            world.px=world.px-characterWidth
-        end
-        if character.faceDir == "down" then
-            world.py=world.py+characterHeight
-        end
-        if character.faceDir == "up" then
-            world.py=world.py-characterHeight
-        end
-        world.count = false
-        world.temp = true
-    end
+ 
 end
 
 function isBarrier(barrierX,barrierY)
