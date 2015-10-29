@@ -16,8 +16,7 @@ function loveavg_load()
     onefloor_light = love.graphics.newImage("img/cg/onefloor_light.jpg")
     restaurant_light = love.graphics.newImage("img/cg/restaurant_light.jpg")
     schoolroad_sunset = love.graphics.newImage("img/cg/schoolroad_sunset.jpg")
-    -- font = love.graphics.newFont("font/msjh.ttc", 25)
-    -- love.graphics.setFont(font)
+    lovefont = love.graphics.newFont("font/msjh.ttc", 25)
     choose = {}
     chooseLock = true
     dialogLock = false
@@ -111,6 +110,7 @@ function loveavg_draw()
 end
 
 function print_dialog(who, says)
+    love.graphics.setFont(lovefont)
     says_nd = ""
     if string.len(says) > 129 then
         says_nd = string.sub(says, 130)
@@ -133,6 +133,7 @@ function tachie(img, side)
 end
 
 function print_choose(n, dialog_n, a, b, c)
+    love.graphics.setFont(lovefont)
     chooseLock = false
     dialogLock = true
     -- choose
