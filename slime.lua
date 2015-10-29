@@ -101,7 +101,7 @@ function slime:update(dt,charX,charY)
                 if self.moveIndex > table.getn(self.moveStep) then
                     self.moveIndex = 1 
                 end
-                self.slimeMoveSound:play()
+                -- self.slimeMoveSound:play()
                 self.animationIndex = 1
             end
         end

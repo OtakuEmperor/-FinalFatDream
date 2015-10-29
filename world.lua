@@ -8,6 +8,7 @@ function world_load()
     monsters = {}
     monsters[1] = slime.new(700,500)
     monsters[2] = slime.new(1200,500)
+    fight_bgm = love.audio.newSource("audio/night.mp3", "stream")
     character_load()
     benchboard_load()
     barrierCreate()
@@ -96,6 +97,8 @@ function world_draw()
     barrier_draw()
     triggerDraw()
     monster_draw()
+    love.audio.setVolume(0.5)
+    fight_bgm:play()
 end
 
 function mapCreate()
