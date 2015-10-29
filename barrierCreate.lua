@@ -1,4 +1,6 @@
 tree={}
+forest={}
+stone={}
 questionMark={}
 q3Trap={}
 questionKey={}
@@ -16,5 +18,27 @@ function tree.new (originPointX,originPointY)
         y = originPointY
     }
     obj = newObject(obj, tree)
+    return obj
+end
+
+function forest.new (originPointX,originPointY)
+   local obj = {
+        Image = love.graphics.newImage("img/forest.png"),
+        Barrier=true,
+        x = originPointX,
+        y = originPointY
+    }
+    obj = newObject(obj, forest)
+    return obj
+end
+
+function stone.new (originPointX,originPointY)
+   local obj = {
+        Image = love.graphics.newImage("img/stone.png"),
+        Barrier=true,
+        x = originPointX,
+        y = originPointY
+    }
+    obj = newObject(obj, stone)
     return obj
 end

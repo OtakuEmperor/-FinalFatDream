@@ -24,7 +24,7 @@ function op_load()
   guileTheme:setVolume(0)
 end
 
-function love.update(dt)
+function op_update(dt)
   --set dynamic time
   t = love.timer.getTime()
 end
@@ -61,5 +61,8 @@ function op_draw()
   if love.mouse.isDown("l") then
     love.graphics.setColor(255, 255, 255, 255)
     love.graphics.draw(love.graphics.newImage("img/porn.png"), love.mouse.getX(), love.mouse.getY(), 0, 0.5 ,0.5)
+  end
+  if (t - t0) > (logoRange1*2 + logoRange2 + textRange1*2 + textRange2) then
+     gameStage = 1
   end
 end

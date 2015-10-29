@@ -42,16 +42,16 @@ function battle_update(dt)
 end
 
 function battle_keyPress(key)
-    if love.keyboard.isDown(" ") then
+    if love.keyboard.isDown(" ") and not atk then
         -- attack success?
         abs_x = character.x + world.x
         abs_y = character.y + world.y
-        if attackMonster(abs_x, abs_y, character.faceDir) and not atk then
-            print("Attack!")
-        end
-        if not atk then
-            print(string.format("%s: %f, %f", "Monster", mon_abs_x, mon_abs_y))
-            print(string.format("%s: %f, %f", "Character", abs_x, abs_y))
+        for _, mon in ipairs(monsters) do
+            mon_abs_x = mon:getPositionX()
+            mon_abs_y = mon:getPositionY()
+            if attackMonster(abs_x, abs_y, mon_abs_x, mon_abs_y, character.faceDir) then
+                mon:underAttack(character.faceDir, 5)
+            end
         end
         atk = true
     end
@@ -72,19 +72,14 @@ function battle_attack(x, y, face)
     love.graphics.draw(attackImg, quads[iteration], x, y, 0, 1/2, 1/2)
 end
 
-function attackMonster(abs_x, abs_y, face)
-    for _, mon in ipairs(monsters) do
-        mon_abs_x = mon:getPositionX() + world.x
-        mon_abs_y = mon:getPositionY() + world.y
-
-        if character.faceDir == "up" then
-            return mon_abs_x == abs_x and (abs_y - atk_range) <= mon_abs_y and mon_abs_y <= abs_y
-        elseif character.faceDir == "down" then
-            return mon_abs_x == abs_x and abs_y <= mon_abs_y and mon_abs_y <= (abs_y + atk_range)
-        elseif character.faceDir == "left" then
-            return (abs_x - atk_range)<= mon_abs_x and mon_abs_x <= abs_x and abs_y == mon_abs_y
-        elseif character.faceDir == "right" then
-            return abs_x <= mon_abs_x and mon_abs_x <= (abs_x + atk_range) and abs_y == mon_abs_y
-        end
+function attackMonster(abs_x, abs_y, mon_abs_x, mon_abs_y, face)
+    if face == "up" then
+        return mon_abs_x == abs_x and (abs_y - atk_range) <= mon_abs_y and mon_abs_y <= abs_y
+    elseif face == "down" then
+        return mon_abs_x == abs_x and abs_y <= mon_abs_y and mon_abs_y <= (abs_y + atk_range)
+    elseif face == "left" then
+        return (abs_x - atk_range)<= mon_abs_x and mon_abs_x <= abs_x and abs_y == mon_abs_y
+    elseif face == "right" then
+        return abs_x <= mon_abs_x and mon_abs_x <= (abs_x + atk_range) and abs_y == mon_abs_y
     end
 end
