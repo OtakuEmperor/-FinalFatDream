@@ -74,8 +74,8 @@ end
 
 function attackMonster(abs_x, abs_y, face)
     for _, mon in ipairs(monsters) do
-        mon_abs_x = mon:getPositionX() + world.x
-        mon_abs_y = mon:getPositionY() + world.y
+        mon_abs_x = mon:getPositionX()
+        mon_abs_y = mon:getPositionY()
 
         if character.faceDir == "up" then
             return mon_abs_x == abs_x and (abs_y - atk_range) <= mon_abs_y and mon_abs_y <= abs_y
