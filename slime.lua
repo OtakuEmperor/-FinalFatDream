@@ -101,3 +101,11 @@ function slime:update(dt,charX,charY)
         end
     end
 end
+
+function slime:getPostionX()
+    return self.nowX
+end
+
+function slime:getPostionY()
+    return self.nowY
+end
