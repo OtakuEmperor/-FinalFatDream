@@ -6,6 +6,8 @@ function world_load()
     require "slime"
     require "barrierCreate"
     monster1 = slime.new(700,500)
+    monsters = {}
+    table.insert(monsters, monster1)
     character_load()
     benchboard_load()
     barrierCreate()

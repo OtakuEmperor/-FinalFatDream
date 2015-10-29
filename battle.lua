@@ -12,7 +12,7 @@ function battle_load()
     atk = false
     timer = 0.1
     max = 6
-
+    atk_range = 100
     -- sound load
     hitSound1 = love.audio.newSource("audio/a1.ogg", "static")
     hitSound2 = love.audio.newSource("audio/a2.ogg", "static")
@@ -43,6 +43,16 @@ end
 
 function battle_keyPress(key)
     if love.keyboard.isDown(" ") then
+        -- attack success?
+        abs_x = character.x + world.x
+        abs_y = character.y + world.y
+        if attackMonster(abs_x, abs_y, character.faceDir) and not atk then
+            print("Attack!")
+        end
+        if not atk then
+            print(string.format("%s: %f, %f", "Monster", mon_abs_x, mon_abs_y))
+            print(string.format("%s: %f, %f", "Character", abs_x, abs_y))
+        end
         atk = true
     end
 end
@@ -60,4 +70,21 @@ function battle_attack(x, y, face)
 
     love.graphics.setColor(255, 255, 255, 255)
     love.graphics.draw(attackImg, quads[iteration], x, y, 0, 1/2, 1/2)
+end
+
+function attackMonster(abs_x, abs_y, face)
+    for _, mon in ipairs(monsters) do
+        mon_abs_x = mon:getPositionX() + world.x
+        mon_abs_y = mon:getPositionY() + world.y
+
+        if character.faceDir == "up" then
+            return mon_abs_x == abs_x and (abs_y - atk_range) <= mon_abs_y and mon_abs_y <= abs_y
+        elseif character.faceDir == "down" then
+            return mon_abs_x == abs_x and abs_y <= mon_abs_y and mon_abs_y <= (abs_y + atk_range)
+        elseif character.faceDir == "left" then
+            return (abs_x - atk_range)<= mon_abs_x and mon_abs_x <= abs_x and abs_y == mon_abs_y
+        elseif character.faceDir == "right" then
+            return abs_x <= mon_abs_x and mon_abs_x <= (abs_x + atk_range) and abs_y == mon_abs_y
+        end
+    end
 end
