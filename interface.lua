@@ -8,7 +8,7 @@ function interface_load()
   interface.key = love.graphics.newImage("img/key.png") --32px
   interface.water = love.graphics.newImage("img/"..interface.waterImg) --32px
   interface.weapon = love.graphics.newImage("img/"..interface.weaponImg) --32px
-  interface.arrow = love.graphics.newImage("img/arrow.png") --32px
+  --interface.arrow = love.graphics.newImage("img/arrow.png") --32px
   --get width and height of windows
   interface.width = love.graphics.getWidth()
   interface.height = love.graphics.getHeight()

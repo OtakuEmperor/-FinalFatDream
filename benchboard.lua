@@ -14,12 +14,14 @@ end
 
 function benchboard_draw()
     love.graphics.setBackgroundColor(127, 164, 127)
+    --[[
     --draw hp
     love.graphics.setColor(255, 20, 147)
     love.graphics.rectangle("fill", 0, 0, benchboard.width * benchboard.hp / benchboard.hpMax, benchboard.height / 30)
     love.graphics.setFont(benchboard.hpFont)
     love.graphics.setColor(255, 255, 255)
     love.graphics.print(benchboard.hp .. "/" .. benchboard.hpMax, 0, 0)
+    ]]--
     --draw icon
     love.graphics.draw(benchboard.settings, benchboard.width - 24, benchboard.height - 24) --24x24p
 end
