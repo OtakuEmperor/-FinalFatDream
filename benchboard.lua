@@ -13,7 +13,7 @@ function benchboard_load()
 end
 
 function benchboard_draw()
-    love.graphics.setBackgroundColor(220, 255, 220)
+    love.graphics.setBackgroundColor(127, 164, 127)
     --draw hp
     love.graphics.setColor(255, 20, 147)
     love.graphics.rectangle("fill", 0, 0, benchboard.width * benchboard.hp / benchboard.hpMax, benchboard.height / 30)
