@@ -5,9 +5,9 @@ function world_load()
     require "benchboard"
     require "slime"
     require "barrierCreate"
+    monster1 = slime.new(700,500)
     monsters = {}
-    monsters[1] = slime.new(700,500)
-    monsters[2] = slime.new(1200,800)
+    table.insert(monsters, monster1)
     character_load()
     benchboard_load()
     barrierCreate()
@@ -24,7 +24,7 @@ function world_update(dt)
             world.x=world.px
             world.count1=true
         end
-    
+
     elseif world.leftMove and world.x>world.px and character.faceDir == "left" then
         character.animation.walking = true
         if world.x - world.speed * 0.05>world.px then
@@ -41,7 +41,7 @@ function world_update(dt)
             world.y=world.py
             world.count1=true
         end
-        
+
     elseif world.upMove and world.y>world.py and character.faceDir == "up" then
         character.animation.walking = true
         if world.y - world.speed * 0.05>world.py then
@@ -59,7 +59,7 @@ function world_update(dt)
         elseif world.count1 == false then
             mapStop()
         end
-    
+
     elseif world.leftMove and love.keyboard.isDown("left") and character.y%100 == 0  and character.y == character.py and question==false then
         map_run(dt)
         if world.count1 == true or character.faceDir == "left" then
@@ -69,24 +69,24 @@ function world_update(dt)
         elseif world.count1 == false then
             mapStop()
         end
-    
+
     elseif world.upMove and love.keyboard.isDown("up") and character.x%100 == 0  and character.x == character.px and question==false then
         map_run(dt)
         if world.count1 == true or world.faceDir == "up" then
             world.nx=world.px
             mapMove(character.Directions.Up, dt)
             character.faceDir = "up"
-        elseif world.count1 == false then 
+        elseif world.count1 == false then
             mapStop()
         end
-        
+
     elseif world.downMove and love.keyboard.isDown("down") and character.x%100 == 0  and character.x == character.px and question==false then
         map_run(dt)
         if world.count1 == true or world.faceDir == "down" then
             world.nx=world.px
             mapMove(character.Directions.Down, dt)
             character.faceDir = "down"
-        elseif world.count1 == false then   
+        elseif world.count1 == false then
             mapStop()
         end
     else
@@ -98,7 +98,7 @@ function world_update(dt)
         end
         if character.faceDir == "left" and character.nx  < 400 and world.x ~= 0 then
             world.leftMove = true
-    
+
         elseif character.faceDir == "right" and character.nx > 600 and world.x + screenWidth < world.width then
             world.rightMove = true
         elseif character.faceDir == "down" and character.ny > 400 and world.y + screenHeight < world.height then
@@ -107,9 +107,7 @@ function world_update(dt)
             world.upMove = true
         end
     end
-    for i, monster in ipairs(monsters) do
-        monster:update(dt,character.x+world.x,character.y+world.y)
-    end
+    monster1:update(dt,character.x+world.x,character.y+world.y)
 end
 
 function world_draw()
@@ -117,7 +115,7 @@ function world_draw()
     benchboard_draw()
     barrier_draw()
     triggerDraw()
-    monsterDraw()
+    -- monster_draw()
 end
 
 function mapCreate()
@@ -141,13 +139,51 @@ end
 
 function barrierCreate()
     tree[1] = tree.new(200,200)
-    questionMark[1] = questionMark1.new(300,300)
-    q3Trap[1] = q3Trap.new(500,500)
-    q3Trap[2] = q3Trap.new(900,500)
-    questionMark[2] = questionMark2.new(800,300)
-    q2key = q2key.new(500,800)
-    questionMark[3] = questionMark3.new(700,600)
-    q3key = q3key.new(700,200)
+    questionMark[1] = questionMark1.new(300,1300)
+    q3Trap[1] = q3Trap.new(1600, 1800)
+    q3Trap[2] = q3Trap.new(2000, 1800)
+    questionMark[2] = questionMark2.new(1100,300)
+    q2key = q2key.new(1900,700)
+    questionMark[3] = questionMark3.new(1800,1900)
+    q3key = q3key.new(1800,1500)
+    --create stones
+    stone[1] = stone.new(400, 900)
+    stone[2] = stone.new(400, 1100)
+    stone[3] = stone.new(500, 800)
+    stone[4] = stone.new(500, 1200)
+    stone[5] = stone.new(600, 700)
+    stone[6] = stone.new(600, 1300)
+    stone[7] = stone.new(700, 600)
+    stone[8] = stone.new(700, 1400)
+    stone[9] = stone.new(800, 500)
+    stone[10] = stone.new(800, 1500)
+    stone[11] = stone.new(1200, 500)
+    stone[12] = stone.new(1200, 1500)
+    stone[13] = stone.new(1300, 600)
+    stone[14] = stone.new(1300, 1400)
+    stone[15] = stone.new(1400, 700)
+    stone[16] = stone.new(1400, 1300)
+    stone[17] = stone.new(1500, 800)
+    stone[18] = stone.new(1500, 1200)
+    stone[19] = stone.new(1600, 900)
+    stone[20] = stone.new(1600, 1100)
+    --create forest
+    forest[1] = forest.new(200, 100)
+    forest[2] = forest.new(300, 1200)
+    forest[3] = forest.new(100, 500)
+    forest[4] = forest.new(600, 200)
+    forest[5] = forest.new(500, 1400)
+    forest[6] = forest.new(1000, 1000)
+    forest[7] = forest.new(300, 1800)
+    forest[8] = forest.new(900, 1800)
+    forest[9] = forest.new(1500, 1500)
+    forest[10] = forest.new(1600, 1600)
+    forest[11] = forest.new(1700, 1500)
+    forest[12] = forest.new(1600, 1700)
+    forest[13] = forest.new(1500, 700)
+    forest[14] = forest.new(1900, 100)
+    forest[15] = forest.new(1200, 1600)
+    forest[16] = forest.new(900, 100)
 end
 
 function map_run(dt)
@@ -179,7 +215,7 @@ function mapMove(direction, dt)
             end
             world.count1 = false
         end
-        
+
         if math.abs(world.x-world.nx) > characterWidth*4/10 then
             world.count=true
             world.nx = world.px + characterWidth
@@ -187,7 +223,7 @@ function mapMove(direction, dt)
         end
         characterSetDirection( character.animation.Directions.Right)
     end
-    
+
     if direction == character.animation.Directions.Left then
         if world.count == false then
             if world.temp == true then
@@ -207,7 +243,7 @@ function mapMove(direction, dt)
             end
             world.count1 = false
         end
-        
+
         if math.abs(world.x-world.nx) > characterWidth*4/10 then
             world.count=true
             world.nx = world.px - characterWidth
@@ -215,7 +251,7 @@ function mapMove(direction, dt)
         end
         characterSetDirection( character.animation.Directions.Left)
     end
-    
+
     if direction == character.animation.Directions.Down then
         if world.count == false then
             if world.temp == true then
@@ -235,7 +271,7 @@ function mapMove(direction, dt)
             end
             world.count1 = false
         end
-        
+
         if math.abs(world.y-world.ny) > characterWidth*4/10 then
             world.count=true
             world.ny = world.py + characterWidth
@@ -243,7 +279,7 @@ function mapMove(direction, dt)
         end
         characterSetDirection( character.animation.Directions.Down)
     end
-    
+
     if direction == character.animation.Directions.Up then
         if world.count == false then
             if world.temp == true then
@@ -263,7 +299,7 @@ function mapMove(direction, dt)
             end
             world.count1 = false
         end
-        
+
         if math.abs(world.y-world.ny) > characterWidth*4/10 then
             world.count=true
             world.ny = world.py - characterWidth
@@ -271,56 +307,56 @@ function mapMove(direction, dt)
         end
         characterSetDirection( character.animation.Directions.Up)
     end
-    
+
     if character.faceDir == "right" and world.x + screenWidth  >= world.width then
         world.x=world.nx
         world.px=world.nx
         world.rightMove = false
     end
-    
+
     if character.nx < 600 then
         world.rightMove = false
     end
-    
+
     if character.faceDir == "left" and world.x == 0 then
         world.px=0
         world.nx=0
         world.leftMove = false
     end
-    
+
     if character.nx > 400 then
         world.leftMove = false
     end
-    
+
     if character.faceDir == "down" and world.ny + screenHeight-characterHeight >= world.height then
         world.y=world.ny
         world.py=world.ny
         world.downMove = false
     end
-    
+
     if character.ny < 400 then
         world.downMove = false
     end
-    
+
     if character.faceDir == "up" and world.y == 0 then
         world.py=0
         world.ny=0
         world.upMove = false
     end
-    
+
     if character.ny > 200 then
         world.upMove = false
     end
 end
 
 function mapStop()
-    character.animation.nowFrame = 1 
+    character.animation.nowFrame = 1
     if world.count == false then
         world.nx=world.px
         world.ny=world.py
         world.count1 = true
     else
-        if character.faceDir == "right" then 
+        if character.faceDir == "right" then
             world.px=world.px+characterWidth
         end
         if character.faceDir == "left" then
@@ -338,13 +374,13 @@ function mapStop()
 end
 
 function isBarrier(barrierX,barrierY)
-    if character.nx >barrierX-characterWidth and character.nx<barrierX+characterWidth and character.ny > barrierY-characterHeight and character.ny<barrierY+characterHeight then 
+    if character.nx >barrierX-characterWidth and character.nx<barrierX+characterWidth and character.ny > barrierY-characterHeight and character.ny<barrierY+characterHeight then
         character.nx =character.px
         character.ny =character.py
         character.animation.walking = true
         character.animation.sound:play()
     end
-   -- if world.nx >barrierX-characterWidth and world.nx<barrierX+characterWidth and world.ny > barrierY-characterHeight and world.ny<barrierY+characterHeight then 
+   -- if world.nx >barrierX-characterWidth and world.nx<barrierX+characterWidth and world.ny > barrierY-characterHeight and world.ny<barrierY+characterHeight then
      --   world.nx =world.px
        -- world.ny =world.py
         --character.animation.walking = true
@@ -353,13 +389,27 @@ function isBarrier(barrierX,barrierY)
 end
 
 function barrier_draw()
+    --draw stones
+    for i=1,20 do
+        love.graphics.draw(stone[i].Image, stone[i].x-world.x, stone[i].y-world.y)
+        if stone[i].Barrier then
+            isBarrier(stone[i].x-world.x, stone[i].y-world.y)
+        end
+    end
+    --draw forest
+    for i=1,16 do
+        love.graphics.draw(forest[i].Image, forest[i].x-world.x, forest[i].y-world.y)
+        if forest[i].Barrier then
+            isBarrier(forest[i].x-world.x, forest[i].y-world.y)
+        end
+    end
     for i=1,1 do
         love.graphics.draw(tree[i].Image,tree[i].x-world.x,tree[i].y-world.y)
         if tree[i].Barrier then
             isBarrier(tree[i].x-world.x,tree[i].y-world.y)
         end
     end
-    for i=1,3 do 
+    for i=1,3 do
         love.graphics.draw(questionMark[i].Image,questionMark[i].x-world.x,questionMark[i].y-world.y)
         if questionMark[i].Barrier then
             isBarrier(questionMark[i].x-world.x,questionMark[i].y-world.y)
@@ -371,7 +421,7 @@ function barrier_draw()
             isBarrier(q3Trap[i].x-world.x,q3Trap[i].y-world.y)
         end
     end
-    
+
     love.graphics.draw(q3key.Image,q3key.x-world.x,q3key.y-world.y)
     if q3key.Barrier then
         isBarrier(q3key.x-world.x,q3key.y-world.y)
@@ -384,17 +434,5 @@ function barrier_draw()
         love.graphics.setColor(255,0,0)
         love.graphics.rectangle("fill", q3Trap[1].x-world.x+100,q3Trap[1].y-world.y+50 , q3Trap[2].x-q3Trap[1].x-100, 10 )
     end
-end
-
-function monsterDraw()
-    for i, monster in ipairs(monsters) do
-        if monster.alive == true then
-            if monster.underAttacking == true then
-                love.graphics.setColor(255,0,0)
-            else
-                love.graphics.setColor(255,255,255)
-            end
-            love.graphics.draw(monster.slimeImgFile, monster.slimeQuads[monster.moveStep[monster.moveIndex]][monster.animationIndex], monster.nowX-world.x, monster.nowY-world.y)
-        end
-    end
+    love.graphics.draw(monster1.slimeImgFile, monster1.slimeQuads[monster1.moveStep[monster1.moveIndex]][monster1.animationIndex], monster1.nowX-world.x, monster1.nowY-world.y)
 end
