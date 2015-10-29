@@ -11,6 +11,8 @@ function slime.new (originPointX,originPointY)
     local attackMode = 2
     local slimeAnimaLength = 4 
     local obj = {
+        alive = true,
+        hp = 10,
         slimeImgFile = love.graphics.newImage("img/slime.png"),
         slimeMoveSound = love.audio.newSource("audio/slime1.ogg", "static"),
         slimeQuads = {},
@@ -43,61 +45,62 @@ end
 
 function slime:update(dt,charX,charY)
     self.timeTick = self.timeTick + dt
-    if self.timeTick > self.moveSpeed then
-        self.timeTick = 0 
-        self.animationIndex = self.animationIndex + 1
-        if self.animationIndex > 4  then
-            self.distance = math.sqrt(math.pow((charX-self.keyPointX), 2)+ math.pow((charY-self.keyPointY), 2))
-            self.guardRange = self.alertRange*100*math.sqrt(2)
-            -- blow is for debug
-            -- print("nowMode: "..self.moveMode)
-            -- print("distance: "..self.distance)
-            -- print("guardRange: "..self.guardRange)
-            if self.distance > self.guardRange and self.moveMode == 2 then
-                self.moveStep[self.moveIndex] = self.lastMoveStep
-                self.moveMode = 1 --one is for guardMode
-            elseif self.distance <= self.guardRange then
-                self.moveMode = 2 --two is for attackMode
-            else
-                self.moveMode = 1
-            end
-            if self.moveMode == 1 then
-                if self.moveStep[self.moveIndex] == 1 and (self.nowY-self.keyPointY<(100*self.alertRange)) then
-                    self.nowY = self.nowY + 100
+    if self.alive == true then
+        if self.timeTick > self.moveSpeed then
+            self.timeTick = 0 
+            self.animationIndex = self.animationIndex + 1
+            if self.animationIndex > 4  then
+                self.distance = math.sqrt(math.pow((charX-self.keyPointX), 2)+ math.pow((charY-self.keyPointY), 2))
+                self.guardRange = self.alertRange*100*math.sqrt(2)
+                -- blow is for debug
+                -- print("nowMode: "..self.moveMode)
+                -- print("distance: "..self.distance)
+                -- print("guardRange: "..self.guardRange)
+                if self.distance > self.guardRange and self.moveMode == 2 then
+                    self.moveStep[self.moveIndex] = self.lastMoveStep
+                    self.moveMode = 1 --one is for guardMode
+                elseif self.distance <= self.guardRange then
+                    self.moveMode = 2 --two is for attackMode
+                else
+                    self.moveMode = 1
                 end
-                if self.moveStep[self.moveIndex] == 2 and (self.keyPointY-self.nowY<(100*self.alertRange)) then
-                    self.nowY = self.nowY - 100
+                if self.moveMode == 1 then
+                    if self.moveStep[self.moveIndex] == 1 and (self.nowY-self.keyPointY<(100*self.alertRange)) then
+                        self.nowY = self.nowY + 100
+                    end
+                    if self.moveStep[self.moveIndex] == 2 and (self.keyPointY-self.nowY<(100*self.alertRange)) then
+                        self.nowY = self.nowY - 100
+                    end
+                    if self.moveStep[self.moveIndex] == 3 and (self.keyPointX-self.nowX<(100*self.alertRange))then
+                        self.nowX = self.nowX - 100
+                    end
+                    if self.moveStep[self.moveIndex] == 4 and (self.nowX-self.keyPointX<(100*self.alertRange))then
+                        self.nowX = self.nowX + 100
+                    end
+                    self.moveIndex = self.moveIndex + 1
+                else
+                    self.lastMoveStep = self.moveStep[self.moveIndex]
+                    if charX > self.nowX then
+                        self.moveStep[self.moveIndex] = 1
+                        self.nowX = self.nowX + 100
+                    elseif charX < self.nowX then
+                        self.moveStep[self.moveIndex] = 2
+                        self.nowX = self.nowX - 100
+                    elseif charY > self.nowY then
+                        self.moveStep[self.moveIndex] = 3
+                        self.nowY = self.nowY + 100
+                    elseif charY < self.nowY then
+                        self.moveStep[self.moveIndex] = 4
+                        self.nowY = self.nowY - 100
+                    end
                 end
-                if self.moveStep[self.moveIndex] == 3 and (self.keyPointX-self.nowX<(100*self.alertRange))then
-                    self.nowX = self.nowX - 100
-                end
-                if self.moveStep[self.moveIndex] == 4 and (self.nowX-self.keyPointX<(100*self.alertRange))then
-                    self.nowX = self.nowX + 100
-                end
-                self.moveIndex = self.moveIndex + 1
-            else
-                self.lastMoveStep = self.moveStep[self.moveIndex]
-                if charX > self.nowX then
-                    self.moveStep[self.moveIndex] = 1
-                    self.nowX = self.nowX + 100
-                elseif charX < self.nowX then
-                    self.moveStep[self.moveIndex] = 2
-                    self.nowX = self.nowX - 100
-                elseif charY > self.nowY then
-                    self.moveStep[self.moveIndex] = 3
-                    self.nowY = self.nowY + 100
-                elseif charY < self.nowY then
-                    self.moveStep[self.moveIndex] = 4
-                    self.nowY = self.nowY - 100
-                end
-            end
-            
 
-            if self.moveIndex > table.getn(self.moveStep) then
-                self.moveIndex = 1 
+                if self.moveIndex > table.getn(self.moveStep) then
+                    self.moveIndex = 1 
+                end
+                self.slimeMoveSound:play()
+                self.animationIndex = 1
             end
-            self.slimeMoveSound:play()
-            self.animationIndex = 1
         end
     end
 end
@@ -108,4 +111,11 @@ end
 
 function slime:getPositionY()
     return self.nowY
+end
+
+function slime:underAttack(damageBlood)
+    self.hp = self.hp - damageBlood
+    if self.hp <= 0 then
+        self.alive = flase
+    end
 end
