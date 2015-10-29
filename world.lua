@@ -177,187 +177,63 @@ function mapMove(direction, dt)
             character.animation.sound:play()
             world.y = world.y + world.speed * dt
         end
-<<<<<<< HEAD
+
         if world.y + world.speed * dt>world.ny then
             world.y = world.ny
-=======
 
-        if math.abs(world.x-world.nx) > characterWidth*4/10 then
-            world.count=true
-            world.nx = world.px + characterWidth
-            world.temp = true
->>>>>>> adab2eaf8872a90e1e76d8267c893c295a894a19
         end
         characterSetDirection( character.animation.Directions.Down)
        
     end
-<<<<<<< HEAD
+
     
     if direction == character.animation.Directions.Left and question==false then
         if world.x > world.nx then
-=======
-
-    if direction == character.animation.Directions.Left then
-        if world.count == false then
-            if world.temp == true then
-                world.px=world.x
-                world.temp = false
-            end
-            world.nx = world.nx - world.speed * dt
-        else
->>>>>>> adab2eaf8872a90e1e76d8267c893c295a894a19
             character.animation.walking = true
             character.animation.sound:play()
             world.x = world.x - world.speed * dt
         end
-<<<<<<< HEAD
+
         if world.x - world.speed * dt<world.nx then
             world.x = world.nx
-=======
 
-        if math.abs(world.x-world.nx) > characterWidth*4/10 then
-            world.count=true
-            world.nx = world.px - characterWidth
-            world.temp = true
->>>>>>> adab2eaf8872a90e1e76d8267c893c295a894a19
         end
         characterSetDirection( character.animation.Directions.Left)
 
     end
-<<<<<<< HEAD
+
     
     if direction == character.animation.Directions.Right and question==false then
          if world.x < world.nx then
-=======
 
-    if direction == character.animation.Directions.Down then
-        if world.count == false then
-            if world.temp == true then
-                world.py=world.y
-                world.temp = false
-            end
-            world.ny = world.ny + world.speed * dt
-        else
->>>>>>> adab2eaf8872a90e1e76d8267c893c295a894a19
             character.animation.walking = true
             character.animation.sound:play()
             world.x = world.x + world.speed * dt
         end
-<<<<<<< HEAD
         if world.x + world.speed * dt>world.nx then
             world.x = world.nx
-=======
 
-        if math.abs(world.y-world.ny) > characterWidth*4/10 then
-            world.count=true
-            world.ny = world.py + characterWidth
-            world.temp = true
->>>>>>> adab2eaf8872a90e1e76d8267c893c295a894a19
         end
         characterSetDirection( character.animation.Directions.Right)
 
     end
-<<<<<<< HEAD
+
     
     if direction == character.animation.Directions.Up and question==false then
         if world.y > world.ny then
-=======
 
-    if direction == character.animation.Directions.Up then
-        if world.count == false then
-            if world.temp == true then
-                world.py=world.y
-                world.temp = false
-            end
-            world.ny = world.ny - world.speed * dt
-        else
->>>>>>> adab2eaf8872a90e1e76d8267c893c295a894a19
             character.animation.walking = true
             character.animation.sound:play()
             world.y = world.y - world.speed * dt
         end
-<<<<<<< HEAD
+
         if world.y - world.speed * dt<world.ny then
             world.y = world.ny
-=======
 
-        if math.abs(world.y-world.ny) > characterWidth*4/10 then
-            world.count=true
-            world.ny = world.py - characterWidth
-            world.temp = true
->>>>>>> adab2eaf8872a90e1e76d8267c893c295a894a19
         end
         characterSetDirection( character.animation.Directions.Up)
         
     end
-<<<<<<< HEAD
- 
-=======
-
-    if character.faceDir == "right" and world.x + screenWidth  >= world.width then
-        world.x=world.nx
-        world.px=world.nx
-        world.rightMove = false
-    end
-
-    if character.nx < 600 then
-        world.rightMove = false
-    end
-
-    if character.faceDir == "left" and world.x == 0 then
-        world.px=0
-        world.nx=0
-        world.leftMove = false
-    end
-
-    if character.nx > 400 then
-        world.leftMove = false
-    end
-
-    if character.faceDir == "down" and world.ny + screenHeight-characterHeight >= world.height then
-        world.y=world.ny
-        world.py=world.ny
-        world.downMove = false
-    end
-
-    if character.ny < 400 then
-        world.downMove = false
-    end
-
-    if character.faceDir == "up" and world.y == 0 then
-        world.py=0
-        world.ny=0
-        world.upMove = false
-    end
-
-    if character.ny > 200 then
-        world.upMove = false
-    end
-end
-
-function mapStop()
-    character.animation.nowFrame = 1
-    if world.count == false then
-        world.nx=world.px
-        world.ny=world.py
-        world.count1 = true
-    else
-        if character.faceDir == "right" then
-            world.px=world.px+characterWidth
-        end
-        if character.faceDir == "left" then
-            world.px=world.px-characterWidth
-        end
-        if character.faceDir == "down" then
-            world.py=world.py+characterHeight
-        end
-        if character.faceDir == "up" then
-            world.py=world.py-characterHeight
-        end
-        world.count = false
-        world.temp = true
-    end
->>>>>>> adab2eaf8872a90e1e76d8267c893c295a894a19
 end
 
 function isBarrier(barrierX,barrierY)
