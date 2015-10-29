@@ -1,5 +1,5 @@
 world={}
-
+local screenWidth,screenHeight=love.graphics.getDimensions( )
 function world_load()
     require "character"
     require "benchboard"
@@ -18,6 +18,9 @@ function world_update(dt)
     q3Trap[1]:update(dt)
     monster1:update(dt,character.x+world.x,character.y+world.y)
     character_run(dt)
+    character.py = character.y
+    character.px = character.x
+    moveStageCheck() 
     if world.x<world.nx and character.faceDir == "right" then
             character.animation.walking = true 
             mapMove(character.Directions.Right, dt)
@@ -34,7 +37,9 @@ function world_update(dt)
     elseif love.keyboard.isDown("left") and world.y%100 == 0 and world.y == world.ny and world.x%100 == 0 and world.x == world.nx and world.leftMove==true  and character.y%100 == 0 and character.y == character.ny and character.x%100 == 0 and character.x == character.nx then
             world.delta = world.delta + dt
             if world.delta >= world.delay then
-                if world.nx ~= 0  then
+            world.py = world.y
+            world.px = world.x    
+            if world.nx ~= 0 and world.count==false then
                     world.nx = world.x - 100
                 end
                 if character.animation.walking == false then
@@ -46,7 +51,9 @@ function world_update(dt)
     elseif love.keyboard.isDown("right") and world.y%100 == 0 and world.y == world.ny and world.x%100 == 0 and world.x == world.nx and world.rightMove==true and character.y%100 == 0 and character.y == character.ny and character.x%100 == 0 and character.x == character.nx then
             world.delta = world.delta + dt
             if world.delta >= world.delay then
-                if world.nx ~= 1000  then
+            world.py = world.y
+            world.px = world.x    
+            if world.nx ~= (world.width-1000) and world.count==false then
                     world.nx = world.x + 100
                 end
                 if character.animation.walking == false then
@@ -58,7 +65,9 @@ function world_update(dt)
     elseif love.keyboard.isDown("up") and world.y%100 == 0 and world.y == world.ny and world.x%100 == 0 and world.x == world.nx and world.upMove==true and character.y%100 == 0 and character.y == character.ny and character.x%100 == 0 and character.x == character.nx then
             world.delta = world.delta + dt
             if world.delta >= world.delay then
-                if world.ny ~= 0 then
+                world.py = world.y
+            world.px = world.x
+                if world.ny ~= 0 and world.count==false then
                     world.ny = world.y - 100
                 end
                 if character.animation.walking == false then
@@ -70,7 +79,9 @@ function world_update(dt)
     elseif love.keyboard.isDown("down") and world.y%100 == 0 and world.y == world.ny and world.x%100 == 0 and world.x == world.nx and world.downMove==true and character.y%100 == 0 and character.y == character.ny and character.x%100 == 0 and character.x == character.nx then
             world.delta = world.delta + dt
             if world.delta >= world.delay then
-                if world.ny ~= 500  then
+                world.py = world.y
+                world.px = world.x
+                if world.ny ~= (world.height-500) and world.count==false then
                     world.ny = world.y + 100
                 end
                 if character.animation.walking == false then
@@ -84,6 +95,8 @@ function world_update(dt)
             if world.y%100 == 0  and world.y == world.ny and world.x%100 == 0  and world.x == world.nx then
                 character_update(dt)
             end
+            world.py = world.y
+            world.px = world.x
             character.animation.sound:stop()
         end
    
@@ -237,18 +250,36 @@ function mapMove(direction, dt)
 end
 
 function isBarrier(barrierX,barrierY)
+      -- if character.nx+world.nx >barrierX-characterWidth and character.nx+world.nx<barrierX+characterWidth and character.ny+world.ny > barrierY-characterHeight and character.ny+world.ny<barrierY+characterHeight and world.nx ~=0 and world.ny ~=0 then
+    --    world.x =world.px
+      --  world.y =world.py
+    --    world.nx =world.px
+      --  world.ny =world.py
+    --    world.count=true
+      --  character.animation.walking = true
+    --    character.animation.sound:play()
+    --else
+      --  world.count=false
+    --end
     if character.nx >barrierX-characterWidth and character.nx<barrierX+characterWidth and character.ny > barrierY-characterHeight and character.ny<barrierY+characterHeight then
+        character.x =character.px
+        character.y =character.py
         character.nx =character.px
         character.ny =character.py
+        world.x =world.px
+        world.y =world.py
+        world.nx =world.px
+        world.ny =world.py
+        world.count=true
+        character.count=true
         character.animation.walking = true
         character.animation.sound:play()
+    else
+        character.count=false
+        world.count=false
     end
-   -- if world.nx >barrierX-characterWidth and world.nx<barrierX+characterWidth and world.ny > barrierY-characterHeight and world.ny<barrierY+characterHeight then
-     --   world.nx =world.px
-       -- world.ny =world.py
-        --character.animation.walking = true
-        --character.animation.sound:play()
-    --end
+    
+ 
 end
 
 function barrier_draw()

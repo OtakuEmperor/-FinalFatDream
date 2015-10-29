@@ -79,7 +79,8 @@ end
 --------------------characterUpdate--------------------------------------
 function characterUpdate(dt)
    -- character_run(dt)
-    
+    world.py = world.y
+    world.px = world.x 
 
     if character.hp<=0 then
         character.die=true
@@ -95,27 +96,7 @@ function characterUpdate(dt)
     --end
 
     if character.die==false then
-        if  character.x  < 400 and world.x ~= 0 then
-            world.leftMove = true
-        else
-            world.leftMove = false
-        end
-    
-        if character.x > 600 and world.x + screenWidth < world.width then
-            world.rightMove = true
-        else
-            world.rightMove = false
-        end
-        if  character.y > 300 and world.y + screenHeight < world.height then
-            world.downMove = true
-        else
-            world.downMove = false
-        end
-        if  character.y  < 100 and world.y ~= 0 then
-            world.upMove = true
-        else
-            world.upMove = false
-        end
+        moveStageCheck()
         if character.x<character.nx and character.faceDir == "right" then
              character.animation.walking = true 
             characterMove(character.Directions.Right, dt)
@@ -135,8 +116,11 @@ function characterUpdate(dt)
          elseif love.keyboard.isDown("left") and character.y%100 == 0 and character.y == character.ny and character.x%100 == 0 and character.x == character.nx then
             character.delta = character.delta + dt
             if character.delta >= character.delay then
-                if character.nx ~= 0 and world.leftMove==false then
+                character.py = character.y
+            character.px = character.x
+                if character.nx ~= 0 and world.leftMove==false and character.count==false then
                     character.nx = character.x - 100
+                    
                 end
                 if character.animation.walking == false then
                     character.delta=0
@@ -147,7 +131,9 @@ function characterUpdate(dt)
              elseif love.keyboard.isDown("right") and character.y%100 == 0 and character.y == character.ny and character.x%100 == 0 and character.x == character.nx then
             character.delta = character.delta + dt
             if character.delta >= character.delay then
-                if character.nx ~= 1000 and world.rightMove==false then
+                character.py = character.y
+            character.px = character.x
+                if character.nx ~= 1000 and world.rightMove==false and character.count==false then
                     character.nx = character.x + 100
                 end
                 if character.animation.walking == false then
@@ -159,7 +145,9 @@ function characterUpdate(dt)
              elseif love.keyboard.isDown("up") and character.y%100 == 0 and character.y == character.ny and character.x%100 == 0 and character.x == character.nx  then
             character.delta = character.delta + dt
             if character.delta >= character.delay then
-                if character.ny ~= 0 and world.upMove==false then
+                character.py = character.y
+            character.px = character.x
+                if character.ny ~= 0 and world.upMove==false and character.count==false then
                     character.ny = character.y - 100
                 end
                 if character.animation.walking == false then
@@ -171,7 +159,9 @@ function characterUpdate(dt)
              elseif love.keyboard.isDown("down") and character.y%100 == 0 and character.y == character.ny and character.x%100 == 0 and character.x == character.nx  then
             character.delta = character.delta + dt
             if character.delta >= character.delay then
-                if character.ny ~= 500 and world.downMove==false then
+                character.py = character.y
+            character.px = character.x
+                if character.ny ~= 500 and world.downMove==false and character.count==false then
                     character.ny = character.y + 100
                 end
                 if character.animation.walking == false then
@@ -184,6 +174,8 @@ function characterUpdate(dt)
         else
             character.delta = 0
             characterStop()
+            character.py = character.y
+            character.px = character.x
             character.animation.sound:stop()
         end
     end
@@ -269,6 +261,31 @@ function character_run(dt)
         end
     end
 end
+function moveStageCheck()
+    if  character.x  < 400 and world.x ~= 0 then
+            world.leftMove = true
+        else
+            world.leftMove = false
+        end
+    
+        if character.x > 600 and world.x + screenWidth < world.width then  
+        world.rightMove = true
+        else
+       -- character.py = character.y
+    --character.px = character.x    
+        world.rightMove = false
+        end
+        if  character.y > 300 and world.y + screenHeight < world.height then
+            world.downMove = true
+        else
+            world.downMove = false
+        end
+        if  character.y  < 100 and world.y ~= 0 then
+            world.upMove = true
+        else
+            world.upMove = false
+        end
+    end
 --------------------characterDraw-----------------------------------------------
 function characterDraw()
     if character.disappear.disappearFlog==false then
@@ -279,17 +296,6 @@ function characterDraw()
         love.graphics.setColor(255,0,0,255)
         --love.graphics.rectangle("fill", 10, 10, character.hp*3, 5 )
     end
-   -- love.graphics.print(character.y, 100, 100 )
---    love.graphics.print(character.ny, 300, 100 )
-  --  love.graphics.print(character.x, 100, 150 )
---    love.graphics.print(character.nx, 300, 150 )
-  --  love.graphics.print(world.y, 700, 100 )
---    love.graphics.print(world.ny, 900, 100 )
-  --  love.graphics.print(world.x, 700, 150 )
---    love.graphics.print(world.nx, 900, 150 )
-  --  if world.rightMove == false then
-    --    love.graphics.print("false", 300, 200 )
---    end
 end
 
 --------------------walkCreate-----------------------------------------
