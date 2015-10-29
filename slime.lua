@@ -93,6 +93,7 @@ function slime:update(dt,charX,charY)
                         self.moveStep[self.moveIndex] = 4
                         self.nowY = self.nowY - 100
                     end
+                    attackCheck(charX,charY,self.nowX,self.nowY)
                 end
 
                 if self.moveIndex > table.getn(self.moveStep) then
@@ -113,9 +114,27 @@ function slime:getPositionY()
     return self.nowY
 end
 
-function slime:underAttack(damageBlood)
+function slime:underAttack(faceDir,damageBlood)
     self.hp = self.hp - damageBlood
     if self.hp <= 0 then
         self.alive = flase
+    end
+    self.timeTick = 0
+    if faceDir == "up" then
+        self.nowY = self.nowY - 100
+    elseif faceDir == "down" then
+        self.nowY = self.nowY + 100
+    elseif faceDir == "left" then
+        self.nowX = self.nowX - 100
+    elseif faceDir == "right" then
+        self.nowX = self.nowX + 100
+    end
+        
+end
+
+function attackCheck(charX,charY,slimeX,slimeY)
+    if slimeX == charX and slimeY == charY then
+        x = hpDecline(1)
+        print(x)
     end
 end
