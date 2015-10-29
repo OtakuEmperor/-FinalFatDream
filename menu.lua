@@ -46,7 +46,7 @@ function menu_draw()
             isOn1 = true
         end
         if love.mouse.isDown("l") then
-            gameStage = 3
+            gameStage = 2
         end
     else
         love.graphics.setColor(255, 68, 170, 255)

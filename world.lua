@@ -5,9 +5,12 @@ function world_load()
     require "benchboard"
     require "slime"
     require "barrierCreate"
-    monster1 = slime.new(700,500)
+    require "interface"
     monsters = {}
-    table.insert(monsters, monster1)
+    monsters[1] = slime.new(700,500)
+    monsters[2] = slime.new(1200,500)
+    fight_bgm = love.audio.newSource("audio/night.mp3", "stream")
+    interface_load()
     character_load()
     benchboard_load()
     barrierCreate()
@@ -16,15 +19,14 @@ end
 
 function world_update(dt)
     q3Trap[1]:update(dt)
-    monster1:update(dt,character.x+world.x,character.y+world.y)
     character_run(dt)
     character.py = character.y
     character.px = character.x
     moveStageCheck() 
     if world.x<world.nx and character.faceDir == "right" then
-            character.animation.walking = true 
+            character.animation.walking = true
             mapMove(character.Directions.Right, dt)
-           
+
     elseif world.x>world.nx and character.faceDir == "left" then
             character.animation.walking = true
             mapMove(character.Directions.Left, dt)
@@ -33,7 +35,7 @@ function world_update(dt)
             mapMove(character.Directions.Down, dt)
     elseif world.y>world.ny and character.faceDir == "up" then
             character.animation.walking = true
-            mapMove(character.Directions.Up, dt) 
+            mapMove(character.Directions.Up, dt)
     elseif love.keyboard.isDown("left") and world.y%100 == 0 and world.y == world.ny and world.x%100 == 0 and world.x == world.nx and world.leftMove==true  and character.y%100 == 0 and character.y == character.ny and character.x%100 == 0 and character.x == character.nx then
             world.delta = world.delta + dt
             if world.delta >= world.delay then
@@ -99,7 +101,9 @@ function world_update(dt)
             world.px = world.x
             character.animation.sound:stop()
         end
-   
+    for i, monster in ipairs(monsters) do
+        monster:update(dt,character.x+world.x,character.y+world.y)
+    end
 end
 
 function world_draw()
@@ -107,7 +111,10 @@ function world_draw()
     benchboard_draw()
     barrier_draw()
     triggerDraw()
-    -- monster_draw()
+    monster_draw()
+    interface_draw()
+    love.audio.setVolume(0.5)
+    fight_bgm:play()
 end
 
 function mapCreate()
@@ -183,7 +190,7 @@ end
 
 
 function mapMove(direction, dt)
-    
+
      if direction == character.animation.Directions.Down and question==false then
         if world.y < world.ny then
             character.animation.walking = true
@@ -196,10 +203,10 @@ function mapMove(direction, dt)
 
         end
         characterSetDirection( character.animation.Directions.Down)
-       
+
     end
 
-    
+
     if direction == character.animation.Directions.Left and question==false then
         if world.x > world.nx then
             character.animation.walking = true
@@ -215,7 +222,7 @@ function mapMove(direction, dt)
 
     end
 
-    
+
     if direction == character.animation.Directions.Right and question==false then
          if world.x < world.nx then
 
@@ -231,7 +238,7 @@ function mapMove(direction, dt)
 
     end
 
-    
+
     if direction == character.animation.Directions.Up and question==false then
         if world.y > world.ny then
 
@@ -245,7 +252,7 @@ function mapMove(direction, dt)
 
         end
         characterSetDirection( character.animation.Directions.Up)
-        
+
     end
 end
 
@@ -328,5 +335,16 @@ function barrier_draw()
         love.graphics.setColor(255,0,0)
         love.graphics.rectangle("fill", q3Trap[1].x-world.x+100,q3Trap[1].y-world.y+50 , q3Trap[2].x-q3Trap[1].x-100, 10 )
     end
-    love.graphics.draw(monster1.slimeImgFile, monster1.slimeQuads[monster1.moveStep[monster1.moveIndex]][monster1.animationIndex], monster1.nowX-world.x, monster1.nowY-world.y)
+end
+function monster_draw()
+    for i, monster in ipairs(monsters) do
+        if monster.alive then
+            if monster.underAttacking == true then
+                love.graphics.setColor(255,0,0)
+            else
+                love.graphics.setColor(255,255,255)
+            end
+            love.graphics.draw(monster.slimeImgFile, monster.slimeQuads[monster.moveStep[monster.moveIndex]][monster.animationIndex], monster.nowX-world.x, monster.nowY-world.y)
+        end
+    end
 end

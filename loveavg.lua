@@ -3,29 +3,35 @@
 -- who, says something, force go to dialog number, choose A, choose A go to dialog, choose B, choose B go to dialog, choose C, choose C go to dialog
 -- if something null please enter "nil" eg. nil,blah blah...
 -- if there is no force go to dialog, default is dialog_state +1
+loveavg = {}
 
-
-function love.load()
-    fat = love.graphics.newImage("img/fat.png")
+function loveavg_load()
+    fat = love.graphics.newImage("img/cg/fat.png")
     clicksound = love.audio.newSource("audio/click.wav", "stream")
-    class_light = love.graphics.newImage("img/class_light.jpg")
-    font = love.graphics.newFont("font/msjh.ttc", 25)
-    love.graphics.setFont(font)
-    file_data = love.filesystem.read("day1.dat", all)
-    dialog = {}
-    -- parse data
-    for i in string.gmatch(file_data, "%S+") do
-        table.insert(dialog, i)
-    end
+    night_bgm = love.audio.newSource("audio/平和のハンモック.mp3", "stream")
+    class_bgm = love.audio.newSource("audio/orange.mp3", "stream")
+    class_light = love.graphics.newImage("img/cg/class_light.jpg")
+    night = love.graphics.newImage("img/cg/night.jpg")
+    hallway_light = love.graphics.newImage("img/cg/hallway_light.jpg")
+    onefloor_light = love.graphics.newImage("img/cg/onefloor_light.jpg")
+    restaurant_light = love.graphics.newImage("img/cg/restaurant_light.jpg")
+    schoolroad_sunset = love.graphics.newImage("img/cg/schoolroad_sunset.jpg")
+    lovefont = love.graphics.newFont("font/msjh.ttc", 25)
     choose = {}
-    for i = 1, 999 do choose[i] = 0 end
     chooseLock = true
     dialogLock = false
+    day_state = 1
     dialog_state = 1
     choose_no = 0
+    file_data = love.filesystem.read(string.format("day%d.dat", day_state), all)
+    dialog = {}
+    -- parse data
+    for i in string.gmatch(file_data, "[^\n]+") do
+        table.insert(dialog, i)
+    end
 end
 
-function love.keypressed(key)
+function loveavg_keypressed(key)
     if not chooseLock then
         if love.keyboard.isDown("up") then
             clicksound:play()
@@ -70,14 +76,18 @@ function love.keypressed(key)
     end
 end
 
-function love.draw()
+function loveavg_draw()
     dialog_element = {}
-    love.graphics.draw(class_light, 0, 0, 0, 1092/class_light:getWidth(), 614/class_light:getHeight())
+    print_background(day_state, dialog_state)
+    play_bgm(day_state, dialog_state)
     for i in string.gmatch(dialog[dialog_state], "[^,]+") do
         table.insert(dialog_element, i)
     end
     ele_len = table.getn(dialog_element)
-
+    if ele_len == 1 and dialog_element[1] == "###" then
+        love.audio.stop()
+        gameStage = 3
+    end
     -- tachie
     if dialog_element[1] == "我" then
         tachie(fat, "left")
@@ -100,6 +110,7 @@ function love.draw()
 end
 
 function print_dialog(who, says)
+    love.graphics.setFont(lovefont)
     says_nd = ""
     if string.len(says) > 129 then
         says_nd = string.sub(says, 130)
@@ -122,10 +133,14 @@ function tachie(img, side)
 end
 
 function print_choose(n, dialog_n, a, b, c)
+    love.graphics.setFont(lovefont)
     chooseLock = false
     dialogLock = true
     -- choose
-    choose_no = dialog_n
+    choose_no = tonumber(string.format("%d%d", day_state, dialog_n))
+    if isempty(choose[choose_no]) then
+        choose[choose_no] = 0
+    end
     if n == 2 then
         choosehighlight(1, 2)
         love.graphics.rectangle("fill", 300, 80, 492, 50)
@@ -148,6 +163,48 @@ function print_choose(n, dialog_n, a, b, c)
         love.graphics.print(c,546-string.len(c)*4.2, 290)
         love.graphics.setColor(255, 255, 255, 255)
     end
+end
+
+function print_background(day, dialog)
+    if day == 1 then
+        if (1 <= dialog and dialog <= 13) or (167 <= dialog and dialog <= 182) then
+            bg = night
+        elseif (14 <= dialog and dialog <= 50) or (98 <= dialog and dialog <= 155)then
+            bg = class_light
+        elseif 51 <= dialog and dialog <= 77 then
+            bg = hallway_light
+        elseif 78 <= dialog and dialog <= 82 then
+            bg = onefloor_light
+        elseif 83 <= dialog and dialog <= 97 then
+            bg = restaurant_light
+        elseif 156 <= dialog and dialog <= 166 then
+            bg = schoolroad_sunset
+        end
+    end
+    love.graphics.draw(bg, 0, 0, 0, 1092/bg:getWidth(), 614/bg:getHeight())
+end
+
+function play_bgm(day, dialog)
+    if isempty(bgm) then
+        bgm_name = ""
+        bgm = night_bgm
+    end
+    if day == 1 then
+        if (1 <= dialog and dialog <= 13) or (167 <= dialog and dialog <= 182) then
+            if not (bgm_name == "night_bgm") then
+                love.audio.stop()
+                bgm = night_bgm
+                bgm_name = "night_bgm"
+            end
+        elseif 14 <= dialog and dialog <= 166 then
+            if not (bgm_name == "class_bgm") then
+                love.audio.stop()
+                bgm = class_bgm
+                bgm_name = "class_bgm"
+            end
+        end
+    end
+    bgm:play()
 end
 
 function choosehighlight(index, all)
