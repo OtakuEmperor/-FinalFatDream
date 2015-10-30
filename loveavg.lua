@@ -21,7 +21,7 @@ function loveavg_load()
     chooseLock = true
     dialogLock = false
     day_state = 1
-    dialog_state = 127
+    dialog_state = 1
     choose_no = 0
     file_data = love.filesystem.read(string.format("day%d.dat", day_state), all)
     dialog = {}
