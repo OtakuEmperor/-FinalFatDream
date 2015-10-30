@@ -17,13 +17,16 @@ function interface_load()
   --set day(true) or night(false)
   interface.dn = true
   --set wake
-  wake = 99.9
+  wake = 0
   --set key number
   interface.keyNum = 1
 end
 
 function interface_draw()
-  love.graphics.setBackgroundColor(255, 255, 255)
+    charHP = getHeroHP()
+    charMaxHP = getHeroMaxHP()
+    wake = (charMaxHP-((charHP/charMaxHP)*100))
+  love.graphics.setBackgroundColor(178, 203, 148)
   --draw wake
   love.graphics.setFont(love.graphics.newFont(36))
   love.graphics.setColor(255, 0, 0)

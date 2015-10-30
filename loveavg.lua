@@ -21,7 +21,7 @@ function loveavg_load()
     chooseLock = true
     dialogLock = false
     day_state = 1
-    dialog_state = 1
+    dialog_state = 127
     choose_no = 0
     file_data = love.filesystem.read(string.format("day%d.dat", day_state), all)
     dialog = {}
@@ -32,6 +32,16 @@ function loveavg_load()
 end
 
 function loveavg_keypressed(key)
+    if not dialogLock then
+        if love.keyboard.isDown(" ") then
+            clicksound:play()
+            if not isempty(dialog_element[3]) then
+                dialog_state = tonumber(dialog_element[3])
+            else
+                dialog_state = dialog_state + 1
+            end
+        end
+    end
     if not chooseLock then
         if love.keyboard.isDown("up") then
             clicksound:play()
@@ -48,29 +58,18 @@ function loveavg_keypressed(key)
             dialogLock = false
             if ele_len == 9 then
                 if choose[choose_no] % 3 == 0 then
-                    dialog_state = dialog_element[5]
+                    dialog_state = tonumber(dialog_element[5])
                 elseif choose[choose_no] % 3 == 1 then
-                    dialog_state = dialog_element[7]
+                    dialog_state = tonumber(dialog_element[7])
                 elseif choose[choose_no] % 3 == 2 then
-                    dialog_state = dialog_element[9]
+                    dialog_state = tonumber(dialog_element[9])
                 end
             elseif ele_len == 7 then
                 if choose[choose_no] % 2 == 0 then
-                    dialog_state = dialog_element[5]
+                    dialog_state = tonumber(dialog_element[5])
                 elseif choose[choose_no] % 2 == 1 then
-                    dialog_state = dialog_element[7]
+                    dialog_state = tonumber(dialog_element[7])
                 end
-            end
-        end
-    end
-
-    if not dialogLock then
-        if love.keyboard.isDown(" ") then
-            clicksound:play()
-            if not isempty(dialog_element[3]) then
-                dialog_state = tonumber(dialog_element[3])
-            else
-                dialog_state = dialog_state + 1
             end
         end
     end

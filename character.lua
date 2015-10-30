@@ -46,7 +46,8 @@ function characterCreate()
     character.temp=true
     character.px=characterX
     character.py=characterY
-    character.hp=100
+    character.maxHp=100
+    character.hp=99
     character.die=false
     character.speed = characterSpeed
     character.animation = walkCreate("img/hero.png", characterWidth, characterHeight, 4, 4)
@@ -345,4 +346,8 @@ end
 
 function getHeroHP()
     return character.hp
+end
+
+function getHeroMaxHP()
+    return character.maxHp
 end

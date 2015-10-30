@@ -11,6 +11,7 @@ function battle_load()
     iteration = 1
     atk = false
     timer = 0.1
+    atk_timeout = 1.1
     max = 6
     atk_range = 100
     -- sound load
@@ -21,7 +22,8 @@ end
 
 function battle_update(dt)
     -- attack sound
-    if atk == true then
+    atk_timeout = atk_timeout + dt
+    if atk == true and atk_timeout > 1 then
         hitSoundChoose = math.random(3)
         if hitSoundChoose == 1 then hitSound1:play()
         elseif hitSoundChoose == 2 then hitSound2:play()
@@ -29,6 +31,7 @@ function battle_update(dt)
         end
 
         -- attack animate
+        
         timer = timer + dt
         if timer > 0.05 then
             timer = 0.01
@@ -36,8 +39,11 @@ function battle_update(dt)
             if iteration > max then
                 atk = false
                 iteration = 1
+                atk_timeout = 0
             end
         end
+    else
+        atk = false
     end
 end
 
