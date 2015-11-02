@@ -202,6 +202,7 @@ function question1_update(dt)
                 block3=false
                 block4=false
                 q1delta = 0
+                addKey()
             end
         end
     end

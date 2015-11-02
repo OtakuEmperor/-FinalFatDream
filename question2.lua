@@ -137,6 +137,7 @@ function question2_update(dt)
         barHeight[i]=1
         end
         bar[1]=true
+        addKey()
     end
 end
 function question2_draw()

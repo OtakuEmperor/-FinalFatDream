@@ -95,7 +95,6 @@ function characterUpdate(dt)
     --end
 
     if character.die==false and question==false then
-        character.animation.sound:play()
         moveStageCheck()
         if character.x<character.nx and character.faceDir == "right" then
              character.animation.walking = true 
@@ -177,7 +176,6 @@ function characterUpdate(dt)
             end
 
         else
-            --character.delta = 0
             characterStop()
             character.py = character.y
             character.px = character.x
@@ -189,9 +187,9 @@ end
 -----------------characterMove----------------------------------------------
 function characterMove(direction, dt)
     if direction == character.animation.Directions.Down and question==false then
+        character.animation.sound:play()
         if character.y < character.ny then
             character.animation.walking = true
-            character.animation.sound:play()
             character.y = character.y + character.speed * dt
         end
         if character.y + character.speed * dt>character.ny then
@@ -201,9 +199,9 @@ function characterMove(direction, dt)
     end
     
     if direction == character.animation.Directions.Left and question==false then
+        character.animation.sound:play()
         if character.x > character.nx then
             character.animation.walking = true
-            character.animation.sound:play()
             character.x = character.x - character.speed * dt
         end
         if character.x - character.speed * dt<character.nx then
@@ -214,9 +212,9 @@ function characterMove(direction, dt)
     end
     
     if direction == character.animation.Directions.Right and question==false then
-         if character.x < character.nx then
+         character.animation.sound:play()
+        if character.x < character.nx then
             character.animation.walking = true
-            character.animation.sound:play()
             character.x = character.x + character.speed * dt
         end
         if character.x + character.speed * dt>character.nx then
@@ -227,9 +225,9 @@ function characterMove(direction, dt)
     end
     
     if direction == character.animation.Directions.Up and question==false then
+        character.animation.sound:play()
         if character.y > character.ny then
             character.animation.walking = true
-            character.animation.sound:play()
             character.y = character.y - character.speed * dt
         end
         if character.y - character.speed * dt<character.ny then

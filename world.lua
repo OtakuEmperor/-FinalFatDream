@@ -103,13 +103,13 @@ function world_update(dt)
                 character.faceDir = "down"
             end
         else
-            --world.delta = 0
             if world.y%100 == 0  and world.y == world.ny and world.x%100 == 0  and world.x == world.nx then
                 character_update(dt)
+            else
+                character.animation.sound:stop()
             end
             world.py = world.y
             world.px = world.x
-            character.animation.sound:stop()
         end
     end
     for i, monster in ipairs(monsters) do
@@ -203,9 +203,9 @@ end
 function mapMove(direction, dt)
 
      if direction == character.animation.Directions.Down and question==false then
+        character.animation.sound:play()
         if world.y < world.ny then
             character.animation.walking = true
-            character.animation.sound:play()
             world.y = world.y + world.speed * dt
         end
 
@@ -219,9 +219,9 @@ function mapMove(direction, dt)
 
 
     if direction == character.animation.Directions.Left and question==false then
+        character.animation.sound:play()
         if world.x > world.nx then
             character.animation.walking = true
-            character.animation.sound:play()
             world.x = world.x - world.speed * dt
         end
 
@@ -235,10 +235,9 @@ function mapMove(direction, dt)
 
 
     if direction == character.animation.Directions.Right and question==false then
-         if world.x < world.nx then
-
+        character.animation.sound:play() 
+        if world.x < world.nx then
             character.animation.walking = true
-            character.animation.sound:play()
             world.x = world.x + world.speed * dt
         end
         if world.x + world.speed * dt>world.nx then
@@ -251,10 +250,9 @@ function mapMove(direction, dt)
 
 
     if direction == character.animation.Directions.Up and question==false then
+        character.animation.sound:play()
         if world.y > world.ny then
-
             character.animation.walking = true
-            character.animation.sound:play()
             world.y = world.y - world.speed * dt
         end
 
@@ -279,8 +277,6 @@ function isBarrier(barrierX,barrierY)
         world.ny =world.py
         world.count=true
         character.count=true
-        character.animation.walking = true
-        character.animation.sound:play()
     else
         character.count=false
         world.count=false

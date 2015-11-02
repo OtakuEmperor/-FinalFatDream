@@ -59,6 +59,6 @@ function interface_draw()
 end
 
 --set amount of keys
-function setKey(keyNum)
-    interface.keyNum = keyNum
+function addKey()
+    interface.keyNum = interface.keyNum + 1
 end

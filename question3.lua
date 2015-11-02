@@ -241,6 +241,7 @@ function question3_update(dt)
             q3BlockNum[i] = 0
         end
         q3Block[1] = true
+        addKey()
     end
 end
 
