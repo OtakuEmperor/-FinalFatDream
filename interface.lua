@@ -16,10 +16,8 @@ function interface_load()
   interface.days = 1
   --set day(true) or night(false)
   interface.dn = true
-  --set wake
-  wake = 0
   --set key number
-  interface.keyNum = 1
+  interface.keyNum = 0
 end
 
 function interface_draw()
