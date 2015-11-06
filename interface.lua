@@ -18,9 +18,22 @@ function interface_load()
     interface.dn = true
     --set key number
     interface.keyNum = 0
+
+    interface.opacity = 100
 end
 
 function interface_draw()
+    --[[
+    --draw bleeding
+    if interface.opacity > 0 and isAttacked() then
+        interface.opacity = interface.opacity - 4
+        love.graphics.setColor(255, 0, 0, interface.opacity)
+        love.graphics.rectangle("fill", 0, 0, interface.width, interface.height)
+    else
+        interface.opacity = 100
+    end
+    ]]--
+
     charHP = getHeroHP()
     charMaxHP = getHeroMaxHP()
     wake = (charMaxHP-((charHP/charMaxHP)*100))
@@ -42,10 +55,10 @@ function interface_draw()
     end
     --draw water
     love.graphics.setColor(0, 0, 0, 127)--set opacity50
-    love.graphics.draw(interface.water, interface.width * (4/20), interface.height * (1/20))
+    love.graphics.draw(interface.water, interface.width * (4/20), interface.height * (9/160))
     --draw weapon
     love.graphics.setColor(0, 0, 0, 127)--set opacity50
-    love.graphics.draw(interface.weapon, interface.width * (4/20), interface.height * (1/8))
+    love.graphics.draw(interface.weapon, interface.width * (4/20), interface.height * (21/160))
     --draw days
     if interface.dn == true then
         love.graphics.setColor(0, 128, 255)
