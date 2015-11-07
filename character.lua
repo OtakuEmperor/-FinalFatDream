@@ -115,6 +115,7 @@ function characterUpdate(dt)
              characterSetDirection( character.animation.Directions.Up)
          elseif love.keyboard.isDown("left") and character.y%100 == 0 and character.y == character.ny and character.x%100 == 0 and character.x == character.nx then
             characterSetDirection( character.animation.Directions.Left)
+            character.faceDir = "left"
             character.delta = character.delta + dt
             if character.delta >= character.delay then
                 character.py = character.y
@@ -127,10 +128,10 @@ function characterUpdate(dt)
                     character.delta=0
                 end
                 characterMove(character.Directions.Left, dt)
-                character.faceDir = "left"
             end
              elseif love.keyboard.isDown("right") and character.y%100 == 0 and character.y == character.ny and character.x%100 == 0 and character.x == character.nx then
             characterSetDirection( character.animation.Directions.Right)
+            character.faceDir = "right"
             character.delta = character.delta + dt
             if character.delta >= character.delay then
                 character.py = character.y
@@ -142,10 +143,10 @@ function characterUpdate(dt)
                     character.delta=0
                 end
                 characterMove(character.Directions.Right, dt)
-                character.faceDir = "right"
             end
              elseif love.keyboard.isDown("up") and character.y%100 == 0 and character.y == character.ny and character.x%100 == 0 and character.x == character.nx  then
              characterSetDirection( character.animation.Directions.Up)
+            character.faceDir = "up"
             character.delta = character.delta + dt
             if character.delta >= character.delay then
                 character.py = character.y
@@ -157,10 +158,10 @@ function characterUpdate(dt)
                     character.delta=0
                 end
                 characterMove(character.Directions.Up, dt)
-                character.faceDir = "up"
             end
              elseif love.keyboard.isDown("down") and character.y%100 == 0 and character.y == character.ny and character.x%100 == 0 and character.x == character.nx  then
             characterSetDirection( character.animation.Directions.Down)
+            character.faceDir = "down"
             character.delta = character.delta + dt
             if character.delta >= character.delay then
                 character.py = character.y
@@ -172,7 +173,6 @@ function characterUpdate(dt)
                     character.delta=0
                 end
                 characterMove(character.Directions.Down, dt)
-                character.faceDir = "down"
             end
 
         else
