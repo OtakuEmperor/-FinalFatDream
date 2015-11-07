@@ -167,7 +167,7 @@ end
 
 function q2key.new (originPointX,originPointY)
     local obj = {
-        Image = love.graphics.newImage("img/tree.png"),
+        Image = love.graphics.newImage("img/hint.png"),
         Barrier=true,
         x = originPointX,
         y = originPointY
@@ -178,7 +178,7 @@ end
 
 function questionMark2.new (originPointX,originPointY)
     local obj = {
-        Image = love.graphics.newImage("img/tree.png"),
+        Image = love.graphics.newImage("img/puzzle.png"),
         Barrier=true,
         x = originPointX,
         y = originPointY

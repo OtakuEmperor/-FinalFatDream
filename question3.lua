@@ -335,7 +335,7 @@ end
 
 function q3key.new (originPointX,originPointY)
     local obj = {
-        Image = love.graphics.newImage("img/tree.png"),
+        Image = love.graphics.newImage("img/hint.png"),
         Barrier=true,
         x = originPointX,
         y = originPointY
@@ -345,7 +345,7 @@ function q3key.new (originPointX,originPointY)
 end
 function questionMark3.new (originPointX,originPointY)
     local obj = {
-        Image = love.graphics.newImage("img/tree.png"),
+        Image = love.graphics.newImage("img/puzzle.png"),
         Barrier=true,
         x = originPointX,
         y = originPointY

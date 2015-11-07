@@ -260,7 +260,7 @@ end
 
 function questionMark1.new (originPointX,originPointY)
     local obj = {
-        Image = love.graphics.newImage("img/tree.png"),
+        Image = love.graphics.newImage("img/hint.png"),
         Barrier=true,
         x = originPointX,
         y = originPointY
