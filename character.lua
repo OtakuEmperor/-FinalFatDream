@@ -32,7 +32,7 @@ function character_draw()
     love.graphics.setColor(255,255,255)
     characterDraw()
     battle_attack(character.x,character.y,character.faceDir)
-    
+
 end
 
 --------------------------characterCreat-----------------------------------
@@ -79,12 +79,12 @@ end
 function characterUpdate(dt)
    -- character_run(dt)
     world.py = world.y
-    world.px = world.x 
+    world.px = world.x
 
     if character.hp<=0 then
         character.die=true
     end
-    
+
     --if character.die==true then
       --  character.animation.characterImage = love.graphics.newImage("img/baddies.png")
         --character.disappear.count = character.disappear.count + dt
@@ -97,14 +97,14 @@ function characterUpdate(dt)
     if character.die==false and question==false then
         moveStageCheck()
         if character.x<character.nx and character.faceDir == "right" then
-             character.animation.walking = true 
+             character.animation.walking = true
             characterMove(character.Directions.Right, dt)
             characterSetDirection( character.animation.Directions.Right)
         elseif character.x>character.nx and character.faceDir == "left" then
             character.animation.walking = true
             characterMove(character.Directions.Left, dt)
             characterSetDirection( character.animation.Directions.Left)
-        
+
         elseif character.y<character.ny and character.faceDir == "down" then
             character.animation.walking = true
             characterMove(character.Directions.Down, dt)
@@ -121,7 +121,7 @@ function characterUpdate(dt)
             character.px = character.x
                 if character.nx ~= 0 and world.leftMove==false and character.count==false then
                     character.nx = character.x - 100
-                    
+
                 end
                 if character.animation.walking == false then
                     character.delta=0
@@ -195,9 +195,9 @@ function characterMove(direction, dt)
         if character.y + character.speed * dt>character.ny then
             character.y = character.ny
         end
-        
+
     end
-    
+
     if direction == character.animation.Directions.Left and question==false then
         character.animation.sound:play()
         if character.x > character.nx then
@@ -207,10 +207,10 @@ function characterMove(direction, dt)
         if character.x - character.speed * dt<character.nx then
             character.x = character.nx
         end
-        
-       
+
+
     end
-    
+
     if direction == character.animation.Directions.Right and question==false then
          character.animation.sound:play()
         if character.x < character.nx then
@@ -220,10 +220,10 @@ function characterMove(direction, dt)
         if character.x + character.speed * dt>character.nx then
             character.x = character.nx
         end
-        
-        
+
+
     end
-    
+
     if direction == character.animation.Directions.Up and question==false then
         character.animation.sound:play()
         if character.y > character.ny then
@@ -233,11 +233,11 @@ function characterMove(direction, dt)
         if character.y - character.speed * dt<character.ny then
             character.y = character.ny
         end
-       
-       
+
+
     end
 
-    
+
 end
 
 ----------------------characterSetDirection------------------------------------
@@ -250,7 +250,7 @@ end
 function characterStop()
     character.animation.walking = false
     if not character.animation.walking then
-        character.animation.nowFrame = 1 
+        character.animation.nowFrame = 1
     end
 end
 
@@ -269,12 +269,12 @@ function moveStageCheck()
         else
             world.leftMove = false
         end
-    
-        if character.x > 600 and world.x + screenWidth < world.width then  
+
+        if character.x > 600 and world.x + screenWidth < world.width then
         world.rightMove = true
         else
        -- character.py = character.y
-    --character.px = character.x    
+    --character.px = character.x
         world.rightMove = false
         end
         if  character.y > 300 and world.y + screenHeight < world.height then
@@ -344,6 +344,7 @@ end
 
 function hpDecline(hpDecrease)
     character.hp=character.hp-hpDecrease
+    interface.isAttacked = true
     return character.hp
 end
 

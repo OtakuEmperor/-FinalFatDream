@@ -18,21 +18,21 @@ function interface_load()
     interface.dn = true
     --set key number
     interface.keyNum = 0
-
+    --set bleeding opacity
     interface.opacity = 100
+    interface.isAttacked = false
 end
 
 function interface_draw()
-    --[[
     --draw bleeding
-    if interface.opacity > 0 and isAttacked() then
-        interface.opacity = interface.opacity - 4
+    if interface.opacity > 0 and interface.isAttacked == true then
+        interface.opacity = interface.opacity - 5
         love.graphics.setColor(255, 0, 0, interface.opacity)
         love.graphics.rectangle("fill", 0, 0, interface.width, interface.height)
     else
         interface.opacity = 100
+        interface.isAttacked = false
     end
-    ]]--
 
     charHP = getHeroHP()
     charMaxHP = getHeroMaxHP()
