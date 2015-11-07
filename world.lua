@@ -44,6 +44,7 @@ function world_update(dt)
             characterSetDirection( character.animation.Directions.Up)
     elseif love.keyboard.isDown("left") and world.y%100 == 0 and world.y == world.ny and world.x%100 == 0 and world.x == world.nx and world.leftMove==true  and character.y%100 == 0 and character.y == character.ny and character.x%100 == 0 and character.x == character.nx then
             characterSetDirection( character.animation.Directions.Left)
+            character.faceDir = "left"
             world.delta = world.delta + dt
             if world.delta >= world.delay then
             world.py = world.y
@@ -55,10 +56,10 @@ function world_update(dt)
                     character.delta=0
                 end
                 mapMove(character.Directions.Left, dt)
-                character.faceDir = "left"
             end
     elseif love.keyboard.isDown("right") and world.y%100 == 0 and world.y == world.ny and world.x%100 == 0 and world.x == world.nx and world.rightMove==true and character.y%100 == 0 and character.y == character.ny and character.x%100 == 0 and character.x == character.nx then
             characterSetDirection( character.animation.Directions.Right)
+            character.faceDir = "right"
             world.delta = world.delta + dt
             if world.delta >= world.delay then
             world.py = world.y
@@ -70,10 +71,10 @@ function world_update(dt)
                     world.delta=0
                 end
                 mapMove(character.Directions.Right, dt)
-                character.faceDir = "right"
             end
     elseif love.keyboard.isDown("up") and world.y%100 == 0 and world.y == world.ny and world.x%100 == 0 and world.x == world.nx and world.upMove==true and character.y%100 == 0 and character.y == character.ny and character.x%100 == 0 and character.x == character.nx then
             characterSetDirection( character.animation.Directions.Up)
+            character.faceDir = "up"
             world.delta = world.delta + dt
             if world.delta >= world.delay then
                 world.py = world.y
@@ -85,10 +86,10 @@ function world_update(dt)
                     world.delta=0
                 end
                 mapMove(character.Directions.Up, dt)
-                character.faceDir = "up"
             end
     elseif love.keyboard.isDown("down") and world.y%100 == 0 and world.y == world.ny and world.x%100 == 0 and world.x == world.nx and world.downMove==true and character.y%100 == 0 and character.y == character.ny and character.x%100 == 0 and character.x == character.nx then
             characterSetDirection( character.animation.Directions.Down)
+            character.faceDir = "down"
             world.delta = world.delta + dt
             if world.delta >= world.delay then
                 world.py = world.y
@@ -100,7 +101,6 @@ function world_update(dt)
                     world.delta=0
                 end
                 mapMove(character.Directions.Down, dt)
-                character.faceDir = "down"
             end
         else
             if world.y%100 == 0  and world.y == world.ny and world.x%100 == 0  and world.x == world.nx then
