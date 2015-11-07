@@ -24,6 +24,11 @@ function interface_load()
 end
 
 function interface_draw()
+
+    charHP = getHeroHP()
+    charMaxHP = getHeroMaxHP()
+    wake = (charMaxHP-((charHP/charMaxHP)*100))
+    love.graphics.setBackgroundColor(178, 203, 148)
     --draw bleeding
     if interface.opacity > 0 and interface.isAttacked == true then
         interface.opacity = interface.opacity - 5
@@ -33,11 +38,6 @@ function interface_draw()
         interface.opacity = 100
         interface.isAttacked = false
     end
-
-    charHP = getHeroHP()
-    charMaxHP = getHeroMaxHP()
-    wake = (charMaxHP-((charHP/charMaxHP)*100))
-    love.graphics.setBackgroundColor(178, 203, 148)
     --draw wake
     love.graphics.setFont(love.graphics.newFont(36))
     love.graphics.setColor(255, 0, 0)
