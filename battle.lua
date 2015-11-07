@@ -15,7 +15,7 @@ function battle_load()
     max = 6
     atk_range = 100
     -- sound load
-    hitSound1 = love.audio.newSource("audio/a1.ogg", "static")
+    hitSound1 = love.audio.newSource("audio/normalAttack.ogg", "static")
     hitSound2 = love.audio.newSource("audio/a2.ogg", "static")
     hitSound3 = love.audio.newSource("audio/a3.ogg", "static")
 end
@@ -26,8 +26,8 @@ function battle_update(dt)
     if atk == true and atk_timeout > 1 then
         hitSoundChoose = math.random(3)
         if hitSoundChoose == 1 then hitSound1:play()
-        elseif hitSoundChoose == 2 then hitSound2:play()
-        elseif hitSoundChoose == 3 then hitSound3:play()
+        elseif hitSoundChoose == 2 then hitSound1:play()
+        elseif hitSoundChoose == 3 then hitSound1:play()
         end
 
         -- attack animate

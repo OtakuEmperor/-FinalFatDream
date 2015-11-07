@@ -7,6 +7,7 @@ function newObject(o, class)
 end
 
 function slime.new (originPointX,originPointY)
+    underAttackBGM = love.audio.newSource("audio/slimeHit.ogg", "static")
     local guardMode = 1
     local attackMode = 2
     local slimeAnimaLength = 4 
@@ -117,6 +118,7 @@ function slime:getPositionY()
 end
 
 function slime:underAttack(faceDir,damageBlood)
+    underAttackBGM:play()
     self.underAttacking = true
     self.hp = self.hp - damageBlood
     if self.hp <= 0 then

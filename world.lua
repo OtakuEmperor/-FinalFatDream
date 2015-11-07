@@ -124,7 +124,7 @@ function world_draw()
     triggerDraw()
     monster_draw()
     interface_draw()
-    love.audio.setVolume(0.5)
+    love.audio.setVolume(0.8)
     fight_bgm:play()
 end
 
