@@ -61,6 +61,7 @@ function characterCreate()
     character.faceDir = "down"
     character.delay=0.15
     character.delta=0
+    charUnderAttack = love.audio.newSource("audio/charUnderAttack.wav", "static")
 end
 
 ------------------------characterLoad--------------------------------------
@@ -345,6 +346,8 @@ end
 function hpDecline(hpDecrease)
     character.hp=character.hp-hpDecrease
     interface.isAttacked = true
+    love.audio.setVolume(0.4)
+    charUnderAttack:play()
     return character.hp
 end
 
