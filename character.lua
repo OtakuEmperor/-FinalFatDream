@@ -358,3 +358,7 @@ end
 function getHeroMaxHP()
     return character.maxHp
 end
+
+function charaMoveBack(backFace)
+    
+end

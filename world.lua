@@ -281,8 +281,12 @@ function isBarrier(barrierX,barrierY)
         character.count=false
         world.count=false
     end
-    
- 
+    for i, monster in ipairs(monsters) do
+        if monster.nowX-world.x ==barrierX and monster.nowY-world.y == barrierY then
+            monster.nowX=monster.pastX
+            monster.nowY=monster.pastY
+        end
+    end
 end
 
 function barrier_draw()
