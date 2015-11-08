@@ -25,6 +25,8 @@ function slime.new (originPointX,originPointY)
         moveStep = {},
         nowX = originPointX,
         nowY = originPointY,
+        pastX = originPointX,
+        pastY = originPointY,
         keyPointX = originPointX,
         keyPointY = originPointY,
         healthPoint = 10,
@@ -69,15 +71,19 @@ function slime:update(dt,charX,charY)
                 end
                 if self.moveMode == 1 then
                     if self.moveStep[self.moveIndex] == 1 and (self.nowY-self.keyPointY<(100*self.alertRange)) then
+                        self.pastY = self.nowY
                         self.nowY = self.nowY + 100
                     end
                     if self.moveStep[self.moveIndex] == 2 and (self.keyPointY-self.nowY<(100*self.alertRange)) then
+                        self.pastY = self.nowY
                         self.nowY = self.nowY - 100
                     end
                     if self.moveStep[self.moveIndex] == 3 and (self.keyPointX-self.nowX<(100*self.alertRange))then
+                        self.pastX = self.nowX
                         self.nowX = self.nowX - 100
                     end
                     if self.moveStep[self.moveIndex] == 4 and (self.nowX-self.keyPointX<(100*self.alertRange))then
+                        self.pastX = self.nowX
                         self.nowX = self.nowX + 100
                     end
                     self.moveIndex = self.moveIndex + 1
@@ -85,15 +91,19 @@ function slime:update(dt,charX,charY)
                     self.lastMoveStep = self.moveStep[self.moveIndex]
                     if charX > self.nowX then
                         self.moveStep[self.moveIndex] = 1
+                        self.pastX = self.nowX
                         self.nowX = self.nowX + 100
                     elseif charX < self.nowX then
                         self.moveStep[self.moveIndex] = 2
+                        self.pastX = self.nowX
                         self.nowX = self.nowX - 100
                     elseif charY > self.nowY then
                         self.moveStep[self.moveIndex] = 3
+                        self.pastY = self.nowY
                         self.nowY = self.nowY + 100
                     elseif charY < self.nowY then
                         self.moveStep[self.moveIndex] = 4
+                        self.pastY = self.nowY
                         self.nowY = self.nowY - 100
                     end
                     attackCheck(charX,charY,self.nowX,self.nowY)
@@ -126,12 +136,16 @@ function slime:underAttack(faceDir,damageBlood)
     end
     self.timeTick = 0
     if faceDir == "up" then
+        self.pastY = self.nowY
         self.nowY = self.nowY - 100
     elseif faceDir == "down" then
+        self.pastY = self.nowY
         self.nowY = self.nowY + 100
     elseif faceDir == "left" then
+        self.pastX = self.nowX
         self.nowX = self.nowX - 100
     elseif faceDir == "right" then
+        self.pastX = self.nowX
         self.nowX = self.nowX + 100
     end
         
