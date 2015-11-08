@@ -7,6 +7,7 @@ local q3Block={}
 local q3BlockNum={}
 local delay=0.15
 local delta=0
+local trapDelta = 0
 -- this function is for OOP
 function newObject(o, class)
     class.__index = class
@@ -305,7 +306,7 @@ end
 
 function q3Trap.new (originPointX,originPointY)
     local obj = {
-        Image = love.graphics.newImage("img/tree.png"),
+        Image = love.graphics.newImage("img/fortLeft.png"),
         Barrier=true,
         x = originPointX,
         y = originPointY,
@@ -331,6 +332,7 @@ function q3Trap:update(dt)
             self.delta=0
         end
     end
+    trapAttack(dt,self.x,self.y,self.showBar)
 end
 
 function q3key.new (originPointX,originPointY)
@@ -352,4 +354,15 @@ function questionMark3.new (originPointX,originPointY)
     }
     obj = newObject(obj, questionMark3)
     return obj
+end
+
+function trapAttack(dt,trapX,trapY,showBar)
+    local charX = getHeroX()+world.x
+    local charY = getHeroY()+world.y
+        trapDelta = trapDelta + dt
+    if charX >=trapX and charX <= trapX+500 and showBar==true and charY == trapY and trapDelta >= 1 then
+        x = hpDecline(1)
+        print(x)
+        trapDelta=0
+    end
 end
