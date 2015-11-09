@@ -13,7 +13,7 @@ function interface_load()
     interface.width = love.graphics.getWidth()
     interface.height = love.graphics.getHeight()
     --set days
-    interface.days = 1
+    interface.days = 3
     --set day(true) or night(false)
     interface.dn = true
     --set key number
@@ -39,7 +39,7 @@ function interface_draw()
         interface.isAttacked = false
     end
     --draw wake
-    love.graphics.setFont(love.graphics.newFont(36))
+    love.graphics.setFont(love.graphics.newFont("font/FFFFORWA.TTF", 36))
     love.graphics.setColor(255, 0, 0)
     love.graphics.print(wake, interface.width * (1/20), interface.height * (1/20))
     --draw key
@@ -66,9 +66,9 @@ function interface_draw()
         love.graphics.setColor(0, 0, 0)
     end
     love.graphics.circle("fill", interface.width, 0, 70)
-    love.graphics.setFont(love.graphics.newFont(36))
+    love.graphics.setFont(love.graphics.newFont("font/FFFFORWA.TTF", 28))
     love.graphics.setColor(255, 255, 255)
-    love.graphics.print("D" .. interface.days, interface.width - 54, 0)
+    love.graphics.print("D" .. interface.days, interface.width - 48, 10)
 end
 
 --set amount of keys
