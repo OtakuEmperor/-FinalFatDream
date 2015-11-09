@@ -31,7 +31,7 @@ function menu_draw()
     piano:setVolume(0.5)
 
     --draw FPS
-    --love.graphics.print(tostring(love.timer.getFPS()), 5, 5)
+    love.graphics.print(tostring(love.timer.getFPS()), 5, 5)
     --draw sexy
     love.graphics.setColor(255, 255, 255, 255)
     love.graphics.draw(sexy, width/2 - 203, 20)

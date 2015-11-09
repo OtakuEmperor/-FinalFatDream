@@ -18,17 +18,17 @@ function interface_load()
     interface.dn = true
     --set key number
     interface.keyNum = 0
-    --set bleeding opacity
+    --set bleeding
     interface.opacity = 100
     interface.isAttacked = false
 end
 
 function interface_draw()
-
     charHP = getHeroHP()
     charMaxHP = getHeroMaxHP()
     wake = (charMaxHP-((charHP/charMaxHP)*100))
     love.graphics.setBackgroundColor(178, 203, 148)
+
     --draw bleeding
     if interface.opacity > 0 and interface.isAttacked == true then
         interface.opacity = interface.opacity - 5
