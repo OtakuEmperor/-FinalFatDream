@@ -31,7 +31,7 @@ function menu_draw()
     love.graphics.print(tostring(love.timer.getFPS()), 5, 5)
     --draw sexy
     love.graphics.setColor(255, 255, 255, 255)
-    love.graphics.draw(menu.sexy, menu.width/2 - 203, 20)
+    love.graphics.draw(menu.sexy, menu.width/2 - 450, 20)
     --draw start
     if love.mouse.getX() > menu.width/4 and love.mouse.getX() < (menu.width/4 + menu.width/2) and love.mouse.getY() > menu.height/2 and love.mouse.getY() <(menu.height/2 + menu.size*(5/4)) then
         love.graphics.setColor(255, 255, 255)
