@@ -153,7 +153,7 @@ function question1_update(dt)
                 selectR()
             end
             q1delta = 0
-		end  
+        end  
     end
     if love.keyboard.isDown("left") and question == true then
          --switch&case()
@@ -164,7 +164,7 @@ function question1_update(dt)
                 selectL()
             end
            q1delta = 0
-		end  
+        end  
     end
     if love.keyboard.isDown("up") and question == true then
          --switch&case()
@@ -175,7 +175,7 @@ function question1_update(dt)
                 selectU()
             end
             q1delta = 0
-		end  
+        end  
     end
     if love.keyboard.isDown("down") and question == true then
          --switch&case()
@@ -186,7 +186,7 @@ function question1_update(dt)
                 selectD()
             end
             q1delta = 0
-		end  
+        end  
     end
     if blockNum1 == 0 and blockNum2 == 9 then
         if blockNum3 == 0 and blockNum4 == 0 then

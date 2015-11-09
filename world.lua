@@ -2,7 +2,6 @@ world={}
 local screenWidth,screenHeight=love.graphics.getDimensions( )
 function world_load()
     require "character"
-    require "benchboard"
     require "slime"
     require "barrierCreate"
     require "interface"
@@ -12,7 +11,6 @@ function world_load()
     fight_bgm = love.audio.newSource("audio/night.mp3", "stream")
     interface_load()
     character_load()
-    benchboard_load()
     barrierCreate()
     mapCreate()
 end
@@ -25,7 +23,7 @@ function world_update(dt)
     character.py = character.y
     character.px = character.x
     if question==false then
-    moveStageCheck() 
+    moveStageCheck()
     if world.x<world.nx and character.faceDir == "right" then
             character.animation.walking = true
             mapMove(character.Directions.Right, dt)
@@ -48,7 +46,7 @@ function world_update(dt)
             world.delta = world.delta + dt
             if world.delta >= world.delay then
             world.py = world.y
-            world.px = world.x    
+            world.px = world.x
             if world.nx ~= 0 and world.count==false then
                     world.nx = world.x - 100
                 end
@@ -63,7 +61,7 @@ function world_update(dt)
             world.delta = world.delta + dt
             if world.delta >= world.delay then
             world.py = world.y
-            world.px = world.x    
+            world.px = world.x
             if world.nx ~= (world.width-1000) and world.count==false then
                     world.nx = world.x + 100
                 end
@@ -118,9 +116,8 @@ function world_update(dt)
 end
 
 function world_draw()
-    character_draw()
-    benchboard_draw()
     barrier_draw()
+    character_draw()
     triggerDraw()
     monster_draw()
     interface_draw()
@@ -197,6 +194,14 @@ function barrierCreate()
     forest[14] = forest.new(1900, 100)
     forest[15] = forest.new(1200, 1600)
     forest[16] = forest.new(900, 100)
+    --create grass
+    local counter = 1
+    for i = 0, 2000, 100 do
+        for j = 0, 2000, 100 do
+            grass[counter] = grass.new(i, j)
+            counter = counter + 1
+        end
+    end
 end
 
 
@@ -214,7 +219,7 @@ function mapMove(direction, dt)
             world.y = world.ny
 
         end
-        
+
 
     end
 
@@ -230,13 +235,13 @@ function mapMove(direction, dt)
             world.x = world.nx
 
         end
-        
+
 
     end
 
 
     if direction == character.animation.Directions.Right and question==false then
-        character.animation.sound:play() 
+        character.animation.sound:play()
         if world.x < world.nx then
             character.animation.walking = true
             world.x = world.x + world.speed * dt
@@ -245,7 +250,7 @@ function mapMove(direction, dt)
             world.x = world.nx
 
         end
-        
+
 
     end
 
@@ -261,7 +266,7 @@ function mapMove(direction, dt)
             world.y = world.ny
 
         end
-        
+
 
     end
 end
@@ -291,6 +296,13 @@ function isBarrier(barrierX,barrierY)
 end
 
 function barrier_draw()
+
+    for i=1,441 do
+        love.graphics.draw(grass[i].Image, grass[i].x-world.x, grass[i].y-world.y)
+        if grass[i].Barrier then
+            isBarrier(grass[i].x-world.x, grass[i].y-world.y)
+        end
+    end
     --draw stones
     for i=1,20 do
         love.graphics.draw(stone[i].Image, stone[i].x-world.x, stone[i].y-world.y)
