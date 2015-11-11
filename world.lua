@@ -183,6 +183,7 @@ function barrierCreate()
     stone[18] = stone.new(1500, 1200)
     stone[19] = stone.new(1600, 900)
     stone[20] = stone.new(1600, 1100)
+    stone[21] = stone.new(1700, 1900)
     --create forest
     forest[1] = forest.new(200, 100)
     forest[2] = forest.new(300, 1200)
@@ -200,6 +201,8 @@ function barrierCreate()
     forest[14] = forest.new(1900, 100)
     forest[15] = forest.new(1200, 1600)
     forest[16] = forest.new(900, 100)
+    forest[17] = forest.new(1900, 1900)
+    forest[18] = forest.new(2000, 1900)
     --create grass
     local counter = 1
     for i = 0, 2000, 100 do
@@ -310,14 +313,14 @@ function barrier_draw()
         end
     end
     --draw stones
-    for i=1,20 do
+    for i=1,21 do
         love.graphics.draw(stone[i].Image, stone[i].x-world.x, stone[i].y-world.y)
         if stone[i].Barrier then
             isBarrier(stone[i].x-world.x, stone[i].y-world.y)
         end
     end
     --draw forest
-    for i=1,16 do
+    for i=1,18 do
         love.graphics.draw(forest[i].Image, forest[i].x-world.x, forest[i].y-world.y)
         if forest[i].Barrier then
             isBarrier(forest[i].x-world.x, forest[i].y-world.y)
