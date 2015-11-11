@@ -155,5 +155,7 @@ function attackCheck(charX,charY,slimeX,slimeY)
     if slimeX == charX and slimeY == charY then
         x = hpDecline(1)
         print(x)
+        --test
+        --charaMoveBack("left")
     end
 end

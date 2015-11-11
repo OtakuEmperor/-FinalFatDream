@@ -360,5 +360,79 @@ function getHeroMaxHP()
 end
 
 function charaMoveBack(backFace)
-    
+    if world.leftMove == true and backFace == "left" then
+        characterSetDirection( character.animation.Directions.Right)
+        character.faceDir = "right"
+        world.py = world.y
+        world.px = world.x    
+        if world.nx ~= 0 and world.count==false then
+                world.nx = world.x - 100
+                world.x = world.nx
+        end
+    elseif world.rightMove == true and backFace == "right" then
+        characterSetDirection( character.animation.Directions.Left)
+        character.faceDir = "left"
+        world.py = world.y
+        world.px = world.x    
+        if world.nx ~= (world.width-1000) and world.count==false then
+                world.nx = world.x + 100
+                world.x = world.nx
+        end
+    elseif world.upMove == true and backFace == "up" then
+        characterSetDirection( character.animation.Directions.Down)
+        character.faceDir = "down"
+        world.py = world.y
+        world.px = world.x
+        if world.ny ~= 0 and world.count==false then
+            world.ny = world.y - 100
+            world.y = world.ny
+        end
+    elseif world.downMove == true and backFace == "down" then
+        characterSetDirection( character.animation.Directions.Up)
+        character.faceDir = "up"
+        world.py = world.y
+        world.px = world.x
+        if world.ny ~= (world.height-500) and world.count==false then
+            world.ny = world.y + 100
+            world.y = world.ny
+        end
+    else
+        if backFace == "left" then
+            characterSetDirection( character.animation.Directions.Right)
+            character.faceDir = "right"
+            character.py = character.y
+            character.px = character.x    
+            if character.nx ~= 0 and character.count==false then
+                character.nx = character.x - 100
+                character.x = character.nx
+            end
+        elseif backFace == "right" then
+            characterSetDirection( character.animation.Directions.Left)
+            character.faceDir = "left"
+            character.py = character.y
+            character.px = character.x    
+            if character.nx ~= 1000 and character.count==false then
+                character.nx = character.x + 100
+                character.x = character.nx
+            end
+        elseif backFace == "up" then
+            characterSetDirection( character.animation.Directions.Down)
+            character.faceDir = "down"
+            character.py = character.y
+            character.px = character.x
+            if character.ny ~= 0 and character.count==false then
+                character.ny = character.y - 100
+                character.y = character.ny
+            end
+        elseif backFace == "down" then
+            characterSetDirection( character.animation.Directions.Up)
+            character.faceDir = "up"
+            character.py = character.y
+            character.px = character.x
+            if character.ny ~= 500 and character.count==false then
+                character.ny = character.y + 100
+                character.y = character.ny
+            end
+        end
+    end
 end

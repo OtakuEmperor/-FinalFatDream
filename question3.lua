@@ -235,7 +235,7 @@ function question3_update(dt)
             delta = 0
 		end  
     end
-    if q3BlockNum[1] == 1 and q3BlockNum[2] == 2 and q3BlockNum[3] == 3 and q3BlockNum[4] == 4 and q3BlockNum[5] == 5 and q3BlockNum[6] == 6 and q3BlockNum[7] == 7 and q3BlockNum[8] == 8 and q3BlockNum[9] == 9 and q3BlockNum[10] == 0 and q3BlockNum[11] == 0 and q3BlockNum[12] == 1 and q3BlockNum[13] == 2 and q3BlockNum[14] == 3 and q3BlockNum[15] == 4 and q3BlockNum[16] == 5 and q3BlockNum[17] == 6 and q3BlockNum[18] == 7 and q3BlockNum[19] == 8 and q3BlockNum[20] == 9 then
+    if q3BlockNum[1] == 4 and q3BlockNum[2] == 3 and q3BlockNum[3] == 2 and q3BlockNum[4] == 1 and q3BlockNum[5] == 4 and q3BlockNum[6] == 2 and q3BlockNum[7] == 4 and q3BlockNum[8] == 1 and q3BlockNum[9] == 3 and q3BlockNum[10] == 3 and q3BlockNum[11] == 1 and q3BlockNum[12] == 5 and q3BlockNum[13] == 4 and q3BlockNum[14] == 2 and q3BlockNum[15] == 2 and q3BlockNum[16] == 3 and q3BlockNum[17] == 1 and q3BlockNum[18] == 4 and q3BlockNum[19] == 3 and q3BlockNum[20] == 4 then
         question=false
         for i=1,20 do
             q3Block[i] = false
