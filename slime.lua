@@ -14,7 +14,10 @@ function slime.new (originPointX,originPointY)
     local obj = {
         alive = true,
         hp = 10,
+        face = "left",
         underAttacking = false,
+        attacking = false,
+        attacking_cool_down = 0,
         slimeImgFile = love.graphics.newImage("img/slime.png"),
         slimeMoveSound = love.audio.newSource("audio/slime1.ogg", "static"),
         slimeQuads = {},
@@ -50,6 +53,17 @@ end
 function slime:update(dt,charX,charY)
     self.timeTick = self.timeTick + dt
     if self.alive == true then
+        if self.attacking == true then
+            self.attacking_cool_down = self.attacking_cool_down + dt
+        else
+            if slimeAttackCheck(charX,charY,self.nowX,self.nowY,self.face) then
+                self.attacking =true
+            end
+        end
+        if self.attacking_cool_down >1 then
+            self.attacking = false
+            self.attacking_cool_down = 0
+        end
         if self.timeTick > self.moveSpeed then
             self.underAttacking = false
             self.timeTick = 0 
@@ -73,18 +87,22 @@ function slime:update(dt,charX,charY)
                     if self.moveStep[self.moveIndex] == 1 and (self.nowY-self.keyPointY<(100*self.alertRange)) then
                         self.pastY = self.nowY
                         self.nowY = self.nowY + 100
+                        self.face = "down"
                     end
                     if self.moveStep[self.moveIndex] == 2 and (self.keyPointY-self.nowY<(100*self.alertRange)) then
                         self.pastY = self.nowY
                         self.nowY = self.nowY - 100
+                        self.face = "up"
                     end
                     if self.moveStep[self.moveIndex] == 3 and (self.keyPointX-self.nowX<(100*self.alertRange))then
                         self.pastX = self.nowX
                         self.nowX = self.nowX - 100
+                        self.face = "left"
                     end
                     if self.moveStep[self.moveIndex] == 4 and (self.nowX-self.keyPointX<(100*self.alertRange))then
                         self.pastX = self.nowX
                         self.nowX = self.nowX + 100
+                        self.face = "right"
                     end
                     self.moveIndex = self.moveIndex + 1
                 else
@@ -93,20 +111,23 @@ function slime:update(dt,charX,charY)
                         self.moveStep[self.moveIndex] = 1
                         self.pastX = self.nowX
                         self.nowX = self.nowX + 100
+                        self.face = "right"
                     elseif charX < self.nowX then
                         self.moveStep[self.moveIndex] = 2
                         self.pastX = self.nowX
                         self.nowX = self.nowX - 100
+                        self.face = "left"
                     elseif charY > self.nowY then
                         self.moveStep[self.moveIndex] = 3
                         self.pastY = self.nowY
                         self.nowY = self.nowY + 100
+                        self.face = "down"
                     elseif charY < self.nowY then
                         self.moveStep[self.moveIndex] = 4
                         self.pastY = self.nowY
                         self.nowY = self.nowY - 100
+                        self.face = "up"
                     end
-                    attackCheck(charX,charY,self.nowX,self.nowY)
                 end
 
                 if self.moveIndex > table.getn(self.moveStep) then
@@ -151,11 +172,12 @@ function slime:underAttack(faceDir,damageBlood)
         
 end
 
-function attackCheck(charX,charY,slimeX,slimeY)
+function slimeAttackCheck(charX,charY,slimeX,slimeY,slimeFace)
     if slimeX == charX and slimeY == charY then
-        x = hpDecline(1)
-        print(x)
-        --test
-        --charaMoveBack("left")
+        hpDecline(1)
+        charaMoveBack(slimeFace)
+        return true
+    else
+        return false
     end
 end
