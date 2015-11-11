@@ -1,9 +1,9 @@
 function love.load()
-    require "world"
     require "op"
     require "menu"
     require "loveavg"
     require "setting"
+    require "world"
     gameStage = 3
     isSet = false
         op_load()
