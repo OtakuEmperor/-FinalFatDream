@@ -19,6 +19,9 @@ function question1_load()
     blockNum4=0
     q1delay=0.15
     q1delta=0
+
+    q1_dialogLock = false
+    q1_dialog_state = 1
 end
 
 function question1_update(dt)
@@ -208,6 +211,15 @@ function question1_update(dt)
     end
 end
 
+function question1_keypressed(key)
+    if not q1_dialogLock then
+        if love.keyboard.isDown(" ") then
+            clicksound:play()
+            q1_dialog_state = q1_dialog_state + 1
+        end
+    end
+end
+
 function question1_draw()
     love.graphics.setColor(0,0,0,150)
     love.graphics.rectangle("fill", 0,0, 1100, 614)
@@ -255,7 +267,15 @@ function question1_draw()
     love.graphics.print(blockNum2, 420, 453)
     love.graphics.print(blockNum3, 620, 453)
     love.graphics.print(blockNum4, 820, 453)
-    
+
+
+    if q1_dialog_state == 1 then
+        print_dialog("AAA", "123")
+    elseif q1_dialog_state == 2 then
+        print_dialog("AAA", "456")
+    elseif q1_dialog_state == 3 then
+        q1_dialogLock = true
+    end
 end
 
 function questionMark1.new (originPointX,originPointY)

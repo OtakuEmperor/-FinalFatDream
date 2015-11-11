@@ -210,6 +210,9 @@ function barrierCreate()
     end
 end
 
+function world_keypressed(key)
+    question1_keypressed(key)
+end
 
 
 function mapMove(direction, dt)
