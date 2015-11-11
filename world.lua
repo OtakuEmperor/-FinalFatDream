@@ -221,7 +221,6 @@ function world_keypressed(key)
     question1_keypressed(key)
 end
 
-
 function mapMove(direction, dt)
 
      if direction == character.animation.Directions.Down and question==false then
