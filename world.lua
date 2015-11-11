@@ -4,11 +4,13 @@ function world_load()
     require "character"
     require "benchboard"
     require "slime"
+    require "boss1"
     require "barrierCreate"
     require "interface"
     monsters = {}
     monsters[1] = slime.new(700,500)
     monsters[2] = slime.new(1200,500)
+    monsters[3] = boss1.new(1000,700)
     fight_bgm = love.audio.newSource("audio/night.mp3", "stream")
     interface_load()
     character_load()
@@ -346,6 +348,9 @@ function monster_draw()
                 love.graphics.setColor(255,255,255)
             end
             love.graphics.draw(monster.slimeImgFile, monster.slimeQuads[monster.moveStep[monster.moveIndex]][monster.animationIndex], monster.nowX-world.x, monster.nowY-world.y)
+        end
+        if monster.isAttack then
+            monster:attack()
         end
     end
 end

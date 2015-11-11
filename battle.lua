@@ -23,7 +23,7 @@ end
 function battle_update(dt)
     -- attack sound
     atk_timeout = atk_timeout + dt
-    if atk == true and atk_timeout > 1 then
+    if atk == true and atk_timeout > 0.5 then
         hitSoundChoose = math.random(3)
         if hitSoundChoose == 1 then hitSound1:play()
         elseif hitSoundChoose == 2 then hitSound1:play()
@@ -31,11 +31,22 @@ function battle_update(dt)
         end
 
         -- attack animate
-        
         timer = timer + dt
         if timer > 0.05 then
             timer = 0.01
             iteration = iteration + 1
+            if iteration == 2 then
+                -- attack success?
+                abs_x = character.x + world.x
+                abs_y = character.y + world.y
+                for _, mon in ipairs(monsters) do
+                    mon_abs_x = mon:getPositionX()
+                    mon_abs_y = mon:getPositionY()
+                    if attackMonster(abs_x, abs_y, mon_abs_x, mon_abs_y, character.faceDir) then
+                        mon:underAttack(character.faceDir, 5)
+                    end
+                end
+            end
             if iteration > max then
                 atk = false
                 iteration = 1
@@ -49,16 +60,6 @@ end
 
 function battle_keyPress(key)
     if love.keyboard.isDown(" ") and not atk then
-        -- attack success?
-        abs_x = character.x + world.x
-        abs_y = character.y + world.y
-        for _, mon in ipairs(monsters) do
-            mon_abs_x = mon:getPositionX()
-            mon_abs_y = mon:getPositionY()
-            if attackMonster(abs_x, abs_y, mon_abs_x, mon_abs_y, character.faceDir) then
-                mon:underAttack(character.faceDir, 5)
-            end
-        end
         atk = true
     end
 end
