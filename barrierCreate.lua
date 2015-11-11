@@ -14,7 +14,10 @@ end
 function tree.new (originPointX,originPointY)
    local obj = {
         Image = love.graphics.newImage("img/tree.png"),
-        Barrier=true,
+        Barrier=false,
+        moveable=true,
+        nx= originPointX,
+        ny= originPointX,
         x = originPointX,
         y = originPointY
     }

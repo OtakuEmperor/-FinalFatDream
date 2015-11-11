@@ -3,17 +3,12 @@ local screenWidth,screenHeight=love.graphics.getDimensions( )
 function world_load()
     require "character"
     require "slime"
-    require "boss1"
     require "barrierCreate"
     require "interface"
-    require "kagemusha"
+    require "barrierMove"
     monsters = {}
     monsters[1] = slime.new(700,500)
     monsters[2] = slime.new(1200,500)
-    monsters[3] = boss1.new(1000,700)
-    monsters[4] = kagemusha.new(monsters[3], 1100, 700)
-    monsters[5] = kagemusha.new(monsters[3], 1100, 800)
-    monsters[6] = kagemusha.new(monsters[3], 1000, 800)
     fight_bgm = love.audio.newSource("audio/night.mp3", "stream")
     interface_load()
     character_load()
@@ -22,6 +17,7 @@ function world_load()
 end
 
 function world_update(dt)
+    barrierMove_update(dt)
     triggerUpdate(dt)
     triggerKeyPress(key)
     q3Trap[1]:update(dt)
@@ -124,9 +120,11 @@ end
 function world_draw()
     barrier_draw()
     character_draw()
+    trap_draw()
     triggerDraw()
     monster_draw()
     interface_draw()
+    --testdraw()
     love.audio.setVolume(0.8)
     fight_bgm:play()
 end
@@ -153,7 +151,7 @@ function mapCreate()
 end
 
 function barrierCreate()
-    tree[1] = tree.new(200,200)
+    tree[1] = tree.new(900,200)
     questionMark[1] = questionMark1.new(300,1300)
     q3Trap[1] = q3Trap.new(1600, 1800)
     q3Trap[2] = q3Trap.new(2000, 1800)
@@ -183,7 +181,6 @@ function barrierCreate()
     stone[18] = stone.new(1500, 1200)
     stone[19] = stone.new(1600, 900)
     stone[20] = stone.new(1600, 1100)
-    stone[21] = stone.new(1700, 1900)
     --create forest
     forest[1] = forest.new(200, 100)
     forest[2] = forest.new(300, 1200)
@@ -201,8 +198,6 @@ function barrierCreate()
     forest[14] = forest.new(1900, 100)
     forest[15] = forest.new(1200, 1600)
     forest[16] = forest.new(900, 100)
-    forest[17] = forest.new(1900, 1900)
-    forest[18] = forest.new(2000, 1900)
     --create grass
     local counter = 1
     for i = 0, 2000, 100 do
@@ -213,9 +208,6 @@ function barrierCreate()
     end
 end
 
-function world_keypressed(key)
-    question1_keypressed(key)
-end
 
 
 function mapMove(direction, dt)
@@ -305,6 +297,22 @@ function isBarrier(barrierX,barrierY)
             monster.nowY=monster.pastY
         end
     end
+    for i=1,1 do
+        tree[i].nx=getMoveableNx()
+        tree[i].ny=getMoveableNy()
+        if tree[i].nx-world.x > barrierX-100 and tree[i].nx-world.x < barrierX+100 and tree[i].ny-world.y > barrierY-100 and tree[i].ny-world.y < barrierY+100  then
+           -- tree[i].nx=getMoveablePx()
+            --tree[i].ny=getMoveablePy()
+            --changeMoveableN(tree[i].nx,tree[i].ny)
+            --tree[i].x=getMoveablePx()
+        --    tree[i].y=getMoveablePy()
+          --  changeMoveable(tree[i].x,tree[i].y)
+        --    tree[i].Barrier=true
+          --  tree[i].moveable=false
+        else
+ 
+        end
+    end
 end
 
 function barrier_draw()
@@ -316,14 +324,14 @@ function barrier_draw()
         end
     end
     --draw stones
-    for i=1,21 do
+    for i=1,20 do
         love.graphics.draw(stone[i].Image, stone[i].x-world.x, stone[i].y-world.y)
         if stone[i].Barrier then
             isBarrier(stone[i].x-world.x, stone[i].y-world.y)
         end
     end
     --draw forest
-    for i=1,18 do
+    for i=1,16 do
         love.graphics.draw(forest[i].Image, forest[i].x-world.x, forest[i].y-world.y)
         if forest[i].Barrier then
             isBarrier(forest[i].x-world.x, forest[i].y-world.y)
@@ -331,6 +339,11 @@ function barrier_draw()
     end
     for i=1,1 do
         love.graphics.draw(tree[i].Image,tree[i].x-world.x,tree[i].y-world.y)
+        if tree[i].moveable then
+            moveableBarrier(tree[i].x,tree[i].y)
+            tree[i].x=getMoveableX()
+            tree[i].y=getMoveableY()
+        end
         if tree[i].Barrier then
             isBarrier(tree[i].x-world.x,tree[i].y-world.y)
         end
@@ -356,10 +369,6 @@ function barrier_draw()
     if q2key.Barrier then
         isBarrier(q2key.x-world.x,q2key.y-world.y)
     end
-    if q3Trap[1].showBar == true then
-        love.graphics.setColor(255,0,0)
-        love.graphics.rectangle("fill", q3Trap[1].x-world.x+100,q3Trap[1].y-world.y+50 , q3Trap[2].x-q3Trap[1].x-100, 10 )
-    end
 end
 function monster_draw()
     for i, monster in ipairs(monsters) do
@@ -371,11 +380,11 @@ function monster_draw()
             end
             love.graphics.draw(monster.slimeImgFile, monster.slimeQuads[monster.moveStep[monster.moveIndex]][monster.animationIndex], monster.nowX-world.x, monster.nowY-world.y)
         end
-        if monster.isThunderBallAttack then
-            monster:thunder_ball_attack()
-        end
-        if monster.isWaveAttack then
-            monster:wave_attack()
-        end
+    end
+end
+function trap_draw()
+    if q3Trap[1].showBar == true then
+        love.graphics.setColor(255,0,0)
+        love.graphics.rectangle("fill", q3Trap[1].x-world.x+100,q3Trap[1].y-world.y+50 , q3Trap[2].x-q3Trap[1].x-100, 10 )
     end
 end
