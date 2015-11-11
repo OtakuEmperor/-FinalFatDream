@@ -6,10 +6,14 @@ function world_load()
     require "boss1"
     require "barrierCreate"
     require "interface"
+    require "kagemusha"
     monsters = {}
     monsters[1] = slime.new(700,500)
     monsters[2] = slime.new(1200,500)
     monsters[3] = boss1.new(1000,700)
+    monsters[4] = kagemusha.new(monsters[3], 1100, 700)
+    monsters[5] = kagemusha.new(monsters[3], 1100, 800)
+    monsters[6] = kagemusha.new(monsters[3], 1000, 800)
     fight_bgm = love.audio.newSource("audio/night.mp3", "stream")
     interface_load()
     character_load()
@@ -361,8 +365,11 @@ function monster_draw()
             end
             love.graphics.draw(monster.slimeImgFile, monster.slimeQuads[monster.moveStep[monster.moveIndex]][monster.animationIndex], monster.nowX-world.x, monster.nowY-world.y)
         end
-        if monster.isAttack then
-            monster:attack()
+        if monster.isThunderBallAttack then
+            monster:thunder_ball_attack()
+        end
+        if monster.isWaveAttack then
+            monster:wave_attack()
         end
     end
 end

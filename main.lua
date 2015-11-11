@@ -3,7 +3,7 @@ function love.load()
     require "op"
     require "menu"
     require "loveavg"
-    gameStage = 0
+    gameStage = 1
         op_load()
         menu_load()
         world_load()
