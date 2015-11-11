@@ -13,7 +13,7 @@ function interface_load()
     interface.width = love.graphics.getWidth()
     interface.height = love.graphics.getHeight()
     --set days
-    interface.days = 3
+    interface.days = 1
     --set day(true) or night(false)
     interface.dn = true
     --set key number
@@ -38,10 +38,12 @@ function interface_draw()
         interface.opacity = 100
         interface.isAttacked = false
     end
+
     --draw wake
     love.graphics.setFont(love.graphics.newFont("font/FFFFORWA.TTF", 36))
     love.graphics.setColor(255, 0, 0)
     love.graphics.print(wake, interface.width * (1/20), interface.height * (1/20))
+
     --draw key
     if interface.keyNum == 1 then
         love.graphics.draw(interface.key, interface.width * (9/200), interface.height * (1/8))

@@ -3,7 +3,7 @@ function love.load()
     require "op"
     require "menu"
     require "loveavg"
-    gameStage = 0
+    gameStage = 3
         op_load()
         menu_load()
         world_load()
@@ -21,6 +21,8 @@ end
 function love.keypressed(key)
     if gameStage == 2 then
         loveavg_keypressed(key)
+    elseif gameStage == 3 then
+        world_keypressed(key)
     end
 end
 
