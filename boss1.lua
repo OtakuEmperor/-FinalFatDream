@@ -221,7 +221,7 @@ function boss1:wave_attack()
 end
 
 function boss1_attack_check(charX,charY,boss1X,boss1Y)
-    if boss1X <= charX and charX <= boss1X + 100  and boss1Y <= charY and charY <= boss1Y + 100 then
+    if boss1X <= charX and charX <= boss1X + 100  and boss1Y <= charY and charY <= boss1Y + 100 and self.alive then
         x = hpDecline(1)
         return true
     else
