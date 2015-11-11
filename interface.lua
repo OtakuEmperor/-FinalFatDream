@@ -56,7 +56,7 @@ function interface_draw()
         love.graphics.draw(interface.key, interface.width * (9/200) + 32, interface.height * (1/8))
         love.graphics.draw(interface.key, interface.width * (9/200) + 64, interface.height * (1/8))
         if interface.questionLock == false then
-            boss1.summon()
+            monster[3]:summon()
             interface.questionLock = true
         end
     end
