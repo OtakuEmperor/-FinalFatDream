@@ -30,7 +30,7 @@ function boss1.new (originPointX,originPointY)
         thunder_ball_cool_down = 1,
         wave_cool_down = 1,
         attacking_cool_down=0,
-        alive = true,
+        alive = false,
         hp = 50,
         underAttacking = false,
         slimeImgFile = love.graphics.newImage("img/boss1.png"),
@@ -232,4 +232,8 @@ end
 function boss1:changeAtkXY(x, y)
     self.thunder_ball_x = x
     self.thunder_ball_y = y
+end
+
+function boss1:summon()
+    self.alive = true
 end
