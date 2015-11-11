@@ -21,6 +21,7 @@ function interface_load()
     --set bleeding
     interface.opacity = 100
     interface.isAttacked = false
+    interface.questionLock = false
 end
 
 function interface_draw()
@@ -54,6 +55,10 @@ function interface_draw()
         love.graphics.draw(interface.key, interface.width * (9/200), interface.height * (1/8))
         love.graphics.draw(interface.key, interface.width * (9/200) + 32, interface.height * (1/8))
         love.graphics.draw(interface.key, interface.width * (9/200) + 64, interface.height * (1/8))
+        if interface.questionLock == false then
+            boss1.summon()
+            interface.questionLock = true
+        end
     end
     --draw water
     love.graphics.setColor(0, 0, 0, 127)--set opacity50

@@ -24,6 +24,9 @@ function question3_load()
         q3BlockNum[i] = 0
     end
     q3Block[1] = true
+    
+    q3_dialogLock = true
+    q3_dialog_state = 1
 end
 
 function question3_update(dt)
@@ -90,7 +93,7 @@ function question3_update(dt)
                 selectR()
             end
             delta = 0
-		end  
+        end  
     end
     if love.keyboard.isDown("left") and question == true then
          --switch&case()
@@ -101,7 +104,7 @@ function question3_update(dt)
                 selectL()
             end
             delta = 0
-		end  
+        end  
     end
     if love.keyboard.isDown("up") and question == true then
          --switch&case()
@@ -112,7 +115,7 @@ function question3_update(dt)
                 selectU()
             end
             delta = 0
-		end  
+        end  
     end
     if love.keyboard.isDown("down") and question == true then
          --switch&case()
@@ -123,7 +126,7 @@ function question3_update(dt)
                 selectD()
             end
             delta = 0
-		end  
+        end  
     end
     if love.keyboard.isDown("9") and question == true then
         delta = delta + dt
@@ -134,7 +137,7 @@ function question3_update(dt)
                 selectR()
             end
             delta = 0
-		end  
+        end  
     end
     if love.keyboard.isDown("8") and question == true then
         delta = delta + dt
@@ -145,7 +148,7 @@ function question3_update(dt)
                 selectR()
             end
             delta = 0
-		end  
+        end  
     end
     if love.keyboard.isDown("7") and question == true then
         delta = delta + dt
@@ -156,7 +159,7 @@ function question3_update(dt)
                 selectR()
             end
             delta = 0
-		end  
+        end  
     end
     if love.keyboard.isDown("6") and question == true then
         delta = delta + dt
@@ -167,7 +170,7 @@ function question3_update(dt)
                 selectR()
             end
             delta = 0
-		end  
+        end  
     end
     if love.keyboard.isDown("5") and question == true then
         delta = delta + dt
@@ -178,7 +181,7 @@ function question3_update(dt)
                 selectR()
             end
             delta = 0
-		end  
+        end  
     end
     if love.keyboard.isDown("4") and question == true then
         delta = delta + dt
@@ -189,7 +192,7 @@ function question3_update(dt)
                 selectR()
             end
             delta = 0
-		end  
+        end  
     end
     if love.keyboard.isDown("3") and question == true then
         delta = delta + dt
@@ -200,7 +203,7 @@ function question3_update(dt)
                 selectR()
             end
             delta = 0
-		end  
+        end  
     end
     if love.keyboard.isDown("2") and question == true then
         delta = delta + dt
@@ -211,7 +214,7 @@ function question3_update(dt)
                 selectR()
             end
             delta = 0
-		end  
+        end  
     end
     if love.keyboard.isDown("1") and question == true then
         delta = delta + dt
@@ -222,7 +225,7 @@ function question3_update(dt)
                 selectR()
             end
             delta = 0
-		end  
+        end  
     end
     if love.keyboard.isDown("0") and question == true then
         delta = delta + dt
@@ -233,7 +236,7 @@ function question3_update(dt)
                 selectR()
             end
             delta = 0
-		end  
+        end  
     end
     if q3BlockNum[1] == 4 and q3BlockNum[2] == 3 and q3BlockNum[3] == 2 and q3BlockNum[4] == 1 and q3BlockNum[5] == 4 and q3BlockNum[6] == 2 and q3BlockNum[7] == 4 and q3BlockNum[8] == 1 and q3BlockNum[9] == 3 and q3BlockNum[10] == 3 and q3BlockNum[11] == 1 and q3BlockNum[12] == 5 and q3BlockNum[13] == 4 and q3BlockNum[14] == 2 and q3BlockNum[15] == 2 and q3BlockNum[16] == 3 and q3BlockNum[17] == 1 and q3BlockNum[18] == 4 and q3BlockNum[19] == 3 and q3BlockNum[20] == 4 then
         question=false
@@ -246,6 +249,15 @@ function question3_update(dt)
     end
 end
 
+function question3_keypressed(key)
+    if not q3_dialogLock then
+        if love.keyboard.isDown(" ") then
+            clicksound:play()
+            q3_dialog_state = q3_dialog_state + 1
+        end
+    end
+end
+
 function question3_draw()
     local blockWidth=60
     local blockHeight=60
@@ -255,6 +267,15 @@ function question3_draw()
     if showQ3Answer == true then
         love.graphics.draw(q3KeyImage, (1100-keyWidth)/2, (614-keyHeight)/2, 0)
         love.graphics.setColor(255,255,255)
+        if q3_dialog_state == 1 then
+            print_dialog("", "Lucky 考卷的答案")
+        elseif q3_dialog_state == 2 then
+            print_dialog("", "接下來只要填到對面的答案券上就好了吧")
+        elseif q3_dialog_state == 3 then
+            print_dialog("", "恩......")
+        elseif q3_dialog_state == 4 then
+            q3_dialogLock = true
+        end
     else
         love.graphics.draw(questionImage3, 0, 0,0,1100/imageWidth3,614/imageHeight3)
         for i=1,5 do

@@ -270,10 +270,12 @@ function question1_draw()
 
 
     if q1_dialog_state == 1 then
-        print_dialog("AAA", "123")
+        print_dialog("", "減法？這是什麼低智商的問題")
     elseif q1_dialog_state == 2 then
-        print_dialog("AAA", "456")
+        print_dialog("", "對資工系的我來說這跟本是小兒科")
     elseif q1_dialog_state == 3 then
+        print_dialog("", "資工系．．．．．．？")
+    elseif q1_dialog_state == 4 then
         q1_dialogLock = true
     end
 end

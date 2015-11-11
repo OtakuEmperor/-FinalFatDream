@@ -127,8 +127,8 @@ function world_draw()
     barrier_draw()
     character_draw()
     trap_draw()
-    triggerDraw()
     monster_draw()
+    triggerDraw()
     interface_draw()
     --testdraw()
     love.audio.setVolume(0.8)
@@ -219,6 +219,9 @@ end
 
 function world_keypressed(key)
     question1_keypressed(key)
+    question2_keypressedKey(key)
+    question2_keypressedLine(key)
+    question3_keypressed(key)
 end
 
 

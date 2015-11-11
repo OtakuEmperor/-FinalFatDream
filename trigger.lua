@@ -26,18 +26,24 @@ function triggerKeyPress(dt)
                 if (character.x+world.x+100)==questionMark[i].x and (character.y+world.y)== questionMark[i].y then
                     question = true
                     questionNum=i
-                    q1_dialogLock = false
+                    if i == 1 then
+                        q1_dialogLock = false
+                    elseif i == 2 then
+                        q2_dialogLockLine = false
+                    end
                 end
             end
             if (character.x+world.x+100)==q2key.x and (character.y+world.y)== q2key.y then
                 question = true
                 questionNum=2
                 showKey = true
+                q2_dialogLockKey = false
             end
             if (character.x+world.x+100)==q3key.x and (character.y+world.y)== q3key.y then
                 question = true
                 questionNum=3
                 showQ3Answer = true
+                q3_dialogLock = false
             end
         end,
         ["left"] = function()    -- for case 2
@@ -45,19 +51,25 @@ function triggerKeyPress(dt)
                 if (character.x+world.x-100)==questionMark[i].x and (character.y+world.y)== questionMark[i].y then
                     question = true
                     questionNum=i
-                    q1_dialogLock = false
+                    if i == 1 then
+                        q1_dialogLock = false
+                    elseif i == 2 then
+                        q2_dialogLockLine = false
+                    end
                 end
             end
             if (character.x+world.x-100)==q2key.x and (character.y+world.y)== q2key.y then
                 question = true
                 questionNum=2
                 showKey = true
+                q2_dialogLockKey = false
             end
             
             if (character.x+world.x-100)==q3key.x and (character.y+world.y)== q3key.y then
                 question = true
                 questionNum=3
                 showQ3Answer = true
+                q3_dialogLock = false
             end
 
         end,
@@ -66,19 +78,25 @@ function triggerKeyPress(dt)
                 if (character.x+world.x)==questionMark[i].x and (character.y+world.y+100)== questionMark[i].y then
                     question = true
                     questionNum=i
-                    q1_dialogLock = false
+                    if i == 1 then
+                        q1_dialogLock = false
+                    elseif i == 2 then
+                        q2_dialogLockLine = false
+                    end
                 end
             end
             if (character.x+world.x)==q2key.x and (character.y+world.y+100)== q2key.y then
                 question = true
                 questionNum=2
                 showKey = true
+                q2_dialogLockKey = false
             end
             
             if (character.x+world.x)==q3key.x and (character.y+world.y+100)== q3key.y then
                 question = true
                 questionNum=3
                 showQ3Answer = true
+                q3_dialogLock = false
             end
             
         end,
@@ -87,18 +105,24 @@ function triggerKeyPress(dt)
                 if (character.x+world.x)==questionMark[i].x and (character.y+world.y-100)== questionMark[i].y then
                     question = true
                     questionNum=i
-                    q1_dialogLock = false
+                    if i == 1 then
+                        q1_dialogLock = false
+                    elseif i == 2 then
+                        q2_dialogLockLine = false
+                    end
                 end
             end
             if (character.x+world.x)==q2key.x and (character.y+world.y-100)== q2key.y then
                 question = true
                 questionNum=2
                 showKey = true
+                q2_dialogLockKey = false
             end
             if (character.x+world.x)==q3key.x and (character.y+world.y-100)== q3key.y then
                 question = true
                 questionNum=3
                 showQ3Answer = true
+                q3_dialogLock = false
             end
         end
     }
