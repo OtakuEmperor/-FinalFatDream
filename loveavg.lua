@@ -215,4 +215,18 @@ function choosehighlight(index, all)
 end
 
 function isempty(s)
-    return s == nil or s == '' or s == 'nil'end
+    return s == nil or s == '' or s == 'nil'
+end
+
+function loveSave()
+    return {choose, chooseLock, dialogLock, day_state, dialog_state, choose_no}
+end
+
+function loveLoad(data)
+    choose = data[1]
+    chooseLock = data[2]
+    dialogLock = data[3]
+    day_state = data[4]
+    dialog_state = data[5]
+    choose_no = data[6]
+end

@@ -233,3 +233,7 @@ function boss1:changeAtkXY(x, y)
     self.thunder_ball_x = x
     self.thunder_ball_y = y
 end
+
+function boss1:summon()
+    self.alive = true
+end
