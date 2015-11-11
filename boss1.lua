@@ -98,7 +98,7 @@ function boss1:update(dt,charX,charY)
     if self.attacking == true then
         self.attacking_cool_down = self.attacking_cool_down + dt
     else
-        if boss1_attack_check(charX,charY,self.nowX,self.nowY) then
+        if self:attack_check(charX,charY,self.nowX,self.nowY) then
             self.attacking =true
         end
     end
@@ -220,8 +220,8 @@ function boss1:wave_attack()
     love.graphics.draw(self.wave_img, self.wave_quads[8][self.wave_index], self.nowX-world.x+200, self.nowY-world.y+200)
 end
 
-function boss1_attack_check(charX,charY,boss1X,boss1Y)
-    if boss1X <= charX and charX <= boss1X + 100  and boss1Y <= charY and charY <= boss1Y + 100 then
+function boss1:attack_check(charX,charY,boss1X,boss1Y)
+    if boss1X <= charX and charX <= boss1X + 100  and boss1Y <= charY and charY <= boss1Y + 100 and self.alive then
         x = hpDecline(1)
         return true
     else
