@@ -246,6 +246,7 @@ function question3_update(dt)
         end
         q3Block[1] = true
         addKey()
+        sloveProblem:play()
     end
 end
 

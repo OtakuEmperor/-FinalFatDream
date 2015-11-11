@@ -143,6 +143,7 @@ function question2_update(dt)
         end
         bar[1]=true
         addKey()
+        sloveProblem:play()
     end
 end
 

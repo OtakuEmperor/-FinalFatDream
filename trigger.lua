@@ -8,6 +8,7 @@ function triggerLoad()
     question1_load()
     question2_load()
     question3_load()
+    sloveProblem = love.audio.newSource("audio/sloveProblem.ogg", "static")
 end
 
 function triggerUpdate(dt)

@@ -206,6 +206,7 @@ function question1_update(dt)
                 block4=false
                 q1delta = 0
                 addKey()
+                sloveProblem:play()
             end
         end
     end
