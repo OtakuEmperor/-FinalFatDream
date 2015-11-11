@@ -26,6 +26,7 @@ function triggerKeyPress(dt)
                 if (character.x+world.x+100)==questionMark[i].x and (character.y+world.y)== questionMark[i].y then
                     question = true
                     questionNum=i
+                    q1_dialogLock = false
                 end
             end
             if (character.x+world.x+100)==q2key.x and (character.y+world.y)== q2key.y then
@@ -44,6 +45,7 @@ function triggerKeyPress(dt)
                 if (character.x+world.x-100)==questionMark[i].x and (character.y+world.y)== questionMark[i].y then
                     question = true
                     questionNum=i
+                    q1_dialogLock = false
                 end
             end
             if (character.x+world.x-100)==q2key.x and (character.y+world.y)== q2key.y then
@@ -64,6 +66,7 @@ function triggerKeyPress(dt)
                 if (character.x+world.x)==questionMark[i].x and (character.y+world.y+100)== questionMark[i].y then
                     question = true
                     questionNum=i
+                    q1_dialogLock = false
                 end
             end
             if (character.x+world.x)==q2key.x and (character.y+world.y+100)== q2key.y then
@@ -84,6 +87,7 @@ function triggerKeyPress(dt)
                 if (character.x+world.x)==questionMark[i].x and (character.y+world.y-100)== questionMark[i].y then
                     question = true
                     questionNum=i
+                    q1_dialogLock = false
                 end
             end
             if (character.x+world.x)==q2key.x and (character.y+world.y-100)== q2key.y then

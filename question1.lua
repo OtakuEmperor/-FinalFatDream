@@ -20,7 +20,7 @@ function question1_load()
     q1delay=0.15
     q1delta=0
 
-    q1_dialogLock = false
+    q1_dialogLock = true
     q1_dialog_state = 1
 end
 
