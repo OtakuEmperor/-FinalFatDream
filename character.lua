@@ -115,6 +115,7 @@ function characterUpdate(dt)
             characterMove(character.Directions.Up, dt)
              characterSetDirection( character.animation.Directions.Up)
          elseif love.keyboard.isDown("left") and character.y%100 == 0 and character.y == character.ny and character.x%100 == 0 and character.x == character.nx then
+            character.animation.walking = true
             characterSetDirection( character.animation.Directions.Left)
             character.faceDir = "left"
             character.delta = character.delta + dt
@@ -131,6 +132,7 @@ function characterUpdate(dt)
                 characterMove(character.Directions.Left, dt)
             end
              elseif love.keyboard.isDown("right") and character.y%100 == 0 and character.y == character.ny and character.x%100 == 0 and character.x == character.nx then
+            character.animation.walking = true
             characterSetDirection( character.animation.Directions.Right)
             character.faceDir = "right"
             character.delta = character.delta + dt
@@ -146,7 +148,8 @@ function characterUpdate(dt)
                 characterMove(character.Directions.Right, dt)
             end
              elseif love.keyboard.isDown("up") and character.y%100 == 0 and character.y == character.ny and character.x%100 == 0 and character.x == character.nx  then
-             characterSetDirection( character.animation.Directions.Up)
+            character.animation.walking = true 
+            characterSetDirection( character.animation.Directions.Up)
             character.faceDir = "up"
             character.delta = character.delta + dt
             if character.delta >= character.delay then
@@ -161,6 +164,7 @@ function characterUpdate(dt)
                 characterMove(character.Directions.Up, dt)
             end
              elseif love.keyboard.isDown("down") and character.y%100 == 0 and character.y == character.ny and character.x%100 == 0 and character.x == character.nx  then
+            character.animation.walking = true
             characterSetDirection( character.animation.Directions.Down)
             character.faceDir = "down"
             character.delta = character.delta + dt

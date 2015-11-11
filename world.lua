@@ -5,6 +5,7 @@ function world_load()
     require "slime"
     require "barrierCreate"
     require "interface"
+    require "barrierMove"
     monsters = {}
     monsters[1] = slime.new(700,500)
     monsters[2] = slime.new(1200,500)
@@ -16,6 +17,7 @@ function world_load()
 end
 
 function world_update(dt)
+    barrierMove_update(dt)
     triggerUpdate(dt)
     triggerKeyPress(key)
     q3Trap[1]:update(dt)
@@ -118,9 +120,11 @@ end
 function world_draw()
     barrier_draw()
     character_draw()
+    trap_draw()
     triggerDraw()
     monster_draw()
     interface_draw()
+    --testdraw()
     love.audio.setVolume(0.8)
     fight_bgm:play()
 end
@@ -147,7 +151,7 @@ function mapCreate()
 end
 
 function barrierCreate()
-    tree[1] = tree.new(200,200)
+    tree[1] = tree.new(900,200)
     questionMark[1] = questionMark1.new(300,1300)
     q3Trap[1] = q3Trap.new(1600, 1800)
     q3Trap[2] = q3Trap.new(2000, 1800)
@@ -293,6 +297,22 @@ function isBarrier(barrierX,barrierY)
             monster.nowY=monster.pastY
         end
     end
+    for i=1,1 do
+        tree[i].nx=getMoveableNx()
+        tree[i].ny=getMoveableNy()
+        if tree[i].nx-world.x > barrierX-100 and tree[i].nx-world.x < barrierX+100 and tree[i].ny-world.y > barrierY-100 and tree[i].ny-world.y < barrierY+100  then
+           -- tree[i].nx=getMoveablePx()
+            --tree[i].ny=getMoveablePy()
+            --changeMoveableN(tree[i].nx,tree[i].ny)
+            --tree[i].x=getMoveablePx()
+        --    tree[i].y=getMoveablePy()
+          --  changeMoveable(tree[i].x,tree[i].y)
+        --    tree[i].Barrier=true
+          --  tree[i].moveable=false
+        else
+ 
+        end
+    end
 end
 
 function barrier_draw()
@@ -319,6 +339,11 @@ function barrier_draw()
     end
     for i=1,1 do
         love.graphics.draw(tree[i].Image,tree[i].x-world.x,tree[i].y-world.y)
+        if tree[i].moveable then
+            moveableBarrier(tree[i].x,tree[i].y)
+            tree[i].x=getMoveableX()
+            tree[i].y=getMoveableY()
+        end
         if tree[i].Barrier then
             isBarrier(tree[i].x-world.x,tree[i].y-world.y)
         end
@@ -344,10 +369,6 @@ function barrier_draw()
     if q2key.Barrier then
         isBarrier(q2key.x-world.x,q2key.y-world.y)
     end
-    if q3Trap[1].showBar == true then
-        love.graphics.setColor(255,0,0)
-        love.graphics.rectangle("fill", q3Trap[1].x-world.x+100,q3Trap[1].y-world.y+50 , q3Trap[2].x-q3Trap[1].x-100, 10 )
-    end
 end
 function monster_draw()
     for i, monster in ipairs(monsters) do
@@ -359,5 +380,11 @@ function monster_draw()
             end
             love.graphics.draw(monster.slimeImgFile, monster.slimeQuads[monster.moveStep[monster.moveIndex]][monster.animationIndex], monster.nowX-world.x, monster.nowY-world.y)
         end
+    end
+end
+function trap_draw()
+    if q3Trap[1].showBar == true then
+        love.graphics.setColor(255,0,0)
+        love.graphics.rectangle("fill", q3Trap[1].x-world.x+100,q3Trap[1].y-world.y+50 , q3Trap[2].x-q3Trap[1].x-100, 10 )
     end
 end
