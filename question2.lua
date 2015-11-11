@@ -14,8 +14,8 @@ end
 function question2_load()
     keyImage = love.graphics.newImage("img/key2.jpg")
     questionImage2 = love.graphics.newImage("img/question2.png")
-    imageWidth2=1166
-    imageHeight2=565
+    imageWidth2=1092
+    imageHeight2=614
     for i=1,12 do
         bar[i]= false
         barHeight[i]=1
@@ -159,7 +159,7 @@ function question2_draw()
             else
                 love.graphics.setColor(0,0,0) 
             end
-            love.graphics.rectangle("fill", 1000*i/13,600-(550*barHeight[i]/3) , 700/12, 530*barHeight[i]/3 )
+            love.graphics.rectangle("fill", 1000*i/13+25,600-(550*barHeight[i]/3) -85, 700/12-20, 530*barHeight[i]/3 )
         end
     end
 end
