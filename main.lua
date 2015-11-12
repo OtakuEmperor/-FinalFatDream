@@ -4,7 +4,7 @@ function love.load()
     require "loveavg"
     require "setting"
     require "world"
-    gameStage = 3
+    gameStage = 2
     isSet = false
         op_load()
         menu_load()
@@ -17,11 +17,7 @@ function love.update(dt)
     if gameStage == 0 then
         op_update()
     elseif gameStage == 3 then
-        if isSet == false then
-            world_update(dt)
-        else
-            setting_update()
-        end
+        world_update(dt)
     end
 end
 
@@ -41,7 +37,6 @@ function love.keypressed(key)
     elseif key == "escape" and isSet == true then
         isSet = false
     end
-
 end
 
 function love.draw()
@@ -56,8 +51,5 @@ function love.draw()
         end
     elseif gameStage == 3 then
         world_draw()
-        if isSet == true then
-            setting_draw()
-        end
     end
 end

@@ -1,4 +1,5 @@
 setting = {}
+data = {}
 function setting_load()
     setting.width = love.graphics.getWidth()
     setting.height = love.graphics.getHeight()
@@ -6,10 +7,10 @@ function setting_load()
     setting.stage = 1
     setting.select = 0
     setting.vol = 10
-
 end
 
 function setting_update(dt)
+
     --control up and down
     if love.keyboard.isDown("down") and not(setting.stage == 4) then
         setting.stage = setting.stage + 1
@@ -25,9 +26,13 @@ function setting_update(dt)
         love.timer.sleep(0.2)
     end
 
-    --control select
-    if love.keyboard.isDown(" ") then
-        setting.select = setting.stage
+    --control save
+    if love.keyboard.isDown(" ") and setting.stage == 2 then
+        data = loveSave()
+        f = love.filesystem.newFile("data.txt")
+        f:open("w")
+        f:write(tostring(data))
+        f:close()
     end
     --control volume
     if setting.stage == 1 and love.keyboard.isDown("right") and setting.vol < 10 then
@@ -98,5 +103,15 @@ function setting_draw()
     else
         love.graphics.setColor(255, 255, 255)
     end
-    love.graphics.print("Back", setting.width - 370, setting.height*3/4 + 15)
+    love.graphics.print("Free", setting.width - 370, setting.height*3/4 + 15)
+
+    --show save
+    file = love.filesystem.newFile("data.txt")
+    file:open("r")
+    dataa = file:read()
+    file:close()
+    love.graphics.setColor(0,0,0)
+    love.graphics.setFont(love.graphics.newFont("font/FFFFORWA.TTF", 30))
+    love.graphics.print(tostring(dataa), 10, 10)
+
 end
