@@ -4,7 +4,7 @@ function love.load()
     require "loveavg"
     require "setting"
     require "world"
-    gameStage = 2
+    gameStage = 1
     isSet = false
         op_load()
         menu_load()
@@ -22,7 +22,9 @@ function love.update(dt)
 end
 
 function love.keypressed(key)
-    if gameStage == 2 then
+    if gameStage == 1 then
+        menu_keypressed(key)
+    elseif gameStage == 2 then
         if isSet == true then
             setting_update()
         else

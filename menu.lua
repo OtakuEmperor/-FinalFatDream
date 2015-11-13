@@ -6,85 +6,79 @@ function menu_load()
     menu.height = love.graphics.getHeight()
     --load img
     menu.sexy = love.graphics.newImage("img/sexy.png")
-    --load audio
-    piano = love.audio.newSource("audio/piano.wav", "static")
-    --set audio switch
-    menu.isOn1 = false
-    menu.isOn2 = false
-    menu.isOn3 = false
     --set text
     menu.size = 48
-    menu.font = love.graphics.newFont("font/NotoSansMonoCJKtc-Regular.otf", menu.size)
+    menu.font = love.graphics.newFont("font/FFFFORWA.TTF", menu.size)
     --set otaku workshop
     menu.size2 = 16
     menu.font2 = love.graphics.newFont("font/NotoSansMonoCJKtc-Regular.otf", menu.size2)
+    --set select
+    menu.stage = 1
+    menu.select = 0
 end
 
+function menu_keypressed(key)
+    --control up and down
+    if key == "down" and menu.stage ~= 3  then
+        menu.stage = menu.stage + 1
+    elseif key == "down" and menu.stage == 3 then
+        menu.stage = 1
+    elseif key == "up" and menu.stage ~= 1 then
+        menu.stage = menu.stage - 1
+    elseif key == "up" and menu.stage == 1 then
+        menu.stage = 3
+    end
+    --control space
+    if key == " " and menu.stage == 1 then
+        gameStage = 2
+    end
+
+end
 
 function menu_draw()
     love.graphics.setBackgroundColor(255, 255, 255)
     --set text font
     love.graphics.setFont(menu.font)
-    --set volume
-    piano:setVolume(0.5)
     --draw FPS
     love.graphics.print(tostring(love.timer.getFPS()), 5, 5)
     --draw sexy
     love.graphics.setColor(255, 255, 255, 255)
     love.graphics.draw(menu.sexy, menu.width/2 - 450, 20)
     --draw start
-    if love.mouse.getX() > menu.width/4 and love.mouse.getX() < (menu.width/4 + menu.width/2) and love.mouse.getY() > menu.height/2 and love.mouse.getY() <(menu.height/2 + menu.size*(5/4)) then
+    if menu.stage == 1 then
+        love.graphics.setColor(50, 50, 50)
+        love.graphics.rectangle("fill", menu.width/3, menu.height/2, menu.width/3, menu.height/10)
         love.graphics.setColor(255, 255, 255)
-        love.graphics.rectangle("fill", menu.width / 4, menu.height / 2, menu.width / 2, menu.size * (5/4))
-        love.graphics.setColor(255, 68, 170, 255)
-        love.graphics.print("開 始 遊 戲", menu.width / 4, menu.height / 2)
-        if menu.isOn1 == false then
-            piano:play()
-            menu.isOn1 = true
-        end
-        if love.mouse.isDown("l") then
-            gameStage = 2
-        end
+        love.graphics.print("Start", menu.width/3, menu.height/2)
     else
-        love.graphics.setColor(255, 68, 170, 255)
-        love.graphics.rectangle("fill", menu.width / 4, menu.height / 2, menu.width / 2, menu.size * (5/4))
         love.graphics.setColor(255, 255, 255)
-        love.graphics.print("開 始 遊 戲", menu.width / 4, menu.height / 2)
-        menu.isOn1 = false
+        love.graphics.rectangle("fill", menu.width/3, menu.height/2, menu.width/3, menu.height/10)
+        love.graphics.setColor(50, 50, 50)
+        love.graphics.print("Start", menu.width/3, menu.height/2)
     end
     --draw continue
-    if love.mouse.getX() > menu.width/4 and love.mouse.getX() < (menu.width/4 + menu.width/2) and love.mouse.getY() > (menu.height/2 + menu.size*2) and love.mouse.getY() < (menu.height/2 + menu.size * (13/4)) then
+    if menu.stage == 2 then
+        love.graphics.setColor(50, 50, 50)
+        love.graphics.rectangle("fill", menu.width/3, menu.height/2 + 100, menu.width/3, menu.height/10)
         love.graphics.setColor(255, 255, 255)
-        love.graphics.rectangle("fill", menu.width / 4, menu.height / 2 + menu.size * 2, menu.width / 2, menu.size * (5/4))
-        love.graphics.setColor(255, 68, 170, 255)
-        love.graphics.print("繼 續 遊 戲", menu.width / 4, menu.height / 2 + menu.size * 2)
-        if menu.isOn2 == false then
-            piano:play()
-            menu.isOn2 = true
-        end
+        love.graphics.print("Continue", menu.width/3, menu.height/2 + 100)
     else
-        love.graphics.setColor(255, 68, 170, 255)
-        love.graphics.rectangle("fill", menu.width / 4, menu.height / 2 + menu.size * 2, menu.width / 2, menu.size * (5/4))
         love.graphics.setColor(255, 255, 255)
-        love.graphics.print("繼 續 遊 戲", menu.width / 4, menu.height / 2 + menu.size * 2)
-        menu.isOn2 = false
+        love.graphics.rectangle("fill", menu.width/3, menu.height/2 + 100, menu.width/3, menu.height/10)
+        love.graphics.setColor(50, 50, 50)
+        love.graphics.print("Continue", menu.width/3, menu.height/2 + 100)
     end
     --draw option
-    if love.mouse.getX() > menu.width/4 and love.mouse.getX() < (menu.width/4 + menu.width/2) and love.mouse.getY() > (menu.height/2 + menu.size*4) and love.mouse.getY() < (menu.height/2 + menu.size * (21/4)) then
+    if menu.stage == 3 then
+        love.graphics.setColor(50, 50, 50)
+        love.graphics.rectangle("fill", menu.width/3, menu.height/2 + 200, menu.width/3, menu.height/10)
         love.graphics.setColor(255, 255, 255)
-        love.graphics.rectangle("fill", menu.width / 4, menu.height / 2 + menu.size * 4, menu.width / 2, menu.size * (5/4))
-        love.graphics.setColor(255, 68, 170, 255)
-        love.graphics.print("遊 戲 選 項", menu.width / 4, menu.height / 2 + menu.size * 4)
-        if menu.isOn3 == false then
-            piano:play()
-            menu.isOn3 = true
-        end
+        love.graphics.print("About", menu.width/3, menu.height/2 + 200)
     else
-        love.graphics.setColor(255, 68, 170, 255)
-        love.graphics.rectangle("fill", menu.width / 4, menu.height / 2 + menu.size * 4, menu.width / 2, menu.size * (5/4))
         love.graphics.setColor(255, 255, 255)
-        love.graphics.print("遊 戲 選 項", menu.width / 4, menu.height / 2 + menu.size * 4)
-        menu.isOn3 = false
+        love.graphics.rectangle("fill", menu.width/3, menu.height/2 + 200, menu.width/3, menu.height/10)
+        love.graphics.setColor(50, 50, 50)
+        love.graphics.print("About", menu.width/3, menu.height/2 + 200)
     end
     --draw otaku workshop
     love.graphics.setColor(0, 0, 0)
