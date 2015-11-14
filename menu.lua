@@ -7,6 +7,7 @@ function menu_load()
     --load img
     menu.sexy = love.graphics.newImage("img/title.png")
     menu.starSky = love.graphics.newImage("img/starSky.png")
+    menu.starSky2 = love.graphics.newImage("img/starSky2.png")
     --set text
     menu.size = 48
     menu.font = love.graphics.newFont("font/FFFFORWA.TTF", menu.size)
@@ -15,6 +16,9 @@ function menu_load()
     menu.font2 = love.graphics.newFont("font/NotoSansMonoCJKtc-Regular.otf", menu.size2)
     --set select
     menu.stage = 1
+    --set bg
+    menu.op = 0
+    menu.flag = true
 end
 
 function menu_keypressed(key)
@@ -32,13 +36,25 @@ function menu_keypressed(key)
     if key == " " and menu.stage == 1 then
         gameStage = 2
     end
-
 end
 
 function menu_draw()
     --draw backbround
     love.graphics.setBackgroundColor(0, 0, 0)
     love.graphics.draw(menu.starSky, 0, 0)
+    if menu.flag == true then
+        menu.op = menu.op + 2
+        if menu.op == 254 then
+            menu.flag = false
+        end
+    else
+        menu.op = menu.op - 2
+        if menu.op == 0 then
+            menu.flag = true
+        end
+    end
+    love.graphics.setColor(255, 255, 255, menu.op)
+    love.graphics.draw(menu.starSky2, 0, 0)
     --set text font
     love.graphics.setFont(menu.font)
     --draw FPS
