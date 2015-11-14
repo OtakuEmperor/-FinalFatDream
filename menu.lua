@@ -6,6 +6,7 @@ function menu_load()
     menu.height = love.graphics.getHeight()
     --load img
     menu.sexy = love.graphics.newImage("img/title.png")
+    menu.starSky = love.graphics.newImage("img/starSky.png")
     --set text
     menu.size = 48
     menu.font = love.graphics.newFont("font/FFFFORWA.TTF", menu.size)
@@ -35,7 +36,9 @@ function menu_keypressed(key)
 end
 
 function menu_draw()
-    love.graphics.setBackgroundColor(200, 200, 200)
+    --draw backbround
+    love.graphics.setBackgroundColor(0, 0, 0)
+    love.graphics.draw(menu.starSky, 0, 0)
     --set text font
     love.graphics.setFont(menu.font)
     --draw FPS
@@ -45,42 +48,42 @@ function menu_draw()
     love.graphics.draw(menu.sexy, menu.width/2 - 450, menu.height/10, 0, 3/4, 3/4)
     --draw start
     if menu.stage == 1 then
-        love.graphics.setColor(50, 50, 50)
+        love.graphics.setColor(127, 127, 127)
         love.graphics.rectangle("fill", menu.width/3, menu.height/2, menu.width/3, menu.height/10)
         love.graphics.setColor(255, 255, 255)
         love.graphics.print("Start", menu.width/3, menu.height/2)
     else
-        love.graphics.setColor(200, 200, 200)
+        love.graphics.setColor(0, 0, 0, 0)
         love.graphics.rectangle("fill", menu.width/3, menu.height/2, menu.width/3, menu.height/10)
-        love.graphics.setColor(50, 50, 50)
+        love.graphics.setColor(127, 127, 127)
         love.graphics.print("Start", menu.width/3, menu.height/2)
     end
     --draw continue
     if menu.stage == 2 then
-        love.graphics.setColor(50, 50, 50)
+        love.graphics.setColor(127, 127, 127)
         love.graphics.rectangle("fill", menu.width/3, menu.height/2 + 100, menu.width/3, menu.height/10)
         love.graphics.setColor(255, 255, 255)
         love.graphics.print("Continue", menu.width/3, menu.height/2 + 100)
     else
-        love.graphics.setColor(200, 200, 200)
+        love.graphics.setColor(0, 0, 0, 0)
         love.graphics.rectangle("fill", menu.width/3, menu.height/2 + 100, menu.width/3, menu.height/10)
-        love.graphics.setColor(50, 50, 50)
+        love.graphics.setColor(127, 127, 127)
         love.graphics.print("Continue", menu.width/3, menu.height/2 + 100)
     end
     --draw option
     if menu.stage == 3 then
-        love.graphics.setColor(50, 50, 50)
+        love.graphics.setColor(127, 127, 127)
         love.graphics.rectangle("fill", menu.width/3, menu.height/2 + 200, menu.width/3, menu.height/10)
         love.graphics.setColor(255, 255, 255)
         love.graphics.print("About", menu.width/3, menu.height/2 + 200)
     else
-        love.graphics.setColor(200, 200, 200)
+        love.graphics.setColor(0, 0, 0, 0)
         love.graphics.rectangle("fill", menu.width/3, menu.height/2 + 200, menu.width/3, menu.height/10)
-        love.graphics.setColor(50, 50, 50)
+        love.graphics.setColor(127, 127, 127)
         love.graphics.print("About", menu.width/3, menu.height/2 + 200)
     end
     --draw otaku workshop
-    love.graphics.setColor(0, 0, 0)
+    love.graphics.setColor(255, 255, 255)
     love.graphics.setFont(menu.font2)
     love.graphics.print("Otaku Workshop®2015", menu.width - menu.size2 * 10, menu.height - menu.size2 * (5/4))
 end
