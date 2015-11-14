@@ -241,6 +241,7 @@ function world_keypressed(key)
     question2_keypressedKey(key)
     question2_keypressedLine(key)
     question3_keypressed(key)
+    npc_keypressed(key)
 end
 
 function mapMove(direction, dt)

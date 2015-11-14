@@ -1,14 +1,16 @@
+local dialogNum=0
 function triggerLoad()
     question=false
-    conversation=false
     showKey = false
     showQ3Answer = false
     require "question1" 
     require "question2"
     require "question3"
+    require "npcDialog"
     question1_load()
     question2_load()
     question3_load()
+    npcDialog_load()
     sloveProblem = love.audio.newSource("audio/sloveProblem.ogg", "static")
 end
 
@@ -26,13 +28,9 @@ function triggerKeyPress(dt)
         ["right"] = function()    -- for case 1
             for i=1,5 do
                 if (character.x+world.x+100)==npc[i].x and (character.y+world.y)== npc[i].y then
-                    conversation = true
+                    question = true
                     dialogNum=i
-                    --if i == 1 then
-                      --  q1_dialogLock = false
-                    --elseif i == 2 then
-                      --  q2_dialogLockLine = false
-                    --end
+                    npc_dialogLock = false
                 end
             end
             for i=1,3 do
@@ -62,13 +60,9 @@ function triggerKeyPress(dt)
         ["left"] = function()    -- for case 2
             for i=1,5 do
                 if (character.x+world.x-100)==npc[i].x and (character.y+world.y)== npc[i].y then
-                    conversation = true
+                    question = true
                     dialogNum=i
-                    --if i == 1 then
-                      --  q1_dialogLock = false
-                    --elseif i == 2 then
-                      --  q2_dialogLockLine = false
-                    --end
+                    npc_dialogLock = false
                 end
             end
             for i=1,3 do
@@ -100,13 +94,9 @@ function triggerKeyPress(dt)
         ["down"] = function()    -- for case 3
             for i=1,5 do
                 if (character.x+world.x)==npc[i].x and (character.y+world.y+100)== npc[i].y then
-                    conversation = true
+                    question = true
                     dialogNum=i
-                    --if i == 1 then
-                      --  q1_dialogLock = false
-                    --elseif i == 2 then
-                      --  q2_dialogLockLine = false
-                    --end
+                    npc_dialogLock = false
                 end
             end
             for i=1,3 do
@@ -138,13 +128,9 @@ function triggerKeyPress(dt)
         ["up"] = function()    -- for case 4
             for i=1,5 do
                 if (character.x+world.x)==npc[i].x and (character.y+world.y-100)== npc[i].y then
-                    conversation = true
+                    question = true
                     dialogNum=i
-                    --if i == 1 then
-                      --  q1_dialogLock = false
-                    --elseif i == 2 then
-                      --  q2_dialogLockLine = false
-                    --end
+                    npc_dialogLock = false
                 end
             end
             for i=1,3 do
@@ -182,7 +168,6 @@ function triggerKeyPress(dt)
         question = false
         showKey = false
         showQ3Answer = false
-        conversation = false
     end
 
 end
@@ -204,10 +189,6 @@ function triggerDraw()
         if(questionN) then
             questionN()
         end
-    end
-    if conversation == true then
-        local switchDiolog ={
-           
-        }
+        npc_draw(dialogNum)
     end
 end

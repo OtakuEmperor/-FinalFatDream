@@ -13,7 +13,7 @@ function newObject(o, class)
 end
 function npc.new (originPointX,originPointY)
     local obj = {
-        Image = love.graphics.newImage("img/tree.png"),
+        Image = love.graphics.newImage("img/books.png"),
         Barrier=true,
         x = originPointX,
         y = originPointY
