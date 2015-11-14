@@ -151,7 +151,7 @@ function mapCreate()
     world.temp=true
     world.px=0
     world.py=0
-    world.speed = 200
+    world.speed = 300
     world.delta=0
     world.delay=0.15
 end
@@ -166,6 +166,13 @@ function barrierCreate()
     q2key = q2key.new(1900,700)
     questionMark[3] = questionMark3.new(1800,1900)
     q3key = q3key.new(1800,1500)
+    --create npc
+    npc[1] = npc.new(0,200)
+    npc[2] = npc.new(100,200)
+    --create billboard
+    npc[3] = npc.new(200,200)
+    npc[4] = npc.new(300,200)
+    npc[5] = npc.new(400,200)
     --create stones
     stone[1] = stone.new(400, 900)
     stone[2] = stone.new(400, 1100)
@@ -335,6 +342,22 @@ function barrier_draw()
         love.graphics.draw(grass[i].Image, grass[i].x-world.x, grass[i].y-world.y)
         if grass[i].Barrier then
             isBarrier(grass[i].x-world.x, grass[i].y-world.y)
+        end
+    end
+    --draw npc
+    npc[1].Image = love.graphics.newImage("img/wonanNPC.png")
+    npc[2].Image = love.graphics.newImage("img/oldManNPC.png")
+    for i=1,2 do
+        love.graphics.draw(npc[i].Image, npc[i].x-world.x, npc[i].y-world.y)
+        if npc[i].Barrier then
+            isBarrier(npc[i].x-world.x, npc[i].y-world.y)
+        end
+    end
+    --draw billboard
+    for i=3,5 do
+        love.graphics.draw(npc[i].Image, npc[i].x-world.x, npc[i].y-world.y)
+        if npc[i].Barrier then
+            isBarrier(npc[i].x-world.x, npc[i].y-world.y)
         end
     end
     --draw stones

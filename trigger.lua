@@ -1,5 +1,6 @@
 function triggerLoad()
     question=false
+    conversation=false
     showKey = false
     showQ3Answer = false
     require "question1" 
@@ -23,6 +24,17 @@ function triggerKeyPress(dt)
     
     local switch = {
         ["right"] = function()    -- for case 1
+            for i=1,5 do
+                if (character.x+world.x+100)==npc[i].x and (character.y+world.y)== npc[i].y then
+                    conversation = true
+                    dialogNum=i
+                    --if i == 1 then
+                      --  q1_dialogLock = false
+                    --elseif i == 2 then
+                      --  q2_dialogLockLine = false
+                    --end
+                end
+            end
             for i=1,3 do
                 if (character.x+world.x+100)==questionMark[i].x and (character.y+world.y)== questionMark[i].y then
                     question = true
@@ -48,6 +60,17 @@ function triggerKeyPress(dt)
             end
         end,
         ["left"] = function()    -- for case 2
+            for i=1,5 do
+                if (character.x+world.x-100)==npc[i].x and (character.y+world.y)== npc[i].y then
+                    conversation = true
+                    dialogNum=i
+                    --if i == 1 then
+                      --  q1_dialogLock = false
+                    --elseif i == 2 then
+                      --  q2_dialogLockLine = false
+                    --end
+                end
+            end
             for i=1,3 do
                 if (character.x+world.x-100)==questionMark[i].x and (character.y+world.y)== questionMark[i].y then
                     question = true
@@ -75,6 +98,17 @@ function triggerKeyPress(dt)
 
         end,
         ["down"] = function()    -- for case 3
+            for i=1,5 do
+                if (character.x+world.x)==npc[i].x and (character.y+world.y+100)== npc[i].y then
+                    conversation = true
+                    dialogNum=i
+                    --if i == 1 then
+                      --  q1_dialogLock = false
+                    --elseif i == 2 then
+                      --  q2_dialogLockLine = false
+                    --end
+                end
+            end
             for i=1,3 do
                 if (character.x+world.x)==questionMark[i].x and (character.y+world.y+100)== questionMark[i].y then
                     question = true
@@ -102,6 +136,17 @@ function triggerKeyPress(dt)
             
         end,
         ["up"] = function()    -- for case 4
+            for i=1,5 do
+                if (character.x+world.x)==npc[i].x and (character.y+world.y-100)== npc[i].y then
+                    conversation = true
+                    dialogNum=i
+                    --if i == 1 then
+                      --  q1_dialogLock = false
+                    --elseif i == 2 then
+                      --  q2_dialogLockLine = false
+                    --end
+                end
+            end
             for i=1,3 do
                 if (character.x+world.x)==questionMark[i].x and (character.y+world.y-100)== questionMark[i].y then
                     question = true
@@ -137,6 +182,7 @@ function triggerKeyPress(dt)
         question = false
         showKey = false
         showQ3Answer = false
+        conversation = false
     end
 
 end
@@ -158,5 +204,10 @@ function triggerDraw()
         if(questionN) then
             questionN()
         end
+    end
+    if conversation == true then
+        local switchDiolog ={
+           
+        }
     end
 end

@@ -1,6 +1,6 @@
 character={}
 local hpDecrease=0
-local characterSpeed=200
+local characterSpeed=300
 local characterX,characterY=love.graphics.getDimensions( )
 local screenWidth,screenHeight=love.graphics.getDimensions( )
 characterHeight=100
