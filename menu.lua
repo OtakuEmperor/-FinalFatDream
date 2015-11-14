@@ -5,7 +5,7 @@ function menu_load()
     menu.width = love.graphics.getWidth()
     menu.height = love.graphics.getHeight()
     --load img
-    menu.sexy = love.graphics.newImage("img/sexy.png")
+    menu.sexy = love.graphics.newImage("img/title.png")
     --set text
     menu.size = 48
     menu.font = love.graphics.newFont("font/FFFFORWA.TTF", menu.size)
@@ -14,7 +14,6 @@ function menu_load()
     menu.font2 = love.graphics.newFont("font/NotoSansMonoCJKtc-Regular.otf", menu.size2)
     --set select
     menu.stage = 1
-    menu.select = 0
 end
 
 function menu_keypressed(key)
@@ -36,14 +35,14 @@ function menu_keypressed(key)
 end
 
 function menu_draw()
-    love.graphics.setBackgroundColor(255, 255, 255)
+    love.graphics.setBackgroundColor(200, 200, 200)
     --set text font
     love.graphics.setFont(menu.font)
     --draw FPS
-    love.graphics.print(tostring(love.timer.getFPS()), 5, 5)
-    --draw sexy
+    --love.graphics.print(tostring(love.timer.getFPS()), 5, 5)
+    --draw sexy title
     love.graphics.setColor(255, 255, 255, 255)
-    love.graphics.draw(menu.sexy, menu.width/2 - 450, 20)
+    love.graphics.draw(menu.sexy, menu.width/2 - 450, menu.height/10, 0, 3/4, 3/4)
     --draw start
     if menu.stage == 1 then
         love.graphics.setColor(50, 50, 50)
@@ -51,7 +50,7 @@ function menu_draw()
         love.graphics.setColor(255, 255, 255)
         love.graphics.print("Start", menu.width/3, menu.height/2)
     else
-        love.graphics.setColor(255, 255, 255)
+        love.graphics.setColor(200, 200, 200)
         love.graphics.rectangle("fill", menu.width/3, menu.height/2, menu.width/3, menu.height/10)
         love.graphics.setColor(50, 50, 50)
         love.graphics.print("Start", menu.width/3, menu.height/2)
@@ -63,7 +62,7 @@ function menu_draw()
         love.graphics.setColor(255, 255, 255)
         love.graphics.print("Continue", menu.width/3, menu.height/2 + 100)
     else
-        love.graphics.setColor(255, 255, 255)
+        love.graphics.setColor(200, 200, 200)
         love.graphics.rectangle("fill", menu.width/3, menu.height/2 + 100, menu.width/3, menu.height/10)
         love.graphics.setColor(50, 50, 50)
         love.graphics.print("Continue", menu.width/3, menu.height/2 + 100)
@@ -75,7 +74,7 @@ function menu_draw()
         love.graphics.setColor(255, 255, 255)
         love.graphics.print("About", menu.width/3, menu.height/2 + 200)
     else
-        love.graphics.setColor(255, 255, 255)
+        love.graphics.setColor(200, 200, 200)
         love.graphics.rectangle("fill", menu.width/3, menu.height/2 + 200, menu.width/3, menu.height/10)
         love.graphics.setColor(50, 50, 50)
         love.graphics.print("About", menu.width/3, menu.height/2 + 200)
