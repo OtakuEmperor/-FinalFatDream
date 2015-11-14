@@ -274,7 +274,10 @@ function question3_draw()
             print_dialog("", "接下來只要填到對面的答案券上就好了吧")
         elseif q3_dialog_state == 3 then
             print_dialog("", "恩......")
-        elseif q3_dialog_state == 4 then
+        elseif q3_dialog_state == 5 then
+            question = false
+            showKey = false
+            showQ3Answer = false
             q3_dialogLock = true
         end
     else

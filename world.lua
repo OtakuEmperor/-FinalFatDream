@@ -42,7 +42,7 @@ function world_update(dt)
         toDay2Timer = 0
         toDay2 = false
     end
-    if question==false then
+    if question==false and conversation == false then
     moveStageCheck()
     if world.x<world.nx and character.faceDir == "right" then
             character.animation.walking = true
@@ -241,11 +241,12 @@ function world_keypressed(key)
     question2_keypressedKey(key)
     question2_keypressedLine(key)
     question3_keypressed(key)
+    npc_keypressed(key)
 end
 
 function mapMove(direction, dt)
 
-     if direction == character.animation.Directions.Down and question==false then
+     if direction == character.animation.Directions.Down and question==false and conversation == false then
         character.animation.sound:play()
         if world.y < world.ny then
             character.animation.walking = true
@@ -261,7 +262,7 @@ function mapMove(direction, dt)
     end
 
 
-    if direction == character.animation.Directions.Left and question==false then
+    if direction == character.animation.Directions.Left and question==false and conversation == false then
         character.animation.sound:play()
         if world.x > world.nx then
             character.animation.walking = true
@@ -277,7 +278,7 @@ function mapMove(direction, dt)
     end
 
 
-    if direction == character.animation.Directions.Right and question==false then
+    if direction == character.animation.Directions.Right and question==false and conversation == false then
         character.animation.sound:play()
         if world.x < world.nx then
             character.animation.walking = true
@@ -292,7 +293,7 @@ function mapMove(direction, dt)
     end
 
 
-    if direction == character.animation.Directions.Up and question==false then
+    if direction == character.animation.Directions.Up and question==false and conversation == false then
         character.animation.sound:play()
         if world.y > world.ny then
             character.animation.walking = true
