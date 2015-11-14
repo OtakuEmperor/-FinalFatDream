@@ -180,6 +180,21 @@ function print_background(day, dialog)
             bg = schoolroad_sunset
         end
     end
+    if day == 2 then
+        if (1 <= dialog and dialog <= 13) or (167 <= dialog and dialog <= 182) then
+            bg = night
+        elseif (14 <= dialog and dialog <= 50) or (98 <= dialog and dialog <= 155)then
+            bg = class_light
+        elseif 51 <= dialog and dialog <= 77 then
+            bg = hallway_light
+        elseif 78 <= dialog and dialog <= 82 then
+            bg = onefloor_light
+        elseif 83 <= dialog and dialog <= 97 then
+            bg = restaurant_light
+        elseif 156 <= dialog and dialog <= 166 then
+            bg = schoolroad_sunset
+        end
+    end
     love.graphics.draw(bg, 0, 0, 0, 1092/bg:getWidth(), 614/bg:getHeight())
 end
 
@@ -189,6 +204,21 @@ function play_bgm(day, dialog)
         bgm = night_bgm
     end
     if day == 1 then
+        if (1 <= dialog and dialog <= 13) or (167 <= dialog and dialog <= 182) then
+            if not (bgm_name == "night_bgm") then
+                love.audio.stop()
+                bgm = night_bgm
+                bgm_name = "night_bgm"
+            end
+        elseif 14 <= dialog and dialog <= 166 then
+            if not (bgm_name == "class_bgm") then
+                love.audio.stop()
+                bgm = class_bgm
+                bgm_name = "class_bgm"
+            end
+        end
+    end
+    if day == 2 then
         if (1 <= dialog and dialog <= 13) or (167 <= dialog and dialog <= 182) then
             if not (bgm_name == "night_bgm") then
                 love.audio.stop()
