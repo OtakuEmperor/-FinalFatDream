@@ -21,9 +21,7 @@ function npc_draw(dialogNum)
             if npc_dialog_state == 1 then
             print_dialog("", "oe小雞雞")
         elseif npc_dialog_state == 3 then
-            question = false
-            showKey = false
-            showQ3Answer = false
+            conversation = false
             npc_dialogLock = true
             npc_dialog_state=1
         end
@@ -35,9 +33,7 @@ function npc_draw(dialogNum)
             if npc_dialog_state == 1 then
             print_dialog("", "恩......")
         elseif npc_dialog_state == 3 then
-            question = false
-            showKey = false
-            showQ3Answer = false
+            conversation = false
             npc_dialogLock = true
             npc_dialog_state=1
         end
@@ -49,9 +45,7 @@ function npc_draw(dialogNum)
             if npc_dialog_state == 1 then
             print_dialog("", "恩......")
         elseif npc_dialog_state == 3 then
-            question = false
-            showKey = false
-            showQ3Answer = false
+            conversation = false
             npc_dialogLock = true
             npc_dialog_state=1
         end
@@ -63,9 +57,7 @@ function npc_draw(dialogNum)
             if npc_dialog_state == 1 then
             print_dialog("", "恩......")
         elseif npc_dialog_state == 3 then
-            question = false
-            showKey = false
-            showQ3Answer = false
+            conversation = false
             npc_dialogLock = true
             npc_dialog_state=1
         end
@@ -77,9 +69,7 @@ function npc_draw(dialogNum)
             if npc_dialog_state == 1 then
             print_dialog("", "恩......")
         elseif npc_dialog_state == 3 then
-            question = false
-            showKey = false
-            showQ3Answer = false
+            conversation = false
             npc_dialogLock = true
             npc_dialog_state=1
         end

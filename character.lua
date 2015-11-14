@@ -95,7 +95,7 @@ function characterUpdate(dt)
         --end
     --end
 
-    if character.die==false and question==false then
+    if character.die==false and question==false and conversation == false then
         moveStageCheck()
         if character.x<character.nx and character.faceDir == "right" then
              character.animation.walking = true
@@ -191,7 +191,7 @@ end
 
 -----------------characterMove----------------------------------------------
 function characterMove(direction, dt)
-    if direction == character.animation.Directions.Down and question==false then
+    if direction == character.animation.Directions.Down and question==false and conversation == false then
         character.animation.sound:play()
         if character.y < character.ny then
             character.animation.walking = true
@@ -203,7 +203,7 @@ function characterMove(direction, dt)
 
     end
 
-    if direction == character.animation.Directions.Left and question==false then
+    if direction == character.animation.Directions.Left and question==false and conversation == false then
         character.animation.sound:play()
         if character.x > character.nx then
             character.animation.walking = true
@@ -216,7 +216,7 @@ function characterMove(direction, dt)
 
     end
 
-    if direction == character.animation.Directions.Right and question==false then
+    if direction == character.animation.Directions.Right and question==false and conversation == false then
          character.animation.sound:play()
         if character.x < character.nx then
             character.animation.walking = true
@@ -229,7 +229,7 @@ function characterMove(direction, dt)
 
     end
 
-    if direction == character.animation.Directions.Up and question==false then
+    if direction == character.animation.Directions.Up and question==false and conversation == false then
         character.animation.sound:play()
         if character.y > character.ny then
             character.animation.walking = true

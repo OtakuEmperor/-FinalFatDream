@@ -3,6 +3,7 @@ function triggerLoad()
     question=false
     showKey = false
     showQ3Answer = false
+    conversation = false
     require "question1" 
     require "question2"
     require "question3"
@@ -28,7 +29,7 @@ function triggerKeyPress(dt)
         ["right"] = function()    -- for case 1
             for i=1,5 do
                 if (character.x+world.x+100)==npc[i].x and (character.y+world.y)== npc[i].y then
-                    question = true
+                    conversation = true
                     dialogNum=i
                     npc_dialogLock = false
                 end
@@ -60,7 +61,7 @@ function triggerKeyPress(dt)
         ["left"] = function()    -- for case 2
             for i=1,5 do
                 if (character.x+world.x-100)==npc[i].x and (character.y+world.y)== npc[i].y then
-                    question = true
+                    conversation = true
                     dialogNum=i
                     npc_dialogLock = false
                 end
@@ -94,7 +95,7 @@ function triggerKeyPress(dt)
         ["down"] = function()    -- for case 3
             for i=1,5 do
                 if (character.x+world.x)==npc[i].x and (character.y+world.y+100)== npc[i].y then
-                    question = true
+                    conversation = true
                     dialogNum=i
                     npc_dialogLock = false
                 end
@@ -128,7 +129,7 @@ function triggerKeyPress(dt)
         ["up"] = function()    -- for case 4
             for i=1,5 do
                 if (character.x+world.x)==npc[i].x and (character.y+world.y-100)== npc[i].y then
-                    question = true
+                    conversation = true
                     dialogNum=i
                     npc_dialogLock = false
                 end
@@ -168,6 +169,7 @@ function triggerKeyPress(dt)
         question = false
         showKey = false
         showQ3Answer = false
+        conversation = false
     end
 
 end
@@ -189,6 +191,8 @@ function triggerDraw()
         if(questionN) then
             questionN()
         end
+    end
+    if conversation == true then
         npc_draw(dialogNum)
     end
 end
