@@ -194,7 +194,7 @@ function barrierCreate()
     forest[3] = forest.new(100, 500)
     forest[4] = forest.new(600, 200)
     forest[5] = forest.new(500, 1400)
-    forest[6] = forest.new(1000, 1000)
+    forest[6] = forest.new(1800, 300)
     forest[7] = forest.new(300, 1800)
     forest[8] = forest.new(900, 1800)
     forest[9] = forest.new(1500, 1500)
@@ -324,7 +324,7 @@ function isBarrier(barrierX,barrierY)
         --    tree[i].Barrier=true
           --  tree[i].moveable=false
         else
- 
+
         end
     end
 end
