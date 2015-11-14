@@ -46,6 +46,11 @@ function interface_draw()
     love.graphics.print(wake, interface.width * (1/20), interface.height * (1/20))
 
     --draw key
+    love.graphics.setColor(255, 255, 255, 50)
+    love.graphics.draw(interface.key, interface.width * (9/200), interface.height * (1/8))
+    love.graphics.draw(interface.key, interface.width * (9/200) + 32, interface.height * (1/8))
+    love.graphics.draw(interface.key, interface.width * (9/200) + 64, interface.height * (1/8))
+    love.graphics.setColor(255, 255, 255, 255)
     if interface.keyNum == 1 then
         love.graphics.draw(interface.key, interface.width * (9/200), interface.height * (1/8))
     elseif interface.keyNum == 2 then
@@ -61,10 +66,10 @@ function interface_draw()
         end
     end
     --draw water
-    love.graphics.setColor(0, 0, 0, 127)--set opacity50
+    love.graphics.setColor(0, 0, 0, 50)--set opacity50
     love.graphics.draw(interface.water, interface.width * (4/20), interface.height * (9/160))
     --draw weapon
-    love.graphics.setColor(0, 0, 0, 127)--set opacity50
+    love.graphics.setColor(0, 0, 0, 50)--set opacity50
     love.graphics.draw(interface.weapon, interface.width * (4/20), interface.height * (21/160))
     --draw days
     if interface.dn == true then

@@ -16,6 +16,8 @@ function world_load()
     monsters[5] = kagemusha.new(monsters[3], 1100, 800)
     monsters[6] = kagemusha.new(monsters[3], 1000, 800)
     fight_bgm = love.audio.newSource("audio/night.mp3", "stream")
+    toDay2Timer = 0
+    toDay2 = false
     interface_load()
     character_load()
     barrierCreate()
@@ -30,6 +32,16 @@ function world_update(dt)
     character_run(dt)
     character.py = character.y
     character.px = character.x
+    if toDay2 then
+        toDay2Timer = toDay2Timer + dt
+    end
+    if toDay2Timer >= 5 then
+        day_state = 2
+        dialog_state = 1
+        gameStage = 2
+        toDay2Timer = 0
+        toDay2 = false
+    end
     if question==false then
     moveStageCheck()
     if world.x<world.nx and character.faceDir == "right" then
@@ -201,7 +213,7 @@ function barrierCreate()
     forest[3] = forest.new(100, 500)
     forest[4] = forest.new(600, 200)
     forest[5] = forest.new(500, 1400)
-    forest[6] = forest.new(1000, 1000)
+    forest[6] = forest.new(1800, 300)
     forest[7] = forest.new(300, 1800)
     forest[8] = forest.new(900, 1800)
     forest[9] = forest.new(1500, 1500)
@@ -331,7 +343,7 @@ function isBarrier(barrierX,barrierY)
         --    tree[i].Barrier=true
           --  tree[i].moveable=false
         else
- 
+
         end
     end
 end
@@ -423,6 +435,11 @@ function monster_draw()
         if monster.isWaveAttack then
             monster:wave_attack()
         end
+    end
+
+    if not monsters[3].alive and monsters[3].hp <= 0 then
+        print_dialog("我", "剛剛出現的到底是什麼東西……")
+        toDay2 = true
     end
 end
 function trap_draw()

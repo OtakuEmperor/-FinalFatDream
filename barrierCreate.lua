@@ -58,8 +58,19 @@ function stone.new (originPointX,originPointY)
 end
 
 function grass.new (originPointX,originPointY)
+   local num = love.math.random(1, 4)
+   local grassImg
+   if num == 1 then
+       grassImg = "img/grass1.png"
+   elseif num == 2 then
+       grassImg = "img/grass2.png"
+   elseif num == 3 then
+       grassImg = "img/grass3.png"
+   elseif num == 4 then
+       grassImg = "img/grass4.png"
+   end
    local obj = {
-        Image = love.graphics.newImage("img/grass.png"),
+        Image = love.graphics.newImage(grassImg),
         Barrier=false,
         x = originPointX,
         y = originPointY
