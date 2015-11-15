@@ -47,11 +47,9 @@ function menu_keypressed(key)
         f2:open("r")
         for line in love.filesystem.lines("data.txt") do
             table.insert(data, tonumber(line), 0)
-            --print(tonumber(line))
         end
         for line in love.filesystem.lines("data2.txt") do
             table.insert(data2, line)
-            --print(line)
         end
         f:close()
         f2:close()

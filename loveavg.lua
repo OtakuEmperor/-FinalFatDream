@@ -244,9 +244,6 @@ function loveSave()
 end
 
 function loveLoad(data)
-    for i, j in pairs(data) do
-        print(string.format("%s %s", i,j))
-    end
     choose = data[1]
     chooseLock = data[2]
     dialogLock = data[3]
