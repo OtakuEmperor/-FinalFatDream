@@ -39,6 +39,7 @@ function world_update(dt)
         day_state = 2
         dialog_state = 1
         gameStage = 2
+        love_reloadDay()
         toDay2Timer = 0
         toDay2 = false
     end
@@ -185,6 +186,14 @@ function barrierCreate()
     npc[3] = npc.new(200,200)
     npc[4] = npc.new(300,200)
     npc[5] = npc.new(400,200)
+    ---create npc dialog
+    for j=1,5 do
+        npc_data = love.filesystem.read(string.format("npcDialog/npc%d.dat", j), all)
+        for i in string.gmatch(npc_data, "[^,^\n]+") do
+            table.insert(npc[j].dialog, i)
+        end
+        npc[j].dialogLength = table.getn(npc[j].dialog)
+    end
     --create stones
     stone[1] = stone.new(400, 900)
     stone[2] = stone.new(400, 1100)
