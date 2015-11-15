@@ -28,9 +28,15 @@ function setting_update(dt)
     if love.keyboard.isDown(" ") and setting.stage == 2 then
         local data = loveSave()
         local f = love.filesystem.newFile("data.txt")
+        local f2 = love.filesystem.newFile("data2.txt")
         f:open("w")
-        f:write(tostring(data[1]) .. "\n" .. tostring(data[2]) .. "\n" .. tostring(data[3]) .. "\n" .. tostring(data[4]) .. "\n" .. tostring(data[5]) .. "\n" .. tostring(data[6]))
+        f2:open("w")
+        for i, j in pairs(data[1]) do
+            f:write(string.format("%s\n", i))
+        end
+        f2:write(tostring(data[2]) .. "\n" .. tostring(data[3]) .. "\n" .. tostring(data[4]) .. "\n" .. tostring(data[5]) .. "\n" .. tostring(data[6]))
         f:close()
+        f2:close()
     end
     --control volume
     if setting.stage == 1 and love.keyboard.isDown("right") and setting.vol < 10 then

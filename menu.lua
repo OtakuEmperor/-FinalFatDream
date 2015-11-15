@@ -38,12 +38,21 @@ function menu_keypressed(key)
     end
 
     if key == " " and menu.stage == 2 then
-        local file = love.filesystem.newFile("data.txt")
-        file:open("r")
-        local data = file:read()
-        file:close()
-        loveLoad(data)
-        gameStage = 2
+        local data = {}
+        local data2 = {}
+        local f = love.filesystem.newFile("data.txt")
+        local f2 = love.filesystem.newFile("data2.txt")
+        f:open("r")
+        f2:open("r")
+        for line in love.filesystem.lines("data.txt") do
+            table.insert(data, line)
+        end
+        for line in love.filesystem.lines("data2.txt") do
+            table.insert(data2, line)
+        end
+        f:close()
+        f2:close()
+        loveLoad({data, data2[1], data2[2], data[3], data[4], data[5]})
     end
 end
 
