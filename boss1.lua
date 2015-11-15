@@ -237,7 +237,3 @@ end
 function boss1:summon()
     self.alive = true
 end
-
-function boss1:keyPressed(key)
-    
-end
