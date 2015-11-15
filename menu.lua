@@ -47,11 +47,11 @@ function menu_keypressed(key)
         f2:open("r")
         for line in love.filesystem.lines("data.txt") do
             table.insert(data, tonumber(line), 0)
-            print(tonumber(line))
+            --print(tonumber(line))
         end
         for line in love.filesystem.lines("data2.txt") do
             table.insert(data2, line)
-            print(line)
+            --print(line)
         end
         f:close()
         f2:close()
@@ -65,8 +65,8 @@ function menu_keypressed(key)
         else
             bool2 = false
         end
-        loveLoad({data, bool1, bool2, tonumber(data[3]), tonumber(data[4]), tonumber(data[5])})
-        
+        loveLoad({data, bool1, bool2, tonumber(data2[3]), tonumber(data2[4]), tonumber(data2[5])})
+        gameStage = 2
     end
 end
 
