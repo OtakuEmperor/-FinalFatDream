@@ -39,6 +39,7 @@ function world_update(dt)
         day_state = 2
         dialog_state = 1
         gameStage = 2
+        love_reloadDay()
         toDay2Timer = 0
         toDay2 = false
     end

@@ -16,6 +16,9 @@ function loveavg_load()
     onefloor_light = love.graphics.newImage("img/cg/onefloor_light.jpg")
     restaurant_light = love.graphics.newImage("img/cg/restaurant_light.jpg")
     schoolroad_sunset = love.graphics.newImage("img/cg/schoolroad_sunset.jpg")
+    schoolroad_light = love.graphics.newImage("img/cg/schoolroad_light.jpg")
+    room_light = love.graphics.newImage("img/cg/room_light.jpg")
+    computer = love.graphics.newImage("img/cg/computer.jpg")
     lovefont = love.graphics.newFont("font/msjh.ttc", 25)
     choose = {}
     chooseLock = true
@@ -181,18 +184,12 @@ function print_background(day, dialog)
         end
     end
     if day == 2 then
-        if (1 <= dialog and dialog <= 13) or (167 <= dialog and dialog <= 182) then
-            bg = night
-        elseif (14 <= dialog and dialog <= 50) or (98 <= dialog and dialog <= 155)then
-            bg = class_light
-        elseif 51 <= dialog and dialog <= 77 then
-            bg = hallway_light
-        elseif 78 <= dialog and dialog <= 82 then
-            bg = onefloor_light
-        elseif 83 <= dialog and dialog <= 97 then
-            bg = restaurant_light
-        elseif 156 <= dialog and dialog <= 166 then
-            bg = schoolroad_sunset
+        if (1 <= dialog and dialog <= 35) or (160 <= dialog and dialog <= 162) then
+            bg = room_light
+        elseif (36 <= dialog and dialog <= 84) then
+            bg = computer
+        elseif (85 <= dialog and dialog <= 159) then
+            bg = schoolroad_light
         end
     end
     love.graphics.draw(bg, 0, 0, 0, 1092/bg:getWidth(), 614/bg:getHeight())
@@ -219,13 +216,7 @@ function play_bgm(day, dialog)
         end
     end
     if day == 2 then
-        if (1 <= dialog and dialog <= 13) or (167 <= dialog and dialog <= 182) then
-            if not (bgm_name == "night_bgm") then
-                love.audio.stop()
-                bgm = night_bgm
-                bgm_name = "night_bgm"
-            end
-        elseif 14 <= dialog and dialog <= 166 then
+        if 1 <= dialog and dialog <= 162 then
             if not (bgm_name == "class_bgm") then
                 love.audio.stop()
                 bgm = class_bgm
@@ -259,4 +250,13 @@ function loveLoad(data)
     day_state = data[4]
     dialog_state = data[5]
     choose_no = data[6]
+end
+
+function love_reloadDay()
+    file_data = love.filesystem.read(string.format("day%d.dat", day_state), all)
+    dialog = {}
+    -- parse data
+    for i in string.gmatch(file_data, "[^\n]+") do
+        table.insert(dialog, i)
+    end
 end
