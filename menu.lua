@@ -36,6 +36,15 @@ function menu_keypressed(key)
     if key == " " and menu.stage == 1 then
         gameStage = 2
     end
+
+    if key == " " and menu.stage == 2 then
+        local file = love.filesystem.newFile("data.txt")
+        file:open("r")
+        local data = file:read()
+        file:close()
+        loveLoad(data)
+        gameStage = 2
+    end
 end
 
 function menu_draw()
@@ -101,5 +110,5 @@ function menu_draw()
     --draw otaku workshop
     love.graphics.setColor(255, 255, 255)
     love.graphics.setFont(menu.font2)
-    love.graphics.print("Otaku Workshop®2015", menu.width - menu.size2 * 10, menu.height - menu.size2 * (5/4))
+    love.graphics.print("STINKY & ITCHY®2015", menu.width - menu.size2 * 10, menu.height - menu.size2 * (5/4))
 end
