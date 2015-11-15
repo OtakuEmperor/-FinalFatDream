@@ -15,6 +15,8 @@ function npc.new (originPointX,originPointY)
     local obj = {
         Image = love.graphics.newImage("img/books.png"),
         Barrier=true,
+        dialog={},
+        dialogLength=0,
         x = originPointX,
         y = originPointY
     }

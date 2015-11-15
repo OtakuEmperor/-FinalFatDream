@@ -13,70 +13,19 @@ function npc_keypressed(key)
 end
 
 function npc_draw(dialogNum)
-    local switchDialog = {
-            [1] = function()
-                love.graphics.setColor(0,0,0,150)
-                love.graphics.rectangle("fill", 0,0, 1100, 614)    
-                love.graphics.setColor(255,255,255)    
-            if npc_dialog_state == 1 then
-            print_dialog("", "oe小雞雞")
-        elseif npc_dialog_state == 3 then
-            conversation = false
-            npc_dialogLock = true
-            npc_dialog_state=1
-        end
-            end,
-            [2] = function()
-                love.graphics.setColor(0,0,0,150)
-                love.graphics.rectangle("fill", 0,0, 1100, 614)    
-            love.graphics.setColor(255,255,255)    
-            if npc_dialog_state == 1 then
-            print_dialog("", "恩......")
-        elseif npc_dialog_state == 3 then
-            conversation = false
-            npc_dialogLock = true
-            npc_dialog_state=1
-        end
-            end,
-            [3] = function()
-                love.graphics.setColor(0,0,0,150)
-                love.graphics.rectangle("fill", 0,0, 1100, 614)    
-            love.graphics.setColor(255,255,255)    
-            if npc_dialog_state == 1 then
-            print_dialog("", "恩......")
-        elseif npc_dialog_state == 3 then
-            conversation = false
-            npc_dialogLock = true
-            npc_dialog_state=1
-        end
-            end,
-            [4] = function()
-                love.graphics.setColor(0,0,0,150)
-                love.graphics.rectangle("fill", 0,0, 1100, 614)    
-            love.graphics.setColor(255,255,255)    
-            if npc_dialog_state == 1 then
-            print_dialog("", "恩......")
-        elseif npc_dialog_state == 3 then
-            conversation = false
-            npc_dialogLock = true
-            npc_dialog_state=1
-        end
-            end,
-            [5] = function()
-                love.graphics.setColor(0,0,0,150)
-                love.graphics.rectangle("fill", 0,0, 1100, 614)    
-            love.graphics.setColor(255,255,255)    
-            if npc_dialog_state == 1 then
-            print_dialog("", "恩......")
-        elseif npc_dialog_state == 3 then
-            conversation = false
-            npc_dialogLock = true
-            npc_dialog_state=1
-        end
-            end
-        }
-    local dialogN = switchDialog[dialogNum]
-        if(dialogN) then
-            dialogN()
-        end
+    love.graphics.setColor(0,0,0,150)
+    love.graphics.rectangle("fill", 0,0, 1100, 614)    
+    love.graphics.setColor(255,255,255)
+    if npc_dialog_state == (npc[dialogNum].dialogLength+1) then
+        conversation = false
+        npc_dialogLock = true
+        npc_dialog_state=1
+    end
+    print_dialog("",npc[dialogNum].dialog[npc_dialog_state])
+end
+
+function tablelength(T)
+  local count = 0
+  for _ in pairs(T) do count = count + 1 end
+  return count
 end
