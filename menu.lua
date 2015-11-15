@@ -40,19 +40,33 @@ function menu_keypressed(key)
     if key == " " and menu.stage == 2 then
         local data = {}
         local data2 = {}
+        local bool1, bool2
         local f = love.filesystem.newFile("data.txt")
         local f2 = love.filesystem.newFile("data2.txt")
         f:open("r")
         f2:open("r")
         for line in love.filesystem.lines("data.txt") do
-            table.insert(data, line)
+            table.insert(data, tonumber(line), 0)
+            print(tonumber(line))
         end
         for line in love.filesystem.lines("data2.txt") do
             table.insert(data2, line)
+            print(line)
         end
         f:close()
         f2:close()
-        loveLoad({data, data2[1], data2[2], data[3], data[4], data[5]})
+        if data2[1] == "true" then
+            bool1 = true
+        else
+            bool1 = false
+        end
+        if data2[2] == "true" then
+            bool2 = true
+        else
+            bool2 = false
+        end
+        loveLoad({data, bool1, bool2, tonumber(data[3]), tonumber(data[4]), tonumber(data[5])})
+        
     end
 end
 
