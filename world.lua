@@ -188,10 +188,10 @@ function barrierCreate()
     ---create npc dialog
     for j=1,5 do
         npc_data = love.filesystem.read(string.format("npcDialog/npc%d.dat", j), all)
-        for i in string.gmatch(npc_data, "[^\n]+") do
+        for i in string.gmatch(npc_data, "[^,^\n]+") do
             table.insert(npc[j].dialog, i)
         end
-        npc[j].dialogLength=tablelength(npc[j].dialog)
+        npc[j].dialogLength = table.getn(npc[j].dialog)
     end
     --create stones
     stone[1] = stone.new(400, 900)

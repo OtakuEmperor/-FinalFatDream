@@ -173,7 +173,8 @@ function slime:underAttack(faceDir,damageBlood)
 end
 
 function slimeAttackCheck(charX,charY,slimeX,slimeY,slimeFace)
-    if math.abs(slimeX - charX)<100 and math.abs(slimeY - charY)<100 then
+    --if math.abs(slimeX - charX)<100 and math.abs(slimeY - charY)<100 then
+    if slimeX == charX and slimeY == charY then
         hpDecline(1)
         charaMoveBack(slimeFace)
         return true
