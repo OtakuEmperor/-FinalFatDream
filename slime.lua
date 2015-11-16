@@ -178,6 +178,18 @@ function slimeAttackCheck(charX,charY,slimeX,slimeY,slimeFace)
     if slimeX == charX and slimeY == charY then
         hpDecline(5)
         charaMoveBack(slimeFace)
+        q1_dialog_state = 1
+        q2_dialog_stateKey = 1
+        q2_dialog_stateLine = 1
+        q3_dialog_state = 1
+        q1_dialogLock = true
+        q2_dialogLockKey = true
+        q2_dialogLockLine = true
+        q3_dialogLock = true
+        question = false
+        showKey = false
+        showQ3Answer = false
+        conversation = false
         return true
     else
         return false

@@ -6,6 +6,7 @@ local keyWidth=670
 local keyHeight=390
 local delay = 0.15
 local delta = 0
+local count
 -- this function is for OOP
 function newObject(o, class)
     class.__index = class
@@ -28,13 +29,44 @@ function question2_load()
     q2_dialog_stateLine = 1
 end
 function question2_update(dt)
-    local count
+    
     for i=1,12 do
         if bar[i]==true then
             count=i
         end
     end
-    
+    if barHeight[1] == 2 and barHeight[2] == 1 and barHeight[3] == 2 and barHeight[4] == 0 and barHeight[5] == 0 and barHeight[6] == 2 and barHeight[7] == 0 and barHeight[8] == 1 and barHeight[9] == 2 and barHeight[10] == 1 and barHeight[11] == 0 and barHeight[12] == 2 then
+        delta = delta + dt
+        if delta >= 0.5 then
+            question=false
+            questionMark[2].isSolved = true
+            for i=1,12 do
+                bar[i]= false
+                barHeight[i]=1
+            end
+            bar[1]=true
+            addKey()
+            sloveProblem:play()
+        end
+    end
+end
+
+function question2_keypressedKey(key)
+    if not q2_dialogLockKey then
+        if love.keyboard.isDown(" ") then
+            clicksound:play()
+            q2_dialog_stateKey = q2_dialog_stateKey + 1
+        end
+    end
+end
+
+function question2_keypressedLine(key)
+    if not q2_dialogLockLine then
+        if love.keyboard.isDown(" ") then
+            clicksound:play()
+            q2_dialog_stateLine = q2_dialog_stateLine + 1
+        end
+    end
     local switchR = {}
     for i=1,11 do
         switchR[i]=function()
@@ -90,77 +122,34 @@ function question2_update(dt)
             end
         end
     end
-        
-    if love.keyboard.isDown("right") and question == true then
-         --switch&case()
-        delta = delta + dt
-        local selectR = switchR[count]
-        if delta >= delay then
+    if q2_dialog_stateLine >= 4 then  
+        if love.keyboard.isDown("right") and question == true then
+            --switch&case()
+            local selectR = switchR[count]
             if(selectR) then
                 selectR()
             end
-            delta = 0
-        end  
-    end
-    if love.keyboard.isDown("left") and question == true then
-         --switch&case()
-        delta = delta + dt
-        local selectL = switchL[count]
-        if delta >= delay then
+        end
+        if love.keyboard.isDown("left") and question == true then
+            --switch&case()
+            local selectL = switchL[count]
             if(selectL) then
                 selectL()
             end
-            delta = 0
-        end  
-    end
-    if love.keyboard.isDown("up") and question == true then
-         --switch&case()
-        delta = delta + dt
-        local selectU= switchU[count]
-        if delta >= delay then
+        end
+        if love.keyboard.isDown("up") and question == true then
+            --switch&case()
+            local selectU= switchU[count]
             if(selectU) then
                 selectU()
             end
-            delta = 0
-        end  
-    end
-    if love.keyboard.isDown("down") and question == true then
-         --switch&case()
-        delta = delta + dt
-        local selectD= switchD[count]
-        if delta >= delay then
+        end
+        if love.keyboard.isDown("down") and question == true then
+            --switch&case()
+            local selectD= switchD[count]
             if(selectD) then
                 selectD()
             end
-            delta = 0
-        end  
-    end
-    if barHeight[1] == 2 and barHeight[2] == 1 and barHeight[3] == 2 and barHeight[4] == 0 and barHeight[5] == 0 and barHeight[6] == 2 and barHeight[7] == 0 and barHeight[8] == 1 and barHeight[9] == 2 and barHeight[10] == 1 and barHeight[11] == 0 and barHeight[12] == 2 then
-        question=false
-        for i=1,12 do
-        bar[i]= false
-        barHeight[i]=1
-        end
-        bar[1]=true
-        addKey()
-        sloveProblem:play()
-    end
-end
-
-function question2_keypressedKey(key)
-    if not q2_dialogLockKey then
-        if love.keyboard.isDown(" ") then
-            clicksound:play()
-            q2_dialog_stateKey = q2_dialog_stateKey + 1
-        end
-    end
-end
-
-function question2_keypressedLine(key)
-    if not q2_dialogLockLine then
-        if love.keyboard.isDown(" ") then
-            clicksound:play()
-            q2_dialog_stateLine = q2_dialog_stateLine + 1
         end
     end
 end
@@ -183,6 +172,8 @@ function question2_draw()
         elseif q2_dialog_stateKey == 3 then
             print_dialog("", "恩......12個刻度，有什麼特別的涵義嗎")
         elseif q2_dialog_stateKey == 5 then
+            q2_dialog_stateKey = 1
+            q2_dialog_stateLine = 1
             question = false
             showKey = false
             showQ3Answer = false
@@ -227,6 +218,7 @@ function questionMark2.new (originPointX,originPointY)
     local obj = {
         Image = love.graphics.newImage("img/puzzle.png"),
         Barrier=true,
+        isSolved=false,
         x = originPointX,
         y = originPointY
     }

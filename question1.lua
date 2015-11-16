@@ -1,6 +1,7 @@
 questionMark1={}
 local imageWidth=1015
 local imageHeight=353
+local count
 -- this function is for OOP
 function newObject(o, class)
     class.__index = class
@@ -8,7 +9,6 @@ function newObject(o, class)
 end
 function question1_load()
     questionImage = love.graphics.newImage("img/question1.jpg")
-    
     block1=true
     block2=false
     block3=false
@@ -19,13 +19,11 @@ function question1_load()
     blockNum4=0
     q1delay=0.15
     q1delta=0
-
     q1_dialogLock = true
     q1_dialog_state = 1
 end
 
 function question1_update(dt)
-    local count
     if block1 == true then 
         count=1
     elseif block2 == true then
@@ -34,6 +32,35 @@ function question1_update(dt)
         count=3
     elseif block4 == true then
         count=4
+    end
+    if blockNum1 == 0 and blockNum2 == 9 then
+        if blockNum3 == 0 and blockNum4 == 0 then
+            q1delta = q1delta + dt
+            if q1delta >= 0.5 then
+                questionMark[1].isSolved = true
+                question=false
+                blockNum1=0
+                blockNum2=0
+                blockNum3=0
+                blockNum4=0
+                block1=true
+                block2=false
+                block3=false
+                block4=false
+                q1delta = 0
+                addKey()
+                sloveProblem:play()
+            end
+        end
+    end
+end
+
+function question1_keypressed(key)
+    if not q1_dialogLock then
+        if love.keyboard.isDown(" ") then
+            clicksound:play()
+            q1_dialog_state = q1_dialog_state + 1
+        end
     end
     local switchR = {
         [1] = function()    -- for case 1
@@ -147,76 +174,34 @@ function question1_update(dt)
             end
         end
     }
-    if love.keyboard.isDown("right") and question == true then
-         --switch&case()
-        q1delta = q1delta + dt
-        local selectR = switchR[count]
-        if q1delta >= q1delay then
+    if q1_dialog_state >= 4 then
+        if love.keyboard.isDown("right") and question == true then
+            --switch&case()
+            local selectR = switchR[count]
             if(selectR) then
                 selectR()
             end
-            q1delta = 0
-        end  
-    end
-    if love.keyboard.isDown("left") and question == true then
-         --switch&case()
-        q1delta = q1delta + dt
-        local selectL = switchL[count]
-        if q1delta >= q1delay then
+        end
+        if love.keyboard.isDown("left") and question == true then
+            --switch&case()
+            local selectL = switchL[count]
             if(selectL) then
                 selectL()
             end
-           q1delta = 0
-        end  
-    end
-    if love.keyboard.isDown("up") and question == true then
-         --switch&case()
-        q1delta = q1delta + dt
-        local selectU= switchU[count]
-        if q1delta >= q1delay then
+        end
+        if love.keyboard.isDown("up") and question == true then
+            --switch&case()
+            local selectU= switchU[count]
             if(selectU) then
                 selectU()
             end
-            q1delta = 0
-        end  
-    end
-    if love.keyboard.isDown("down") and question == true then
-         --switch&case()
-        q1delta = q1delta + dt
-        local selectD= switchD[count]
-        if q1delta >= q1delay then
+        end
+        if love.keyboard.isDown("down") and question == true then
+            --switch&case()
+            local selectD= switchD[count]
             if(selectD) then
                 selectD()
             end
-            q1delta = 0
-        end  
-    end
-    if blockNum1 == 0 and blockNum2 == 9 then
-        if blockNum3 == 0 and blockNum4 == 0 then
-            q1delta = q1delta + dt
-            if q1delta >= 0.5 then
-                question=false
-                blockNum1=0
-                blockNum2=0
-                blockNum3=0
-                blockNum4=0
-                block1=true
-                block2=false
-                block3=false
-                block4=false
-                q1delta = 0
-                addKey()
-                sloveProblem:play()
-            end
-        end
-    end
-end
-
-function question1_keypressed(key)
-    if not q1_dialogLock then
-        if love.keyboard.isDown(" ") then
-            clicksound:play()
-            q1_dialog_state = q1_dialog_state + 1
         end
     end
 end
@@ -285,6 +270,7 @@ function questionMark1.new (originPointX,originPointY)
     local obj = {
         Image = love.graphics.newImage("img/puzzle.png"),
         Barrier=true,
+        isSolved=false,
         x = originPointX,
         y = originPointY
     }
