@@ -20,12 +20,9 @@ function menu_load()
     --set backbround
     menu.op = 0
     menu.flag = true
-
     --set BCK
     beiCheeKiller_load()
     menu.isBCK = false
-    menu.isGo = false
-
 end
 
 function menu_keypressed(key)

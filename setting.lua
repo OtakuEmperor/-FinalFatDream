@@ -9,32 +9,25 @@ function setting_load()
     setting.select = 0
     setting.vol = 10
 end
-
-function setting_update()
+function setting_keypressed(key)
     --control up and down
-    if love.keyboard.isDown("down") and not(setting.stage == 4) then
+    if key == "down" and setting.stage ~= 4 then
         setting.stage = setting.stage + 1
-        love.timer.sleep(0.2)
-    elseif love.keyboard.isDown("down") and setting.stage == 4 then
+    elseif key == "down" and setting.stage == 4 then
         setting.stage = 1
-        love.timer.sleep(0.2)
-    elseif love.keyboard.isDown("up") and not(setting.stage == 1) then
+    elseif key == "up" and setting.stage ~= 1 then
         setting.stage = setting.stage - 1
-        love.timer.sleep(0.2)
-    elseif love.keyboard.isDown("up") and setting.stage == 1 then
+    elseif key == "up" and setting.stage == 1 then
         setting.stage = 4
-        love.timer.sleep(0.2)
     end
-    --control volume
-    if setting.stage == 1 and love.keyboard.isDown("right") and setting.vol < 10 then
+    --control vol
+    if setting.stage == 1 and key == "right" and setting.vol < 10 then
         setting.vol = setting.vol + 1
-        love.timer.sleep(0.2)
-    elseif setting.stage == 1 and love.keyboard.isDown("left") and setting.vol > 0 then
+    elseif setting.stage == 1 and key == "left" and setting.vol > 0 then
         setting.vol = setting.vol - 1
-        love.timer.sleep(0.2)
     end
     --control save
-    if love.keyboard.isDown(" ") and setting.stage == 2 then
+    if key == " " and setting.stage == 2 then
         local data = loveSave()
         local f = love.filesystem.newFile("data.txt")
         local f2 = love.filesystem.newFile("data2.txt")
@@ -48,8 +41,8 @@ function setting_update()
         f2:close()
         love.audio.play(setting.saveSuccess)
     end
-    --control Quit
-    if love.keyboard.isDown(" ") and setting.stage == 4 then
+    --control quit
+    if key == " " and setting.stage == 4 then
         love.event.quit()
     end
 end

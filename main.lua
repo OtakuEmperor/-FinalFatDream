@@ -30,7 +30,7 @@ function love.keypressed(key)
         end
     elseif gameStage == 2 then
         if isSetting == true then
-            setting_update()
+            setting_keypressed(key)
         else
             loveavg_keypressed(key)
         end
