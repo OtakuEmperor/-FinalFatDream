@@ -55,6 +55,7 @@ function interface_update(dt)
 end
 
 function interface_draw()
+    love.graphics.setColor(255, 255, 255, 255)
     if heartBeat_draw_state == 1 then
         love.graphics.draw(heartbeat1, heartBeat_x, heartBeat_y)
     elseif heartBeat_draw_state == 2 then
@@ -79,7 +80,7 @@ function interface_draw()
     charHP = getHeroHP()
     charMaxHP = getHeroMaxHP()
     wake = (100-((charHP/charMaxHP)*100.0))
-    if wake >= 80 and wake <= 90 then
+    if wake >= 80 and wake < 90 then
         heartBeat_timeout = 0.1
     elseif wake >= 90 then
         heartBeat_timeout = 0.05
