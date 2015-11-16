@@ -30,8 +30,8 @@ function character_update(dt)
     else
         characterWakeTimer = 0
     end
-    if characterWakeTimer >= 5 then
-        character.hp=character.hp-1
+    if characterWakeTimer >= 1 then
+        character.hp=character.hp-0.2
         characterWakeTimer = 0
     end
     battle_update(dt)

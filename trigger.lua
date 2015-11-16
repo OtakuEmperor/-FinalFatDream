@@ -182,7 +182,6 @@ function triggerKeyPress(key)
 end
 
 function triggerDraw()
-    love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 10, 10)
     if question == true then
         local switchQuestion = {
             [1] = function()
