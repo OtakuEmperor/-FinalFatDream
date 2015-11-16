@@ -5,7 +5,7 @@ function love.load()
     require "setting"
     require "world"
     gameStage = 0
-    isSet = false
+    isSetting = false
         op_load()
         menu_load()
         world_load()
@@ -23,9 +23,13 @@ end
 
 function love.keypressed(key)
     if gameStage == 1 then
-        menu_keypressed(key)
+        if not menu.isBCK then
+            menu_keypressed(key)
+        else
+            beiCheeKiller_keypressed(key)
+        end
     elseif gameStage == 2 then
-        if isSet == true then
+        if isSetting == true then
             setting_update()
         else
             loveavg_keypressed(key)
@@ -34,10 +38,10 @@ function love.keypressed(key)
         world_keypressed(key)
     end
     --press esc to open or close setting.lua
-    if key == "escape" and isSet == false then
-        isSet = true
-    elseif key == "escape" and isSet == true then
-        isSet = false
+    if key == "escape" and isSetting == false then
+        isSetting = true
+    elseif key == "escape" and isSetting == true then
+        isSetting = false
     end
 
     if love.keyboard.isDown("0") and love.keyboard.isDown("lalt") then
@@ -48,6 +52,9 @@ function love.keypressed(key)
         gameStage = 2
     elseif love.keyboard.isDown("3") and love.keyboard.isDown("lalt") then
         gameStage = 3
+    elseif love.keyboard.isDown("4") and love.keyboard.isDown("lalt") then
+        love.filesystem.remove("data.txt")
+        love.filesystem.remove("data2.txt")
     end
 end
 
@@ -58,7 +65,7 @@ function love.draw()
         menu_draw()
     elseif gameStage == 2 then
         loveavg_draw()
-        if isSet == true then
+        if isSetting == true then
             setting_draw()
         end
     elseif gameStage == 3 then

@@ -1,6 +1,7 @@
 menu = {}
 
 function menu_load()
+    require "beiCheeKiller"
     --get width and height of windows
     menu.width = love.graphics.getWidth()
     menu.height = love.graphics.getHeight()
@@ -19,9 +20,12 @@ function menu_load()
     --set backbround
     menu.op = 0
     menu.flag = true
-    --set bei chee killer
+
+    --set BCK
+    beiCheeKiller_load()
     menu.isBCK = false
-    menu.word = ""
+    menu.isGo = false
+
 end
 
 function menu_keypressed(key)
@@ -42,37 +46,13 @@ function menu_keypressed(key)
     --to continue
     if key == " " and menu.stage == 2 then
         if love.filesystem.exists("data.txt") and love.filesystem.exists("data2.txt") then
-            local data = {}
-            local data2 = {}
-            local bool1, bool2
-            local f = love.filesystem.newFile("data.txt")
-            local f2 = love.filesystem.newFile("data2.txt")
-            f:open("r")
-            f2:open("r")
-            for line in love.filesystem.lines("data.txt") do
-                table.insert(data, tonumber(line), 0)
-            end
-            for line in love.filesystem.lines("data2.txt") do
-                table.insert(data2, line)
-            end
-            f:close()
-            f2:close()
-            if data2[1] == "true" then
-                bool1 = true
-            else
-                bool1 = false
-            end
-            if data2[2] == "true" then
-                bool2 = true
-            else
-                bool2 = false
-            end
-            loveLoad({data, bool1, bool2, tonumber(data2[3]), tonumber(data2[4]), tonumber(data2[5])})
-            love_reloadDay()
-            gameStage = 2
+            beiCheeKiller.word = "Continue?"
+            beiCheeKiller.isSelect = true
         else
-
+            beiCheeKiller.word = "No Record!"
+            beiCheeKiller.isSelect = false
         end
+        menu.isBCK = true
     end
     --to quit
     if key == " " and menu.stage == 3 then
@@ -142,15 +122,8 @@ function menu_draw()
     love.graphics.setColor(255, 255, 255)
     love.graphics.setFont(menu.font2)
     love.graphics.print("STINKY & ITCHY®2015", menu.width - menu.size2 * 10, menu.height - menu.size2 * (5/4))
-    --draw bei chee killer
-    if isBCK == true then
-
+    --draw beiCheeKiller
+    if menu.isBCK == true then
+        beiCheeKiller_draw()
     end
-end
-
---bei chee killer
-function bck(w, b)
-    menu.word = w
-    
-    menu.isBCK = true
 end
