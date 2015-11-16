@@ -40,13 +40,13 @@ function love.keypressed(key)
         isSet = false
     end
 
-    if love.keyboard.isDown("0") then
+    if love.keyboard.isDown("0") and love.keyboard.isDown("lalt") then
         gameStage = 0
-    elseif love.keyboard.isDown("1") then
+    elseif love.keyboard.isDown("1") and love.keyboard.isDown("lalt") then
         gameStage = 1
-    elseif love.keyboard.isDown("2") then
+    elseif love.keyboard.isDown("2") and love.keyboard.isDown("lalt") then
         gameStage = 2
-    elseif love.keyboard.isDown("3") then
+    elseif love.keyboard.isDown("3") and love.keyboard.isDown("lalt") then
         gameStage = 3
     end
 end
