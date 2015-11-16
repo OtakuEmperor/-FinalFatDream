@@ -99,8 +99,12 @@ function loveavg_draw()
             if day_state == 1 then
                 world1_dialogLock = false
                 world1_change()
+                gameStage = 3
+            elseif day_state == 2 then
+                dialog_state = 163
+                love_save()
+                gameStage = 1
             end
-            gameStage = 3
         end
     end
     -- tachie
@@ -199,7 +203,7 @@ function print_background(day, dialog)
         end
     end
     if day == 2 then
-        if (1 <= dialog and dialog <= 35) or (160 <= dialog and dialog <= 162) then
+        if (1 <= dialog and dialog <= 35) or (160 <= dialog and dialog <= 163) then
             bg = room_light
         elseif (36 <= dialog and dialog <= 84) then
             bg = computer
@@ -232,7 +236,7 @@ function play_bgm(day, dialog)
         end
     end
     if day == 2 then
-        if 1 <= dialog and dialog <= 162 then
+        if 1 <= dialog and dialog <= 163 then
             if not (bgm_name == "class_bgm") then
                 love.audio.stop()
                 bgm = class_bgm

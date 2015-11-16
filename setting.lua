@@ -121,3 +121,19 @@ end
 function getVol()
     return setting.vol/10
 end
+
+
+function love_save()
+    local data = loveSave()
+    local f = love.filesystem.newFile("data.txt")
+    local f2 = love.filesystem.newFile("data2.txt")
+    f:open("w")
+    f2:open("w")
+    for i, j in pairs(data[1]) do
+        f:write(string.format("%s\n%s\n", i, j))
+    end
+    f2:write(tostring(data[2]) .. "\n" .. tostring(data[3]) .. "\n" .. tostring(data[4]) .. "\n" .. tostring(data[5]) .. "\n" .. tostring(data[6]))
+    f:close()
+    f2:close()
+    love.audio.play(setting.saveSuccess)
+end

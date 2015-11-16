@@ -44,6 +44,7 @@ function menu_keypressed(key)
         day_state = 1
         dialog_state = 1
         choose_no = 0
+        love_reloadDay()
         gameStage = 2
     end
     --to continue
