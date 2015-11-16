@@ -14,6 +14,8 @@ function character_load()
     triggerLoad()
     characterX=500
     characterY=300
+    isCharacterWake = true
+    characterWakeTimer = 0
     characterCreate()
     characterLoad()
 end
@@ -22,6 +24,15 @@ function character_update(dt)
     characterUpdate(dt)
     if love.keyboard.isDown("-") then
         character.hp=character.hp-1
+    end
+    if isCharacterWake then
+        characterWakeTimer = characterWakeTimer + dt
+    else
+        characterWakeTimer = 0
+    end
+    if characterWakeTimer >= 5 then
+        character.hp=character.hp-1
+        characterWakeTimer = 0
     end
     battle_update(dt)
     battle_keyPress(key)
