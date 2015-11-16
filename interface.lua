@@ -78,12 +78,17 @@ function interface_draw()
     end
     charHP = getHeroHP()
     charMaxHP = getHeroMaxHP()
-    wake = (100-((charHP/charMaxHP)*100.0))
-    if wake >= 80 and wake <= 90 then
+    wakeOriginNumber = (100-((charHP/charMaxHP)*100.0))
+    if wakeOriginNumber > 10 then
+        wake = string.format("%.1f%%", wakeOriginNumber)
+    else
+        wake = string.format("0%.1f%%", wakeOriginNumber)
+    end
+    if wakeOriginNumber >= 80 and wakeOriginNumber <= 90 then
         heartBeat_timeout = 0.1
-    elseif wake >= 90 then
+    elseif wakeOriginNumber >= 90 then
         heartBeat_timeout = 0.05
-    elseif wake < 80 then
+    elseif wakeOriginNumber < 80 then
         heartBeat_timeout = 0.2
     end
     love.graphics.setBackgroundColor(178, 203, 148)
