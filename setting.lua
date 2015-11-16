@@ -114,3 +114,8 @@ function setting_draw()
     end
     love.graphics.print("Quit", setting.width - 370, setting.height*3/4 + 15)
 end
+
+--get vol
+function getVol()
+    return setting.vol/10
+end

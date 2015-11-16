@@ -16,9 +16,12 @@ function menu_load()
     menu.font2 = love.graphics.newFont("font/NotoSansMonoCJKtc-Regular.otf", menu.size2)
     --set select
     menu.stage = 1
-    --set bg
+    --set backbround
     menu.op = 0
     menu.flag = true
+    --set bei chee killer
+    menu.isBCK = false
+    menu.word = ""
 end
 
 function menu_keypressed(key)
@@ -135,4 +138,14 @@ function menu_draw()
     love.graphics.setColor(255, 255, 255)
     love.graphics.setFont(menu.font2)
     love.graphics.print("STINKY & ITCHY®2015", menu.width - menu.size2 * 10, menu.height - menu.size2 * (5/4))
+    --draw bei chee killer
+    if isBCK == true then
+        
+    end
+end
+
+--bei chee killer
+function bck(word)
+    menu.word = word
+    menu.isBCK = true
 end
