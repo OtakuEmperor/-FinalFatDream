@@ -34,7 +34,7 @@ function setting_keypressed(key)
         f:open("w")
         f2:open("w")
         for i, j in pairs(data[1]) do
-            f:write(string.format("%s\n%s", i, j))
+            f:write(string.format("%s\n%s\n", i, j))
         end
         f2:write(tostring(data[2]) .. "\n" .. tostring(data[3]) .. "\n" .. tostring(data[4]) .. "\n" .. tostring(data[5]) .. "\n" .. tostring(data[6]))
         f:close()
