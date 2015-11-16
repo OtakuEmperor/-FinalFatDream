@@ -24,6 +24,14 @@ function setting_update(dt)
         setting.stage = 4
         love.timer.sleep(0.2)
     end
+    --control volume
+    if setting.stage == 1 and love.keyboard.isDown("right") and setting.vol < 10 then
+        setting.vol = setting.vol + 1
+        love.timer.sleep(0.2)
+    elseif setting.stage == 1 and love.keyboard.isDown("left") and setting.vol > 0 then
+        setting.vol = setting.vol - 1
+        love.timer.sleep(0.2)
+    end
     --control save
     if love.keyboard.isDown(" ") and setting.stage == 2 then
         local data = loveSave()
@@ -38,19 +46,15 @@ function setting_update(dt)
         f:close()
         f2:close()
     end
-    --control volume
-    if setting.stage == 1 and love.keyboard.isDown("right") and setting.vol < 10 then
-        setting.vol = setting.vol + 1
-        love.timer.sleep(0.2)
-    elseif setting.stage == 1 and love.keyboard.isDown("left") and setting.vol > 0 then
-        setting.vol = setting.vol - 1
-        love.timer.sleep(0.2)
+    --control Quit
+    if love.keyboard.isDown(" ") and setting.stage == 4 then
+        love.event.quit()
     end
 end
 
 function setting_draw()
     love.graphics.setBackgroundColor(255, 255, 255)
-    --volume
+    --Volume
     if setting.stage == 1 then
         love.graphics.setColor(100, 100, 100)
     else
@@ -66,7 +70,7 @@ function setting_draw()
     love.graphics.print("Vol", 0, 15)
     love.graphics.polygon("fill", setting.width/3, setting.height*9/40, setting.width/3 + setting.width*7/15 * setting.vol/10, setting.height/40 +  (setting.height/5 * (10- setting.vol)/10), setting.width/3 + setting.width*7/15 * setting.vol/10, setting.height*9/40)
 
-    --save
+    --Save
     if setting.stage == 2 then
         love.graphics.setColor(100, 100, 100)
     else
@@ -80,7 +84,7 @@ function setting_draw()
     end
     love.graphics.print("Save", setting.width - 370, setting.height/4 + 15)
 
-    --quit
+    --Free
     if setting.stage == 3 then
         love.graphics.setColor(100, 100, 100)
     else
@@ -92,9 +96,9 @@ function setting_draw()
     else
         love.graphics.setColor(100, 100, 100)
     end
-    love.graphics.print("Quit", 0, setting.height*2/4 + 15)
+    love.graphics.print("Free", 0, setting.height*2/4 + 15)
 
-    --Free
+    --Quit
     if setting.stage == 4 then
         love.graphics.setColor(100, 100, 100)
     else
@@ -106,15 +110,5 @@ function setting_draw()
     else
         love.graphics.setColor(100, 100, 100)
     end
-    love.graphics.print("Free", setting.width - 370, setting.height*3/4 + 15)
-
-    --show save
-    local file = love.filesystem.newFile("data.txt")
-    file:open("r")
-    local data = file:read()
-    file:close()
-    love.graphics.setColor(0,0,0)
-    love.graphics.setFont(love.graphics.newFont("font/FFFFORWA.TTF", 30))
-    love.graphics.print(data, 10, 10)
-
+    love.graphics.print("Quit", setting.width - 370, setting.height*3/4 + 15)
 end
