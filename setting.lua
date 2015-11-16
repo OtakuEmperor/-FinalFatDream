@@ -4,12 +4,13 @@ function setting_load()
     setting.width = love.graphics.getWidth()
     setting.height = love.graphics.getHeight()
     setting.font = love.graphics.newFont("font/FFFFORWA.TTF", setting.height/5 + 3)
+    setting.saveSuccess = love.audio.newSource("audio/cannon.wav")
     setting.stage = 1
     setting.select = 0
     setting.vol = 10
 end
 
-function setting_update(dt)
+function setting_update()
     --control up and down
     if love.keyboard.isDown("down") and not(setting.stage == 4) then
         setting.stage = setting.stage + 1
@@ -45,6 +46,7 @@ function setting_update(dt)
         f2:write(tostring(data[2]) .. "\n" .. tostring(data[3]) .. "\n" .. tostring(data[4]) .. "\n" .. tostring(data[5]) .. "\n" .. tostring(data[6]))
         f:close()
         f2:close()
+        love.audio.play(setting.saveSuccess)
     end
     --control Quit
     if love.keyboard.isDown(" ") and setting.stage == 4 then
