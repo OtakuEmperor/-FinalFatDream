@@ -41,6 +41,20 @@ function setting_keypressed(key)
         f2:close()
         love.audio.play(setting.saveSuccess)
     end
+    --control menu
+    if key == " " and setting.stage == 3 then
+        setting.stage = 1
+        love.audio.rewind()
+        love.audio.stop()
+        choose = {}
+        chooseLock = true
+        dialogLock = false
+        day_state = 1
+        dialog_state = 1
+        choose_no = 0
+        isSetting = false
+        gameStage = 1
+    end
     --control quit
     if key == " " and setting.stage == 4 then
         love.event.quit()
@@ -79,7 +93,7 @@ function setting_draw()
     end
     love.graphics.print("Save", setting.width - 370, setting.height/4 + 15)
 
-    --Free
+    --Menu
     if setting.stage == 3 then
         love.graphics.setColor(100, 100, 100)
     else
@@ -91,7 +105,7 @@ function setting_draw()
     else
         love.graphics.setColor(100, 100, 100)
     end
-    love.graphics.print("Free", 0, setting.height*2/4 + 15)
+    love.graphics.print("Menu", 0, setting.height*2/4 + 15)
 
     --Quit
     if setting.stage == 4 then

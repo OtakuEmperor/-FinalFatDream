@@ -30,7 +30,7 @@ function beiCheeKiller_keypressed(key)
     if key == " " and beiCheeKiller.stage == 1 then
         menu.isBCK = false
     elseif key == " " and beiCheeKiller.stage == 2  then
-        --save
+        --load save
         local data = {}
         local data2 = {}
         local bool1, bool2
@@ -66,6 +66,7 @@ function beiCheeKiller_keypressed(key)
         loveLoad({data, bool1, bool2, tonumber(data2[3]), tonumber(data2[4]), tonumber(data2[5])})
         love_reloadDay()
         menu.isBCK = false
+        beiCheeKiller.stage = 1
         gameStage = 2
     end
 end
