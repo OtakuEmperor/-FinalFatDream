@@ -96,7 +96,10 @@ function loveavg_draw()
             love.audio.stop()
             dialogLock = false
             love_fade = false
-            world1_dialogLock = false
+            if day_state == 1 then
+                world1_dialogLock = false
+                world1_change()
+            end
             gameStage = 3
         end
     end
@@ -286,5 +289,35 @@ function love_update(dt)
     else
         love_fade_timer = 0
         love_fade_color = 255
+    end
+end
+
+function world1_change()
+    if choose[1136] % 2 == 0 then
+        monsters[8].hp = 50
+        character.hp = 150
+        character.maxHp = 150
+        q3Trap[1].disappearDelay = 8
+    elseif choose[1136] % 2 == 1 then
+        monsters[8].hp = 70
+        character.hp = 150
+        character.maxHp = 150
+        q3Trap[1].disappearDelay = 5
+    elseif choose[1127] % 3 == 1 then
+        monsters[8].hp = 70
+        character.hp = 100
+        character.maxHp = 100
+        q3Trap[1].disappearDelay = 5
+    elseif choose[1127] % 3 == 2 then
+        monsters[8].hp = 70
+        character.hp = 100
+        character.maxHp = 100
+        q3Trap[1].disappearDelay = 8
+    end
+
+    if choose[156] % 2 == 0 then
+        character.atk = 5
+    elseif choose[156] % 2 == 1 then
+        character.atk = 3
     end
 end

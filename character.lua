@@ -62,6 +62,7 @@ function characterCreate()
     character.maxHp=100
     character.hp=100
     character.die=false
+    character.atk=5
     character.speed = characterSpeed
     character.animation = walkCreate("img/hero.png", characterWidth, characterHeight, 4, 4)
     character.disappear=disappearCreate()

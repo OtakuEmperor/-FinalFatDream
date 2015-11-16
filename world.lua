@@ -164,6 +164,7 @@ function world_update(dt)
 end
 
 function world_draw()
+    print(string.format("%s %s\r\n%s %s\r\n", "hp", character.hp, "max.hp", character.maxHp))
     if world1_fade then
         love.graphics.setColor(0,0,0, world1_fade_color)
     end
@@ -201,6 +202,8 @@ function world_draw()
         print_dialog("我", "工三小")
     elseif world1_dialog_state == 14 then
         print_dialog("操作說明：", "F     與物品/NPC對話\r\nSpace 下一句對話\r\nEsc   設定/離開對話")
+    elseif world1_dialog_state == 15 then
+        world1_dialogLock = true
     end
     --testdraw()
     love.audio.setVolume(0.8)
