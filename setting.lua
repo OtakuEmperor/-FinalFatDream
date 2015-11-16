@@ -44,14 +44,9 @@ function setting_keypressed(key)
     --control menu
     if key == " " and setting.stage == 3 then
         setting.stage = 1
+        menu.stage = 1
         love.audio.rewind()
         love.audio.stop()
-        choose = {}
-        chooseLock = true
-        dialogLock = false
-        day_state = 1
-        dialog_state = 1
-        choose_no = 0
         isSetting = false
         gameStage = 1
     end

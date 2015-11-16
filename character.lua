@@ -35,7 +35,9 @@ function character_update(dt)
         characterWakeTimer = 0
     end
     battle_update(dt)
-    battle_keyPress(key)
+    if world1_dialogLock then
+        battle_keyPress(key)
+    end
 end
 
 

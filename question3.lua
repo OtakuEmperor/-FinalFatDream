@@ -1,8 +1,8 @@
 q3Trap={}
 q3key={}
 questionMark3={}
-local keyWidth=1133
-local keyHeight=614
+local keyWidth=1060
+local keyHeight=517
 local q3Block={}
 local q3BlockNum={}
 local delay=0.15
@@ -18,7 +18,7 @@ end
 function question3_load()
     q3KeyImage = love.graphics.newImage("img/key3.jpg")
     questionImage3 = love.graphics.newImage("img/question3.png")
-    imageWidth3=1166
+    imageWidth3=1092
     imageHeight3=614
     for i=1,20 do
         q3Block[i] = false
@@ -40,14 +40,14 @@ function question3_update(dt)
         delta = delta + dt
         if delta >= 0.5 then
             questionMark[3].isSolved = true
-        question=false
-        for i=1,20 do
-            q3Block[i] = false
-            q3BlockNum[i] = 0
-        end
-        q3Block[1] = true
-        addKey()
-        sloveProblem:play()
+            question=false
+            for i=1,20 do
+                q3Block[i] = false
+                q3BlockNum[i] = 0
+            end
+            q3Block[1] = true
+            addKey()
+            sloveProblem:play()
         end
     end
 end
@@ -232,16 +232,17 @@ function question3_draw()
         end
     else
         love.graphics.draw(questionImage3, 0, 0,0,1100/imageWidth3,614/imageHeight3)
+        love.graphics.setLineWidth( 5 )
         for i=1,5 do
             if q3Block[i] == true then
                 love.graphics.setColor(255,0,0)
             else
                 love.graphics.setColor(0,0,0)
             end
-            love.graphics.rectangle("line", 100+((i-1)*(20+blockWidth)),200 , blockWidth, blockHeight )
+            love.graphics.rectangle("line", 100+((i-1)*(20+blockWidth)),250 , blockWidth, blockHeight )
             love.graphics.setColor(0,0,0)
             love.graphics.setFont(love.graphics.newFont(50))
-            love.graphics.print(q3BlockNum[i], 114+((i-1)*(20+blockWidth)), 200)
+            love.graphics.print(q3BlockNum[i], 114+((i-1)*(20+blockWidth)), 250)
         end
         for i=6,10 do
             if q3Block[i] == true then
@@ -249,10 +250,10 @@ function question3_draw()
             else
                 love.graphics.setColor(0,0,0)
             end
-            love.graphics.rectangle("line", 200+((i-1)*(20+blockWidth)),200 , blockWidth, blockHeight )
+            love.graphics.rectangle("line", 200+((i-1)*(20+blockWidth)),250 , blockWidth, blockHeight )
             love.graphics.setColor(0,0,0)
             love.graphics.setFont(love.graphics.newFont(50))
-            love.graphics.print(q3BlockNum[i], 214+((i-1)*(20+blockWidth)), 200)
+            love.graphics.print(q3BlockNum[i], 214+((i-1)*(20+blockWidth)), 250)
         end
         for i=11,15 do
             if q3Block[i] == true then
@@ -276,6 +277,7 @@ function question3_draw()
             love.graphics.setFont(love.graphics.newFont(50))
             love.graphics.print(q3BlockNum[i], 214+((i-11)*(20+blockWidth)), 400)
         end
+        love.graphics.setLineWidth( 0 )
     end
 end
 
