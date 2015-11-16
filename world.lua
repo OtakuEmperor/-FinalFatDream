@@ -9,7 +9,7 @@ function world_load()
     require "barrierMove"
     require "kagemusha"
     monsters = {}
-    monsters[1] = slime.new(700,500)
+    monsters[1] = slime.new(1200,200)
     monsters[2] = slime.new(1200,500)
     monsters[3] = slime.new(1800, 1200)
     monsters[4] = slime.new(1000, 1100)
@@ -32,6 +32,8 @@ function world_load()
     character_load()
     barrierCreate()
     mapCreate()
+    npc[1].Image = love.graphics.newImage("img/wonanNPC.png")
+    npc[2].Image = love.graphics.newImage("img/oldManNPC.png")
 end
 
 function world_update(dt)
@@ -435,8 +437,6 @@ function barrier_draw()
         end
     end
     --draw npc
-    npc[1].Image = love.graphics.newImage("img/wonanNPC.png")
-    npc[2].Image = love.graphics.newImage("img/oldManNPC.png")
     for i=1,2 do
         love.graphics.draw(npc[i].Image, npc[i].x-world.x, npc[i].y-world.y)
         if npc[i].Barrier then
