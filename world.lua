@@ -184,8 +184,8 @@ function barrierCreate()
     npc[2] = npc.new(1600, 1500) --old man
     --create billboard
     npc[3] = npc.new(200,200)
-    npc[4] = npc.new(300,200)
-    npc[5] = npc.new(400,200)
+    npc[4] = npc.new(300,2000)
+    npc[5] = npc.new(1700,1900)
     ---create npc dialog
     for j=1,5 do
         npc_data = love.filesystem.read(string.format("npcDialog/npc%d.dat", j), all)
@@ -215,7 +215,6 @@ function barrierCreate()
     stone[18] = stone.new(1500, 1200)
     stone[19] = stone.new(1600, 900)
     stone[20] = stone.new(1600, 1100)
-    stone[21] = stone.new(1700, 1900)
     --create forest
     forest[1] = forest.new(200, 100)
     forest[2] = forest.new(300, 1200)
@@ -383,7 +382,7 @@ function barrier_draw()
         end
     end
     --draw stones
-    for i=1,21 do
+    for i=1,20 do
         love.graphics.draw(stone[i].Image, stone[i].x-world.x, stone[i].y-world.y)
         if stone[i].Barrier then
             isBarrier(stone[i].x-world.x, stone[i].y-world.y)
