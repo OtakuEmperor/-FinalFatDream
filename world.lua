@@ -448,7 +448,7 @@ function monster_draw()
     end
 
     if not monsters[3].alive and monsters[3].hp <= 0 then
-        print_dialog("我", "剛剛出現的到底是什麼東西……")
+        print_dialog("我", "我很努力在讀書了")
         toDay2 = true
     end
 end
