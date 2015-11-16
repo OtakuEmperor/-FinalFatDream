@@ -25,12 +25,67 @@ function interface_load()
     interface.opacity = 100
     interface.isAttacked = false
     interface.questionLock = false
+
+    heartBeat_timer = 0
+    heartBeat_timeout = 0.2
+    heartBeat_draw_state = 1
+    heartBeat_x = 50
+    heartBeat_y = 0
+    heartbeat1 = love.graphics.newImage("img/heartbeat1.png")
+    heartbeat2 = love.graphics.newImage("img/heartbeat2.png")
+    heartbeat3 = love.graphics.newImage("img/heartbeat3.png")
+    heartbeat4 = love.graphics.newImage("img/heartbeat4.png")
+    heartbeat5 = love.graphics.newImage("img/heartbeat5.png")
+    heartbeat6 = love.graphics.newImage("img/heartbeat6.png")
+    heartbeat7 = love.graphics.newImage("img/heartbeat7.png")
+    heartbeat8 = love.graphics.newImage("img/heartbeat8.png")
+    heartbeat9 = love.graphics.newImage("img/heartbeat9.png")
+    heartbeat10 = love.graphics.newImage("img/heartbeat10.png")
+end
+
+function interface_update(dt)
+    heartBeat_timer = heartBeat_timer + dt
+    if heartBeat_timer > heartBeat_timeout then
+        heartBeat_draw_state = heartBeat_draw_state + 1
+        if heartBeat_draw_state > 10 then
+            heartBeat_draw_state = 1
+        end
+        heartBeat_timer = 0
+    end
 end
 
 function interface_draw()
+    if heartBeat_draw_state == 1 then
+        love.graphics.draw(heartbeat1, heartBeat_x, heartBeat_y)
+    elseif heartBeat_draw_state == 2 then
+        love.graphics.draw(heartbeat2, heartBeat_x, heartBeat_y)
+    elseif heartBeat_draw_state == 3 then
+        love.graphics.draw(heartbeat3, heartBeat_x, heartBeat_y)
+    elseif heartBeat_draw_state == 4 then
+        love.graphics.draw(heartbeat4, heartBeat_x, heartBeat_y)
+    elseif heartBeat_draw_state == 5 then
+        love.graphics.draw(heartbeat5, heartBeat_x, heartBeat_y)
+    elseif heartBeat_draw_state == 6 then
+        love.graphics.draw(heartbeat6, heartBeat_x, heartBeat_y)
+    elseif heartBeat_draw_state == 7 then
+        love.graphics.draw(heartbeat7, heartBeat_x, heartBeat_y)
+    elseif heartBeat_draw_state == 8 then
+        love.graphics.draw(heartbeat8, heartBeat_x, heartBeat_y)
+    elseif heartBeat_draw_state == 9 then
+        love.graphics.draw(heartbeat9, heartBeat_x, heartBeat_y)
+    elseif heartBeat_draw_state == 10 then
+        love.graphics.draw(heartbeat10, heartBeat_x, heartBeat_y)
+    end
     charHP = getHeroHP()
     charMaxHP = getHeroMaxHP()
     wake = (100-((charHP/charMaxHP)*100.0))
+    if wake >= 80 and wake <= 90 then
+        heartBeat_timeout = 0.1
+    elseif wake >= 90 then
+        heartBeat_timeout = 0.05
+    elseif wake < 80 then
+        heartBeat_timeout = 0.2
+    end
     love.graphics.setBackgroundColor(178, 203, 148)
 
     --draw bleeding

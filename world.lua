@@ -40,6 +40,7 @@ function world_update(dt)
     barrierMove_update(dt)
     triggerUpdate(dt)
     q3Trap[1]:update(dt)
+    interface_update(dt)
     character_run(dt)
     character.py = character.y
     character.px = character.x
