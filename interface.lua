@@ -29,7 +29,7 @@ function interface_load()
     heartBeat_timer = 0
     heartBeat_timeout = 0.2
     heartBeat_draw_state = 1
-    heartBeat_x = 50
+    heartBeat_x = 150
     heartBeat_y = 0
     heartbeat1 = love.graphics.newImage("img/heartbeat1.png")
     heartbeat2 = love.graphics.newImage("img/heartbeat2.png")
