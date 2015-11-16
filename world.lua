@@ -23,9 +23,11 @@ function world_load()
     fight_bgm = love.audio.newSource("audio/night.mp3", "stream")
     toDay2Timer = 0
     toDay2 = false
-    fade_color = 0
-    fade = false
-    fade_timer = 0
+    world1_fade_color = 0
+    world1_fade = false
+    world1_fade_timer = 0
+    world1_dialog_state = 1
+    world1_dialogLock = true
     interface_load()
     character_load()
     barrierCreate()
@@ -50,18 +52,18 @@ function world_update(dt)
         toDay2Timer = 0
         toDay2 = false
     end
-    if fade then
-        fade_timer = fade_timer + dt
-        if fade_timer <= 2 then
-            fade_color = fade_color + 4
-            if fade_color >= 250 then
-                fade_color = 255
+    if world1_fade then
+        world1_fade_timer = world1_fade_timer + dt
+        if world1_fade_timer <= 2 then
+            world1_fade_color = world1_fade_color + 4
+            if world1_fade_color >= 250 then
+                world1_fade_color = 255
             end
         end
     end
     if character.die then
-        fade = true
-        if fade_timer >= 2 then
+        world1_fade = true
+        if world1_fade_timer >= 2 then
             day_state = 2
             dialog_state = 16
             gameStage = 2
@@ -162,8 +164,8 @@ function world_update(dt)
 end
 
 function world_draw()
-    if fade then
-        love.graphics.setColor(0,0,0, fade_color)
+    if world1_fade then
+        love.graphics.setColor(0,0,0, world1_fade_color)
     end
     barrier_draw()
     character_draw()
@@ -171,6 +173,35 @@ function world_draw()
     monster_draw()
     triggerDraw()
     interface_draw()
+    if world1_dialog_state == 1 then
+        print_dialog("我", "這裏是 什麼地方？")
+    elseif world1_dialog_state == 2 then
+        print_dialog("ＸＸＸ", "這裏是實現你夢想的地方")
+    elseif world1_dialog_state == 3 then
+        print_dialog("我", "夢想，什麼夢想")
+    elseif world1_dialog_state == 4 then
+        print_dialog("ＸＸＸ", "究竟會為此所困，還是因此啟航")
+    elseif world1_dialog_state == 5 then
+        print_dialog("我", "話說你是哪位")
+    elseif world1_dialog_state == 6 then
+        print_dialog("ＸＸＸ", "我？我是誰並不重要")
+    elseif world1_dialog_state == 7 then
+        print_dialog("我", "這什麼中二的自我介紹")
+    elseif world1_dialog_state == 8 then
+        print_dialog("ＸＸＸ", "中二，這形容詞真有趣")
+    elseif world1_dialog_state == 9 then
+        print_dialog("ＸＸＸ", "我是這裡的霸主，這裏的鐘會敲響七次")
+    elseif world1_dialog_state == 10 then
+        print_dialog("ＸＸＸ", "每一次的敲響，都是因你的枷鎖")
+    elseif world1_dialog_state == 11 then
+        print_dialog("ＸＸＸ", "這一夜，是你的第一道枷鎖")
+    elseif world1_dialog_state == 12 then
+        print_dialog("ＸＸＸ", "掙扎吧，為了你自己")
+    elseif world1_dialog_state == 13 then
+        print_dialog("我", "工三小")
+    elseif world1_dialog_state == 14 then
+        print_dialog("操作說明：", "F     與物品/NPC對話\r\nSpace 下一句對話\r\nEsc   設定/離開對話")
+    end
     --testdraw()
     love.audio.setVolume(0.8)
     fight_bgm:play()
@@ -281,6 +312,9 @@ function world_keypressed(key)
     triggerKeyPress(key)
     if love.keyboard.isDown("k") then
         addKey()
+    end
+    if love.keyboard.isDown(" ") and not world1_dialogLock then
+        world1_dialog_state = world1_dialog_state + 1
     end
 end
 

@@ -26,6 +26,9 @@ function loveavg_load()
     day_state = 1
     dialog_state = 1
     choose_no = 0
+    love_fade_color = 255
+    love_fade = false
+    love_fade_timer = 0
     file_data = love.filesystem.read(string.format("day%d.dat", day_state), all)
     dialog = {}
     -- parse data
@@ -87,8 +90,15 @@ function loveavg_draw()
     end
     ele_len = table.getn(dialog_element)
     if ele_len == 1 and dialog_element[1] == "###" then
-        love.audio.stop()
-        gameStage = 3
+        dialogLock = true
+        love_fade = true
+        if love_fade_timer >= 2 then
+            love.audio.stop()
+            dialogLock = false
+            love_fade = false
+            world1_dialogLock = false
+            gameStage = 3
+        end
     end
     -- tachie
     if dialog_element[1] == "我" then
@@ -181,6 +191,8 @@ function print_background(day, dialog)
             bg = restaurant_light
         elseif 156 <= dialog and dialog <= 166 then
             bg = schoolroad_sunset
+        elseif dialog >= 183 then
+            bg = night
         end
     end
     if day == 2 then
@@ -192,6 +204,7 @@ function print_background(day, dialog)
             bg = schoolroad_light
         end
     end
+    love.graphics.setColor(255, 255, 255 ,love_fade_color)
     love.graphics.draw(bg, 0, 0, 0, 1092/bg:getWidth(), 614/bg:getHeight())
 end
 
@@ -250,9 +263,6 @@ function loveLoad(data)
     day_state = data[4]
     dialog_state = data[5]
     choose_no = data[6]
-    for i, j in pairs(choose) do
-        print(string.format("%s %s", i, j))
-    end
 end
 
 function love_reloadDay()
@@ -261,5 +271,20 @@ function love_reloadDay()
     -- parse data
     for i in string.gmatch(file_data, "[^\n]+") do
         table.insert(dialog, i)
+    end
+end
+
+function love_update(dt)
+    if love_fade then
+        love_fade_timer = love_fade_timer + dt
+        if love_fade_timer <= 2 then
+            love_fade_color = love_fade_color - 4
+            if love_fade_color <= 10 then
+                love_fade_color = 0
+            end
+        end
+    else
+        love_fade_timer = 0
+        love_fade_color = 255
     end
 end
