@@ -9,7 +9,7 @@ function world_load()
     require "barrierMove"
     require "kagemusha"
     monsters = {}
-    monsters[1] = slime.new(700,500)
+    monsters[1] = slime.new(1200,200)
     monsters[2] = slime.new(1200,500)
     monsters[3] = slime.new(1800, 1200)
     monsters[4] = slime.new(1000, 1100)
