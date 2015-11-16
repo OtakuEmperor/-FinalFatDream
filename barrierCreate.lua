@@ -25,7 +25,7 @@ function npc.new (originPointX,originPointY)
 end
 function tree.new (originPointX,originPointY)
    local obj = {
-        Image = love.graphics.newImage("img/tree.png"),
+        Image = love.graphics.newImage("img/stone.png"),
         Barrier=false,
         moveable=true,
         nx= originPointX,

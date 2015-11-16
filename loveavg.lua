@@ -296,31 +296,37 @@ function love_update(dt)
 end
 
 function world1_change()
-    if choose[1136] % 2 == 0 then
-        monsters[8].hp = 50
-        character.hp = 150
-        character.maxHp = 150
-        q3Trap[1].disappearDelay = 8
-    elseif choose[1136] % 2 == 1 then
-        monsters[8].hp = 70
-        character.hp = 150
-        character.maxHp = 150
-        q3Trap[1].disappearDelay = 5
-    elseif choose[1127] % 3 == 1 then
-        monsters[8].hp = 70
-        character.hp = 100
-        character.maxHp = 100
-        q3Trap[1].disappearDelay = 5
-    elseif choose[1127] % 3 == 2 then
-        monsters[8].hp = 70
-        character.hp = 100
-        character.maxHp = 100
-        q3Trap[1].disappearDelay = 8
+    if not isempty(choose[1136]) then
+        if choose[1136] % 2 == 0 then
+            monsters[8].hp = 50
+            character.hp = 150
+            character.maxHp = 150
+            q3Trap[1].disappearDelay = 8
+        elseif choose[1136] % 2 == 1 then
+            monsters[8].hp = 70
+            character.hp = 150
+            character.maxHp = 150
+            q3Trap[1].disappearDelay = 5
+        end
     end
-
-    if choose[156] % 2 == 0 then
-        character.atk = 5
-    elseif choose[156] % 2 == 1 then
-        character.atk = 3
+    if not isempty(choose[1136]) then
+        if choose[1127] % 3 == 1 then
+            monsters[8].hp = 70
+            character.hp = 100
+            character.maxHp = 100
+            q3Trap[1].disappearDelay = 5
+        elseif choose[1127] % 3 == 2 then
+            monsters[8].hp = 70
+            character.hp = 100
+            character.maxHp = 100
+            q3Trap[1].disappearDelay = 8
+        end
+    end
+    if not isempty(choose[1136]) then
+        if choose[156] % 2 == 0 then
+            character.atk = 5
+        elseif choose[156] % 2 == 1 then
+            character.atk = 3
+        end
     end
 end

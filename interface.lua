@@ -55,6 +55,7 @@ function interface_update(dt)
 end
 
 function interface_draw()
+    love.graphics.setColor(255, 255, 255, 255)
     if heartBeat_draw_state == 1 then
         love.graphics.draw(heartbeat1, heartBeat_x, heartBeat_y)
     elseif heartBeat_draw_state == 2 then
