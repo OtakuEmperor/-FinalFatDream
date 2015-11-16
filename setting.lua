@@ -4,7 +4,7 @@ function setting_load()
     setting.width = love.graphics.getWidth()
     setting.height = love.graphics.getHeight()
     setting.font = love.graphics.newFont("font/FFFFORWA.TTF", setting.height/5 + 3)
-    setting.saveSuccess = love.audio.newSource("audio/cannon.wav")
+    setting.saveSuccess = love.audio.newSource("audio/save.mp3")
     setting.stage = 1
     setting.select = 0
     setting.vol = 10
