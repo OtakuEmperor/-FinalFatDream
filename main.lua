@@ -4,7 +4,7 @@ function love.load()
     require "loveavg"
     require "setting"
     require "world"
-    gameStage = 1
+    gameStage = 0
     isSet = false
         op_load()
         menu_load()
@@ -38,6 +38,16 @@ function love.keypressed(key)
         isSet = true
     elseif key == "escape" and isSet == true then
         isSet = false
+    end
+
+    if love.keyboard.isDown("0") and love.keyboard.isDown("lalt") then
+        gameStage = 0
+    elseif love.keyboard.isDown("1") and love.keyboard.isDown("lalt") then
+        gameStage = 1
+    elseif love.keyboard.isDown("2") and love.keyboard.isDown("lalt") then
+        gameStage = 2
+    elseif love.keyboard.isDown("3") and love.keyboard.isDown("lalt") then
+        gameStage = 3
     end
 end
 
