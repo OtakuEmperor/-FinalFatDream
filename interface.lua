@@ -131,10 +131,10 @@ function interface_draw()
     end
     --draw water
     love.graphics.setColor(0, 0, 0, 127)--set opacity50
-    love.graphics.draw(interface.water, interface.width * (4/20), interface.height * (9/160))
+    love.graphics.draw(interface.water, interface.width * (6/40), interface.height * (1/8))
     --draw weapon
     love.graphics.setColor(0, 0, 0, 127)--set opacity50
-    love.graphics.draw(interface.weapon, interface.width * (4/20), interface.height * (21/160))
+    love.graphics.draw(interface.weapon, interface.width * (6/40) + 40, interface.height * (1/8))
     --draw days
     if interface.dn == true then
         love.graphics.setColor(0, 128, 255)
