@@ -32,6 +32,8 @@ function world_load()
     character_load()
     barrierCreate()
     mapCreate()
+    npc[1].Image = love.graphics.newImage("img/wonanNPC.png")
+    npc[2].Image = love.graphics.newImage("img/oldManNPC.png")
 end
 
 function world_update(dt)
@@ -432,8 +434,6 @@ function barrier_draw()
         end
     end
     --draw npc
-    npc[1].Image = love.graphics.newImage("img/wonanNPC.png")
-    npc[2].Image = love.graphics.newImage("img/oldManNPC.png")
     for i=1,2 do
         love.graphics.draw(npc[i].Image, npc[i].x-world.x, npc[i].y-world.y)
         if npc[i].Barrier then
