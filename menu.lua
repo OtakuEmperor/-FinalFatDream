@@ -41,34 +41,38 @@ function menu_keypressed(key)
     end
     --to continue
     if key == " " and menu.stage == 2 then
-        local data = {}
-        local data2 = {}
-        local bool1, bool2
-        local f = love.filesystem.newFile("data.txt")
-        local f2 = love.filesystem.newFile("data2.txt")
-        f:open("r")
-        f2:open("r")
-        for line in love.filesystem.lines("data.txt") do
-            table.insert(data, tonumber(line), 0)
-        end
-        for line in love.filesystem.lines("data2.txt") do
-            table.insert(data2, line)
-        end
-        f:close()
-        f2:close()
-        if data2[1] == "true" then
-            bool1 = true
+        if love.filesystem.exists("data.txt") and love.filesystem.exists("data2.txt") then
+            local data = {}
+            local data2 = {}
+            local bool1, bool2
+            local f = love.filesystem.newFile("data.txt")
+            local f2 = love.filesystem.newFile("data2.txt")
+            f:open("r")
+            f2:open("r")
+            for line in love.filesystem.lines("data.txt") do
+                table.insert(data, tonumber(line), 0)
+            end
+            for line in love.filesystem.lines("data2.txt") do
+                table.insert(data2, line)
+            end
+            f:close()
+            f2:close()
+            if data2[1] == "true" then
+                bool1 = true
+            else
+                bool1 = false
+            end
+            if data2[2] == "true" then
+                bool2 = true
+            else
+                bool2 = false
+            end
+            loveLoad({data, bool1, bool2, tonumber(data2[3]), tonumber(data2[4]), tonumber(data2[5])})
+            love_reloadDay()
+            gameStage = 2
         else
-            bool1 = false
+
         end
-        if data2[2] == "true" then
-            bool2 = true
-        else
-            bool2 = false
-        end
-        loveLoad({data, bool1, bool2, tonumber(data2[3]), tonumber(data2[4]), tonumber(data2[5])})
-        love_reloadDay()
-        gameStage = 2
     end
     --to quit
     if key == " " and menu.stage == 3 then
@@ -140,12 +144,13 @@ function menu_draw()
     love.graphics.print("STINKY & ITCHY®2015", menu.width - menu.size2 * 10, menu.height - menu.size2 * (5/4))
     --draw bei chee killer
     if isBCK == true then
-        
+
     end
 end
 
 --bei chee killer
-function bck(word)
-    menu.word = word
+function bck(w, b)
+    menu.word = w
+    
     menu.isBCK = true
 end

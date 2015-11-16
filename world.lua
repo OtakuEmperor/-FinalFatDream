@@ -11,10 +11,15 @@ function world_load()
     monsters = {}
     monsters[1] = slime.new(700,500)
     monsters[2] = slime.new(1200,500)
-    monsters[3] = boss1.new(1000,700)
-    monsters[4] = kagemusha.new(monsters[3], 1100, 700)
-    monsters[5] = kagemusha.new(monsters[3], 1100, 800)
-    monsters[6] = kagemusha.new(monsters[3], 1000, 800)
+    monsters[3] = slime.new(1800, 1200)
+    monsters[4] = slime.new(1000, 1100)
+    monsters[5] = slime.new(1000, 1800)
+    monsters[6] = slime.new(100, 1600)
+    monsters[7] = slime.new(1700, 500)
+    monsters[8] = boss1.new(1000,700)
+    monsters[9] = kagemusha.new(monsters[3], 1100, 700)
+    monsters[10] = kagemusha.new(monsters[3], 1100, 800)
+    monsters[11] = kagemusha.new(monsters[3], 1000, 800)
     fight_bgm = love.audio.newSource("audio/night.mp3", "stream")
     toDay2Timer = 0
     toDay2 = false
@@ -446,7 +451,7 @@ function monster_draw()
         end
     end
 
-    if not monsters[3].alive and monsters[3].hp <= 0 then
+    if not monsters[8].alive and monsters[8].hp <= 0 then
         print_dialog("我", "我很努力在讀書了")
         toDay2 = true
     end
