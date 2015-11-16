@@ -64,6 +64,7 @@ function menu_keypressed(key)
             bool2 = false
         end
         loveLoad({data, bool1, bool2, tonumber(data2[3]), tonumber(data2[4]), tonumber(data2[5])})
+        love_reloadDay()
         gameStage = 2
     end
     --to quit

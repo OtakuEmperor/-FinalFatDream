@@ -180,8 +180,8 @@ function barrierCreate()
     questionMark[3] = questionMark3.new(1800,1900)
     q3key = q3key.new(1800,1500)
     --create npc
-    npc[1] = npc.new(0,200)
-    npc[2] = npc.new(100,200)
+    npc[1] = npc.new(400, 1400) --lady
+    npc[2] = npc.new(1600, 1500) --old man
     --create billboard
     npc[3] = npc.new(200,200)
     npc[4] = npc.new(300,200)
