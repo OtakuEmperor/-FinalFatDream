@@ -6,6 +6,7 @@ function interface_load()
     interface.weaponImg = "weapon.png"
     --load img
     interface.key = love.graphics.newImage("img/key.png") --32px
+    interface.key2 = love.graphics.newImage("img/key2.png") --32px
     interface.water = love.graphics.newImage("img/"..interface.waterImg) --32px
     interface.weapon = love.graphics.newImage("img/"..interface.weaponImg) --32px
     --interface.arrow = love.graphics.newImage("img/arrow.png") --32px
@@ -46,10 +47,10 @@ function interface_draw()
     love.graphics.print(wake, interface.width * (1/20), interface.height * (1/20))
 
     --draw key
-    love.graphics.setColor(255, 255, 255, 127)
-    love.graphics.draw(interface.key, interface.width * (9/200), interface.height * (1/8))
-    love.graphics.draw(interface.key, interface.width * (9/200) + 32, interface.height * (1/8))
-    love.graphics.draw(interface.key, interface.width * (9/200) + 64, interface.height * (1/8))
+    love.graphics.setColor(255, 255, 255, 200)
+    love.graphics.draw(interface.key2, interface.width * (9/200), interface.height * (1/8))
+    love.graphics.draw(interface.key2, interface.width * (9/200) + 32, interface.height * (1/8))
+    love.graphics.draw(interface.key2, interface.width * (9/200) + 64, interface.height * (1/8))
     love.graphics.setColor(255, 255, 255, 255)
     if interface.keyNum == 1 then
         love.graphics.draw(interface.key, interface.width * (9/200), interface.height * (1/8))
