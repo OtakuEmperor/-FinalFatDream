@@ -166,7 +166,7 @@ function world_update(dt)
 end
 
 function world_draw()
-    print(string.format("%s %s\r\n%s %s\r\n", "hp", character.hp, "max.hp", character.maxHp))
+    -- print(string.format("%s %s\r\n%s %s\r\n", "hp", character.hp, "max.hp", character.maxHp))
     if world1_fade then
         love.graphics.setColor(0,0,0, world1_fade_color)
     end

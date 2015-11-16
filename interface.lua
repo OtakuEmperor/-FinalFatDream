@@ -30,7 +30,7 @@ end
 function interface_draw()
     charHP = getHeroHP()
     charMaxHP = getHeroMaxHP()
-    wake = (charMaxHP-((charHP/charMaxHP)*100.0))
+    wake = (100-((charHP/charMaxHP)*100.0))
     love.graphics.setBackgroundColor(178, 203, 148)
 
     --draw bleeding

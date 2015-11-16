@@ -20,6 +20,7 @@ function question3_load()
     questionImage3 = love.graphics.newImage("img/question3.png")
     imageWidth3=1092
     imageHeight3=614
+    question3Font = love.graphics.newFont(50)
     for i=1,20 do
         q3Block[i] = false
         q3BlockNum[i] = 0
@@ -53,6 +54,7 @@ function question3_update(dt)
 end
 
 function question3_keypressed(key)
+    print("running")
     if not q3_dialogLock then
         if love.keyboard.isDown(" ") then
             clicksound:play()
@@ -241,7 +243,7 @@ function question3_draw()
             end
             love.graphics.rectangle("line", 100+((i-1)*(20+blockWidth)),250 , blockWidth, blockHeight )
             love.graphics.setColor(0,0,0)
-            love.graphics.setFont(love.graphics.newFont(50))
+            love.graphics.setFont(question3Font)
             love.graphics.print(q3BlockNum[i], 114+((i-1)*(20+blockWidth)), 250)
         end
         for i=6,10 do
@@ -252,7 +254,7 @@ function question3_draw()
             end
             love.graphics.rectangle("line", 200+((i-1)*(20+blockWidth)),250 , blockWidth, blockHeight )
             love.graphics.setColor(0,0,0)
-            love.graphics.setFont(love.graphics.newFont(50))
+            love.graphics.setFont(question3Font)
             love.graphics.print(q3BlockNum[i], 214+((i-1)*(20+blockWidth)), 250)
         end
         for i=11,15 do
@@ -263,7 +265,7 @@ function question3_draw()
             end
             love.graphics.rectangle("line", 100+((i-11)*(20+blockWidth)),400 , blockWidth, blockHeight )
             love.graphics.setColor(0,0,0)
-            love.graphics.setFont(love.graphics.newFont(50))
+            love.graphics.setFont(question3Font)
             love.graphics.print(q3BlockNum[i], 114+((i-11)*(20+blockWidth)), 400)
         end
         for i=16,20 do
@@ -274,7 +276,7 @@ function question3_draw()
             end
             love.graphics.rectangle("line", 200+((i-11)*(20+blockWidth)),400 , blockWidth, blockHeight )
             love.graphics.setColor(0,0,0)
-            love.graphics.setFont(love.graphics.newFont(50))
+            love.graphics.setFont(question3Font)
             love.graphics.print(q3BlockNum[i], 214+((i-11)*(20+blockWidth)), 400)
         end
         love.graphics.setLineWidth( 0 )
