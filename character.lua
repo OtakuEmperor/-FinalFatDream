@@ -58,7 +58,7 @@ function characterCreate()
     character.px=characterX
     character.py=characterY
     character.maxHp=100
-    character.hp=99
+    character.hp=100
     character.die=false
     character.speed = characterSpeed
     character.animation = walkCreate("img/hero.png", characterWidth, characterHeight, 4, 4)
@@ -97,14 +97,14 @@ function characterUpdate(dt)
         character.die=true
     end
 
-    --if character.die==true then
-      --  character.animation.characterImage = love.graphics.newImage("img/baddies.png")
-        --character.disappear.count = character.disappear.count + dt
-        --if character.disappear.count >=character.disappear.delay then
-          --  character.disappear.disappearFlog=true
-        --    character.disappear.count = 0
-        --end
-    --end
+    -- if character.die==true then
+    --    character.animation.characterImage = love.graphics.newImage("img/baddies.png")
+    --     character.disappear.count = character.disappear.count + dt
+    --     if character.disappear.count >=character.disappear.delay then
+    --        character.disappear.disappearFlog=true
+    --        character.disappear.count = 0
+    --     end
+    -- end
 
     if character.die==false and question==false and conversation == false then
         moveStageCheck()
@@ -360,6 +360,11 @@ end
 
 function hpDecline(hpDecrease)
     character.hp=character.hp-hpDecrease
+    if character.hp > character.maxHp then
+        character.hp = 100
+    elseif character.hp < 0 then
+        character.hp = 0
+    end
     interface.isAttacked = true
     love.audio.setVolume(0.4)
     charUnderAttack:play()

@@ -153,6 +153,7 @@ function slime:underAttack(faceDir,damageBlood)
     self.underAttacking = true
     self.hp = self.hp - damageBlood
     if self.hp <= 0 then
+        hpDecline(-10)
         self.alive = flase
     end
     self.timeTick = 0
@@ -175,7 +176,7 @@ end
 function slimeAttackCheck(charX,charY,slimeX,slimeY,slimeFace)
     --if math.abs(slimeX - charX)<100 and math.abs(slimeY - charY)<100 then
     if slimeX == charX and slimeY == charY then
-        hpDecline(1)
+        hpDecline(5)
         charaMoveBack(slimeFace)
         return true
     else

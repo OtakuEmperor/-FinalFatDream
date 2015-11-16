@@ -23,6 +23,9 @@ function world_load()
     fight_bgm = love.audio.newSource("audio/night.mp3", "stream")
     toDay2Timer = 0
     toDay2 = false
+    fade_color = 0
+    fade = false
+    fade_timer = 0
     interface_load()
     character_load()
     barrierCreate()
@@ -47,6 +50,24 @@ function world_update(dt)
         love_reloadDay()
         toDay2Timer = 0
         toDay2 = false
+    end
+    if fade then
+        fade_timer = fade_timer + dt
+        if fade_timer <= 2 then
+            fade_color = fade_color + 4
+            if fade_color >= 250 then
+                fade_color = 255
+            end
+        end
+    end
+    if character.die then
+        fade = true
+        if fade_timer >= 2 then
+            day_state = 2
+            dialog_state = 16
+            gameStage = 2
+            love_reloadDay()
+        end
     end
     if question==false and conversation == false then
     moveStageCheck()
@@ -142,6 +163,9 @@ function world_update(dt)
 end
 
 function world_draw()
+    if fade then
+        love.graphics.setColor(0,0,0, fade_color)
+    end
     barrier_draw()
     character_draw()
     trap_draw()
