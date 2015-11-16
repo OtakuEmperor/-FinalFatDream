@@ -17,9 +17,9 @@ function world_load()
     monsters[6] = slime.new(100, 1600)
     monsters[7] = slime.new(1700, 500)
     monsters[8] = boss1.new(1000,700)
-    monsters[9] = kagemusha.new(monsters[3], 1100, 700)
-    monsters[10] = kagemusha.new(monsters[3], 1100, 800)
-    monsters[11] = kagemusha.new(monsters[3], 1000, 800)
+    monsters[9] = kagemusha.new(monsters[8], 1100, 700)
+    monsters[10] = kagemusha.new(monsters[8], 1100, 800)
+    monsters[11] = kagemusha.new(monsters[8], 1000, 800)
     fight_bgm = love.audio.newSource("audio/night.mp3", "stream")
     toDay2Timer = 0
     toDay2 = false
@@ -279,6 +279,9 @@ function world_keypressed(key)
     question2_keypressedLine(key)
     question3_keypressed(key)
     npc_keypressed(key)
+    if love.keyboard.isDown("k") then
+        addKey()
+    end
 end
 
 function mapMove(direction, dt)
