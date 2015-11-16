@@ -78,7 +78,7 @@ function interface_draw()
     end
     charHP = getHeroHP()
     charMaxHP = getHeroMaxHP()
-    wake = (charMaxHP-((charHP/charMaxHP)*100.0))
+    wake = (100-((charHP/charMaxHP)*100.0))
     if wake >= 80 and wake <= 90 then
         heartBeat_timeout = 0.1
     elseif wake >= 90 then
