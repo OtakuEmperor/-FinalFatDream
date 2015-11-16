@@ -166,6 +166,10 @@ function triggerKeyPress(dt)
             face()
         end
     elseif love.keyboard.isDown("escape") then
+        q1_dialog_state = 1
+        q2_dialog_stateKey = 1
+        q2_dialog_stateLine = 1
+        q3_dialog_state = 1
         question = false
         showKey = false
         showQ3Answer = false
