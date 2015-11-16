@@ -16,6 +16,8 @@ end
 function love.update(dt)
     if gameStage == 0 then
         op_update()
+    elseif gameStage == 2 then
+        love_update(dt)
     elseif gameStage == 3 then
         world_update(dt)
     end
