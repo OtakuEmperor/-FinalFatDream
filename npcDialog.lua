@@ -28,12 +28,4 @@ function npc_draw(dialogNum)
         npc[dialogNum].dialog[npc_dialog_namestate] = " "
     end
           print_dialog(npc[dialogNum].dialog[npc_dialog_namestate],npc[dialogNum].dialog[npc_dialog_state])
-    -- dialog
-    --if not (isempty(npc[dialogNum].dialog[2])) then
-      --  if (isempty(npc[dialogNum].dialog[1])) then
-        --    print_dialog("", npc[dialogNum].dialog[npc_dialog_state+1])
-        --else
-          --  print_dialog(dialog_element[], dialog_element[npc_dialog_state+1])
-        --end
-    --end
 end

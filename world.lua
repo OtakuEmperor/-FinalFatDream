@@ -35,7 +35,6 @@ end
 function world_update(dt)
     barrierMove_update(dt)
     triggerUpdate(dt)
-    triggerKeyPress(key)
     q3Trap[1]:update(dt)
     character_run(dt)
     character.py = character.y
@@ -279,6 +278,7 @@ function world_keypressed(key)
     question2_keypressedLine(key)
     question3_keypressed(key)
     npc_keypressed(key)
+    triggerKeyPress(key)
 end
 
 function mapMove(direction, dt)

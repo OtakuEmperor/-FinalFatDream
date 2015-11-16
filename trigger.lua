@@ -23,8 +23,7 @@ function triggerUpdate(dt)
     end
 end
 
-function triggerKeyPress(dt)
-    
+function triggerKeyPress(key)
     local switch = {
         ["right"] = function()    -- for case 1
             for i=1,5 do
@@ -35,7 +34,7 @@ function triggerKeyPress(dt)
                 end
             end
             for i=1,3 do
-                if (character.x+world.x+100)==questionMark[i].x and (character.y+world.y)== questionMark[i].y then
+                if (character.x+world.x+100)==questionMark[i].x and (character.y+world.y)== questionMark[i].y and questionMark[i].isSolved == false then
                     question = true
                     questionNum=i
                     if i == 1 then
@@ -67,7 +66,7 @@ function triggerKeyPress(dt)
                 end
             end
             for i=1,3 do
-                if (character.x+world.x-100)==questionMark[i].x and (character.y+world.y)== questionMark[i].y then
+                if (character.x+world.x-100)==questionMark[i].x and (character.y+world.y)== questionMark[i].y and questionMark[i].isSolved == false then
                     question = true
                     questionNum=i
                     if i == 1 then
@@ -101,7 +100,7 @@ function triggerKeyPress(dt)
                 end
             end
             for i=1,3 do
-                if (character.x+world.x)==questionMark[i].x and (character.y+world.y+100)== questionMark[i].y then
+                if (character.x+world.x)==questionMark[i].x and (character.y+world.y+100)== questionMark[i].y and questionMark[i].isSolved == false then
                     question = true
                     questionNum=i
                     if i == 1 then
@@ -135,7 +134,7 @@ function triggerKeyPress(dt)
                 end
             end
             for i=1,3 do
-                if (character.x+world.x)==questionMark[i].x and (character.y+world.y-100)== questionMark[i].y then
+                if (character.x+world.x)==questionMark[i].x and (character.y+world.y-100)== questionMark[i].y and questionMark[i].isSolved == false then
                     question = true
                     questionNum=i
                     if i == 1 then
@@ -170,6 +169,10 @@ function triggerKeyPress(dt)
         q2_dialog_stateKey = 1
         q2_dialog_stateLine = 1
         q3_dialog_state = 1
+        q1_dialogLock = true
+        q2_dialogLockKey = true
+        q2_dialogLockLine = true
+        q3_dialogLock = true
         question = false
         showKey = false
         showQ3Answer = false
@@ -179,6 +182,7 @@ function triggerKeyPress(dt)
 end
 
 function triggerDraw()
+    love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 10, 10)
     if question == true then
         local switchQuestion = {
             [1] = function()
