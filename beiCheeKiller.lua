@@ -38,8 +38,15 @@ function beiCheeKiller_keypressed(key)
         local f2 = love.filesystem.newFile("data2.txt")
         f:open("r")
         f2:open("r")
+        local count = 1
+        local reg = 0
         for line in love.filesystem.lines("data.txt") do
-            table.insert(data, tonumber(line), 0)
+            if count % 2 == 1 then
+                reg = tonumber(line)
+            else
+                table.insert(data, reg, tonumber(line))
+            end
+            count = count + 1
         end
         for line in love.filesystem.lines("data2.txt") do
             table.insert(data2, line)

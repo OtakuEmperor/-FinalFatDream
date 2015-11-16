@@ -27,7 +27,7 @@ end
 function interface_draw()
     charHP = getHeroHP()
     charMaxHP = getHeroMaxHP()
-    wake = (charMaxHP-((charHP/charMaxHP)*100))
+    wake = (charMaxHP-((charHP/charMaxHP)*100.0))
     love.graphics.setBackgroundColor(178, 203, 148)
 
     --draw bleeding
@@ -61,7 +61,7 @@ function interface_draw()
         love.graphics.draw(interface.key, interface.width * (9/200) + 32, interface.height * (1/8))
         love.graphics.draw(interface.key, interface.width * (9/200) + 64, interface.height * (1/8))
         if interface.questionLock == false then
-            monsters[3]:summon()
+            monsters[8]:summon()
             interface.questionLock = true
         end
     end
