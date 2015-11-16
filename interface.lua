@@ -13,6 +13,8 @@ function interface_load()
     --get width and height of windows
     interface.width = love.graphics.getWidth()
     interface.height = love.graphics.getHeight()
+    --set font
+    interface.font = love.graphics.newFont("font/FFFFORWA.TTF", 36)
     --set days
     interface.days = 1
     --set day(true) or night(false)
@@ -42,7 +44,7 @@ function interface_draw()
     end
 
     --draw wake
-    love.graphics.setFont(love.graphics.newFont("font/FFFFORWA.TTF", 36))
+    love.graphics.setFont(interface.font)
     love.graphics.setColor(255, 0, 0)
     love.graphics.print(wake, interface.width * (1/20), interface.height * (1/20))
 
