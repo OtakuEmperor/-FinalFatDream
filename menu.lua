@@ -32,9 +32,43 @@ function menu_keypressed(key)
     elseif key == "up" and menu.stage == 1 then
         menu.stage = 3
     end
-    --control space
+    --to start
     if key == " " and menu.stage == 1 then
         gameStage = 2
+    end
+    --to continue
+    if key == " " and menu.stage == 2 then
+        local data = {}
+        local data2 = {}
+        local bool1, bool2
+        local f = love.filesystem.newFile("data.txt")
+        local f2 = love.filesystem.newFile("data2.txt")
+        f:open("r")
+        f2:open("r")
+        for line in love.filesystem.lines("data.txt") do
+            table.insert(data, tonumber(line), 0)
+        end
+        for line in love.filesystem.lines("data2.txt") do
+            table.insert(data2, line)
+        end
+        f:close()
+        f2:close()
+        if data2[1] == "true" then
+            bool1 = true
+        else
+            bool1 = false
+        end
+        if data2[2] == "true" then
+            bool2 = true
+        else
+            bool2 = false
+        end
+        loveLoad({data, bool1, bool2, tonumber(data2[3]), tonumber(data2[4]), tonumber(data2[5])})
+        gameStage = 2
+    end
+    --to quit
+    if key == " " and menu.stage == 3 then
+        love.event.quit()
     end
 end
 
@@ -55,13 +89,11 @@ function menu_draw()
     end
     love.graphics.setColor(255, 255, 255, menu.op)
     love.graphics.draw(menu.starSky2, 0, 0)
-    --set text font
-    love.graphics.setFont(menu.font)
-    --draw FPS
-    --love.graphics.print(tostring(love.timer.getFPS()), 5, 5)
     --draw sexy title
     love.graphics.setColor(255, 255, 255, 255)
     love.graphics.draw(menu.sexy, menu.width/2 - 450, menu.height/10, 0, 3/4, 3/4)
+    --set text font
+    love.graphics.setFont(menu.font)
     --draw start
     if menu.stage == 1 then
         love.graphics.setColor(127, 127, 127)
@@ -86,20 +118,20 @@ function menu_draw()
         love.graphics.setColor(127, 127, 127)
         love.graphics.print("Continue", menu.width/3, menu.height/2 + 100)
     end
-    --draw option
+    --draw Quit
     if menu.stage == 3 then
         love.graphics.setColor(127, 127, 127)
         love.graphics.rectangle("fill", menu.width/3, menu.height/2 + 200, menu.width/3, menu.height/10)
         love.graphics.setColor(255, 255, 255)
-        love.graphics.print("About", menu.width/3, menu.height/2 + 200)
+        love.graphics.print("Quit", menu.width/3, menu.height/2 + 200)
     else
         love.graphics.setColor(0, 0, 0, 0)
         love.graphics.rectangle("fill", menu.width/3, menu.height/2 + 200, menu.width/3, menu.height/10)
         love.graphics.setColor(127, 127, 127)
-        love.graphics.print("About", menu.width/3, menu.height/2 + 200)
+        love.graphics.print("Quit", menu.width/3, menu.height/2 + 200)
     end
-    --draw otaku workshop
+    --draw STINKY & ITCHY
     love.graphics.setColor(255, 255, 255)
     love.graphics.setFont(menu.font2)
-    love.graphics.print("Otaku Workshop®2015", menu.width - menu.size2 * 10, menu.height - menu.size2 * (5/4))
+    love.graphics.print("STINKY & ITCHY®2015", menu.width - menu.size2 * 10, menu.height - menu.size2 * (5/4))
 end
