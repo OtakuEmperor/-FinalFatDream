@@ -9,6 +9,8 @@ function menu_load()
     menu.sexy = love.graphics.newImage("img/title.png")
     menu.starSky = love.graphics.newImage("img/starSky.png")
     menu.starSky2 = love.graphics.newImage("img/starSky2.png")
+    --load audio
+    menu.button = love.audio.newSource("audio/menu_b.ogg")
     --set text
     menu.size = 48
     menu.font = love.graphics.newFont("font/FFFFORWA.TTF", menu.size)
@@ -26,14 +28,21 @@ function menu_load()
 end
 
 function menu_keypressed(key)
+    --set audio of button
+    menu.button:setVolume(getVol())
+    love.audio.rewind(menu.button)
     --control up and down
     if key == "down" and menu.stage ~= 3  then
+        menu.button:play()
         menu.stage = menu.stage + 1
     elseif key == "down" and menu.stage == 3 then
+        menu.button:play()
         menu.stage = 1
     elseif key == "up" and menu.stage ~= 1 then
+        menu.button:play()
         menu.stage = menu.stage - 1
     elseif key == "up" and menu.stage == 1 then
+        menu.button:play()
         menu.stage = 3
     end
     --to start
@@ -57,6 +66,7 @@ function menu_keypressed(key)
             beiCheeKiller.isSelect = false
         end
         menu.isBCK = true
+        menu.button:play()
     end
     --to quit
     if key == " " and menu.stage == 3 then
