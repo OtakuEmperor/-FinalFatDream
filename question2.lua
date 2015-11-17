@@ -178,6 +178,7 @@ function question2_draw()
             showKey = false
             showQ3Answer = false
             q2_dialogLockKey = true
+            atk_timeout = 0
         end
     else
         love.graphics.draw(questionImage2, 0, 0,0,1100/imageWidth2,614/imageHeight2)

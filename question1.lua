@@ -9,7 +9,7 @@ function newObject(o, class)
 end
 function question1_load()
     questionImage = love.graphics.newImage("img/question1.jpg")
-    question1Font = love.graphics.newFont(50)
+    question1Font=love.graphics.newFont(100)
     block1=true
     block2=false
     block3=false
