@@ -28,18 +28,7 @@ function setting_keypressed(key)
     end
     --control save
     if key == " " and setting.stage == 2 then
-        local data = loveSave()
-        local f = love.filesystem.newFile("data.txt")
-        local f2 = love.filesystem.newFile("data2.txt")
-        f:open("w")
-        f2:open("w")
-        for i, j in pairs(data[1]) do
-            f:write(string.format("%s\n%s\n", i, j))
-        end
-        f2:write(tostring(data[2]) .. "\n" .. tostring(data[3]) .. "\n" .. tostring(data[4]) .. "\n" .. tostring(data[5]) .. "\n" .. tostring(data[6]))
-        f:close()
-        f2:close()
-        love.audio.play(setting.saveSuccess)
+        love_save()
     end
     --control menu
     if key == " " and setting.stage == 3 then
