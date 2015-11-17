@@ -9,6 +9,7 @@ function newObject(o, class)
 end
 function question1_load()
     questionImage = love.graphics.newImage("img/question1.jpg")
+    question1Font=love.graphics.newFont(100)
     block1=true
     block2=false
     block3=false
@@ -248,7 +249,7 @@ function question1_draw()
     love.graphics.rectangle("fill", 600, love.graphics.getHeight()*2/3+(love.graphics.getHeight()*1/3-100)/2, 100, 100 )
     love.graphics.rectangle("fill", 800, love.graphics.getHeight()*2/3+(love.graphics.getHeight()*1/3-100)/2, 100, 100 )
     love.graphics.setColor(0,0,0)
-    love.graphics.setFont(love.graphics.newFont(100))
+    love.graphics.setFont(question1Font)
     love.graphics.print(blockNum1, 220, 453)
     love.graphics.print(blockNum2, 420, 453)
     love.graphics.print(blockNum3, 620, 453)

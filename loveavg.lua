@@ -142,7 +142,7 @@ end
 function print_dialog(who, says)
     says = string.sub(says,1,dialogCutCounter)
     love.graphics.setFont(lovefont)
-    says_nd = ""
+    says_nd = " "
     if string.len(says) > 129 then
         says_nd = string.sub(says, 130)
         says = string.sub(says, 1, 129)

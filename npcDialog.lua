@@ -23,6 +23,7 @@ function npc_draw(dialogNum)
         npc_dialogLock = true
         npc_dialog_state = 2
         npc_dialog_namestate = 1
+        atk_timeout = 0
     end
    if npc[dialogNum].dialog[npc_dialog_namestate] == "nil" then
         npc[dialogNum].dialog[npc_dialog_namestate] = " "

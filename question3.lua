@@ -226,11 +226,12 @@ function question3_draw()
         elseif q3_dialog_state == 3 then
             print_dialog("", "恩......")
         elseif q3_dialog_state == 5 then
-            --q3_dialog_state = 1
+            q3_dialog_state = 1
             question = false
             showKey = false
             showQ3Answer = false
             q3_dialogLock = true
+            atk_timeout = 0
         end
     else
         love.graphics.draw(questionImage3, 0, 0,0,1100/imageWidth3,614/imageHeight3)
