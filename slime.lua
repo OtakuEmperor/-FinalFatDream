@@ -10,9 +10,10 @@ function slime.new (originPointX,originPointY)
     underAttackBGM = love.audio.newSource("audio/slimeHit.ogg", "static")
     local guardMode = 1
     local attackMode = 2
-    local slimeAnimaLength = 4 
+    local slimeAnimaLength = 6
     local obj = {
         alive = true,
+        dying = false,
         hp = 10,
         face = "left",
         underAttacking = false,
@@ -43,7 +44,7 @@ function slime.new (originPointX,originPointY)
     for i=1,slimeAnimaLength do
         obj.slimeQuads[i] = {}
         for j=1,slimeAnimaLength do
-            obj.slimeQuads[i][j] = love.graphics.newQuad( (100*j)-100, (100*i)-100, 100, 100, 400, 400)
+            obj.slimeQuads[i][j] = love.graphics.newQuad( (100*j)-100, (100*i)-100, 100, 100, 600, 400)
         end
     end
     obj = newObject(obj, slime)
@@ -52,7 +53,7 @@ end
 
 function slime:update(dt,charX,charY,dt)
     self.timeTick = self.timeTick + dt
-    if self.alive == true then
+    if self.dying == false then
         if self.attacking == true then
             self.attacking_cool_down = self.attacking_cool_down + dt
         else
@@ -60,7 +61,7 @@ function slime:update(dt,charX,charY,dt)
                 self.attacking =true
             end
         end
-        if self.attacking_cool_down >1 then
+        if self.attacking_cool_down > 1 then
             self.attacking = false
             self.attacking_cool_down = 0
         end
@@ -71,10 +72,6 @@ function slime:update(dt,charX,charY,dt)
             if self.animationIndex > 4  then
                 self.distance = math.sqrt(math.pow((charX-self.keyPointX), 2)+ math.pow((charY-self.keyPointY), 2))
                 self.guardRange = self.alertRange*100*math.sqrt(2)
-                -- blow is for debug
-                -- print("nowMode: "..self.moveMode)
-                -- print("distance: "..self.distance)
-                -- print("guardRange: "..self.guardRange)
                 if self.distance > self.guardRange and self.moveMode == 2 then
                     self.moveStep[self.moveIndex] = self.lastMoveStep
                     self.moveMode = 1 --one is for guardMode
@@ -137,6 +134,10 @@ function slime:update(dt,charX,charY,dt)
                 self.animationIndex = 1
             end
         end
+    else
+        if self.timeTick > 0.5 then
+            self.alive = false
+        end
     end
 end
 
@@ -151,10 +152,11 @@ end
 function slime:underAttack(faceDir,damageBlood)
     underAttackBGM:play()
     self.underAttacking = true
+    self.animationIndex = 5
     self.hp = self.hp - damageBlood
     if self.hp <= 0 then
         hpDecline(-10)
-        self.alive = flase
+        self:die()
     end
     self.timeTick = 0
     if faceDir == "up" then
@@ -171,6 +173,11 @@ function slime:underAttack(faceDir,damageBlood)
         self.nowX = self.nowX + 100
     end
         
+end
+
+function slime:die()
+    self.dying = true
+    self.animationIndex = 6
 end
 
 function slimeAttackCheck(charX,charY,slimeX,slimeY,slimeFace,dt)
