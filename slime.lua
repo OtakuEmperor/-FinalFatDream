@@ -50,13 +50,13 @@ function slime.new (originPointX,originPointY)
     return obj
 end
 
-function slime:update(dt,charX,charY)
+function slime:update(dt,charX,charY,dt)
     self.timeTick = self.timeTick + dt
     if self.alive == true then
         if self.attacking == true then
             self.attacking_cool_down = self.attacking_cool_down + dt
         else
-            if slimeAttackCheck(charX,charY,self.nowX,self.nowY,self.face) then
+            if slimeAttackCheck(charX,charY,self.nowX,self.nowY,self.face,dt) then
                 self.attacking =true
             end
         end
@@ -173,11 +173,26 @@ function slime:underAttack(faceDir,damageBlood)
         
 end
 
-function slimeAttackCheck(charX,charY,slimeX,slimeY,slimeFace)
-    --if math.abs(slimeX - charX)<100 and math.abs(slimeY - charY)<100 then
-    if slimeX == charX and slimeY == charY then
+function slimeAttackCheck(charX,charY,slimeX,slimeY,slimeFace,dt)
+    if slimeX +100> charX and slimeX-100 <charX and slimeY+100> charY and slimeY-100<charY then
+    --if math.abs<100 and math.abs<100 then
+    --if slimeX == charX and slimeY == charY then
         hpDecline(5)
-        charaMoveBack(slimeFace)
+        if character.x ~= character.nx then
+            if character.faceDir=="right" then
+                charaMoveBack("left",dt)
+            elseif character.faceDir=="left" then
+                charaMoveBack("right",dt)
+            end
+        elseif character.y ~=character.ny then
+            if character.faceDir=="up" then
+                charaMoveBack("down",dt)
+            elseif character.faceDir=="down" then
+                charaMoveBack("up",dt)
+            end
+        else
+            charaMoveBack(slimeFace,dt)
+        end
         q1_dialog_state = 1
         q2_dialog_stateKey = 1
         q2_dialog_stateLine = 1

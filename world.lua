@@ -10,6 +10,7 @@ function world_load()
     require "kagemusha"
     monsters = {}
     monsters[1] = slime.new(1200,200)
+    --monsters[1] = slime.new(400,300)
     monsters[2] = slime.new(1200,500)
     monsters[3] = slime.new(1800, 1200)
     monsters[4] = slime.new(1000, 1100)
@@ -162,7 +163,7 @@ function world_update(dt)
         end
     end
     for i, monster in ipairs(monsters) do
-        monster:update(dt,character.x+world.x,character.y+world.y)
+        monster:update(dt,character.x+world.x,character.y+world.y,dt)
     end
 end
 
