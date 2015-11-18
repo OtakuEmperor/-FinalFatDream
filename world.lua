@@ -501,11 +501,12 @@ end
 function monster_draw()
     for i, monster in ipairs(monsters) do
         if monster.alive then
-            if monster.underAttacking == true then
-                love.graphics.setColor(255,0,0)
-            else
-                love.graphics.setColor(255,255,255)
-            end
+            -- if monster.underAttacking == true then
+            --     love.graphics.setColor(255,0,0)
+            -- else
+            --     love.graphics.setColor(255,255,255)
+            -- end
+            love.graphics.setColor(255,255,255)
             love.graphics.draw(monster.slimeImgFile, monster.slimeQuads[monster.moveStep[monster.moveIndex]][monster.animationIndex], monster.nowX-world.x, monster.nowY-world.y)
         end
         if monster.isThunderBallAttack then
