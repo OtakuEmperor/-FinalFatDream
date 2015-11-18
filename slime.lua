@@ -178,13 +178,13 @@ function slimeAttackCheck(charX,charY,slimeX,slimeY,slimeFace,dt)
     --if math.abs<100 and math.abs<100 then
     --if slimeX == charX and slimeY == charY then
         hpDecline(5)
-        if character.x ~= character.nx then
+        if character.x ~= character.nx or world.x ~= world.nx then
             if character.faceDir=="right" then
                 charaMoveBack("left",dt)
             elseif character.faceDir=="left" then
                 charaMoveBack("right",dt)
             end
-        elseif character.y ~=character.ny then
+        elseif character.y ~=character.ny or world.y ~= world.ny then
             if character.faceDir=="up" then
                 charaMoveBack("down",dt)
             elseif character.faceDir=="down" then

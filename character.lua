@@ -102,8 +102,10 @@ function characterUpdate(dt)
     --     end
     -- end
     if character.backMove == true then    
+        character.speed = 1000
         charabackMoveUpdate(dt)
     elseif character.die==false and question==false and conversation == false then
+        character.speed = characterSpeed
         moveStageCheck()
         if character.x<character.nx and character.faceDir == "right" then
              character.animation.walking = true
@@ -418,42 +420,50 @@ function getHeroMaxHP()
 end
 
 function charaMoveBack(backFace,dt)
-    if world.leftMove == true and backFace == "left" then
+    if world.leftMove == true and backFace == "left" and world.backMove == false then
+        if world.nx==world.x and world.nx-100 >= 300 and world.count==false then
+            world.nx = world.nx -100
+        elseif world.nx ~= world.x and world.nx-200 >= 300 and world.count==false then
+            world.nx = world.nx-200
+        end
         characterSetDirection( character.animation.Directions.Right)
         character.faceDir = "right"
-        world.py = world.y
-        world.px = world.x    
-        if world.nx ~= 0 and world.count==false then
-                world.nx = world.x - 100
-                world.x = world.nx
+        character.animation.walking = true
+        mapMove(character.Directions.Left, dt)
+        world.backMove =true
+    elseif world.rightMove == true and backFace == "right" and world.backMove == false then
+        if world.nx==world.x and world.nx+100 <= 800 and world.count==false then
+            world.nx = world.nx +100
+        elseif world.nx ~= world.x and world.nx+200 <= 800 and world.count==false then
+            world.nx = world.nx+200
         end
-    elseif world.rightMove == true and backFace == "right" then
         characterSetDirection( character.animation.Directions.Left)
         character.faceDir = "left"
-        world.py = world.y
-        world.px = world.x    
-        if world.nx ~= (world.width-1000) and world.count==false then
-                world.nx = world.x + 100
-                world.x = world.nx
+        character.animation.walking = true
+        mapMove(character.Directions.Right, dt)
+        world.backMove =true
+    elseif world.upMove == true and backFace == "up" and world.backMove == false then
+        if world.ny==world.y and world.ny-100 >= 100 and world.count==false then
+            world.ny = world.ny -100
+        elseif world.ny ~= world.y and world.ny-200 >= 100 and world.count==false then
+            world.ny = world.ny-200
         end
-    elseif world.upMove == true and backFace == "up" then
         characterSetDirection( character.animation.Directions.Down)
         character.faceDir = "down"
-        world.py = world.y
-        world.px = world.x
-        if world.ny ~= 0 and world.count==false then
-            world.ny = world.y - 100
-            world.y = world.ny
+        character.animation.walking = true
+        mapMove(character.Directions.Up, dt)
+        world.backMove =true
+    elseif world.downMove == true and backFace == "down" and world.backMove == false then
+        if world.ny==world.y and world.ny+100 <= 500 and world.count==false then
+            world.ny = world.ny +100
+        elseif world.ny ~= world.y and world.ny+200 <= 100 and world.count==false then
+            world.ny = world.ny+200
         end
-    elseif world.downMove == true and backFace == "down" then
         characterSetDirection( character.animation.Directions.Up)
         character.faceDir = "up"
-        world.py = world.y
-        world.px = world.x
-        if world.ny ~= (world.height-500) and world.count==false then
-            world.ny = world.y + 100
-            world.y = world.ny
-        end
+        character.animation.walking = true
+        mapMove(character.Directions.Down, dt)
+        world.backMove =true
     else
         if backFace == "left" and character.backMove == false then
             if character.nx==character.x and character.nx-100 >= 0 and world.leftMove==false and character.count==false then

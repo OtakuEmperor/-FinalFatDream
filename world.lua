@@ -66,8 +66,14 @@ function world_update(dt)
             love_reloadDay()
         end
     end
-    if question==false and conversation == false then
-    moveStageCheck()
+    if world.backMove == true then    
+        --if world.rightMove == true or world.leftMove == true or world.upMove == true or world.downMove == true then
+        world.speed = 1000
+        mapbackMoveUpdate(dt)
+        --end
+    elseif  question==false and conversation == false then
+        world.speed = 300
+        moveStageCheck()
     if world.x<world.nx and character.faceDir == "right" then
             character.animation.walking = true
             mapMove(character.Directions.Right, dt)
@@ -145,7 +151,7 @@ function world_update(dt)
                 mapMove(character.Directions.Down, dt)
             end
         else
-            if world.y%100 == 0  and world.y == world.ny and world.x%100 == 0  and world.x == world.nx then
+            if world.y%100 == 0  and world.y == world.ny and world.x%100 == 0  and world.x == world.nx and world.backMove == false then
                 character_update(dt)
             else
                 character.animation.sound:stop()
@@ -158,7 +164,36 @@ function world_update(dt)
         monster:update(dt,character.x+world.x,character.y+world.y,dt)
     end
 end
+------------mapbackMoveUpdate(dt)-----
+function mapbackMoveUpdate(dt)
+    if world.backMove == true then
+        moveStageCheck()
+        if world.x<world.nx and character.faceDir == "left" then
+             character.animation.walking = true
+            mapMove(character.Directions.Right, dt)
+            characterSetDirection( character.animation.Directions.Left)
+        elseif world.x>world.nx and character.faceDir == "right" then
+            character.animation.walking = true
+            mapMove(character.Directions.Left, dt)
+            characterSetDirection( character.animation.Directions.Right)
 
+        elseif world.y<world.ny and character.faceDir == "up" then
+            character.animation.walking = true
+            mapMove(character.Directions.Down, dt)
+            characterSetDirection( character.animation.Directions.Up)
+        elseif world.y>world.ny and character.faceDir == "down" then
+            character.animation.walking = true
+            mapMove(character.Directions.Up, dt)
+             characterSetDirection( character.animation.Directions.Down)
+        else
+            character.py = character.y
+            character.px = character.x
+            character.animation.sound:stop()
+            world.backMove =false
+        end
+    end
+
+end
 function world_draw()
     -- print(string.format("%s %s\r\n%s %s\r\n", "hp", character.hp, "max.hp", character.maxHp))
     if world1_fade then
@@ -225,6 +260,7 @@ function mapCreate()
     world.speed = 300
     world.delta=0
     world.delay=0.15
+    world.backMove =false
 end
 
 function barrierCreate()
