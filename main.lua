@@ -1,4 +1,8 @@
 function love.load()
+    --remove mouse
+    local state = not love.mouse.isVisible()   -- the opposite of whatever it currently is
+    love.mouse.setVisible(state)
+    --------
     require "op"
     require "menu"
     require "loveavg"

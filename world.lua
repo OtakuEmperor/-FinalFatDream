@@ -10,6 +10,7 @@ function world_load()
     require "kagemusha"
     monsters = {}
     monsters[1] = slime.new(1200,200)
+    --monsters[1] = slime.new(400,300)
     monsters[2] = slime.new(1200,500)
     monsters[3] = slime.new(1800, 1200)
     monsters[4] = slime.new(1000, 1100)
@@ -21,8 +22,6 @@ function world_load()
     monsters[10] = kagemusha.new(monsters[8], 1100, 800)
     monsters[11] = kagemusha.new(monsters[8], 1000, 800)
     fight_bgm = love.audio.newSource("audio/night.mp3", "stream")
-    toDay2Timer = 0
-    toDay2 = false
     world1_fade_color = 0
     world1_fade = false
     world1_fade_timer = 0
@@ -44,17 +43,6 @@ function world_update(dt)
     character_run(dt)
     character.py = character.y
     character.px = character.x
-    if toDay2 then
-        toDay2Timer = toDay2Timer + dt
-    end
-    if toDay2Timer >= 5 then
-        day_state = 2
-        dialog_state = 1
-        gameStage = 2
-        love_reloadDay()
-        toDay2Timer = 0
-        toDay2 = false
-    end
     if world1_fade then
         world1_fade_timer = world1_fade_timer + dt
         if world1_fade_timer <= 2 then
@@ -63,6 +51,11 @@ function world_update(dt)
                 world1_fade_color = 255
             end
         end
+    end
+    if not (world1_dialogLock and q1_dialogLock and q2_dialogLockKey and q2_dialogLockLine and q3_dialogLock and npc_dialogLock and boss1_dialogLcok) then
+        isCharacterWake = false
+    else
+        isCharacterWake = true
     end
     if character.die then
         world1_fade = true
@@ -162,7 +155,7 @@ function world_update(dt)
         end
     end
     for i, monster in ipairs(monsters) do
-        monster:update(dt,character.x+world.x,character.y+world.y)
+        monster:update(dt,character.x+world.x,character.y+world.y,dt)
     end
 end
 
@@ -178,7 +171,7 @@ function world_draw()
     triggerDraw()
     interface_draw()
     if world1_dialog_state == 1 then
-        print_dialog("我", "這裏是 什麼地方？")
+        print_dialog("我", "這裏是　什麼地方？")
     elseif world1_dialog_state == 2 then
         print_dialog("ＸＸＸ", "這裏是實現你夢想的地方")
     elseif world1_dialog_state == 3 then
@@ -322,6 +315,10 @@ function world_keypressed(key)
     if love.keyboard.isDown(" ") and not world1_dialogLock then
         world1_dialog_state = world1_dialog_state + 1
     end
+    if love.keyboard.isDown(" ") and not boss1_dialogLock then
+        boss1_dialogState = boss1_dialogState + 1
+    end
+    character_keyPressed(key)
 end
 
 function mapMove(direction, dt)
@@ -517,9 +514,30 @@ function monster_draw()
         end
     end
 
-    if not monsters[8].alive and monsters[8].hp <= 0 then
-        print_dialog("我", "我很努力在讀書了")
-        toDay2 = true
+    if not boss1_dialogLock then
+        if boss1_dialogState == 1 then
+            print_dialog("？？？", "死吧！蟲子！")
+        elseif boss1_dialogState == 2 then
+            boss1_dialogLock = true
+            monsters[8].startAttack = true
+        elseif boss1_dialogState == 3 then
+            print_dialog("？？？", "我……我怎麼可能會輸給你？！！")
+        elseif boss1_dialogState == 4 then
+            world1_fade = true
+            if world1_fade_timer >= 2 then
+                day_state = 2
+                dialog_state = 1
+                gameStage = 2
+                love_reloadDay()
+            end
+            boss1_dialogLock = true
+        end
+
+    end
+
+    if not monsters[8].alive and monsters[8].hp <= 0 and boss1_dialogState == 2 then
+        boss1_dialogState = 3
+        boss1_dialogLock = false
     end
 end
 function trap_draw()

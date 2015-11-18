@@ -25,21 +25,13 @@ function character_update(dt)
     if love.keyboard.isDown("-") then
         character.hp=character.hp-1
     end
-    if isCharacterWake then
-        characterWakeTimer = characterWakeTimer + dt
-    else
-        characterWakeTimer = 0
-    end
-    if characterWakeTimer >= 0.2 then
-        character.hp=character.hp-0.04
-        characterWakeTimer = 0
-    end
-    battle_update(dt)
+end
+
+function character_keyPressed(key)
     if world1_dialogLock then
         battle_keyPress(key)
     end
 end
-
 
 function character_draw()
     love.graphics.setColor(255,255,255)
@@ -75,6 +67,7 @@ function characterCreate()
     character.faceDir = "down"
     character.delay=0.15
     character.delta=0
+    character.backMove=false
     charUnderAttack = love.audio.newSource("audio/charUnderAttack.wav", "static")
 end
 
@@ -108,8 +101,9 @@ function characterUpdate(dt)
     --        character.disappear.count = 0
     --     end
     -- end
-
-    if character.die==false and question==false and conversation == false then
+    if character.backMove == true then    
+        charabackMoveUpdate(dt)
+    elseif character.die==false and question==false and conversation == false then
         moveStageCheck()
         if character.x<character.nx and character.faceDir == "right" then
              character.animation.walking = true
@@ -195,14 +189,44 @@ function characterUpdate(dt)
             end
 
         else
-            characterStop()
+            if character.backMove == false then
+                characterStop()
+            end
             character.py = character.y
             character.px = character.x
             character.animation.sound:stop()
         end
     end
 end
+------------------function backMoveUpdate()--------------------
+function charabackMoveUpdate(dt)
+    if character.backMove == true then
+        moveStageCheck()
+        if character.x<character.nx and character.faceDir == "left" then
+             character.animation.walking = true
+            characterMove(character.Directions.Right, dt)
+            characterSetDirection( character.animation.Directions.Left)
+        elseif character.x>character.nx and character.faceDir == "right" then
+            character.animation.walking = true
+            characterMove(character.Directions.Left, dt)
+            characterSetDirection( character.animation.Directions.Right)
 
+        elseif character.y<character.ny and character.faceDir == "up" then
+            character.animation.walking = true
+            characterMove(character.Directions.Down, dt)
+            characterSetDirection( character.animation.Directions.Up)
+        elseif character.y>character.ny and character.faceDir == "down" then
+            character.animation.walking = true
+            characterMove(character.Directions.Up, dt)
+             characterSetDirection( character.animation.Directions.Down)
+        else
+            character.py = character.y
+            character.px = character.x
+            character.animation.sound:stop()
+            character.backMove =false
+        end
+    end
+end
 -----------------characterMove----------------------------------------------
 function characterMove(direction, dt)
     if direction == character.animation.Directions.Down and question==false and conversation == false then
@@ -281,6 +305,17 @@ function character_run(dt)
             character.animation.count = 0
         end
     end
+
+    if isCharacterWake then
+        characterWakeTimer = characterWakeTimer + dt
+    else
+        characterWakeTimer = 0
+    end
+    if characterWakeTimer >= 0.2 then
+        character.hp=character.hp-0.04
+        characterWakeTimer = 0
+    end
+    battle_update(dt)
 end
 function moveStageCheck()
     if  character.x  < 400 and world.x ~= 0 then
@@ -382,7 +417,7 @@ function getHeroMaxHP()
     return character.maxHp
 end
 
-function charaMoveBack(backFace)
+function charaMoveBack(backFace,dt)
     if world.leftMove == true and backFace == "left" then
         characterSetDirection( character.animation.Directions.Right)
         character.faceDir = "right"
@@ -420,42 +455,50 @@ function charaMoveBack(backFace)
             world.y = world.ny
         end
     else
-        if backFace == "left" then
+        if backFace == "left" and character.backMove == false then
+            if character.nx==character.x and character.nx-100 >= 0 and world.leftMove==false and character.count==false then
+                    character.nx = character.nx -100
+            elseif character.nx ~= character.x and character.nx-200 >= 0 and world.leftMove==false and character.count==false then
+                    character.nx = character.nx-200
+            end
             characterSetDirection( character.animation.Directions.Right)
             character.faceDir = "right"
-            character.py = character.y
-            character.px = character.x    
-            if character.nx ~= 0 and character.count==false then
-                character.nx = character.x - 100
-                character.x = character.nx
+            character.animation.walking = true
+            characterMove(character.Directions.Left, dt)
+            character.backMove =true
+        elseif backFace == "right" and character.backMove == false then
+            if character.nx==character.x and character.nx+100 <= 1000 and world.rightMove==false and character.count==false then
+                    character.nx = character.nx +100
+            elseif character.nx ~= character.x and character.nx+200 <= 1000 and world.rightMove==false and character.count==false then
+                    character.nx = character.nx+200
             end
-        elseif backFace == "right" then
             characterSetDirection( character.animation.Directions.Left)
             character.faceDir = "left"
-            character.py = character.y
-            character.px = character.x    
-            if character.nx ~= 1000 and character.count==false then
-                character.nx = character.x + 100
-                character.x = character.nx
+            character.animation.walking = true
+            characterMove(character.Directions.Right, dt)
+            character.backMove =true
+        elseif backFace == "up" and character.backMove == false then
+            if character.ny==character.y and character.ny-100 >= 0 and world.upMove==false and character.count==false then
+                    character.ny = character.ny -100
+            elseif character.ny ~= character.y and character.ny-200 >= 0 and world.upMove==false and character.count==false then
+                    character.ny = character.ny-200
             end
-        elseif backFace == "up" then
             characterSetDirection( character.animation.Directions.Down)
             character.faceDir = "down"
-            character.py = character.y
-            character.px = character.x
-            if character.ny ~= 0 and character.count==false then
-                character.ny = character.y - 100
-                character.y = character.ny
+            character.animation.walking = true
+            characterMove(character.Directions.Up, dt)
+            character.backMove =true
+        elseif backFace == "down" and character.backMove == false then
+            if character.ny==character.y and character.ny+100 <= 500 and world.downMove==false and character.count==false then
+                    character.ny = character.ny +100
+            elseif character.ny ~= character.y and character.ny+200 <= 500 and world.downMove==false and character.count==false then
+                    character.ny = character.ny+200
             end
-        elseif backFace == "down" then
             characterSetDirection( character.animation.Directions.Up)
             character.faceDir = "up"
-            character.py = character.y
-            character.px = character.x
-            if character.ny ~= 500 and character.count==false then
-                character.ny = character.y + 100
-                character.y = character.ny
-            end
+            character.animation.walking = true
+            characterMove(character.Directions.Down, dt)
+            character.backMove =true
         end
     end
 end

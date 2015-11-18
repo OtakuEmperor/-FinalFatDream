@@ -100,7 +100,7 @@ function loveavg_draw()
     end
     dialogStartDrawLock = true
     ele_len = table.getn(dialog_element)
-    if ele_len == 1 and dialog_element[1] == "###" then
+    if ele_len == 2 and dialog_element[1] == "###" then
         dialogLock = true
         love_fade = true
         if love_fade_timer >= 2 then
@@ -124,7 +124,7 @@ function loveavg_draw()
     end
 
     -- dialog
-    if not (isempty(dialog_element[2])) then
+    if not (isempty(dialog_element[2])) and not (dialog_element[1] == "###") then
         if (isempty(dialog_element[1])) then
             print_dialog("", dialog_element[2])
         else

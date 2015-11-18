@@ -11,6 +11,8 @@ function boss1.new (originPointX,originPointY)
     local guardMode = 1
     local attackMode = 2
     local boss1AnimaLength = 4
+    boss1_dialogState = 1
+    boss1_dialogLock = true
     local obj = {
         thunder_ball_img = love.graphics.newImage("img/thunderBall.png"),
         thunder_ball_quads = {},
@@ -25,6 +27,7 @@ function boss1.new (originPointX,originPointY)
         wave_index = 1,
         wave_timer = 0,
         wave_dmg_taken = false,
+        startAttack = false,
         isWaveAttack = false,
         attacking = false,
         thunder_ball_cool_down = 1,
@@ -152,7 +155,7 @@ function boss1:update(dt,charX,charY)
         end
     end
 
-    if self.alive == true then
+    if self.alive == true and self.startAttack then
         if self.thunder_ball_cool_down > 2.5 then
             self:changeAtkXY(charX, charY)
             self.isThunderBallAttack = true
@@ -236,4 +239,5 @@ end
 
 function boss1:summon()
     self.alive = true
+    boss1_dialogLock = false
 end

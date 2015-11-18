@@ -23,6 +23,8 @@ end
 function battle_update(dt)
     -- attack sound
     atk_timeout = atk_timeout + dt
+    -- print(atk_timeout)
+    -- print(atk)
     if atk == true and atk_timeout > 0.5 then
         hitSoundChoose = math.random(3)
         if hitSoundChoose == 1 then hitSound1:play()
