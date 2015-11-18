@@ -1,1 +1,1 @@
-function love.conf(w)  w.window.width = 1092  w.window.height = 614  w.window.title = "life&love"  w.console = trueend
+function love.conf(w)  w.window.width = 1092  w.window.height = 614  w.window.title = "Final FatDream"  w.console = trueend

@@ -47,13 +47,8 @@ function menu_keypressed(key)
     end
     --to start
     if key == " " and menu.stage == 1 then
-        choose = {}
-        chooseLock = true
-        dialogLock = false
-        day_state = 1
-        dialog_state = 1
-        choose_no = 0
-        love_reloadDay()
+        world_load()
+        loveavg_load()
         gameStage = 2
     end
     --to continue

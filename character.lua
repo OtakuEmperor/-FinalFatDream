@@ -25,21 +25,13 @@ function character_update(dt)
     if love.keyboard.isDown("-") then
         character.hp=character.hp-1
     end
-    if isCharacterWake then
-        characterWakeTimer = characterWakeTimer + dt
-    else
-        characterWakeTimer = 0
-    end
-    if characterWakeTimer >= 0.2 then
-        character.hp=character.hp-0.04
-        characterWakeTimer = 0
-    end
-    battle_update(dt)
+end
+
+function character_keyPressed(key)
     if world1_dialogLock then
         battle_keyPress(key)
     end
 end
-
 
 function character_draw()
     love.graphics.setColor(255,255,255)
@@ -313,6 +305,17 @@ function character_run(dt)
             character.animation.count = 0
         end
     end
+
+    if isCharacterWake then
+        characterWakeTimer = characterWakeTimer + dt
+    else
+        characterWakeTimer = 0
+    end
+    if characterWakeTimer >= 0.2 then
+        character.hp=character.hp-0.04
+        characterWakeTimer = 0
+    end
+    battle_update(dt)
 end
 function moveStageCheck()
     if  character.x  < 400 and world.x ~= 0 then
