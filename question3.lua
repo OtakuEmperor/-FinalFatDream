@@ -345,7 +345,7 @@ function trapAttack(dt,trapX,trapY,showBar)
         x = hpDecline(1)
         print(x)
         trapDelta=0
-        charaMoveBack("up")
+        charaMoveBack("up",dt)
         question = false
     end
 end
