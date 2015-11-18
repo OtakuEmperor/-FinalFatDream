@@ -41,6 +41,7 @@ function world_update(dt)
     q3Trap[1]:update(dt)
     interface_update(dt)
     character_run(dt)
+    love_update(dt)
     character.py = character.y
     character.px = character.x
     if world1_fade then
@@ -52,7 +53,7 @@ function world_update(dt)
             end
         end
     end
-    if not (world1_dialogLock and q1_dialogLock and q2_dialogLockKey and q2_dialogLockLine and q3_dialogLock and npc_dialogLock and boss1_dialogLcok) then
+    if not (world1_dialogLock and q1_dialogLock and q2_dialogLockKey and q2_dialogLockLine and q3_dialogLock and npc_dialogLock and boss1_dialogLock) then
         isCharacterWake = false
     else
         isCharacterWake = true
@@ -232,7 +233,7 @@ function world_draw()
     elseif world1_dialog_state == 13 then
         print_dialog("我", "工三小")
     elseif world1_dialog_state == 14 then
-        print_dialog("操作說明：", "F     與物品/NPC對話\r\nSpace 下一句對話\r\nEsc   設定/離開對話")
+        print_dialog("操作說明：", "Ｆ　　　與物品／ＮＰＣ對話　　　空白鍵　下一句對話　　　　　　　　　　　　　　　　　　ＥＳＣ　設定／離開對話")
     elseif world1_dialog_state == 15 then
         world1_dialogLock = true
     end
@@ -349,10 +350,22 @@ function world_keypressed(key)
         addKey()
     end
     if love.keyboard.isDown(" ") and not world1_dialogLock then
-        world1_dialog_state = world1_dialog_state + 1
+        if waitNextDialog then
+            world1_dialog_state = world1_dialog_state + 1
+            says_index = 3
+            dialog_timer = 0
+        else
+            says_index = says_length
+        end
     end
     if love.keyboard.isDown(" ") and not boss1_dialogLock then
-        boss1_dialogState = boss1_dialogState + 1
+        if waitNextDialog then
+            boss1_dialogState = boss1_dialogState + 1
+            says_index = 3
+            dialog_timer = 0
+        else
+            says_index = says_length
+        end
     end
     character_keyPressed(key)
 end

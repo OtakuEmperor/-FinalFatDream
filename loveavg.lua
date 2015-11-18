@@ -30,9 +30,10 @@ function loveavg_load()
     love_fade_color = 255
     love_fade = false
     love_fade_timer = 0
-    dialogCutCounter = 3
-    dialogCutDt = 0
-    dialogStartDrawLock =false --this lock is for protect update is brfore drawing (dialog_element[2])
+    dialog_timer = 0
+    says_index = 3
+    says_length = 0
+    waitNextDialog = false
     file_data = love.filesystem.read(string.format("day%d.dat", day_state), all)
     dialog = {}
     -- parse data
@@ -43,18 +44,18 @@ end
 
 function loveavg_keypressed(key)
     if not dialogLock then
-        print(dialog_state)
         if love.keyboard.isDown(" ") then
             clicksound:play()
-            if dialogCutCounter == string.len(dialog_element[2]) then
+            if waitNextDialog then
                 if not isempty(dialog_element[3]) then
                     dialog_state = tonumber(dialog_element[3])
                 else
                     dialog_state = dialog_state + 1
                 end
-                dialogCutCounter = 3
+                says_index = 3
+                dialog_timer = 0
             else
-                dialogCutCounter = string.len(dialog_element[2])
+                says_index = says_length
             end
         end
     end
@@ -100,7 +101,7 @@ function loveavg_draw()
     end
     dialogStartDrawLock = true
     ele_len = table.getn(dialog_element)
-    if ele_len == 2 and dialog_element[1] == "###" then
+    if ele_len == 1 and dialog_element[1] == "###" then
         dialogLock = true
         love_fade = true
         if love_fade_timer >= 2 then
@@ -110,6 +111,8 @@ function loveavg_draw()
             if day_state == 1 then
                 world1_dialogLock = false
                 world1_change()
+                says_index = 3
+                dialog_timer = 0
                 gameStage = 3
             elseif day_state == 2 then
                 dialog_state = 163
@@ -124,7 +127,7 @@ function loveavg_draw()
     end
 
     -- dialog
-    if not (isempty(dialog_element[2])) and not (dialog_element[1] == "###") then
+    if not (isempty(dialog_element[2])) then
         if (isempty(dialog_element[1])) then
             print_dialog("", dialog_element[2])
         else
@@ -140,7 +143,13 @@ function loveavg_draw()
 end
 
 function print_dialog(who, says)
-    says = string.sub(says,1,dialogCutCounter)
+    says_length = string.len(says)
+    says = string.sub(says, 1, says_index)
+    if(says_index >= says_length) then
+        waitNextDialog = true
+    else
+        waitNextDialog = false
+    end
     love.graphics.setFont(lovefont)
     says_nd = " "
     if string.len(says) > 129 then
@@ -298,12 +307,10 @@ function love_reloadDay()
 end
 
 function love_update(dt)
-    dialogCutDt = dialogCutDt + dt
-    if dialogCutDt >= 0.02 and dialogStartDrawLock then
-        if (dialogCutCounter + 3) <= (string.len(dialog_element[2])) then
-            dialogCutCounter = dialogCutCounter + 3
-        end
-        dialogCutDt = 0
+    dialog_timer = dialog_timer + dt
+    if dialog_timer >= 0.02 then
+        says_index = says_index + 3
+        dialog_timer = 0
     end
     if love_fade then
         love_fade_timer = love_fade_timer + dt
