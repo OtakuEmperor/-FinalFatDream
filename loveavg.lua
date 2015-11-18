@@ -20,7 +20,7 @@ function loveavg_load()
     room_light = love.graphics.newImage("img/cg/room_light.jpg")
     computer = love.graphics.newImage("img/cg/computer.jpg")
     dialogImg = love.graphics.newImage("img/dialog.png")
-    lovefont = love.graphics.newFont("font/msjh.ttc", 25)
+    lovefont = love.graphics.newFont("font/wt006.ttf", 25)
     choose = {}
     chooseLock = true
     dialogLock = false
@@ -30,6 +30,9 @@ function loveavg_load()
     love_fade_color = 255
     love_fade = false
     love_fade_timer = 0
+    dialogCutCounter = 3
+    dialogCutDt = 0
+    dialogStartDrawLock =false --this lock is for protect update is brfore drawing (dialog_element[2])
     file_data = love.filesystem.read(string.format("day%d.dat", day_state), all)
     dialog = {}
     -- parse data
@@ -40,12 +43,18 @@ end
 
 function loveavg_keypressed(key)
     if not dialogLock then
+        print(dialog_state)
         if love.keyboard.isDown(" ") then
             clicksound:play()
-            if not isempty(dialog_element[3]) then
-                dialog_state = tonumber(dialog_element[3])
+            if dialogCutCounter == string.len(dialog_element[2]) then
+                if not isempty(dialog_element[3]) then
+                    dialog_state = tonumber(dialog_element[3])
+                else
+                    dialog_state = dialog_state + 1
+                end
+                dialogCutCounter = 3
             else
-                dialog_state = dialog_state + 1
+                dialogCutCounter = string.len(dialog_element[2])
             end
         end
     end
@@ -89,6 +98,7 @@ function loveavg_draw()
     for i in string.gmatch(dialog[dialog_state], "[^,]+") do
         table.insert(dialog_element, i)
     end
+    dialogStartDrawLock = true
     ele_len = table.getn(dialog_element)
     if ele_len == 1 and dialog_element[1] == "###" then
         dialogLock = true
@@ -130,6 +140,7 @@ function loveavg_draw()
 end
 
 function print_dialog(who, says)
+    says = string.sub(says,1,dialogCutCounter)
     love.graphics.setFont(lovefont)
     says_nd = " "
     if string.len(says) > 129 then
@@ -140,8 +151,6 @@ function print_dialog(who, says)
     love.graphics.setColor(255, 255, 255, 255)
     love.graphics.draw(dialogImg,0,love.graphics.getHeight()*2/3)
     -- love.graphics.rectangle("fill", 0, love.graphics.getHeight()*2/3, love.graphics.getWidth(), love.graphics.getHeight()*1/3)
-    print("width"..love.graphics.getWidth())
-    print("height"..love.graphics.getHeight()*1/3)
     love.graphics.print(who, 5, love.graphics.getHeight()*2/3+5)
     love.graphics.print(says, 5, love.graphics.getHeight()*2/3+35)
     love.graphics.print(says_nd, 5, love.graphics.getHeight()*2/3+65)
@@ -289,6 +298,13 @@ function love_reloadDay()
 end
 
 function love_update(dt)
+    dialogCutDt = dialogCutDt + dt
+    if dialogCutDt >= 0.02 and dialogStartDrawLock then
+        if (dialogCutCounter + 3) <= (string.len(dialog_element[2])) then
+            dialogCutCounter = dialogCutCounter + 3
+        end
+        dialogCutDt = 0
+    end
     if love_fade then
         love_fade_timer = love_fade_timer + dt
         if love_fade_timer <= 2 then
