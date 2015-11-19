@@ -189,6 +189,7 @@ function triggerKeyPress(key)
         q2_dialogLockKey = true
         q2_dialogLockLine = true
         q3_dialogLock = true
+        npc_dialogLock = true
         question = false
         showKey = false
         showQ3Answer = false

@@ -7,6 +7,7 @@ end
 function npc_keypressed(key)
     if not npc_dialogLock  then
         if love.keyboard.isDown(" ") then
+            clicksound:play()
             says_index = 3
             dialog_timer = 0
             npc_dialog_state = npc_dialog_state + 2
