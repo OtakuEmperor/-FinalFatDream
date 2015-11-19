@@ -45,7 +45,9 @@ function battle_update(dt)
                     mon_abs_x = mon:getPositionX()
                     mon_abs_y = mon:getPositionY()
                     if attackMonster(abs_x, abs_y, mon_abs_x, mon_abs_y, character.faceDir) then
-                        mon:underAttack(character.faceDir, character.atk)
+                        if mon.alive then
+                            mon:underAttack(character.faceDir, character.atk)
+                        end
                     end
                 end
             end
