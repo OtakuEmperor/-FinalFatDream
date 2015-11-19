@@ -34,6 +34,8 @@ function loveavg_load()
     says_index = 3
     says_length = 0
     waitNextDialog = false
+    waitSpace = false
+    space = "　"
     file_data = love.filesystem.read(string.format("day%d.dat", day_state), all)
     dialog = {}
     -- parse data
@@ -54,6 +56,8 @@ function loveavg_keypressed(key)
                 end
                 says_index = 3
                 dialog_timer = 0
+            elseif waitSpace then
+                waitSpace = false
             else
                 says_index = says_length
             end
@@ -143,6 +147,9 @@ end
 
 function print_dialog(who, says)
     says_length = string.len(says)
+    if string.sub(says, says_index-2, says_index) == string.sub(space, 1, 3) then
+        waitSpace = true
+    end
     says = string.sub(says, 1, says_index)
     if(says_index >= says_length) then
         waitNextDialog = true
@@ -307,7 +314,7 @@ end
 
 function love_update(dt)
     dialog_timer = dialog_timer + dt
-    if dialog_timer >= 0.02 then
+    if dialog_timer >= 0.02 and not waitSpace then
         says_index = says_index + 3
         dialog_timer = 0
     end
