@@ -571,15 +571,15 @@ function monster_draw()
             monsters[8].startAttack = true
         elseif boss1_dialogState == 3 then
             print_dialog("？？？", "我……我怎麼可能會輸給你？！！")
-        elseif boss1_dialogState == 4 then
+        elseif boss1_dialogState >= 4 then
             world1_fade = true
             if world1_fade_timer >= 2 then
+                boss1_dialogLock = true
                 day_state = 2
                 dialog_state = 1
                 gameStage = 2
                 love_reloadDay()
             end
-            boss1_dialogLock = true
         end
 
     end
