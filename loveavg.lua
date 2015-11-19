@@ -111,8 +111,7 @@ function loveavg_draw()
             if day_state == 1 then
                 world1_dialogLock = false
                 world1_change()
-                says_index = 3
-                dialog_timer = 0
+                love_newDialog()
                 gameStage = 3
             elseif day_state == 2 then
                 dialog_state = 163
@@ -360,4 +359,21 @@ function world1_change()
             character.atk = 3
         end
     end
+end
+
+function love_dialogKeyPressed(dialog_state_name)
+    clicksound:play()
+    if waitNextDialog then
+        dialog_state_name = dialog_state_name + 1
+        says_index = 3
+        dialog_timer = 0
+    else
+        says_index = says_length
+    end
+    return dialog_state_name
+end
+
+function love_newDialog()
+    says_index = 3
+    dialog_timer = 0
 end

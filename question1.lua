@@ -59,10 +59,10 @@ end
 function question1_keypressed(key)
     if not q1_dialogLock then
         if love.keyboard.isDown(" ") then
-            clicksound:play()
-            q1_dialog_state = q1_dialog_state + 1
+            q1_dialog_state = love_dialogKeyPressed(q1_dialog_state)
         end
     end
+
     local switchR = {
         [1] = function()    -- for case 1
             block1=false

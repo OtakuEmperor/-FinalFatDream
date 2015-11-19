@@ -240,4 +240,5 @@ end
 function boss1:summon()
     self.alive = true
     boss1_dialogLock = false
+    love_newDialog()
 end

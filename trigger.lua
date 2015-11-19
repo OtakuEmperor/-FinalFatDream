@@ -24,6 +24,7 @@ function triggerUpdate(dt)
 end
 
 function triggerKeyPress(key)
+    love_newDialog()
     local switch = {
         ["right"] = function()    -- for case 1
             for i=1,5 do

@@ -54,8 +54,7 @@ end
 function question2_keypressedKey(key)
     if not q2_dialogLockKey then
         if love.keyboard.isDown(" ") then
-            clicksound:play()
-            q2_dialog_stateKey = q2_dialog_stateKey + 1
+            q2_dialog_stateKey = love_dialogKeyPressed(q2_dialog_stateKey)
         end
     end
 end
@@ -63,8 +62,7 @@ end
 function question2_keypressedLine(key)
     if not q2_dialogLockLine then
         if love.keyboard.isDown(" ") then
-            clicksound:play()
-            q2_dialog_stateLine = q2_dialog_stateLine + 1
+            q2_dialog_stateLine = love_dialogKeyPressed(q2_dialog_stateLine)
         end
     end
     local switchR = {}

@@ -350,22 +350,10 @@ function world_keypressed(key)
         addKey()
     end
     if love.keyboard.isDown(" ") and not world1_dialogLock then
-        if waitNextDialog then
-            world1_dialog_state = world1_dialog_state + 1
-            says_index = 3
-            dialog_timer = 0
-        else
-            says_index = says_length
-        end
+        world1_dialog_state = love_dialogKeyPressed(world1_dialog_state)
     end
     if love.keyboard.isDown(" ") and not boss1_dialogLock then
-        if waitNextDialog then
-            boss1_dialogState = boss1_dialogState + 1
-            says_index = 3
-            dialog_timer = 0
-        else
-            says_index = says_length
-        end
+        boss1_dialogState = love_dialogKeyPressed(boss1_dialogState)
     end
     character_keyPressed(key)
 end
@@ -587,6 +575,7 @@ function monster_draw()
     if not monsters[8].alive and monsters[8].hp <= 0 and boss1_dialogState == 2 then
         boss1_dialogState = 3
         boss1_dialogLock = false
+        love_newDialog()
     end
 end
 function trap_draw()

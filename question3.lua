@@ -54,11 +54,9 @@ function question3_update(dt)
 end
 
 function question3_keypressed(key)
-    print("running")
     if not q3_dialogLock then
         if love.keyboard.isDown(" ") then
-            clicksound:play()
-            q3_dialog_state = q3_dialog_state + 1
+            q3_dialog_state = love_dialogKeyPressed(q3_dialog_state)
         end
     end
     local switchR = {}

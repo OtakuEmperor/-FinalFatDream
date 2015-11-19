@@ -28,7 +28,7 @@ function character_update(dt)
 end
 
 function character_keyPressed(key)
-    if world1_dialogLock then
+    if world1_dialogLock and q1_dialogLock and q2_dialogLockKey and q2_dialogLockLine and q3_dialogLock and npc_dialogLock and boss1_dialogLock then
         battle_keyPress(key)
     end
 end
