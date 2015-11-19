@@ -19,8 +19,11 @@ function loveavg_load()
     schoolroad_light = love.graphics.newImage("img/cg/schoolroad_light.jpg")
     room_light = love.graphics.newImage("img/cg/room_light.jpg")
     computer = love.graphics.newImage("img/cg/computer.jpg")
+    schoolEntry_light = love.graphics.newImage("img/cg/schoolEntry_light.jpg")
+    room_night = love.graphics.newImage("img/cg/room_night.jpg")
     dialogImg = love.graphics.newImage("img/dialog.png")
     lovefont = love.graphics.newFont("font/wt006.ttf", 25)
+    press_button = love.graphics.newImage("img/slimeJuice.png")
     choose = {}
     chooseLock = true
     dialogLock = false
@@ -92,6 +95,8 @@ function loveavg_keypressed(key)
                     dialog_state = tonumber(dialog_element[7])
                 end
             end
+            says_index = 3
+            dialog_timer = 0
         end
     end
 end
@@ -118,9 +123,7 @@ function loveavg_draw()
                 love_newDialog()
                 gameStage = 3
             elseif day_state == 2 then
-                dialog_state = 163
-                love_save()
-                gameStage = 1
+                gameStage = 3
             end
         end
     end
@@ -169,6 +172,9 @@ function print_dialog(who, says)
     love.graphics.print(who, 5, love.graphics.getHeight()*2/3+5)
     love.graphics.print(says, 5, love.graphics.getHeight()*2/3+35)
     love.graphics.print(says_nd, 5, love.graphics.getHeight()*2/3+65)
+    if waitSpace or waitNextDialog then
+        love.graphics.draw(press_button, love.graphics.getWidth() - 50,love.graphics.getHeight() - 50)
+    end
 end
 
 function tachie(img, side)
@@ -226,17 +232,21 @@ function print_background(day, dialog)
             bg = restaurant_light
         elseif 156 <= dialog and dialog <= 166 then
             bg = schoolroad_sunset
-        elseif dialog >= 183 then
-            bg = night
         end
     end
     if day == 2 then
-        if (1 <= dialog and dialog <= 35) or (160 <= dialog and dialog <= 163) then
+        if (1 <= dialog and dialog <= 35) or (160 <= dialog and dialog <= 162) then
             bg = room_light
         elseif (36 <= dialog and dialog <= 84) then
             bg = computer
         elseif (85 <= dialog and dialog <= 159) then
             bg = schoolroad_light
+        elseif (163 <= dialog and dialog <= 209) then
+            bg = schoolEntry_light
+        elseif (210 <= dialog and dialog <= 305) then
+            bg = class_light
+        elseif (306 <= dialog and dialog <= 363) or (364 <= dialog and dialog <= 399) then
+            bg = room_night
         end
     end
     love.graphics.setColor(255, 255, 255 ,love_fade_color)
@@ -264,7 +274,7 @@ function play_bgm(day, dialog)
         end
     end
     if day == 2 then
-        if 1 <= dialog and dialog <= 163 then
+        if 1 <= dialog and dialog <= 399 then
             if not (bgm_name == "class_bgm") then
                 love.audio.stop()
                 bgm = class_bgm

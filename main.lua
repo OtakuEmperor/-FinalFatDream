@@ -110,6 +110,10 @@ function love.keypressed(key)
         love.filesystem.remove("data.txt")
         love.filesystem.remove("data2.txt")
         day_state = day_state+1
+    elseif love.keyboard.isDown("5") and love.keyboard.isDown("lalt") then
+        day_state = 2
+        gameStage = 3
+
     end
 end
 
