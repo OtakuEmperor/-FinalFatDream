@@ -9,13 +9,18 @@ function love.load()
     require "setting"
     require "world"
     require "world2"
-    --require "world2"
+    require "world3"
+    require "world4"
+    require "world5"
     gameStage = 0
     isSetting = false
-        op_load()
-        menu_load()
-        world_load()
-        world2_load()
+    op_load()
+    menu_load()
+    world_load()
+    world2_load()
+    world3_load()
+    world4_load()
+    world5_load()
         loveavg_load()
         setting_load()
 end
@@ -34,12 +39,13 @@ function love.update(dt)
                 world2_update(dt)
             end,
             [3] = function()    -- for case 3
-           
+                world3_update(dt)
             end,
             [4] = function()    -- for case 4
-            
+                world4_update(dt)
             end,
             [5] = function()
+                world5_update(dt)
             end
         }
         local selectDay= switchDay[day_state]
@@ -71,12 +77,13 @@ function love.keypressed(key)
                 world2_keypressed(key)
             end,
             [3] = function()    -- for case 3
-           
+                world3_keypressed(key)
             end,
             [4] = function()    -- for case 4
-            
+                world4_keypressed(key)
             end,
             [5] = function()
+                world5_keypressed(key)
             end
         }
         local selectDayK= switchDayK[day_state]
@@ -125,12 +132,13 @@ function love.draw()
                 world2_draw()
             end,
             [3] = function()    -- for case 3
-           
+                world3_draw()
             end,
             [4] = function()    -- for case 4
-            
+                world4_draw()
             end,
             [5] = function()
+                world5_draw()
             end
         }
         local selectDayD= switchDayD[day_state]
