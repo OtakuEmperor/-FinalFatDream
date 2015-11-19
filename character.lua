@@ -31,6 +31,12 @@ function character_keyPressed(key)
     if world1_dialogLock and q1_dialogLock and q2_dialogLockKey and q2_dialogLockLine and q3_dialogLock and npc_dialogLock and boss1_dialogLock then
         battle_keyPress(key)
     end
+    if love.keyboard.isDown("q") then
+        if character.slimeJuice > 0 then
+            character.slimeJuice = character.slimeJuice - 1
+            character.hp = character.hp + 10
+        end
+    end
 end
 
 function character_draw()
@@ -68,6 +74,8 @@ function characterCreate()
     character.delay=0.15
     character.delta=0
     character.backMove=false
+    character.water = {}
+    character.slimeJuice = 0
     charUnderAttack = love.audio.newSource("audio/charUnderAttack.wav", "static")
 end
 
@@ -318,6 +326,11 @@ function character_run(dt)
         characterWakeTimer = 0
     end
     battle_update(dt)
+    if character.hp > character.maxHp then
+        character.hp = 100
+    elseif character.hp < 0 then
+        character.hp = 0
+    end
 end
 function moveStageCheck()
     if  character.x  < 400 and world.x ~= 0 then
@@ -400,11 +413,6 @@ end
 
 function hpDecline(hpDecrease)
     character.hp=character.hp-hpDecrease
-    if character.hp > character.maxHp then
-        character.hp = 100
-    elseif character.hp < 0 then
-        character.hp = 0
-    end
     interface.isAttacked = true
     love.audio.setVolume(0.4)
     charUnderAttack:play()

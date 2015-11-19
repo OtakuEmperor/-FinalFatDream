@@ -15,6 +15,7 @@ function interface_load()
     interface.height = love.graphics.getHeight()
     --set font
     interface.font = love.graphics.newFont("font/FFFFORWA.TTF", 36)
+    itemfont = love.graphics.newFont("font/FFFFORWA.TTF", 12)
     --set days
     interface.days = 1
     --set day(true) or night(false)
@@ -25,6 +26,9 @@ function interface_load()
     interface.opacity = 100
     interface.isAttacked = false
     interface.questionLock = false
+
+    --water img
+    slimeJuice = love.graphics.newImage("img/slimeJuice.png")
 
     heartBeat_timer = 0
     heartBeat_timeout = 0.2
@@ -132,6 +136,12 @@ function interface_draw()
     --draw water
     love.graphics.setColor(0, 0, 0, 127)--set opacity50
     love.graphics.draw(interface.water, interface.width * (6/40), interface.height * (1/8))
+    love.graphics.setColor(255, 255, 255, 255)
+    if character.slimeJuice > 0 then
+        love.graphics.draw(slimeJuice, interface.width * (6/40), interface.height * (1/8))
+        love.graphics.setFont(itemfont)
+        love.graphics.print(character.slimeJuice, interface.width * (6/40)+20, interface.height * (1/8)+20)
+    end
     --draw weapon
     love.graphics.setColor(0, 0, 0, 127)--set opacity50
     love.graphics.draw(interface.weapon, interface.width * (6/40) + 40, interface.height * (1/8))
