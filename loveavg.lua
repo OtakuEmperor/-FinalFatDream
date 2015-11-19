@@ -374,6 +374,8 @@ function love_dialogKeyPressed(dialog_state_name)
         dialog_state_name = dialog_state_name + 1
         says_index = 3
         dialog_timer = 0
+    elseif waitSpace then
+        waitSpace = false
     else
         says_index = says_length
     end

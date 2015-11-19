@@ -207,7 +207,7 @@ function world_draw()
     triggerDraw()
     interface_draw()
     if world1_dialog_state == 1 then
-        print_dialog("我", "這裏是．．．．．．什麼地方？")
+        print_dialog("我", "這裏是　什麼地方？")
     elseif world1_dialog_state == 2 then
         print_dialog("ＸＸＸ", "這裏是實現你夢想的地方")
     elseif world1_dialog_state == 3 then
@@ -233,7 +233,7 @@ function world_draw()
     elseif world1_dialog_state == 13 then
         print_dialog("我", "工三小")
     elseif world1_dialog_state == 14 then
-        print_dialog("操作說明：", "Ｆ　　　與物品／ＮＰＣ對話　　　空白鍵　下一句對話　　　　　　　　　　　　　　　　　　ＥＳＣ　設定／離開對話")
+        print_dialog("操作說明：", "Ｆ         與物品／ＮＰＣ對話         空白鍵   下一句對話                                                      ＥＳＣ   設定／離開對話")
     elseif world1_dialog_state == 15 then
         world1_dialogLock = true
     end

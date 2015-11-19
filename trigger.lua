@@ -24,7 +24,6 @@ function triggerUpdate(dt)
 end
 
 function triggerKeyPress(key)
-    love_newDialog()
     local switch = {
         ["right"] = function()    -- for case 1
             for i=1,5 do
@@ -32,6 +31,7 @@ function triggerKeyPress(key)
                     conversation = true
                     dialogNum=i
                     npc_dialogLock = false
+                    love_newDialog()
                 end
             end
             for i=1,3 do
@@ -43,6 +43,7 @@ function triggerKeyPress(key)
                     elseif i == 2 then
                         q2_dialogLockLine = false
                     end
+                    love_newDialog()
                 end
             end
             if (character.x+world.x+100)==q2key.x and (character.y+world.y)== q2key.y then
@@ -50,12 +51,14 @@ function triggerKeyPress(key)
                 questionNum=2
                 showKey = true
                 q2_dialogLockKey = false
+                love_newDialog()
             end
             if (character.x+world.x+100)==q3key.x and (character.y+world.y)== q3key.y then
                 question = true
                 questionNum=3
                 showQ3Answer = true
                 q3_dialogLock = false
+                love_newDialog()
             end
         end,
         ["left"] = function()    -- for case 2
@@ -64,6 +67,7 @@ function triggerKeyPress(key)
                     conversation = true
                     dialogNum=i
                     npc_dialogLock = false
+                    love_newDialog()
                 end
             end
             for i=1,3 do
@@ -75,6 +79,7 @@ function triggerKeyPress(key)
                     elseif i == 2 then
                         q2_dialogLockLine = false
                     end
+                    love_newDialog()
                 end
             end
             if (character.x+world.x-100)==q2key.x and (character.y+world.y)== q2key.y then
@@ -82,6 +87,7 @@ function triggerKeyPress(key)
                 questionNum=2
                 showKey = true
                 q2_dialogLockKey = false
+                love_newDialog()
             end
             
             if (character.x+world.x-100)==q3key.x and (character.y+world.y)== q3key.y then
@@ -89,6 +95,7 @@ function triggerKeyPress(key)
                 questionNum=3
                 showQ3Answer = true
                 q3_dialogLock = false
+                love_newDialog()
             end
 
         end,
@@ -98,6 +105,7 @@ function triggerKeyPress(key)
                     conversation = true
                     dialogNum=i
                     npc_dialogLock = false
+                    love_newDialog()
                 end
             end
             for i=1,3 do
@@ -109,6 +117,7 @@ function triggerKeyPress(key)
                     elseif i == 2 then
                         q2_dialogLockLine = false
                     end
+                    love_newDialog()
                 end
             end
             if (character.x+world.x)==q2key.x and (character.y+world.y+100)== q2key.y then
@@ -116,6 +125,7 @@ function triggerKeyPress(key)
                 questionNum=2
                 showKey = true
                 q2_dialogLockKey = false
+                love_newDialog()
             end
             
             if (character.x+world.x)==q3key.x and (character.y+world.y+100)== q3key.y then
@@ -123,6 +133,7 @@ function triggerKeyPress(key)
                 questionNum=3
                 showQ3Answer = true
                 q3_dialogLock = false
+                love_newDialog()
             end
             
         end,
@@ -132,6 +143,7 @@ function triggerKeyPress(key)
                     conversation = true
                     dialogNum=i
                     npc_dialogLock = false
+                    love_newDialog()
                 end
             end
             for i=1,3 do
@@ -143,6 +155,7 @@ function triggerKeyPress(key)
                     elseif i == 2 then
                         q2_dialogLockLine = false
                     end
+                    love_newDialog()
                 end
             end
             if (character.x+world.x)==q2key.x and (character.y+world.y-100)== q2key.y then
@@ -150,12 +163,14 @@ function triggerKeyPress(key)
                 questionNum=2
                 showKey = true
                 q2_dialogLockKey = false
+                love_newDialog()
             end
             if (character.x+world.x)==q3key.x and (character.y+world.y-100)== q3key.y then
                 question = true
                 questionNum=3
                 showQ3Answer = true
                 q3_dialogLock = false
+                love_newDialog()
             end
         end
     }
