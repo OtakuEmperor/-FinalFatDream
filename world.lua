@@ -67,99 +67,14 @@ function world_update(dt)
             love_reloadDay()
         end
     end
-    if world.backMove == true then    
+    if world.backMove == true then
         --if world.rightMove == true or world.leftMove == true or world.upMove == true or world.downMove == true then
         world.speed = 1000
         mapbackMoveUpdate(dt)
         --end
     elseif  question==false and conversation == false then
         world.speed = 300
-        moveStageCheck()
-    if world.x<world.nx and character.faceDir == "right" then
-            character.animation.walking = true
-            mapMove(character.Directions.Right, dt)
-            characterSetDirection( character.animation.Directions.Right)
-    elseif world.x>world.nx and character.faceDir == "left" then
-            character.animation.walking = true
-            mapMove(character.Directions.Left, dt)
-            characterSetDirection( character.animation.Directions.Left)
-    elseif world.y<world.ny and character.faceDir == "down" then
-            character.animation.walking = true
-            mapMove(character.Directions.Down, dt)
-            characterSetDirection( character.animation.Directions.Down)
-    elseif world.y>world.ny and character.faceDir == "up" then
-            character.animation.walking = true
-            mapMove(character.Directions.Up, dt)
-            characterSetDirection( character.animation.Directions.Up)
-    elseif love.keyboard.isDown("left") and world.y%100 == 0 and world.y == world.ny and world.x%100 == 0 and world.x == world.nx and world.leftMove==true  and character.y%100 == 0 and character.y == character.ny and character.x%100 == 0 and character.x == character.nx then
-            characterSetDirection( character.animation.Directions.Left)
-            character.faceDir = "left"
-            world.delta = world.delta + dt
-            if world.delta >= world.delay then
-            world.py = world.y
-            world.px = world.x
-            if world.nx ~= 0 and world.count==false then
-                    world.nx = world.x - 100
-                end
-                if character.animation.walking == false then
-                    character.delta=0
-                end
-                mapMove(character.Directions.Left, dt)
-            end
-    elseif love.keyboard.isDown("right") and world.y%100 == 0 and world.y == world.ny and world.x%100 == 0 and world.x == world.nx and world.rightMove==true and character.y%100 == 0 and character.y == character.ny and character.x%100 == 0 and character.x == character.nx then
-            characterSetDirection( character.animation.Directions.Right)
-            character.faceDir = "right"
-            world.delta = world.delta + dt
-            if world.delta >= world.delay then
-            world.py = world.y
-            world.px = world.x
-            if world.nx ~= (world.width-1000) and world.count==false then
-                    world.nx = world.x + 100
-                end
-                if character.animation.walking == false then
-                    world.delta=0
-                end
-                mapMove(character.Directions.Right, dt)
-            end
-    elseif love.keyboard.isDown("up") and world.y%100 == 0 and world.y == world.ny and world.x%100 == 0 and world.x == world.nx and world.upMove==true and character.y%100 == 0 and character.y == character.ny and character.x%100 == 0 and character.x == character.nx then
-            characterSetDirection( character.animation.Directions.Up)
-            character.faceDir = "up"
-            world.delta = world.delta + dt
-            if world.delta >= world.delay then
-                world.py = world.y
-            world.px = world.x
-                if world.ny ~= 0 and world.count==false then
-                    world.ny = world.y - 100
-                end
-                if character.animation.walking == false then
-                    world.delta=0
-                end
-                mapMove(character.Directions.Up, dt)
-            end
-    elseif love.keyboard.isDown("down") and world.y%100 == 0 and world.y == world.ny and world.x%100 == 0 and world.x == world.nx and world.downMove==true and character.y%100 == 0 and character.y == character.ny and character.x%100 == 0 and character.x == character.nx then
-            characterSetDirection( character.animation.Directions.Down)
-            character.faceDir = "down"
-            world.delta = world.delta + dt
-            if world.delta >= world.delay then
-                world.py = world.y
-                world.px = world.x
-                if world.ny ~= (world.height-500) and world.count==false then
-                    world.ny = world.y + 100
-                end
-                if character.animation.walking == false then
-                    world.delta=0
-                end
-                mapMove(character.Directions.Down, dt)
-            end
-        else
-            if world.y%100 == 0  and world.y == world.ny and world.x%100 == 0  and world.x == world.nx and world.backMove == false then
-                character_update(dt)
-            else
-                character.animation.sound:stop()
-            end
-            world.py = world.y
-            world.px = world.x
-        end
+        setMapMove(dt)
     end
     for i, monster in ipairs(monsters) do
         monster:update(dt,character.x+world.x,character.y+world.y,dt)
@@ -206,6 +121,7 @@ function world_draw()
     monster_draw()
     triggerDraw()
     interface_draw()
+    love.graphics.setBackgroundColor(178, 203, 148)
     if world1_dialog_state == 1 then
         print_dialog("我", "這裏是　什麼地方？")
     elseif world1_dialog_state == 2 then
@@ -357,7 +273,94 @@ function world_keypressed(key)
     end
     character_keyPressed(key)
 end
-
+function setMapMove(dt)
+    moveStageCheck()
+    if world.x<world.nx and character.faceDir == "right" then
+            character.animation.walking = true
+            mapMove(character.Directions.Right, dt)
+            characterSetDirection( character.animation.Directions.Right)
+    elseif world.x>world.nx and character.faceDir == "left" then
+            character.animation.walking = true
+            mapMove(character.Directions.Left, dt)
+            characterSetDirection( character.animation.Directions.Left)
+    elseif world.y<world.ny and character.faceDir == "down" then
+            character.animation.walking = true
+            mapMove(character.Directions.Down, dt)
+            characterSetDirection( character.animation.Directions.Down)
+    elseif world.y>world.ny and character.faceDir == "up" then
+            character.animation.walking = true
+            mapMove(character.Directions.Up, dt)
+            characterSetDirection( character.animation.Directions.Up)
+    elseif love.keyboard.isDown("left") and world.y%100 == 0 and world.y == world.ny and world.x%100 == 0 and world.x == world.nx and world.leftMove==true  and character.y%100 == 0 and character.y == character.ny and character.x%100 == 0 and character.x == character.nx then
+            characterSetDirection( character.animation.Directions.Left)
+            character.faceDir = "left"
+            world.delta = world.delta + dt
+            if world.delta >= world.delay then
+            world.py = world.y
+            world.px = world.x
+            if world.nx ~= 0 and world.count==false then
+                    world.nx = world.x - 100
+                end
+                if character.animation.walking == false then
+                    character.delta=0
+                end
+                mapMove(character.Directions.Left, dt)
+            end
+    elseif love.keyboard.isDown("right") and world.y%100 == 0 and world.y == world.ny and world.x%100 == 0 and world.x == world.nx and world.rightMove==true and character.y%100 == 0 and character.y == character.ny and character.x%100 == 0 and character.x == character.nx then
+            characterSetDirection( character.animation.Directions.Right)
+            character.faceDir = "right"
+            world.delta = world.delta + dt
+            if world.delta >= world.delay then
+            world.py = world.y
+            world.px = world.x
+            if world.nx ~= (world.width-1000) and world.count==false then
+                    world.nx = world.x + 100
+                end
+                if character.animation.walking == false then
+                    world.delta=0
+                end
+                mapMove(character.Directions.Right, dt)
+            end
+    elseif love.keyboard.isDown("up") and world.y%100 == 0 and world.y == world.ny and world.x%100 == 0 and world.x == world.nx and world.upMove==true and character.y%100 == 0 and character.y == character.ny and character.x%100 == 0 and character.x == character.nx then
+            characterSetDirection( character.animation.Directions.Up)
+            character.faceDir = "up"
+            world.delta = world.delta + dt
+            if world.delta >= world.delay then
+                world.py = world.y
+            world.px = world.x
+                if world.ny ~= 0 and world.count==false then
+                    world.ny = world.y - 100
+                end
+                if character.animation.walking == false then
+                    world.delta=0
+                end
+                mapMove(character.Directions.Up, dt)
+            end
+    elseif love.keyboard.isDown("down") and world.y%100 == 0 and world.y == world.ny and world.x%100 == 0 and world.x == world.nx and world.downMove==true and character.y%100 == 0 and character.y == character.ny and character.x%100 == 0 and character.x == character.nx then
+            characterSetDirection( character.animation.Directions.Down)
+            character.faceDir = "down"
+            world.delta = world.delta + dt
+            if world.delta >= world.delay then
+                world.py = world.y
+                world.px = world.x
+                if world.ny ~= (world.height-500) and world.count==false then
+                    world.ny = world.y + 100
+                end
+                if character.animation.walking == false then
+                    world.delta=0
+                end
+                mapMove(character.Directions.Down, dt)
+            end
+    else
+        if world.y%100 == 0  and world.y == world.ny and world.x%100 == 0  and world.x == world.nx and world.backMove == false then
+            character_update(dt)
+        else
+            character.animation.sound:stop()
+        end
+        world.py = world.y
+        world.px = world.x
+    end
+end
 function mapMove(direction, dt)
 
      if direction == character.animation.Directions.Down and question==false and conversation == false then
@@ -439,10 +442,12 @@ function isBarrier(barrierX,barrierY)
         character.count=false
         world.count=false
     end
-    for i, monster in ipairs(monsters) do
-        if monster.nowX-world.x ==barrierX and monster.nowY-world.y == barrierY then
-            monster.nowX=monster.pastX
-            monster.nowY=monster.pastY
+    if day_state == 1 then
+        for i, monster in ipairs(monsters) do
+            if monster.nowX-world.x ==barrierX and monster.nowY-world.y == barrierY then
+                monster.nowX=monster.pastX
+                monster.nowY=monster.pastY
+            end
         end
     end
     for i=1,1 do

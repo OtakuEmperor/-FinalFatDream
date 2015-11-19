@@ -8,11 +8,19 @@ function love.load()
     require "loveavg"
     require "setting"
     require "world"
+    require "world2"
+    require "world3"
+    require "world4"
+    require "world5"
     gameStage = 0
     isSetting = false
-        op_load()
-        menu_load()
-        world_load()
+    op_load()
+    menu_load()
+    world_load()
+    world2_load()
+    world3_load()
+    world4_load()
+    world5_load()
         loveavg_load()
         setting_load()
 end
@@ -23,7 +31,27 @@ function love.update(dt)
     elseif gameStage == 2 then
         love_update(dt)
     elseif gameStage == 3 then
-        world_update(dt)
+        local switchDay = {
+            [1] = function()    -- for case 1
+                world_update(dt)
+            end,
+            [2] = function()    -- for case 2
+                world2_update(dt)
+            end,
+            [3] = function()    -- for case 3
+                world3_update(dt)
+            end,
+            [4] = function()    -- for case 4
+                world4_update(dt)
+            end,
+            [5] = function()
+                world5_update(dt)
+            end
+        }
+        local selectDay= switchDay[day_state]
+            if(selectDay) then
+                selectDay()
+            end
     end
 end
 
@@ -41,7 +69,27 @@ function love.keypressed(key)
             loveavg_keypressed(key)
         end
     elseif gameStage == 3 then
-        world_keypressed(key)
+        local switchDayK = {
+            [1] = function()    -- for case 1
+                world_keypressed(key)
+            end,
+            [2] = function()    -- for case 2
+                world2_keypressed(key)
+            end,
+            [3] = function()    -- for case 3
+                world3_keypressed(key)
+            end,
+            [4] = function()    -- for case 4
+                world4_keypressed(key)
+            end,
+            [5] = function()
+                world5_keypressed(key)
+            end
+        }
+        local selectDayK= switchDayK[day_state]
+            if(selectDayK) then
+                selectDayK()
+            end
     end
     --press esc to open or close setting.lua
     if key == "escape" and isSetting == false then
@@ -61,6 +109,7 @@ function love.keypressed(key)
     elseif love.keyboard.isDown("4") and love.keyboard.isDown("lalt") then
         love.filesystem.remove("data.txt")
         love.filesystem.remove("data2.txt")
+        day_state = day_state+1
     end
 end
 
@@ -75,6 +124,26 @@ function love.draw()
             setting_draw()
         end
     elseif gameStage == 3 then
-        world_draw()
+        local switchDayD = {
+            [1] = function()    -- for case 1
+                world_draw()
+            end,
+            [2] = function()    -- for case 2
+                world2_draw()
+            end,
+            [3] = function()    -- for case 3
+                world3_draw()
+            end,
+            [4] = function()    -- for case 4
+                world4_draw()
+            end,
+            [5] = function()
+                world5_draw()
+            end
+        }
+        local selectDayD= switchDayD[day_state]
+            if(selectDayD) then
+                selectDayD()
+            end
     end
 end
