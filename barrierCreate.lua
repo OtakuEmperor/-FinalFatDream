@@ -1,3 +1,4 @@
+--world1
 tree={}
 forest={}
 stone={}
@@ -6,6 +7,14 @@ questionMark={}
 q3Trap={}
 npc={}
 questionKey={}
+--world2
+blackboard={}
+deepWall={}
+lightWall={}
+floor={}
+deskChair={}
+stair={}
+dust={}
 -- this function is for OOP
 function newObject(o, class)
     class.__index = class
@@ -78,5 +87,77 @@ function grass.new (originPointX,originPointY)
         y = originPointY
     }
     obj = newObject(obj, grass)
+    return obj
+end
+
+--world2
+function blackboard.new (originPointX,originPointY)
+   local obj = {
+        Image = love.graphics.newImage("img/world2/blackboard.png"),
+        Barrier=true,
+        x = originPointX,
+        y = originPointY
+    }
+    obj = newObject(obj, blackboard)
+    return obj
+end
+function deepWall.new (originPointX,originPointY)
+   local obj = {
+        Image = love.graphics.newImage("img/world2/deepWall.png"),
+        Barrier=true,
+        x = originPointX,
+        y = originPointY
+    }
+    obj = newObject(obj, deepWall)
+    return obj
+end
+function lightWall.new (originPointX,originPointY)
+   local obj = {
+        Image = love.graphics.newImage("img/world2/lightWall.png"),
+        Barrier=true,
+        x = originPointX,
+        y = originPointY
+    }
+    obj = newObject(obj, lightWall)
+    return obj
+end
+function floor.new (originPointX,originPointY)
+   local obj = {
+        Image = love.graphics.newImage("img/world2/floor.png"),
+        Barrier=false,
+        x = originPointX,
+        y = originPointY
+    }
+    obj = newObject(obj, floor)
+    return obj
+end
+function deskChair.new (originPointX,originPointY)
+   local obj = {
+        Image = love.graphics.newImage("img/world2/deskChair.png"),
+        Barrier=true,
+        x = originPointX,
+        y = originPointY
+    }
+    obj = newObject(obj, deskChair)
+    return obj
+end
+function stair.new (originPointX,originPointY)
+   local obj = {
+        Image = love.graphics.newImage("img/world2/stair.png"),
+        Barrier=false,
+        x = originPointX,
+        y = originPointY
+    }
+    obj = newObject(obj, stair)
+    return obj
+end
+function dust.new (originPointX,originPointY)
+   local obj = {
+        Image = love.graphics.newImage("img/world2/dust.png"),
+        Barrier=false,
+        x = originPointX,
+        y = originPointY
+    }
+    obj = newObject(obj, dust)
     return obj
 end

@@ -13,7 +13,7 @@ function world2_load()
     --fight_bgm = love.audio.newSource("audio/night.mp3", "stream")
     --interface_load()
     --character_load()
-    
+
 end
 
 function world2_update(dt)
@@ -49,7 +49,7 @@ function world2_update(dt)
       --      love_reloadDay()
     --    end
     end
-    if world.backMove == true then    
+    if world.backMove == true then
         --if world.rightMove == true or world.leftMove == true or world.upMove == true or world.downMove == true then
         world.speed = 1000
         mapbackMoveUpdate(dt)
@@ -77,8 +77,8 @@ function mapCreate2()
     world.downMove=false
     world.x=0
     world.y=0
-    world.width=2000
-    world.height=2000
+    world.width=3000
+    world.height=3000
     world.nx=0
     world.ny=0
     world.count=false
@@ -93,11 +93,97 @@ function mapCreate2()
 end
 
 function barrierCreate2()
-    --create grass
+    --blackboard
     local counter = 1
-    for i = 0, 2000, 100 do
-        for j = 0, 2000, 100 do
-            grass[counter] = grass.new(i, j)
+    for i = 200, 1000, 100 do
+        for j = 0, 100, 100 do
+            blackboard[counter] = blackboard.new(i, j)
+            counter = counter + 1
+        end
+        for j = 1400, 1600, 100 do
+            blackboard[counter] = blackboard.new(i, j)
+            counter = counter + 1
+        end
+    end
+    --deepWall
+    counter = 1
+    for j = 0, 2700, 100 do
+        deepWall[counter] = deepWall.new(0, j)
+        counter = counter + 1
+    end
+    for i = 0, 1800, 100 do
+        for j = 2800, 2900, 100 do
+            deepWall[counter] = deepWall.new(i, j)
+            counter = counter + 1
+        end
+    end
+    for i = 100, 1100, 100 do
+        deepWall[counter] = deepWall.new(i, 1300)
+        counter = counter + 1
+    end
+    for j = 0, 200, 100 do
+        deepWall[counter] = deepWall.new(1200, j)
+        counter = counter + 1
+    end
+    for j = 500, 1700, 100 do
+        deepWall[counter] = deepWall.new(1200, j)
+        counter = counter + 1
+    end
+    for j = 2000, 2700, 100 do
+        deepWall[counter] = deepWall.new(1200, j)
+        counter = counter + 1
+    end
+    for i = 1700, 1800, 100 do
+        for j = 0, 2300, 100 do
+            deepWall[counter] = deepWall.new(i, j)
+            counter = counter + 1
+        end
+    end
+    --lightWall
+    counter = 1
+    for i = 100, 1100, 100 do
+        for j = 0, 200, 100 do
+            lightWall[counter] = lightWall.new(i, j)
+            counter = counter + 1
+        end
+        for j = 1400, 1700, 100 do
+            lightWall[counter] = lightWall.new(i, j)
+            counter = counter + 1
+        end
+    end
+    --floor
+    counter = 1
+    for i = 100, 1800, 100 do
+        for j = 0, 2700, 100 do
+            floor[counter] = floor.new(i, j)
+            counter = counter + 1
+        end
+    end
+    --deskChair
+    counter = 1
+    for i = 100, 1100, 200 do
+        for j = 500, 1100, 200 do
+            deskChair[counter] = deskChair.new(i, j)
+            counter = counter + 1
+        end
+        for j = 2000, 2600, 200 do
+            deskChair[counter] = deskChair.new(i, j)
+            counter = counter + 1
+        end
+    end
+    --stair
+    counter = 1
+    for i = 1700, 1800, 100 do
+        for j = 2400, 2700, 100 do
+            stair[counter] = stair.new(i, j)
+            counter = counter + 1
+        end
+    end
+    --dust
+    counter = 1
+    for i = 1900, 3000, 100 do
+        for j = 0, 2900, 100 do
+            dust[counter] = dust.new(i, j)
             counter = counter + 1
         end
     end
@@ -111,11 +197,53 @@ function world2_keypressed(key)
 end
 
 function barrier2_draw()
-
-    for i=1,441 do
-        love.graphics.draw(grass[i].Image, grass[i].x-world.x, grass[i].y-world.y)
-        if grass[i].Barrier then
-            isBarrier(grass[i].x-world.x, grass[i].y-world.y)
+    --floor
+    for i=1, #floor, 1 do
+        love.graphics.draw(floor[i].Image, floor[i].x-world.x, floor[i].y-world.y)
+        if floor[i].Barrier then
+            isBarrier(floor[i].x-world.x, floor[i].y-world.y)
         end
-    end    
+    end
+    --dust
+    for i=1, #dust, 1 do
+        love.graphics.draw(dust[i].Image, dust[i].x-world.x, dust[i].y-world.y)
+        if dust[i].Barrier then
+            isBarrier(dust[i].x-world.x, dust[i].y-world.y)
+        end
+    end
+    --stair
+    for i=1, #stair, 1 do
+        love.graphics.draw(stair[i].Image, stair[i].x-world.x, stair[i].y-world.y)
+        if stair[i].Barrier then
+            isBarrier(stair[i].x-world.x, stair[i].y-world.y)
+        end
+    end
+    --deepWall
+    for i=1, #deepWall, 1 do
+        love.graphics.draw(deepWall[i].Image, deepWall[i].x-world.x, deepWall[i].y-world.y)
+        if deepWall[i].Barrier then
+            isBarrier(deepWall[i].x-world.x, deepWall[i].y-world.y)
+        end
+    end
+    --lightWall
+    for i=1, #lightWall, 1 do
+        love.graphics.draw(lightWall[i].Image, lightWall[i].x-world.x, lightWall[i].y-world.y)
+        if lightWall[i].Barrier then
+            isBarrier(lightWall[i].x-world.x, lightWall[i].y-world.y)
+        end
+    end
+    --deskChair
+    for i=1, #deskChair, 1 do
+        love.graphics.draw(deskChair[i].Image, deskChair[i].x-world.x, deskChair[i].y-world.y)
+        if deskChair[i].Barrier then
+            isBarrier(deskChair[i].x-world.x, deskChair[i].y-world.y)
+        end
+    end
+    --blackboard
+    for i = 1, #blackboard, 1 do
+        love.graphics.draw(blackboard[i].Image, blackboard[i].x-world.x, blackboard[i].y-world.y)
+        if blackboard[i].Barrier then
+            isBarrier(blackboard[i].x-world.x, blackboard[i].y-world.y)
+        end
+    end
 end

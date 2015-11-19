@@ -67,7 +67,7 @@ function world_update(dt)
             love_reloadDay()
         end
     end
-    if world.backMove == true then    
+    if world.backMove == true then
         --if world.rightMove == true or world.leftMove == true or world.upMove == true or world.downMove == true then
         world.speed = 1000
         mapbackMoveUpdate(dt)
