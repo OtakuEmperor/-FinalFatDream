@@ -207,7 +207,7 @@ function world_draw()
     triggerDraw()
     interface_draw()
     if world1_dialog_state == 1 then
-        print_dialog("我", "這裏是　什麼地方？")
+        print_dialog("我", "這裏是．．．．．．什麼地方？")
     elseif world1_dialog_state == 2 then
         print_dialog("ＸＸＸ", "這裏是實現你夢想的地方")
     elseif world1_dialog_state == 3 then
