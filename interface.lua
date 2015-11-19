@@ -137,10 +137,10 @@ function interface_draw()
     love.graphics.setColor(0, 0, 0, 127)--set opacity50
     love.graphics.draw(interface.water, interface.width * (6/40), interface.height * (1/8))
     love.graphics.setColor(255, 255, 255, 255)
-    if character.slimeJuice > 0 then
+    if character.water then
         love.graphics.draw(slimeJuice, interface.width * (6/40), interface.height * (1/8))
         love.graphics.setFont(itemfont)
-        love.graphics.print(character.slimeJuice, interface.width * (6/40)+20, interface.height * (1/8)+20)
+        love.graphics.print("Q", interface.width * (6/40)+20, interface.height * (1/8)+20)
     end
     --draw weapon
     love.graphics.setColor(0, 0, 0, 127)--set opacity50

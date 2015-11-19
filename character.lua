@@ -32,8 +32,8 @@ function character_keyPressed(key)
         battle_keyPress(key)
     end
     if love.keyboard.isDown("q") then
-        if character.slimeJuice > 0 then
-            character.slimeJuice = character.slimeJuice - 1
+        if character.water and not (character.hp == character.maxHp) then
+            character.water = false
             character.hp = character.hp + 10
         end
     end
@@ -74,8 +74,7 @@ function characterCreate()
     character.delay=0.15
     character.delta=0
     character.backMove=false
-    character.water = {}
-    character.slimeJuice = 0
+    character.water = false
     charUnderAttack = love.audio.newSource("audio/charUnderAttack.wav", "static")
 end
 

@@ -155,7 +155,7 @@ function slime:underAttack(faceDir,damageBlood)
     self.animationIndex = 5
     self.hp = self.hp - damageBlood
     if self.hp <= 0 then
-        character.slimeJuice = character.slimeJuice + 1
+        character.water = true
         self:die()
     end
     self.timeTick = 0

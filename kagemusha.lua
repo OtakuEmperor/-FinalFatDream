@@ -33,6 +33,8 @@ function kagemusha.new (monster, originPointX, originPointY)
 end
 
 function kagemusha:update(dt,charX,charY)
+    self.hp = self.mon.hp
+    self.alive = self.mon.alive
 end
 
 function kagemusha:getPositionX()
