@@ -121,6 +121,7 @@ function world_draw()
     monster_draw()
     triggerDraw()
     interface_draw()
+    love.graphics.setBackgroundColor(178, 203, 148)
     if world1_dialog_state == 1 then
         print_dialog("我", "這裏是　什麼地方？")
     elseif world1_dialog_state == 2 then
