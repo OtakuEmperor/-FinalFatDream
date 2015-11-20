@@ -179,9 +179,17 @@ function barrierCreate2()
     lightWall[counter] = lightWall.new(1100, 1700)--rightDown
     --floor
     counter = 1
-    for i = 100, 1800, 100 do
+    for i = 100, 1200, 100 do
         for j = 0, 2700, 100 do
             floor[counter] = floor.new(i, j)
+            counter = counter + 1
+        end
+    end
+    --aisle
+    counter = 1
+    for i = 1300, 1600, 100 do
+        for j = 0, 2700, 100 do
+            aisle[counter] = aisle.new(i, j)
             counter = counter + 1
         end
     end
@@ -228,6 +236,13 @@ function barrier2_draw()
         love.graphics.draw(floor[i].Image, floor[i].x-world.x, floor[i].y-world.y)
         if floor[i].Barrier then
             isBarrier(floor[i].x-world.x, floor[i].y-world.y)
+        end
+    end
+    --aisle
+    for i=1, #aisle, 1 do
+        love.graphics.draw(aisle[i].Image, aisle[i].x-world.x, aisle[i].y-world.y)
+        if aisle[i].Barrier then
+            isBarrier(aisle[i].x-world.x, aisle[i].y-world.y)
         end
     end
     --dust

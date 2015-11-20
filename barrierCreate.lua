@@ -12,6 +12,7 @@ blackboard={}
 deepWall={}
 lightWall={}
 floor={}
+aisle={}
 deskChair={}
 stair={}
 dust={}
@@ -145,6 +146,16 @@ function floor.new (originPointX,originPointY)
         y = originPointY
     }
     obj = newObject(obj, floor)
+    return obj
+end
+function aisle.new (originPointX,originPointY)
+   local obj = {
+        Image = love.graphics.newImage("img/world2/aisle.png"),
+        Barrier=false,
+        x = originPointX,
+        y = originPointY
+    }
+    obj = newObject(obj, aisle)
     return obj
 end
 function deskChair.new (originPointX,originPointY)
