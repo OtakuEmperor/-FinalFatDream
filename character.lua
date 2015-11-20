@@ -345,12 +345,12 @@ function moveStageCheck()
     --character.px = character.x
         world.rightMove = false
         end
-        if  character.y > 300 and world.y + screenHeight < world.height then
+        if  character.y > 200 and world.y + screenHeight < world.height then
             world.downMove = true
         else
             world.downMove = false
         end
-        if  character.y  < 200 and world.y ~= 0 then
+        if  character.y  < 300 and world.y ~= 0 then
             world.upMove = true
         else
             world.upMove = false
