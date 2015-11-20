@@ -190,21 +190,20 @@ function dust.new (originPointX,originPointY)
 end
 function fence.new (originPointX,originPointY)
     local fenceImg
-    --[[
-    if fence_counter <= then
+    if fence_counter <= 65 then
         fenceImg = "img/world2/fence_center.png"
-    elseif fence_counter > and fence_counter <= then
+    elseif fence_counter > 65 and fence_counter <= 72 then
         fenceImg = "img/world2/fence_left.png"
-    elseif fence_center > then
+    elseif fence_counter > 72 then
         fenceImg = "img/world2/fence_right.png"
     end
-    ]]--
-   local obj = {
-        Image = love.graphics.newImage(fenceImg),
-        Barrier=true,
-        x = originPointX,
-        y = originPointY
-    }
-    obj = newObject(obj, fence)
-    return obj
+    fence_counter = fence_counter + 1
+    local obj = {
+         Image = love.graphics.newImage(fenceImg),
+         Barrier=true,
+         x = originPointX,
+         y = originPointY
+     }
+     obj = newObject(obj, fence)
+     return obj
 end

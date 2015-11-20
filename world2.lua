@@ -78,7 +78,7 @@ function mapCreate2()
     world.downMove=false
     world.x=0
     world.y=0
-    world.width=3000
+    world.width=2900
     world.height=3000
     world.nx=0
     world.ny=0
@@ -215,12 +215,99 @@ function barrierCreate2()
     end
     --dust
     counter = 1
-    for i = 1900, 3000, 100 do
+    for i = 1900, 2900, 100 do
         for j = 0, 2900, 100 do
             dust[counter] = dust.new(i, j)
             counter = counter + 1
         end
     end
+    --fence
+    counter = 1
+    --1
+    for i = 1900, 2900, 100 do
+        fence[counter] = fence.new(i, 0)
+        counter = counter + 1
+    end
+    --2
+    for i = 2100, 2700, 100 do --1R1L
+        fence[counter] = fence.new(i, 300)
+        counter = counter + 1
+    end
+    --3
+    for i = 1900, 2000, 100 do --1R
+        fence[counter] = fence.new(i, 600)
+        counter = counter + 1
+    end
+    for i = 2400, 2900, 100 do --1L
+        fence[counter] = fence.new(i, 600)
+        counter = counter + 1
+    end
+    --4
+    for i = 1900, 2400, 100 do --1R
+        fence[counter] = fence.new(i, 900)
+        counter = counter + 1
+    end
+    for i = 2800, 2900, 100 do --1L
+        fence[counter] = fence.new(i, 900)
+        counter = counter + 1
+    end
+    --5
+    for i = 1900, 2200, 100 do --1R
+        fence[counter] = fence.new(i, 1200)
+        counter = counter + 1
+    end
+    for i = 2600, 2900, 100 do --1L
+        fence[counter] = fence.new(i, 1200)
+        counter = counter + 1
+    end
+    --6
+    for i = 2100, 2900, 100 do --1L
+        fence[counter] = fence.new(i, 1500)
+        counter = counter + 1
+    end
+    --7
+    fence[counter] = fence.new(1900, 1800) --1R
+    counter = counter + 1
+    for i = 2400, 2900, 100 do
+        fence[counter] = fence.new(i, 1800) --1L
+        counter = counter + 1
+    end
+    --8
+    for i = 1900, 2200, 100 do
+        fence[counter] = fence.new(i, 2100) --1R
+        counter = counter + 1
+    end
+    for i = 2700, 2900, 100 do
+        fence[counter] = fence.new(i, 2100) --1L
+        counter = counter + 1
+    end
+    --fence_left
+    fence[counter] = fence.new(2000, 300)
+    counter = counter + 1
+    fence[counter] = fence.new(2300, 600)
+    counter = counter + 1
+    fence[counter] = fence.new(2700, 900)
+    counter = counter + 1
+    fence[counter] = fence.new(2500, 1200)
+    counter = counter + 1
+    fence[counter] = fence.new(2000, 1500)
+    counter = counter + 1
+    fence[counter] = fence.new(2300, 1800)
+    counter = counter + 1
+    fence[counter] = fence.new(2600, 2100)
+    counter = counter + 1
+    --fence_right
+    fence[counter] = fence.new(2800, 300)
+    counter = counter + 1
+    fence[counter] = fence.new(2100, 600)
+    counter = counter + 1
+    fence[counter] = fence.new(2500, 900)
+    counter = counter + 1
+    fence[counter] = fence.new(2300, 1200)
+    counter = counter + 1
+    fence[counter] = fence.new(2000, 1800)
+    counter = counter + 1
+    fence[counter] = fence.new(2300, 2100)
 end
 
 function world2_keypressed(key)
@@ -285,6 +372,13 @@ function barrier2_draw()
         love.graphics.draw(blackboard[i].Image, blackboard[i].x-world.x, blackboard[i].y-world.y)
         if blackboard[i].Barrier then
             isBarrier(blackboard[i].x-world.x, blackboard[i].y-world.y)
+        end
+    end
+    --fence
+    for i = 1, #fence, 1 do
+        love.graphics.draw(fence[i].Image, fence[i].x-world.x, fence[i].y-world.y)
+        if fence[i].Barrier then
+            isBarrier(fence[i].x-world.x, fence[i].y-world.y)
         end
     end
 end
