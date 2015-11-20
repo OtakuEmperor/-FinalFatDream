@@ -132,6 +132,7 @@ function lightWall.new (originPointX,originPointY)
    local obj = {
         Image = love.graphics.newImage(lightWallImg),
         Barrier=true,
+        isSolve=false,
         x = originPointX,
         y = originPointY
     }
