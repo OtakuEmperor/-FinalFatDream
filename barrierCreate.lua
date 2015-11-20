@@ -15,7 +15,9 @@ floor={}
 deskChair={}
 stair={}
 dust={}
+fence ={}
 lightWall_counter = 1
+fence_counter = 1
 -- this function is for OOP
 function newObject(o, class)
     class.__index = class
@@ -173,5 +175,25 @@ function dust.new (originPointX,originPointY)
         y = originPointY
     }
     obj = newObject(obj, dust)
+    return obj
+end
+function fence.new (originPointX,originPointY)
+    local fenceImg
+    --[[
+    if fence_counter <= then
+        fenceImg = "img/world2/fence_center.png"
+    elseif fence_counter > and fence_counter <= then
+        fenceImg = "img/world2/fence_left.png"
+    elseif fence_center > then
+        fenceImg = "img/world2/fence_right.png"
+    end
+    ]]--
+   local obj = {
+        Image = love.graphics.newImage(fenceImg),
+        Barrier=true,
+        x = originPointX,
+        y = originPointY
+    }
+    obj = newObject(obj, fence)
     return obj
 end
