@@ -142,16 +142,41 @@ function barrierCreate2()
     end
     --lightWall
     counter = 1
-    for i = 100, 1100, 100 do
-        for j = 0, 200, 100 do
-            lightWall[counter] = lightWall.new(i, j)
-            counter = counter + 1
-        end
-        for j = 1400, 1700, 100 do
-            lightWall[counter] = lightWall.new(i, j)
-            counter = counter + 1
-        end
+    --lightWall_left
+    for j = 0, 100, 100 do
+        lightWall[counter] = lightWall.new(100, j)
+        counter = counter + 1
     end
+    for j = 1400, 1600, 100 do
+        lightWall[counter] = lightWall.new(100, j)
+        counter = counter + 1
+    end
+    --lightWall_right
+    for j = 0, 100, 100 do
+        lightWall[counter] = lightWall.new(1100, j)
+        counter = counter + 1
+    end
+    for j = 1400, 1600, 100 do
+        lightWall[counter] = lightWall.new(1100, j)
+        counter = counter + 1
+    end
+    --lightWall_down
+    for i = 200, 1000, 100 do
+        lightWall[counter] = lightWall.new(i, 200)
+        counter = counter + 1
+    end
+    for i = 200, 1000, 100 do
+        lightWall[counter] = lightWall.new(i, 1700)
+        counter = counter + 1
+    end
+    --light_corner
+    lightWall[counter] = lightWall.new(100, 200) --leftUp
+    counter = counter + 1
+    lightWall[counter] = lightWall.new(100, 1700)--leftDown
+    counter = counter + 1
+    lightWall[counter] = lightWall.new(1100, 200)--rightUp
+    counter = counter + 1
+    lightWall[counter] = lightWall.new(1100, 1700)--rightDown
     --floor
     counter = 1
     for i = 100, 1800, 100 do
