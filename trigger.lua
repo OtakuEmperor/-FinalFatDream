@@ -179,6 +179,7 @@ function triggerKeyPress(key)
         end
     }
 ------------day2 trigger---------------------------------------
+    local counter
     local switch2 = {
         ["right"] = function()    -- for case 1
             
@@ -187,7 +188,22 @@ function triggerKeyPress(key)
            
         end,
         ["down"] = function()    -- for case 3
-           
+           counter = 1
+        for i = 100, 1100, 200 do
+            for j = 500, 1100, 200 do
+                counter = counter + 1
+            end
+            for j = 2000, 2600, 200 do
+                if (character.x+world.x)==deskChair[counter].x and (character.y+world.y+100)== deskChair[counter].y and deskChair[counter].isSolve == false then
+                    question = true
+                    questionNum=4
+                    showKey = true
+                    --q2_dialogLockKey = false
+                    --love_newDialog()
+                end
+                counter = counter + 1
+            end
+        end
         end,
         ["up"] = function()    -- for case 4
             for i=1,5 do

@@ -163,6 +163,7 @@ function deskChair.new (originPointX,originPointY)
    local obj = {
         Image = love.graphics.newImage("img/world2/deskChair.png"),
         Barrier=true,
+        isSolve=false,
         x = originPointX,
         y = originPointY
     }

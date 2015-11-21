@@ -224,6 +224,7 @@ function barrierCreate2()
             deskChair[counter] = deskChair.new(i, j)
             counter = counter + 1
         end
+        fuck = counter
         for j = 2000, 2600, 200 do
             deskChair[counter] = deskChair.new(i, j)
             counter = counter + 1
@@ -407,4 +408,5 @@ function barrier2_draw()
             isBarrier(fence[i].x-world.x, fence[i].y-world.y)
         end
     end
+    love.graphics.print(fuck, 200, 200)
 end

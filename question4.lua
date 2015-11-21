@@ -137,6 +137,12 @@ function question4_draw()
     love.graphics.setColor(0,0,0,150)
     love.graphics.rectangle("fill", 0,0, 1100, 614)
     love.graphics.setColor(255,255,255)
+    if showKey == true then
+        love.graphics.setColor(0,0,0)
+        love.graphics.rectangle("fill", (1100-keyWidth)/2-3,(614*2/3-keyHeight)/2-3, keyWidth+6,keyHeight+6)
+        love.graphics.setColor(255,255,255)
+        love.graphics.draw(keyImage, (1100-keyWidth)/2, (614*2/3-keyHeight)/2)
+    else
         love.graphics.draw(questionImage4, 0, 0,0,1100/imageWidth4,614/imageHeight4)
         for i=1,12 do
            if bar[i]==true then
@@ -155,6 +161,7 @@ function question4_draw()
         --elseif q2_dialog_stateLine == 4 then
           --  q2_dialogLockLine = true
         --end
+    end
 end
 
 
