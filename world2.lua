@@ -7,15 +7,16 @@ local characterY=300
 function world2_load()
     require "character"
     --require "slime"
-    --require "boss1"
+    require "boss2"
     require "barrierCreate"
     require "interface"
     require "barrierMove"
     --require "kagemusha"
-    --monsters = {}
+    monsters = {}
+    monsters[1] = boss2.new(2400, 100)
     --fight_bgm = love.audio.newSource("audio/night.mp3", "stream")
-    --interface_load()
-    --character_load()
+    interface_load()
+    character_load()
 
 end
 
@@ -28,6 +29,9 @@ function world2_update(dt)
         creatMapLock = creatMapLock+1
     end
     interface_update(dt)
+    for i, monster in ipairs(monsters) do
+        monster:update(dt,character.x+world.x,character.y+world.y,dt)
+    end
     character_run(dt)
     character.py = character.y
     character.px = character.x
@@ -70,6 +74,7 @@ function world2_draw()
     barrier2_draw()
     character_draw()
     interface_draw()
+    monster_draw()
     triggerDraw()
     love.graphics.setBackgroundColor(68, 69, 69)
     --testdraw()
@@ -405,6 +410,15 @@ function barrier2_draw()
         love.graphics.draw(fence[i].Image, fence[i].x-world.x, fence[i].y-world.y)
         if fence[i].Barrier then
             isBarrier(fence[i].x-world.x, fence[i].y-world.y)
+        end
+    end
+end
+
+function monster_draw()
+    for i, monster in ipairs(monsters) do
+        if monster.alive then
+            love.graphics.setColor(255,255,255)
+            love.graphics.draw(monster.slimeImgFile, monster.slimeQuads[monster.face][monster.animationIndex], monster.nowX-world.x, monster.nowY-world.y)
         end
     end
 end
