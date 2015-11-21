@@ -12,11 +12,9 @@ function world2_load()
     require "interface"
     require "barrierMove"
     --require "kagemusha"
-    monsters = {}
-    monsters[1] = boss2.new(2400, 100)
     --fight_bgm = love.audio.newSource("audio/night.mp3", "stream")
-    interface_load()
-    character_load()
+    --interface_load()
+    --character_load()
 
 end
 
@@ -26,6 +24,7 @@ function world2_update(dt)
         barrierCreate2()
         mapCreate2()
         characterCreate2()
+        monsterCreate2()
         creatMapLock = creatMapLock+1
     end
     interface_update(dt)
@@ -74,12 +73,16 @@ function world2_draw()
     barrier2_draw()
     character_draw()
     interface_draw()
-    monster_draw()
+    monster_draw2()
     triggerDraw()
     love.graphics.setBackgroundColor(68, 69, 69)
     --testdraw()
     love.audio.setVolume(0.8)
     fight_bgm:play()
+end
+function monsterCreate2()
+    monsters = {}
+    monsters[1] = boss2.new(2400, 100)
 end
 function characterCreate2()
     character.x = characterX
@@ -414,7 +417,7 @@ function barrier2_draw()
     end
 end
 
-function monster_draw()
+function monster_draw2()
     for i, monster in ipairs(monsters) do
         if monster.alive then
             love.graphics.setColor(255,255,255)
