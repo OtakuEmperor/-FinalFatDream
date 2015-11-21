@@ -29,7 +29,7 @@ function boss2.new (originPointX, originPointY)
         animationTimer = 0,
         attacking = false,
         attacking_cool_down=0,
-        slimeImgFile = love.graphics.newImage("img/boss1.png")
+        slimeImgFile = love.graphics.newImage("img/world2/boss2.png")
     }
     for i=1,16 do
         obj.moveStep[i] = math.random(4)
