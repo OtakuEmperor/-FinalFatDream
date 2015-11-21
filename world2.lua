@@ -4,6 +4,7 @@ world2={}
 local screenWidth,screenHeight=love.graphics.getDimensions( )
 local characterX=500
 local characterY=300
+local resetKey = false
 function world2_load()
     require "character"
     --require "slime"
@@ -19,6 +20,11 @@ function world2_load()
 end
 
 function world2_update(dt)
+    --reset Key
+    if resetKey == false then
+        zeroKey()
+        resetKey = true
+    end
     triggerUpdate(dt)
     if creatMapLock==0 then
         barrierCreate2()

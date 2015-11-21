@@ -161,3 +161,6 @@ end
 function addKey()
     interface.keyNum = interface.keyNum + 1
 end
+function zeroKey()
+    interface.keyNum = 0
+end

@@ -3,6 +3,7 @@ world4={}
 local screenWidth,screenHeight=love.graphics.getDimensions( )
 local characterX=500
 local characterY=300
+local resetKey = false
 function world4_load()
     require "character"
     --require "slime"
@@ -15,10 +16,15 @@ function world4_load()
     --fight_bgm = love.audio.newSource("audio/night.mp3", "stream")
     --interface_load()
     --character_load()
-    
+
 end
 
 function world4_update(dt)
+    --reset Key
+    if resetKey == false then
+        zeroKey()
+        resetKey = true
+    end
     if creatMapLock==0 then
         barrierCreate4()
         mapCreate4()
@@ -52,7 +58,7 @@ function world4_update(dt)
       --      love_reloadDay()
     --    end
     end
-    if world.backMove == true then    
+    if world.backMove == true then
         --if world.rightMove == true or world.leftMove == true or world.upMove == true or world.downMove == true then
         world.speed = 1000
         mapbackMoveUpdate(dt)
@@ -138,5 +144,5 @@ function barrier4_draw()
         if grass[i].Barrier then
             isBarrier(grass[i].x-world.x, grass[i].y-world.y)
         end
-    end    
+    end
 end
