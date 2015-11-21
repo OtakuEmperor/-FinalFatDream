@@ -1,6 +1,9 @@
 local creatMapLock=0
+local fuck=0
 world2={}
 local screenWidth,screenHeight=love.graphics.getDimensions( )
+local characterX=500
+local characterY=300
 function world2_load()
     require "character"
     --require "slime"
@@ -18,9 +21,11 @@ function world2_load()
 end
 
 function world2_update(dt)
+    triggerUpdate(dt)
     if creatMapLock==0 then
         barrierCreate2()
         mapCreate2()
+        characterCreate2()
         creatMapLock = creatMapLock+1
     end
     interface_update(dt)
@@ -70,12 +75,31 @@ function world2_draw()
     character_draw()
     interface_draw()
     monster_draw()
+    triggerDraw()
     love.graphics.setBackgroundColor(68, 69, 69)
     --testdraw()
     love.audio.setVolume(0.8)
     fight_bgm:play()
 end
-
+function characterCreate2()
+    character.x = characterX
+    character.y = characterY
+    character.nx=characterX
+    character.ny=characterY
+    character.count=false
+    character.px=characterX
+    character.py=characterY
+    character.maxHp=100
+    character.hp=100
+    character.die=false
+    character.atk=5
+    character.speed = 300
+    character.faceDir = "down"
+    character.delay=0.15
+    character.delta=0
+    character.backMove=false
+    character.water = false
+end
 function mapCreate2()
     world.rightMove=false
     world.leftMove=false
@@ -320,6 +344,8 @@ function world2_keypressed(key)
         addKey()
     end
     character_keyPressed(key)
+    triggerKeyPress(key)
+    question4_keypressedLine(key)
 end
 
 function barrier2_draw()

@@ -7,10 +7,12 @@ function triggerLoad()
     require "question1" 
     require "question2"
     require "question3"
+    require "question4"
     require "npcDialog"
     question1_load()
     question2_load()
     question3_load()
+    question4_load()
     npcDialog_load()
     sloveProblem = love.audio.newSource("audio/sloveProblem.ogg", "static")
 end
@@ -20,10 +22,12 @@ function triggerUpdate(dt)
         question1_update(dt)
         question2_update(dt)
         question3_update(dt)
+        question4_update(dt)
     end
 end
 
 function triggerKeyPress(key)
+-----------------day1 trigger------------------------------------------
     local switch = {
         ["right"] = function()    -- for case 1
             for i=1,5 do
@@ -174,12 +178,75 @@ function triggerKeyPress(key)
             end
         end
     }
-    if love.keyboard.isDown("f") then
-        --switch(character.faceDir)
-        local face = switch[character.faceDir]
-        if(face) then
-            face()
+------------day2 trigger---------------------------------------
+    local switch2 = {
+        ["right"] = function()    -- for case 1
+            
+        end,
+        ["left"] = function()    -- for case 2
+           
+        end,
+        ["down"] = function()    -- for case 3
+           
+        end,
+        ["up"] = function()    -- for case 4
+            for i=1,5 do
+            --    if (character.x+world.x)==npc[i].x and (character.y+world.y-100)== npc[i].y then
+              --      conversation = true
+                --    dialogNum=i
+                  --  npc_dialogLock = false
+                --    love_newDialog()
+                --end
+            end
+            for i=20,28 do
+                if (character.x+world.x)==lightWall[i].x and (character.y+world.y-100)== lightWall[i].y and lightWall[i].isSolve == false then
+                    question = true
+                    questionNum=4
+                    --q4_dialogLockLine = false
+                    --love_newDialog()
+                end
+            end
         end
+    }
+------------------------------------------------------------------------------
+    if love.keyboard.isDown("f") then
+        local switchDayT = {
+            [1] = function()    -- for case 1
+                --switch(character.faceDir)
+                local face = switch[character.faceDir]
+                if(face) then
+                    face()
+                end
+            end,
+            [2] = function()    -- for case 2
+                local face2 = switch2[character.faceDir]
+                if(face2) then
+                    face2()
+                end
+            end,
+            [3] = function()    -- for case 3
+                local face3 = switch3[character.faceDir]
+                if(face3) then
+                    face3()
+                end
+            end,
+            [4] = function()    -- for case 4
+                local face4 = switch4[character.faceDir]
+                if(face4) then
+                    face4()
+                end
+            end,
+            [5] = function()
+                local face5 = switch5[character.faceDir]
+                if(face5) then
+                    face5()
+                end
+            end
+        }
+        local selectDayT= switchDayT[day_state]
+            if(selectDayT) then
+                selectDayT()
+            end
     elseif love.keyboard.isDown("escape") then
         q1_dialog_state = 1
         q2_dialog_stateKey = 1
@@ -209,6 +276,9 @@ function triggerDraw()
             end,
             [3] = function()
                 question3_draw()
+            end,
+            [4] = function()
+                question4_draw()
             end
         }
         local questionN = switchQuestion[questionNum]

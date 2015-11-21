@@ -1,6 +1,8 @@
 local creatMapLock=0
 world3={}
 local screenWidth,screenHeight=love.graphics.getDimensions( )
+local characterX=500
+local characterY=300
 function world3_load()
     require "character"
     --require "slime"
@@ -20,6 +22,7 @@ function world3_update(dt)
     if creatMapLock==0 then
         barrierCreate3()
         mapCreate3()
+        characterCreate3()
         creatMapLock = creatMapLock+1
     end
     interface_update(dt)
@@ -69,7 +72,25 @@ function world3_draw()
     love.audio.setVolume(0.8)
     fight_bgm:play()
 end
-
+function characterCreate3()
+    character.x = characterX
+    character.y = characterY
+    character.nx=characterX
+    character.ny=characterY
+    character.count=false
+    character.px=characterX
+    character.py=characterY
+    character.maxHp=100
+    character.hp=100
+    character.die=false
+    character.atk=5
+    character.speed = 300
+    character.faceDir = "down"
+    character.delay=0.15
+    character.delta=0
+    character.backMove=false
+    character.water = false
+end
 function mapCreate3()
     world.rightMove=false
     world.leftMove=false
