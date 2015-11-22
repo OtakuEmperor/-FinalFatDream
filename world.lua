@@ -444,6 +444,7 @@ function isBarrier(barrierX,barrierY)
     end
     if day_state == 1 then
         for i, monster in ipairs(monsters) do
+            print(monster.nowX)
             if monster.nowX-world.x ==barrierX and monster.nowY-world.y == barrierY then
                 monster.nowX=monster.pastX
                 monster.nowY=monster.pastY

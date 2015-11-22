@@ -308,9 +308,6 @@ function loveLoad(data)
     day_state = data[4]
     dialog_state = data[5]
     choose_no = data[6]
-    for i, j in pairs(data[1]) do
-        print(string.format("%s %s", i, j))
-    end
 end
 
 function love_reloadDay()

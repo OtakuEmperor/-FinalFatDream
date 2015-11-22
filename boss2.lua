@@ -10,7 +10,7 @@ function boss2.new (originPointX, originPointY)
     local obj = {
         alive = true,
         hp = 10,
-        face = 1, -- up 1, down 2, left 3, right 4
+        face = 1, -- down 1, up 2, left 3, right 4
         nowX = originPointX,
         nowY = originPointY,
         toX = originPointX,
@@ -21,7 +21,7 @@ function boss2.new (originPointX, originPointY)
         runCounter = 0,
         runCD = 0,
         attackSpeed = 1,
-        startRun = false,
+        startRun = true,
         moveStep = {},
         slimeQuads = {},
         moveIndex = 1,
@@ -52,15 +52,7 @@ function boss2:update(dt,charX,charY)
     if self.startRun then
         self.runCD = self.runCD + dt
     end
-    if self.alive then
-        if self.animationTimer > 0.7 then
-            self.animationIndex = self.animationIndex + 1
-            if self.animationIndex > 4 then
-                self.animationIndex = 1
-            end
-            self.animationTimer = 0
-        end
-    end
+
     if self.alive then
         if self.attacking == true then
             self.attacking_cool_down = self.attacking_cool_down + dt
@@ -76,25 +68,40 @@ function boss2:update(dt,charX,charY)
     end
     if self.isRun then
         if self.runTimer > 0.02 then
+            self.animationIndex = self.animationIndex + 1
+            if self.animationIndex > 4 then
+                self.animationIndex = 1
+            end
+
             if self.runDir == 1 then
                 if not (self.nowY <= self.toY) then
                     self.nowY = self.nowY - 50
+                else
+                    self.isRun = false
                 end
             elseif self.runDir == 2 then
                 if not (self.nowY >= self.toY) then
                     self.nowY = self.nowY + 50
+                else
+                    self.isRun = false
                 end
             elseif self.runDir == 3 then
                 if not (self.nowX <= self.toX) then
                     self.nowX = self.nowX - 50
+                else
+                    self.isRun = false
                 end
             elseif self.runDir == 4 then
                 if not (self.nowX >= self.toX) then
                     self.nowX = self.nowX + 50
+                else
+                    self.isRun = false
                 end
             end
             self.runTimer = 0
         end
+    else
+        self.animationIndex = 1
     end
     if self.alive and self.startRun then
         if self.runCD > self.attackSpeed then
@@ -130,20 +137,24 @@ function boss2:run(characterX, characterY)
     if self.nowY == characterY then self.counter = 0 end
     if self.runCounter % 2 == 0 then -- run X
         if self.nowX > characterX then
+            self.face = 3
             self.runDir = 3
             self.toX = characterX
             self.isRun = true
         elseif self.nowX < characterX then
+            self.face = 4
             self.runDir = 4
             self.toX = characterX
             self.isRun = true
         end
     elseif self.runCounter % 2 == 1 then -- run Y
         if self.nowY > characterY then
+            self.face = 2
             self.runDir = 1
             self.toY = characterY
             self.isRun = true
         elseif self.nowY < characterY then
+            self.face = 1
             self.runDir = 2
             self.toY = characterY
             self.isRun = true
