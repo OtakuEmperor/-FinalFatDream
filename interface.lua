@@ -29,6 +29,9 @@ function interface_load()
 
     --water img
     slimeJuice = love.graphics.newImage("img/slimeJuice.png")
+    --weapon img
+    sword = love.graphics.newImage("img/sword.png")
+    gun = love.graphics.newImage("img/gun.png")
 
     heartBeat_timer = 0
     heartBeat_timeout = 0.2
@@ -140,11 +143,21 @@ function interface_draw()
     if character.water then
         love.graphics.draw(slimeJuice, interface.width * (6/40), interface.height * (1/8))
         love.graphics.setFont(itemfont)
-        love.graphics.print("Q", interface.width * (6/40)+20, interface.height * (1/8)+20)
+        love.graphics.print("Q", interface.width * (6/40)+30, interface.height * (1/8)+30)
     end
     --draw weapon
     love.graphics.setColor(0, 0, 0, 127)--set opacity50
     love.graphics.draw(interface.weapon, interface.width * (6/40) + 40, interface.height * (1/8))
+    love.graphics.setColor(255, 255, 255, 255)
+    if character.weapon == "sword" then
+        love.graphics.draw(sword, interface.width * (6/40) + 40, interface.height * (1/8),0,1.5,1.5)
+    elseif character.weapon == "gun" then
+        love.graphics.setFont(itemfont)
+        love.graphics.print(character.bullet, interface.width * (6/40) + 70, interface.height * (1/8))
+        love.graphics.draw(gun, interface.width * (6/40) + 40, interface.height * (1/8),0,1.5,1.5)
+    end
+    love.graphics.setFont(itemfont)
+    love.graphics.print("W", interface.width * (6/40)+70, interface.height * (1/8)+30)
     --draw days
     if interface.dn == true then
         love.graphics.setColor(0, 128, 255)

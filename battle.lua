@@ -16,8 +16,8 @@ function battle_load()
     atk_range = 100
     -- sound load
     hitSound1 = love.audio.newSource("audio/normalAttack.ogg", "static")
-    hitSound2 = love.audio.newSource("audio/a2.ogg", "static")
-    hitSound3 = love.audio.newSource("audio/a3.ogg", "static")
+    gunAttackSound = love.audio.newSource("audio/gun.wav", "static")
+    noBulletSound = love.audio.newSource("audio/noBullet.wav", "static")
 end
 
 function battle_update(dt)
@@ -25,13 +25,7 @@ function battle_update(dt)
     atk_timeout = atk_timeout + dt
     -- print(atk_timeout)
     -- print(atk)
-    if atk == true and atk_timeout > 0.5 then
-        hitSoundChoose = math.random(3)
-        if hitSoundChoose == 1 then hitSound1:play()
-        elseif hitSoundChoose == 2 then hitSound1:play()
-        elseif hitSoundChoose == 3 then hitSound1:play()
-        end
-
+    if atk == true then
         -- attack animate
         timer = timer + dt
         if timer > 0.05 then
@@ -63,8 +57,17 @@ function battle_update(dt)
 end
 
 function battle_keyPress(key)
-    if love.keyboard.isDown(" ") and not atk then
-        atk = true
+    if love.keyboard.isDown(" ") and atk_timeout > 0.5 then
+        if character.weapon == "sword" then
+            hitSound1:play()
+            atk = true
+        elseif character.weapon == "gun" and character.bullet > 0 then
+            gunAttackSound:play()
+            character.bullet = character.bullet - 1
+            atk = true
+        elseif character.weapon == "gun" and character.bullet == 0 then
+            noBulletSound:play()
+        end
     end
 end
 
