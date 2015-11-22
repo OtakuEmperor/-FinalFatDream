@@ -1,3 +1,4 @@
+local fps=false
 function love.load()
     --remove mouse
     local state = not love.mouse.isVisible()   -- the opposite of whatever it currently is
@@ -109,11 +110,15 @@ function love.keypressed(key)
     elseif love.keyboard.isDown("4") and love.keyboard.isDown("lalt") then
         love.filesystem.remove("data.txt")
         love.filesystem.remove("data2.txt")
-        day_state = day_state+1
     elseif love.keyboard.isDown("5") and love.keyboard.isDown("lalt") then
         day_state = 2
         gameStage = 3
-
+    elseif love.keyboard.isDown("f") and love.keyboard.isDown("lalt") then
+        if fps then
+            fps=false
+        else
+            fps=true
+        end
     end
 end
 
@@ -149,5 +154,8 @@ function love.draw()
             if(selectDayD) then
                 selectDayD()
             end
+    end
+    if fps then
+        love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 10, 10)
     end
 end

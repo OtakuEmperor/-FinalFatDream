@@ -25,7 +25,6 @@ function world2_update(dt)
         zeroKey()
         resetKey = true
     end
-    triggerUpdate(dt)
     if creatMapLock==0 then
         barrierCreate2()
         mapCreate2()
@@ -33,6 +32,7 @@ function world2_update(dt)
         monsterCreate2()
         creatMapLock = creatMapLock+1
     end
+    triggerUpdate(dt)
     interface_update(dt)
     for i, monster in ipairs(monsters) do
         monster:update(dt,character.x+world.x,character.y+world.y,dt)
