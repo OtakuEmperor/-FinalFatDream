@@ -192,8 +192,8 @@ function triggerKeyPress(key)
                         question = true
                         questionNum=4
                         showKey = true
-                    --q2_dialogLockKey = false
-                    --love_newDialog()
+                        q4_dialogLockKey = false
+                        love_newDialog()
                     end
                     counter = counter + 1
                 end
@@ -210,8 +210,8 @@ function triggerKeyPress(key)
                         question = true
                         questionNum=4
                         showKey = true
-                    --q2_dialogLockKey = false
-                    --love_newDialog()
+                        q4_dialogLockKey = false
+                        love_newDialog()
                     end
                     counter = counter + 1
                 end
@@ -228,8 +228,8 @@ function triggerKeyPress(key)
                         question = true
                         questionNum=4
                         showKey = true
-                    --q2_dialogLockKey = false
-                    --love_newDialog()
+                        q4_dialogLockKey = false
+                        love_newDialog()
                     end
                     counter = counter + 1
                 end
@@ -254,8 +254,8 @@ function triggerKeyPress(key)
                         question = true
                         questionNum=4
                         showKey = true
-                    --q2_dialogLockKey = false
-                    --love_newDialog()
+                        q4_dialogLockKey = false
+                        love_newDialog()
                     end
                     counter = counter + 1
                 end
