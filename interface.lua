@@ -137,27 +137,23 @@ function interface_draw()
         end
     end
     --draw water
-    love.graphics.setColor(0, 0, 0, 127)--set opacity50
-    love.graphics.draw(interface.water, interface.width * (6/40), interface.height * (1/8))
+    love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.draw(interface.water, 30, interface.height - 70, 0, 0.64, 0.64)
     love.graphics.setColor(255, 255, 255, 255)
     if character.water then
-        love.graphics.draw(slimeJuice, interface.width * (6/40), interface.height * (1/8))
-        love.graphics.setFont(itemfont)
-        love.graphics.print("Q", interface.width * (6/40)+30, interface.height * (1/8)+30)
+        love.graphics.draw(slimeJuice, 45, interface.height - 55)
     end
     --draw weapon
-    love.graphics.setColor(0, 0, 0, 127)--set opacity50
-    love.graphics.draw(interface.weapon, interface.width * (6/40) + 40, interface.height * (1/8))
+    love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.draw(interface.weapon, 100, interface.height - 70, 0, 0.64, 0.64)
     love.graphics.setColor(255, 255, 255, 255)
     if character.weapon == "sword" then
-        love.graphics.draw(sword, interface.width * (6/40) + 40, interface.height * (1/8),0,1.5,1.5)
+        love.graphics.draw(sword, 115, interface.height - 55, 0, 1.5, 1.5)
     elseif character.weapon == "gun" then
         love.graphics.setFont(itemfont)
-        love.graphics.print(character.bullet, interface.width * (6/40) + 70, interface.height * (1/8))
-        love.graphics.draw(gun, interface.width * (6/40) + 40, interface.height * (1/8),0,1.5,1.5)
+        love.graphics.print(character.bullet, 140, interface.height - 60)
+        love.graphics.draw(gun, 115, interface.height - 55, 0, 1.5, 1.5)
     end
-    love.graphics.setFont(itemfont)
-    love.graphics.print("W", interface.width * (6/40)+70, interface.height * (1/8)+30)
     --draw days
     if interface.dn == true then
         love.graphics.setColor(0, 128, 255)
