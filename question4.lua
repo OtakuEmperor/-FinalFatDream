@@ -16,7 +16,7 @@ function question4_load()
         barHeight[i]=1
     end
     bar[1]=true
-    q4_dialogLock = true
+    q4_dialogLockKey = true
     q4_dialog_state = 2
     q4_dialog_namestate = 1
 end
@@ -160,7 +160,7 @@ function question4_draw()
                 if q4_dialog_state == (deskChair[counter].dialogLength+1) then
                     showKey = false
                     question = false
-                    q4_dialogLock = true
+                    q4_dialogLockKey = true
                     q4_dialog_state = 2
                     q4_dialog_namestate = 1
                     atk_timeout = 0
