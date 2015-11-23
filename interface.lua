@@ -137,14 +137,14 @@ function interface_draw()
         end
     end
     --draw water
-    love.graphics.setColor(0, 0, 0, 255)
+    love.graphics.setColor(255, 255, 255, 255)
     love.graphics.draw(interface.water, 30, interface.height - 70, 0, 0.64, 0.64)
     love.graphics.setColor(255, 255, 255, 255)
     if character.water then
         love.graphics.draw(slimeJuice, 45, interface.height - 55)
     end
     --draw weapon
-    love.graphics.setColor(0, 0, 0, 255)
+    love.graphics.setColor(255, 255, 255, 255)
     love.graphics.draw(interface.weapon, 100, interface.height - 70, 0, 0.64, 0.64)
     love.graphics.setColor(255, 255, 255, 255)
     if character.weapon == "sword" then
