@@ -12,7 +12,7 @@ function world2_load()
     require "barrierCreate"
     require "interface"
     require "barrierMove"
-    --require "kagemusha"
+    require "kagemusha"
     --fight_bgm = love.audio.newSource("audio/night.mp3", "stream")
     --interface_load()
     --character_load()
@@ -89,6 +89,9 @@ end
 function monsterCreate2()
     monsters = {}
     monsters[1] = boss2.new(2400, 100)
+    monsters[2] = kagemusha.new(monsters[1], 2400, 200)
+    monsters[3] = kagemusha.new(monsters[1], 2500, 100)
+    monsters[4] = kagemusha.new(monsters[1], 2500, 200)
 end
 function characterCreate2()
     character.x = characterX

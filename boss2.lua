@@ -7,9 +7,10 @@ end
 
 function boss2.new (originPointX, originPointY)
     local boss2AnimaLength = 4
+    underAttackBGM = love.audio.newSource("audio/slimeHit.ogg", "static")
     local obj = {
         alive = true,
-        hp = 10,
+        hp = 20,
         face = 1, -- down 1, up 2, left 3, right 4
         nowX = originPointX,
         nowY = originPointY,
@@ -21,7 +22,7 @@ function boss2.new (originPointX, originPointY)
         runCounter = 0,
         runCD = 0,
         attackSpeed = 1,
-        startRun = false,
+        startRun = true,
         moveStep = {},
         slimeQuads = {},
         moveIndex = 1,
@@ -67,7 +68,7 @@ function boss2:update(dt,charX,charY)
         end
     end
     if self.isRun then
-        if self.runTimer > 0.02 then
+        if self.runTimer > 0.04 then
             self.animationIndex = self.animationIndex + 1
             if self.animationIndex > 4 then
                 self.animationIndex = 1
@@ -120,7 +121,12 @@ function boss2:getPositionY()
 end
 
 function boss2:underAttack(faceDir,damageBlood)
-    
+    underAttackBGM:play()
+    self.underAttacking = true
+    self.hp = self.hp - damageBlood
+    if self.hp <= 0 then
+        self.alive = flase
+    end
 end
 
 function boss2:attack_check(charX,charY,boss1X,boss1Y)

@@ -13,10 +13,13 @@ function kagemusha.new (monster, originPointX, originPointY)
         mon = monster,
         nowX = originPointX,
         nowY = originPointY,
+        delta_x = originPointX - monster.nowX,
+        delta_y = originPointY - monster.nowY,
         moveStep = {},
         slimeQuads = {},
         moveIndex = 1,
         animationIndex = 1,
+        face = 1,
         slimeImgFile = love.graphics.newImage("img/bossWave.png")
     }
     for i=1,16 do
@@ -35,6 +38,10 @@ end
 function kagemusha:update(dt,charX,charY)
     self.hp = self.mon.hp
     self.alive = self.mon.alive
+
+    self.nowX = self.mon.nowX + self.delta_x
+    self.nowY = self.mon.nowY + self.delta_y
+
 end
 
 function kagemusha:getPositionX()
