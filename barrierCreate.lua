@@ -172,6 +172,8 @@ function deskChair.new (originPointX,originPointY)
         Image = love.graphics.newImage("img/world2/deskChair.png"),
         Barrier=true,
         isSolve=false,
+        dialog={},
+        dialogLength=0,
         x = originPointX,
         y = originPointY
     }

@@ -243,6 +243,11 @@ function barrierCreate2()
         end
         for j = 2000, 2600, 200 do
             deskChair[counter] = deskChair.new(i, j)
+            q4_data = love.filesystem.read(string.format("npcDialog/npc%d.dat", 1), all)
+            for k in string.gmatch(q4_data, "[^,^\n]+") do
+                table.insert(deskChair[counter].dialog, k)
+            end
+            deskChair[counter].dialogLength = table.getn(deskChair[counter].dialog)         
             counter = counter + 1
         end
     end
@@ -352,6 +357,7 @@ function world2_keypressed(key)
     character_keyPressed(key)
     triggerKeyPress(key)
     question4_keypressedLine(key)
+    q4_keypressedKey(key)
 end
 
 function barrier2_draw()
