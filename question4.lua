@@ -5,7 +5,7 @@ local keyHeight=390
 local delay = 0.15
 local delta = 0
 local count
-
+local counter
 function question4_load()
     keyImage = love.graphics.newImage("img/key2.jpg")
     questionImage4 = love.graphics.newImage("img/question2.png")
@@ -16,10 +16,23 @@ function question4_load()
         barHeight[i]=1
     end
     bar[1]=true
-    
-    --q2_dialogLockLine = true
-    --q2_dialog_stateLine = 1
+    q4_dialogLock = true
+    q4_dialog_state = 2
+    q4_dialog_namestate = 1
 end
+
+function q4_keypressedKey(key)
+    if not q4_dialogLockKey  then
+        if love.keyboard.isDown(" ") then
+            clicksound:play()
+            says_index = 3
+            dialog_timer = 0
+            q4_dialog_state = q4_dialog_state + 2
+            q4_dialog_namestate = q4_dialog_namestate +2
+        end
+    end
+end
+
 function question4_update(dt)
     for i=1,12 do
         if bar[i]==true then
@@ -138,10 +151,27 @@ function question4_draw()
     love.graphics.rectangle("fill", 0,0, 1100, 614)
     love.graphics.setColor(255,255,255)
     if showKey == true then
-        love.graphics.setColor(0,0,0)
-        love.graphics.rectangle("fill", (1100-keyWidth)/2-3,(614*2/3-keyHeight)/2-3, keyWidth+6,keyHeight+6)
-        love.graphics.setColor(255,255,255)
-        love.graphics.draw(keyImage, (1100-keyWidth)/2, (614*2/3-keyHeight)/2)
+        counter=1
+        for i = 100, 1100, 200 do
+            for j = 500, 1100, 200 do
+                counter = counter + 1
+            end
+            for j = 2000, 2600, 200 do
+                if q4_dialog_state == (deskChair[counter].dialogLength+1) then
+                    showKey = false
+                    question = false
+                    q4_dialogLock = true
+                    q4_dialog_state = 2
+                    q4_dialog_namestate = 1
+                    atk_timeout = 0
+                end
+                if deskChair[counter].dialog[q4_dialog_namestate] == "nil" then
+                    deskChair[counter].dialog[q4_dialog_namestate] = " "
+                end
+                print_dialog(deskChair[counter].dialog[q4_dialog_namestate],deskChair[counter].dialog[q4_dialog_state])
+                counter = counter + 1
+            end
+        end   
     else
         love.graphics.draw(questionImage4, 0, 0,0,1100/imageWidth4,614/imageHeight4)
         for i=1,12 do

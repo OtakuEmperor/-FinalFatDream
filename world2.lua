@@ -12,7 +12,7 @@ function world2_load()
     require "barrierCreate"
     require "interface"
     require "barrierMove"
-    --require "kagemusha"
+    require "kagemusha"
     --fight_bgm = love.audio.newSource("audio/night.mp3", "stream")
     --interface_load()
     --character_load()
@@ -89,6 +89,9 @@ end
 function monsterCreate2()
     monsters = {}
     monsters[1] = boss2.new(2400, 100)
+    monsters[2] = kagemusha.new(monsters[1], 2400, 200)
+    monsters[3] = kagemusha.new(monsters[1], 2500, 100)
+    monsters[4] = kagemusha.new(monsters[1], 2500, 200)
 end
 function characterCreate2()
     character.x = characterX
@@ -243,6 +246,11 @@ function barrierCreate2()
         end
         for j = 2000, 2600, 200 do
             deskChair[counter] = deskChair.new(i, j)
+            q4_data = love.filesystem.read(string.format("npcDialog/npc%d.dat", 1), all)
+            for k in string.gmatch(q4_data, "[^,^\n]+") do
+                table.insert(deskChair[counter].dialog, k)
+            end
+            deskChair[counter].dialogLength = table.getn(deskChair[counter].dialog)         
             counter = counter + 1
         end
     end
@@ -352,6 +360,7 @@ function world2_keypressed(key)
     character_keyPressed(key)
     triggerKeyPress(key)
     question4_keypressedLine(key)
+    q4_keypressedKey(key)
 end
 
 function barrier2_draw()
