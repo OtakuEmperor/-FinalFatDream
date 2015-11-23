@@ -32,6 +32,7 @@ function world2_update(dt)
         monsterCreate2()
         creatMapLock = creatMapLock+1
     end
+    love_update(dt)
     triggerUpdate(dt)
     interface_update(dt)
     for i, monster in ipairs(monsters) do

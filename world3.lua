@@ -32,6 +32,7 @@ function world3_update(dt)
         creatMapLock = creatMapLock+1
     end
     interface_update(dt)
+    love_update(dt)
     character_run(dt)
     character.py = character.y
     character.px = character.x
