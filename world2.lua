@@ -150,16 +150,6 @@ function barrierCreate2()
         deepWall[counter] = deepWall.new(0, j)
         counter = counter + 1
     end
-    for i = 0, 1800, 100 do
-        for j = 2800, 2900, 100 do
-            deepWall[counter] = deepWall.new(i, j)
-            counter = counter + 1
-        end
-    end
-    for i = 100, 1100, 100 do
-        deepWall[counter] = deepWall.new(i, 1300)
-        counter = counter + 1
-    end
     for j = 0, 200, 100 do
         deepWall[counter] = deepWall.new(1200, j)
         counter = counter + 1
@@ -178,6 +168,18 @@ function barrierCreate2()
             counter = counter + 1
         end
     end
+    --deepWall_hor
+    for i = 100, 1100, 100 do
+        deepWall[counter] = deepWall.new(i, 1300)
+        counter = counter + 1
+    end
+    for i = 0, 1800, 100 do
+        for j = 2800, 2900, 100 do
+            deepWall[counter] = deepWall.new(i, j)
+            counter = counter + 1
+        end
+    end
+
     --lightWall
     counter = 1
     --lightWall_left
@@ -207,7 +209,7 @@ function barrierCreate2()
         lightWall[counter] = lightWall.new(i, 1700)
         counter = counter + 1
     end
-    --light_corner
+    --lightWall_corner
     lightWall[counter] = lightWall.new(100, 200) --leftUp
     counter = counter + 1
     lightWall[counter] = lightWall.new(100, 1700)--leftDown
@@ -215,6 +217,7 @@ function barrierCreate2()
     lightWall[counter] = lightWall.new(1100, 200)--rightUp
     counter = counter + 1
     lightWall[counter] = lightWall.new(1100, 1700)--rightDown
+
     --floor
     counter = 1
     for i = 100, 1200, 100 do
@@ -244,13 +247,7 @@ function barrierCreate2()
         end
     end
     --stair
-    counter = 1
-    for i = 1700, 1800, 100 do
-        for j = 2400, 2700, 100 do
-            stair[counter] = stair.new(i, j)
-            counter = counter + 1
-        end
-    end
+    stair[1] = stair.new(1700, 2400)
     --dust
     counter = 1
     for i = 1900, 2900, 100 do

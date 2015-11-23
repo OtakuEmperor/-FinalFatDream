@@ -17,6 +17,7 @@ deskChair={}
 stair={}
 dust={}
 fence ={}
+deepWall_counter = 1
 lightWall_counter = 1
 fence_counter = 1
 -- this function is for OOP
@@ -106,8 +107,15 @@ function blackboard.new (originPointX,originPointY)
     return obj
 end
 function deepWall.new (originPointX,originPointY)
+    local deepWallImg
+    if deepWall_counter <= 100 then
+        deepWallImg = "img/world2/deepWall.png"
+    else
+        deepWallImg = "img/world2/deepWall_hor.png"
+    end
+    deepWall_counter = deepWall_counter + 1
    local obj = {
-        Image = love.graphics.newImage("img/world2/deepWall.png"),
+        Image = love.graphics.newImage(deepWallImg),
         Barrier=true,
         x = originPointX,
         y = originPointY
