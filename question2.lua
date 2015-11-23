@@ -168,7 +168,7 @@ function question2_draw()
         elseif q2_dialog_stateKey == 2 then
             print_dialog("", "是用來打開什麼的嗎")
         elseif q2_dialog_stateKey == 3 then
-            print_dialog("", "恩......12個刻度，有什麼特別的涵義嗎")
+            print_dialog("", "恩......１２個刻度，有什麼特別的涵義嗎")
         elseif q2_dialog_stateKey == 5 then
             q2_dialog_stateKey = 1
             q2_dialog_stateLine = 1
