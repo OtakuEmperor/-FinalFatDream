@@ -167,7 +167,7 @@ function interface_draw()
     love.graphics.draw(interface.weapon, 100, interface.height - 70, 0, 0.64, 0.64)
     love.graphics.setColor(255, 255, 255, 255)
     if character.weapon == "sword" then
-        love.graphics.draw(sword, 110, interface.height - 60, 0, 0.7, 0.7)
+        love.graphics.draw(sword, 110, interface.height - 60, 0, 0.64, 0.64)
         if interface.weaponIsPlayed then
             interface.changeWeapon:setVolume(getVol())
             interface.changeWeapon:play()
