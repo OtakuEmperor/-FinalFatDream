@@ -53,8 +53,7 @@ end
 function character_draw()
     love.graphics.setColor(255,255,255)
     characterDraw()
-    battle_attack(character.x,character.y,character.faceDir)
-
+    battle_draw()
 end
 
 --------------------------characterCreat-----------------------------------
