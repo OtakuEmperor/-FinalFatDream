@@ -4,6 +4,8 @@ function interface_load()
     --set water and weapon img
     interface.waterImg = "water.png"
     interface.weaponImg = "weapon.png"
+    --load audio
+    interface.changeWeapon = love.audio.newSource("audio/changeWeapon.wav")
     --load img
     interface.key = love.graphics.newImage("img/key.png") --32px
     interface.key2 = love.graphics.newImage("img/key2.png") --32px
@@ -26,13 +28,14 @@ function interface_load()
     interface.opacity = 100
     interface.isAttacked = false
     interface.questionLock = false
-
-    --water img
+    --water img and audio
     slimeJuice = love.graphics.newImage("img/slimeJuice.png")
-    --weapon img
+    interface.waterIsPlayed = false
+    --weapon img and audio
     sword = love.graphics.newImage("img/sword.png")
     gun = love.graphics.newImage("img/gun.png")
-
+    interface.weaponIsPlayed = false
+    --heartBeat
     heartBeat_timer = 0
     heartBeat_timeout = 0.2
     heartBeat_draw_state = 1
@@ -149,10 +152,20 @@ function interface_draw()
     love.graphics.setColor(255, 255, 255, 255)
     if character.weapon == "sword" then
         love.graphics.draw(sword, 115, interface.height - 55, 0, 1.5, 1.5)
+        if interface.weaponIsPlayed then
+            interface.changeWeapon:setVolume(getVol())
+            interface.changeWeapon:play()
+            interface.weaponIsPlayed = false
+        end
     elseif character.weapon == "gun" then
         love.graphics.setFont(itemfont)
         love.graphics.print(character.bullet, 140, interface.height - 60)
         love.graphics.draw(gun, 115, interface.height - 55, 0, 1.5, 1.5)
+        if not interface.weaponIsPlayed then
+            interface.changeWeapon:setVolume(getVol())
+            interface.changeWeapon:play()
+            interface.weaponIsPlayed = true
+        end
     end
     --draw days
     if interface.dn == true then

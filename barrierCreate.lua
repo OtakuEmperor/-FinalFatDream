@@ -17,6 +17,7 @@ deskChair={}
 stair={}
 dust={}
 fence ={}
+UNG={}
 deepWall_counter = 1
 lightWall_counter = 1
 fence_counter = 1
@@ -218,4 +219,14 @@ function fence.new (originPointX,originPointY)
      }
      obj = newObject(obj, fence)
      return obj
+end
+function UNG.new (originPointX,originPointY)
+   local obj = {
+        Image = love.graphics.newImage("img/world2/UNG.png"),
+        Barrier=true,
+        x = originPointX,
+        y = originPointY
+    }
+    obj = newObject(obj, UNG)
+    return obj
 end

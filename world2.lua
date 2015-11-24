@@ -251,7 +251,7 @@ function barrierCreate2()
             for k in string.gmatch(q4_data, "[^,^\n]+") do
                 table.insert(deskChair[counter].dialog, k)
             end
-            deskChair[counter].dialogLength = table.getn(deskChair[counter].dialog)         
+            deskChair[counter].dialogLength = table.getn(deskChair[counter].dialog)
             counter = counter + 1
         end
     end
@@ -352,6 +352,10 @@ function barrierCreate2()
     fence[counter] = fence.new(2000, 1800)
     counter = counter + 1
     fence[counter] = fence.new(2300, 2100)
+    --you can not go
+    UNG[1] = UNG.new(1700, 2400)
+    UNG[2] = UNG.new(1800, 2700)
+
 end
 
 function world2_keypressed(key)
@@ -426,6 +430,12 @@ function barrier2_draw()
         love.graphics.draw(fence[i].Image, fence[i].x-world.x, fence[i].y-world.y)
         if fence[i].Barrier then
             isBarrier(fence[i].x-world.x, fence[i].y-world.y)
+        end
+    end
+    --UNG
+    for i = 1, #UNG, 1 do
+        if UNG[i].Barrier then
+            isBarrier(UNG[i].x-world.x, UNG[i].y-world.y)
         end
     end
 end
