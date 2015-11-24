@@ -167,7 +167,7 @@ function interface_draw()
     love.graphics.draw(interface.weapon, 100, interface.height - 70, 0, 0.64, 0.64)
     love.graphics.setColor(255, 255, 255, 255)
     if character.weapon == "sword" then
-        love.graphics.draw(sword, 115, interface.height - 55, 0, 1.5, 1.5)
+        love.graphics.draw(sword, 110, interface.height - 60, 0, 0.7, 0.7)
         if interface.weaponIsPlayed then
             interface.changeWeapon:setVolume(getVol())
             interface.changeWeapon:play()
@@ -176,7 +176,7 @@ function interface_draw()
     elseif character.weapon == "gun" then
         love.graphics.setFont(itemfont)
         love.graphics.print(character.bullet, 140, interface.height - 60)
-        love.graphics.draw(gun, 115, interface.height - 55, 0, 1.5, 1.5)
+        love.graphics.draw(gun, 110, interface.height - 60, 0, 0.7, 0.7)
         if not interface.weaponIsPlayed then
             interface.changeWeapon:setVolume(getVol())
             interface.changeWeapon:play()
