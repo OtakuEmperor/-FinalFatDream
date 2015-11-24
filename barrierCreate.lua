@@ -35,7 +35,7 @@ function npc.new (originPointX,originPointY)
         x = originPointX,
         y = originPointY
     }
-    obj = newObject(obj, tree)
+    obj = newObject(obj, npc)
     return obj
 end
 function tree.new (originPointX,originPointY)
@@ -175,6 +175,9 @@ function deskChair.new (originPointX,originPointY)
         isSolve=false,
         dialog={},
         dialogLength=0,
+        moveable=false,
+        nx= originPointX,
+        ny= originPointX,
         x = originPointX,
         y = originPointY
     }

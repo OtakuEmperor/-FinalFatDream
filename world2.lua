@@ -32,6 +32,7 @@ function world2_update(dt)
         monsterCreate2()
         creatMapLock = creatMapLock+1
     end
+    barrierMove_update(dt)
     love_update(dt)
     triggerUpdate(dt)
     interface_update(dt)
@@ -136,6 +137,7 @@ function mapCreate2()
 end
 
 function barrierCreate2()
+    underDeskPaper=love.graphics.newImage("img/books.png")
     --blackboard
     local counter = 1
     for i = 200, 1000, 100 do
@@ -255,6 +257,8 @@ function barrierCreate2()
             counter = counter + 1
         end
     end
+    deskChair[20].moveable=true
+    deskChair[20].Barrier=false
     --stair
     stair[1] = stair.new(1700, 2400)
     --dust
@@ -376,6 +380,7 @@ function barrier2_draw()
             isBarrier(floor[i].x-world.x, floor[i].y-world.y)
         end
     end
+    love.graphics.draw(underDeskPaper, 500-world.x, 1100-world.y)
     --aisle
     for i=1, #aisle, 1 do
         love.graphics.draw(aisle[i].Image, aisle[i].x-world.x, aisle[i].y-world.y)
@@ -416,6 +421,11 @@ function barrier2_draw()
         love.graphics.draw(deskChair[i].Image, deskChair[i].x-world.x, deskChair[i].y-world.y)
         if deskChair[i].Barrier then
             isBarrier(deskChair[i].x-world.x, deskChair[i].y-world.y)
+        end
+        if deskChair[i].moveable then
+            moveableBarrier(deskChair[i].x,deskChair[i].y)
+            deskChair[i].x=getMoveableX()
+            deskChair[i].y=getMoveableY()
         end
     end
     --blackboard

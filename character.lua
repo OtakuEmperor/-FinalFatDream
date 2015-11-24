@@ -317,6 +317,8 @@ function characterStop()
     if not character.animation.walking then
         character.animation.nowFrame = 1
     end
+    character.delta=0
+    world.delta=0
 end
 
 function character_run(dt)
