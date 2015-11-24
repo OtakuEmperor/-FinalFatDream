@@ -4,6 +4,10 @@ function interface_load()
     --set water and weapon img
     interface.waterImg = "water.png"
     interface.weaponImg = "weapon.png"
+    --load audio
+    interface.changeWeapon = love.audio.newSource("audio/changeWeapon.wav")
+    interface.pick = love.audio.newSource("audio/pick.wav")
+    interface.drink = love.audio.newSource("audio/drink.wav")
     --load img
     interface.key = love.graphics.newImage("img/key.png") --32px
     interface.key2 = love.graphics.newImage("img/key2.png") --32px
@@ -26,13 +30,15 @@ function interface_load()
     interface.opacity = 100
     interface.isAttacked = false
     interface.questionLock = false
-
-    --water img
+    --water img and audio
     slimeJuice = love.graphics.newImage("img/slimeJuice.png")
-    --weapon img
+    interface.waterPicked = false
+    interface.isDrink = false
+    --weapon img and audio
     sword = love.graphics.newImage("img/sword.png")
     gun = love.graphics.newImage("img/gun.png")
-
+    interface.weaponIsPlayed = false
+    --heartBeat
     heartBeat_timer = 0
     heartBeat_timeout = 0.2
     heartBeat_draw_state = 1
@@ -141,18 +147,41 @@ function interface_draw()
     love.graphics.draw(interface.water, 30, interface.height - 70, 0, 0.64, 0.64)
     love.graphics.setColor(255, 255, 255, 255)
     if character.water then
-        love.graphics.draw(slimeJuice, 45, interface.height - 55, 0, 1.5, 1.5)
+        love.graphics.draw(slimeJuice, 30, interface.height - 70, 0, 0.64, 0.64)
+        if interface.waterPicked then
+            interface.pick:setVolume(getVol())
+            interface.pick:play()
+            interface.waterPicked = false
+        end
+        interface.isDrink = true
+    else
+        if interface.isDrink then
+            interface.drink:setVolume(getVol())
+            interface.drink:play()
+            interface.isDrink = false
+        end
+        interface.waterPicked = true
     end
     --draw weapon
     love.graphics.setColor(255, 255, 255, 255)
     love.graphics.draw(interface.weapon, 100, interface.height - 70, 0, 0.64, 0.64)
     love.graphics.setColor(255, 255, 255, 255)
     if character.weapon == "sword" then
-        love.graphics.draw(sword, 115, interface.height - 55, 0, 1.5, 1.5)
+        love.graphics.draw(sword, 110, interface.height - 60, 0, 0.64, 0.64)
+        if interface.weaponIsPlayed then
+            interface.changeWeapon:setVolume(getVol())
+            interface.changeWeapon:play()
+            interface.weaponIsPlayed = false
+        end
     elseif character.weapon == "gun" then
         love.graphics.setFont(itemfont)
         love.graphics.print(character.bullet, 140, interface.height - 60)
-        love.graphics.draw(gun, 115, interface.height - 55, 0, 1.5, 1.5)
+        love.graphics.draw(gun, 110, interface.height - 60, 0, 0.7, 0.7)
+        if not interface.weaponIsPlayed then
+            interface.changeWeapon:setVolume(getVol())
+            interface.changeWeapon:play()
+            interface.weaponIsPlayed = true
+        end
     end
     --draw days
     if interface.dn == true then
