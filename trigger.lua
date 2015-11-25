@@ -27,7 +27,7 @@ function triggerUpdate(dt)
         question3_update(dt)
         question4_update(dt) 
     end
-    if deskChair[18].isSolve == false then
+    if day_state==2 and deskChair[18].isSolve == false then
         question5_update(dt)
     end
 end

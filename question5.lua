@@ -4,7 +4,7 @@ local keyHeight=390
 local delay = 0.15
 local delta = 0
 local counter
-local colorLock=true
+local ans=0
 local Image = love.graphics.newImage("img/world2/aisle.png")
 local isImage = love.graphics.newImage("img//world2/aisleBlue.png")
 local isImage2 = love.graphics.newImage("img//world2/aisleRed.png")
@@ -15,15 +15,12 @@ function newObject(o, class)
 end
 function question5_load()
     questionImage5 = love.graphics.newImage("img/day2Puzzle2Key.png")
-    
     imageWidth5=80
     imageHeight5=600
     q5_dialogLockKey = true
     q5_dialog_state = 2
     q5_dialog_namestate = 1
     counter = 1
-    charLastSetpX = 0
-    charLastSetpY = 0
     lastSetpCounter = 1
     for i = 1300, 1600, 100 do
         for j = 0, 2700, 100 do
@@ -49,6 +46,9 @@ function question5_update(dt)
     if (character.x+world.x)==1200 and (character.y+world.y)==300 then
         q5Set()
     end
+    if (character.x+world.x)==1200 and (character.y+world.y)==400 then
+        q5Set()
+    end
     counter = 1
     for i = 1300, 1600, 100 do
         for j = 0, 2700, 100 do
@@ -64,18 +64,36 @@ function question5_update(dt)
                     lastSetpCounter = counter
                 elseif q5Floor[counter].isWalked == true and q5Floor[counter].isOn == false then
                     q5Set()
+                    aisle[counter].Image=isImage
                     q5Floor[counter].isWalked = true
                     q5Floor[counter].isOn = true
                     q5Floor[lastSetpCounter].isOn = false
-                    lastSetpCounter = 1
+                    lastSetpCounter = counter
 
                 end
                 --q5Set()
             end
-            if charLastSetpX ~= (character.x + world.x) and charLastSetpY ~= (character.y + world.y) then
+            if q5Floor[counter].isWalked ==true then
+                ans = ans+1
             end
             counter = counter + 1
         end
+    end
+    if ans ==112 then
+        addKey()
+        counter=1
+        for i = 1300, 1600, 100 do
+            for j = 0, 2700, 100 do
+                q5Floor[counter].isWalked=false
+                q5Floor[counter].isOn = false
+                q5Floor[counter].isBarrier=false
+                aisle[counter].Image=Image
+                counter = counter + 1
+            end
+        end
+        deskChair[18].isSolve = true
+    else
+        ans=0
     end
 
 end
@@ -140,43 +158,29 @@ function q5Set()
         for j = 0, 2700, 100 do
             q5Floor[count].isWalked=false
             q5Floor[count].isOn = false
-                q5Floor[count].isBarrier=false
-                aisle[count].Image=Image
-                count = count + 1
+            q5Floor[count].isBarrier=false
+            aisle[count].Image=Image
+            count = count + 1
         end
     end
     q5Floor[5].isWalked=true
-    q5Floor[5].isBarrier=true
     q5Floor[10].isWalked=true 
-    q5Floor[10].isBarrier=true
     q5Floor[11].isWalked=true
-    q5Floor[11].isBarrier=true
     q5Floor[18].isWalked=true
-    q5Floor[18].isBarrier=true
     q5Floor[27].isWalked=true
-    q5Floor[27].isBarrier=true
     q5Floor[28].isWalked=true
-    q5Floor[28].isBarrier=true
     q5Floor[35].isWalked=true
-    q5Floor[35].isBarrier=true
     q5Floor[36].isWalked=true
-    q5Floor[36].isBarrier=true
     q5Floor[56].isWalked=true
-    q5Floor[56].isBarrier=true
     q5Floor[75].isWalked=true
-    q5Floor[75].isBarrier=true
     for i=89,94 do
         q5Floor[i].isWalked=true
-        q5Floor[i].isBarrier=true
     end
     q5Floor[105].isWalked=true 
-    q5Floor[105].isBarrier=true
     q5Floor[108].isWalked=true 
-    q5Floor[108].isBarrier=true
     q5Floor[109].isWalked=true 
-    q5Floor[109].isBarrier=true
     q5Floor[111].isWalked=true
-    q5Floor[111].isBarrier=true
+---------top 3 column----------- 
     q5Floor[1].isWalked=true
     q5Floor[1].isBarrier=true
     q5Floor[2].isWalked=true
@@ -204,27 +208,38 @@ function q5Set()
     ------people---------------
     for i=15,17 do
         q5Floor[i].isWalked=true
+        q5Floor[i].isBarrier=true
     end
     for i=24,26 do
         q5Floor[i].isWalked=true
+        q5Floor[i].isBarrier=true
     end
     for i=43,46 do
         q5Floor[i].isWalked=true
+        q5Floor[i].isBarrier=true
     end
     q5Floor[54].isWalked=true
+    q5Floor[54].isBarrier=true
     q5Floor[55].isWalked=true
+    q5Floor[55].isBarrier=true
     for i=60,67 do
         q5Floor[i].isWalked=true
+        q5Floor[i].isBarrier=true
     end
     for i=72,74 do
         q5Floor[i].isWalked=true
+        q5Floor[i].isBarrier=true
     end
     for i=83,84 do
         q5Floor[i].isWalked=true
+        q5Floor[i].isBarrier=true
     end
     q5Floor[88].isWalked=true
+    q5Floor[88].isBarrier=true
     q5Floor[95].isWalked=true
+    q5Floor[95].isBarrier=true
     q5Floor[112].isWalked=true
+    q5Floor[112].isBarrier=true
 end
     
 function q5Floor:update(dt)
