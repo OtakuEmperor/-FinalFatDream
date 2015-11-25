@@ -3,12 +3,31 @@ battle = {}
 function battle_load()
     --attack
     swordAtkImg = love.graphics.newImage("img/attack.png")
-    fireBullet1 = love.graphics.newImage("img/fireBullet1.png")
-    fireBullet2 = love.graphics.newImage("img/fireBullet2.png")
-    fireBullet3 = love.graphics.newImage("img/fireBullet3.png")
-    fireBullet4 = love.graphics.newImage("img/fireBullet4.png")
-    fireBullet5 = love.graphics.newImage("img/fireBullet5.png")
-    fireBullet6 = love.graphics.newImage("img/fireBullet6.png")
+    fireBullet1 = love.graphics.newImage("img/bullet/fireBullet1.png")
+    fireBullet2 = love.graphics.newImage("img/bullet/fireBullet2.png")
+    fireBullet3 = love.graphics.newImage("img/bullet/fireBullet3.png")
+    fireBullet4 = love.graphics.newImage("img/bullet/fireBullet4.png")
+    fireBullet5 = love.graphics.newImage("img/bullet/fireBullet5.png")
+    fireBullet6 = love.graphics.newImage("img/bullet/fireBullet6.png")
+    fireBullet7 = love.graphics.newImage("img/bullet/fireBullet7.png")
+    fireBullet8 = love.graphics.newImage("img/bullet/fireBullet8.png")
+    fireBullet9 = love.graphics.newImage("img/bullet/fireBullet9.png")
+    fireBullet10 = love.graphics.newImage("img/bullet/fireBullet10.png")
+    fireBullet11 = love.graphics.newImage("img/bullet/fireBullet11.png")
+    fireBullet12 = love.graphics.newImage("img/bullet/fireBullet12.png")
+    fireBullet13 = love.graphics.newImage("img/bullet/fireBullet13.png")
+    fireBullet14 = love.graphics.newImage("img/bullet/fireBullet14.png")
+    fireBullet15 = love.graphics.newImage("img/bullet/fireBullet15.png")
+    fireBullet16 = love.graphics.newImage("img/bullet/fireBullet16.png")
+    fireBullet17 = love.graphics.newImage("img/bullet/fireBullet17.png")
+    fireBullet18 = love.graphics.newImage("img/bullet/fireBullet18.png")
+    fireBullet19 = love.graphics.newImage("img/bullet/fireBullet19.png")
+    fireBullet20 = love.graphics.newImage("img/bullet/fireBullet20.png")
+    fireBullet21 = love.graphics.newImage("img/bullet/fireBullet21.png")
+    fireBullet22 = love.graphics.newImage("img/bullet/fireBullet22.png")
+    fireBullet23 = love.graphics.newImage("img/bullet/fireBullet23.png")
+    fireBullet24 = love.graphics.newImage("img/bullet/fireBullet24.png")
+
 
     swordAtkAnimate = {}
     for i=1, 5 do
@@ -51,7 +70,7 @@ function battle_update(dt)
 
     if gunAtk then
         gunAtkTimer = gunAtkTimer + dt
-        if gunAtkTimer > 0.05 then
+        if gunAtkTimer > 0.02 then
             gunAtkIndex = gunAtkIndex + 1
             if gunAtkIndex > 6 then
                 gunAtkIndex = 4
@@ -73,6 +92,7 @@ function battle_update(dt)
             end
             if gunDestCounter == atk_range then
                 gunAtk = false
+                gunAtkIndex = 1
                 gunDestCounter = 0
             end
             gunAtkTimer = 0
@@ -131,45 +151,45 @@ function battle_draw()
     if gunAtk then
         if battleFace == "left" then
             if gunAtkIndex == 1 then
-                love.graphics.draw(fireBullet1, battle_x, battle_y)
+                love.graphics.draw(fireBullet13, battle_x, battle_y)
             elseif gunAtkIndex == 2 then
-                love.graphics.draw(fireBullet2, battle_x, battle_y)
+                love.graphics.draw(fireBullet14, battle_x, battle_y)
             elseif gunAtkIndex == 3 then
-                love.graphics.draw(fireBullet3, battle_x, battle_y)
+                love.graphics.draw(fireBullet15, battle_x, battle_y)
             elseif gunAtkIndex == 4 then
-                love.graphics.draw(fireBullet4, battle_x, battle_y)
+                love.graphics.draw(fireBullet16, battle_x, battle_y)
             elseif gunAtkIndex == 5 then
-                love.graphics.draw(fireBullet5, battle_x, battle_y)
+                love.graphics.draw(fireBullet17, battle_x, battle_y)
             elseif gunAtkIndex == 6 then
-                love.graphics.draw(fireBullet6, battle_x, battle_y)
+                love.graphics.draw(fireBullet18, battle_x, battle_y)
             end
         elseif battleFace == "right" then
             if gunAtkIndex == 1 then
-                love.graphics.draw(fireBullet1, battle_x, battle_y)
+                love.graphics.draw(fireBullet19, battle_x, battle_y)
             elseif gunAtkIndex == 2 then
-                love.graphics.draw(fireBullet2, battle_x, battle_y)
+                love.graphics.draw(fireBullet20, battle_x, battle_y)
             elseif gunAtkIndex == 3 then
-                love.graphics.draw(fireBullet3, battle_x, battle_y)
+                love.graphics.draw(fireBullet21, battle_x, battle_y)
             elseif gunAtkIndex == 4 then
-                love.graphics.draw(fireBullet4, battle_x, battle_y)
+                love.graphics.draw(fireBullet22, battle_x, battle_y)
             elseif gunAtkIndex == 5 then
-                love.graphics.draw(fireBullet5, battle_x, battle_y)
+                love.graphics.draw(fireBullet23, battle_x, battle_y)
             elseif gunAtkIndex == 6 then
-                love.graphics.draw(fireBullet6, battle_x, battle_y)
+                love.graphics.draw(fireBullet24, battle_x, battle_y)
             end
         elseif battleFace == "up" then
             if gunAtkIndex == 1 then
-                love.graphics.draw(fireBullet1, battle_x, battle_y)
+                love.graphics.draw(fireBullet7, battle_x, battle_y)
             elseif gunAtkIndex == 2 then
-                love.graphics.draw(fireBullet2, battle_x, battle_y)
+                love.graphics.draw(fireBullet8, battle_x, battle_y)
             elseif gunAtkIndex == 3 then
-                love.graphics.draw(fireBullet3, battle_x, battle_y)
+                love.graphics.draw(fireBullet9, battle_x, battle_y)
             elseif gunAtkIndex == 4 then
-                love.graphics.draw(fireBullet4, battle_x, battle_y)
+                love.graphics.draw(fireBullet10, battle_x, battle_y)
             elseif gunAtkIndex == 5 then
-                love.graphics.draw(fireBullet5, battle_x, battle_y)
+                love.graphics.draw(fireBullet11, battle_x, battle_y)
             elseif gunAtkIndex == 6 then
-                love.graphics.draw(fireBullet6, battle_x, battle_y)
+                love.graphics.draw(fireBullet12, battle_x, battle_y)
             end
         elseif battleFace == "down" then
             if gunAtkIndex == 1 then

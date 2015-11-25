@@ -22,7 +22,7 @@ function boss2.new (originPointX, originPointY)
         runCounter = 0,
         runCD = 0,
         attackSpeed = 1,
-        startRun = true,
+        startRun = false,
         moveStep = {},
         slimeQuads = {},
         moveIndex = 1,
