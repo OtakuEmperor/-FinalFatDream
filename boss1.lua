@@ -7,10 +7,10 @@ function newObject(o, class)
 end
 
 function boss1.new (originPointX,originPointY)
-    underAttackBGM = love.audio.newSource("audio/bossHit.wav","static")
-    waveBGM = love.audio.newSource("audio/bossWave2.wav")
-    thunderballBGM = love.audio.newSource("audio/thunderBall.wav")
-    dieBGM = love.audio.newSource("audio/bossDie.wav")
+    underAttackBGM_boss = love.audio.newSource("audio/bossHit.wav","static")
+    waveBGM = love.audio.newSource("audio/bossWave2.wav", "static")
+    thunderballBGM = love.audio.newSource("audio/thunderBall.wav", "static")
+    dieBGM = love.audio.newSource("audio/bossDie.wav", "static")
     local guardMode = 1
     local attackMode = 2
     local boss1AnimaLength = 4
@@ -184,7 +184,7 @@ function boss1:getPositionY()
 end
 
 function boss1:underAttack(faceDir,damageBlood)
-    underAttackBGM:play()
+    underAttackBGM_boss:play()
     self.underAttacking = true
     self.hp = self.hp - damageBlood
     if self.hp <= 0 then
