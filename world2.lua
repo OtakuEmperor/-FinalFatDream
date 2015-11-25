@@ -256,7 +256,7 @@ function barrierCreate2()
         end
         for j = 2000, 2600, 200 do
             deskChair[counter] = deskChair.new(i, j)
-            q4_data = love.filesystem.read(string.format("npcDialog/npc%d.dat", 1), all)
+            q4_data = love.filesystem.read(string.format("npcDialog/day2Puzzle2/table%d.dat", counter), all)
             for k in string.gmatch(q4_data, "[^,^\n]+") do
                 table.insert(deskChair[counter].dialog, k)
             end
