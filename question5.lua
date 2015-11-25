@@ -79,7 +79,7 @@ function question5_update(dt)
             counter = counter + 1
         end
     end
-    if ans ==112 then
+    if ans ==112 and (character.x+world.x)==1700 and (character.y+world.y)==2500 then
         addKey()
         counter=1
         for i = 1300, 1600, 100 do
