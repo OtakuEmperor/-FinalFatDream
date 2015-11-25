@@ -120,9 +120,11 @@ function loveavg_draw()
             if day_state == 1 then
                 world1_dialogLock = false
                 world1_change()
+                isCharacterWake = true
                 love_newDialog()
                 gameStage = 3
             elseif day_state == 2 then
+                isCharacterWake = true
                 gameStage = 3
             end
         end
