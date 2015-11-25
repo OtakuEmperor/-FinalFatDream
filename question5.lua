@@ -22,6 +22,9 @@ function question5_load()
     q5_dialog_state = 2
     q5_dialog_namestate = 1
     counter = 1
+    charLastSetpX = 0
+    charLastSetpY = 0
+    lastSetpCounter = 1
     for i = 1300, 1600, 100 do
         for j = 0, 2700, 100 do
             q5Floor[counter] = q5Floor.new(i, j)
@@ -53,11 +56,23 @@ function question5_update(dt)
                 aisle[counter].Image=isImage2
             end
             if (character.x+world.x)==q5Floor[counter].x and (character.y+world.y)==q5Floor[counter].y then
-                if q5Floor[counter].isWalked ==false then
+                if q5Floor[counter].isWalked ==false and q5Floor[counter].isOn == false then
                     aisle[counter].Image=isImage
                     q5Floor[counter].isWalked=true
+                    q5Floor[counter].isOn = true
+                    q5Floor[lastSetpCounter].isOn = false
+                    lastSetpCounter = counter
+                elseif q5Floor[counter].isWalked == true and q5Floor[counter].isOn == false then
+                    q5Set()
+                    q5Floor[counter].isWalked = true
+                    q5Floor[counter].isOn = true
+                    q5Floor[lastSetpCounter].isOn = false
+                    lastSetpCounter = 1
+
                 end
                 --q5Set()
+            end
+            if charLastSetpX ~= (character.x + world.x) and charLastSetpY ~= (character.y + world.y) then
             end
             counter = counter + 1
         end
@@ -111,6 +126,7 @@ function q5Floor.new (originPointX,originPointY)
     local obj = {
         isWalked=false,
         isBarrier=false,
+        isOn=false,
         x = originPointX,
         y = originPointY
     }
@@ -123,6 +139,7 @@ function q5Set()
     for i = 1300, 1600, 100 do
         for j = 0, 2700, 100 do
             q5Floor[count].isWalked=false
+            q5Floor[count].isOn = false
                 q5Floor[count].isBarrier=false
                 aisle[count].Image=Image
                 count = count + 1
