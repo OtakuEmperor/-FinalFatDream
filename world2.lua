@@ -138,6 +138,13 @@ end
 
 function barrierCreate2()
     underDeskPaper=love.graphics.newImage("img/books.png")
+    underDeskPaper_dialog={}
+    underDeskPaper_dialogLength=0
+    paper_data = love.filesystem.read(string.format("npcDialog/npc%d.dat", 1), all)
+    for k in string.gmatch(paper_data, "[^,^\n]+") do
+        table.insert(underDeskPaper_dialog, k)
+    end
+    underDeskPaper_dialogLength = table.getn(underDeskPaper_dialog)
     --blackboard
     local counter = 1
     for i = 200, 1000, 100 do
@@ -257,6 +264,16 @@ function barrierCreate2()
             counter = counter + 1
         end
     end
+    q5_data = love.filesystem.read(string.format("npcDialog/npc%d.dat", 1), all)
+    for k in string.gmatch(q5_data, "[^,^\n]+") do
+        table.insert(deskChair[19].dialog, k)
+    end
+    deskChair[19].dialogLength = table.getn(deskChair[19].dialog)
+    q5_data = love.filesystem.read(string.format("npcDialog/npc%d.dat", 1), all)
+    for k in string.gmatch(q5_data, "[^,^\n]+") do
+        table.insert(deskChair[18].dialog, k)
+    end
+    deskChair[18].dialogLength = table.getn(deskChair[18].dialog)
     deskChair[20].moveable=true
     deskChair[20].Barrier=false
     --stair
@@ -370,6 +387,7 @@ function world2_keypressed(key)
     triggerKeyPress(key)
     question4_keypressedLine(key)
     q4_keypressedKey(key)
+    npc2_keypressed(key)
 end
 
 function barrier2_draw()

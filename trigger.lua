@@ -9,6 +9,7 @@ function triggerLoad()
     require "question3"
     require "question4"
     require "npcDialog"
+    require "npcDialog2"
     question1_load()
     question2_load()
     question3_load()
@@ -198,6 +199,14 @@ function triggerKeyPress(key)
                     counter = counter + 1
                 end
             end
+            if (character.x+100)==500-world.x and character.y== 1100-world.y then
+                if deskChair[20].x ~= 500 or deskChair[20].y ~= 1100 then
+                    conversation = true
+                    dialogNum=1
+                    npc_dialogLock = false
+                    love_newDialog()
+                end
+            end
         end,
         ["left"] = function()    -- for case 2
             counter = 1
@@ -216,6 +225,14 @@ function triggerKeyPress(key)
                     counter = counter + 1
                 end
             end
+            if (character.x-100)==500-world.x and character.y== 1100-world.y then
+                if deskChair[20].x ~= 500 or deskChair[20].y ~= 1100 then
+                    conversation = true
+                    dialogNum=1
+                    npc_dialogLock = false
+                    love_newDialog()
+                end
+            end
         end,
         ["down"] = function()    -- for case 3
             counter = 1
@@ -232,6 +249,14 @@ function triggerKeyPress(key)
                         love_newDialog()
                     end
                     counter = counter + 1
+                end
+            end
+            if (character.x)==500-world.x and character.y+100== 1100-world.y then
+                if deskChair[20].x ~= 500 or deskChair[20].y ~= 1100 then
+                    conversation = true
+                    dialogNum=1
+                    npc_dialogLock = false
+                    love_newDialog()
                 end
             end
         end,
@@ -268,6 +293,14 @@ function triggerKeyPress(key)
                     --love_newDialog()
                 end
             end
+            if character.x==500-world.x and character.y-100== 1100-world.y then
+                if deskChair[20].x ~= 500 or deskChair[20].y ~= 1100 then
+                    conversation = true
+                    dialogNum=1
+                    npc_dialogLock = false
+                    love_newDialog()
+                end
+            end
         end
     }
 ------------------------------------------------------------------------------
@@ -284,6 +317,12 @@ function triggerKeyPress(key)
                 local face2 = switch2[character.faceDir]
                 if(face2) then
                     face2()
+                end
+                if character.x==500-world.x and character.y== 1100-world.y then
+                    conversation = true
+                    dialogNum=1
+                    npc_dialogLock = false
+                    love_newDialog()
                 end
             end,
             [3] = function()    -- for case 3
@@ -349,6 +388,26 @@ function triggerDraw()
         end
     end
     if conversation == true then
-        npc_draw(dialogNum)
+        local switchCon = {
+            [1] = function()    -- for case 1
+                npc_draw(dialogNum)
+            end,
+            [2] = function()    -- for case 2
+                npc2_draw(dialogNum)
+            end,
+            [3] = function()    -- for case 3
+                --npc3_draw(dialogNum)
+            end,
+            [4] = function()    -- for case 4
+               -- npc4_draw(dialogNum)
+            end,
+            [5] = function()
+               -- npc5_draw(dialogNum)
+            end
+        }
+        local selectCon= switchCon[day_state]
+        if(selectCon) then
+            selectCon()
+        end
     end
 end
