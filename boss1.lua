@@ -7,7 +7,10 @@ function newObject(o, class)
 end
 
 function boss1.new (originPointX,originPointY)
-    underAttackBGM = love.audio.newSource("audio/slimeHit.ogg", "static")
+    underAttackBGM = love.audio.newSource("audio/bossHit.wav","static")
+    waveBGM = love.audio.newSource("audio/bossWave2.wav")
+    thunderballBGM = love.audio.newSource("audio/thunderBall.wav")
+    dieBGM = love.audio.newSource("audio/bossDie.wav")
     local guardMode = 1
     local attackMode = 2
     local boss1AnimaLength = 4
@@ -186,6 +189,8 @@ function boss1:underAttack(faceDir,damageBlood)
     self.hp = self.hp - damageBlood
     if self.hp <= 0 then
         self.alive = flase
+        dieBGM:setVolume(getVol())
+        dieBGM:play()
     end
     self.timeTick = 0
     -- if faceDir == "up" then
@@ -205,10 +210,14 @@ function boss1:underAttack(faceDir,damageBlood)
 end
 
 function boss1:thunder_ball_attack()
+    thunderballBGM:setVolume(getVol())
+    thunderballBGM:play()
     love.graphics.draw(self.thunder_ball_img, self.thunder_ball_quads[self.thunder_ball_index], self.thunder_ball_x-world.x, self.thunder_ball_y-world.y)
 end
 
 function boss1:wave_attack()
+    waveBGM:setVolume(getVol())
+    waveBGM:play()
     love.graphics.draw(self.wave_img, self.wave_quads[1][self.wave_index], self.nowX-world.x-100, self.nowY-world.y-100)
     love.graphics.draw(self.wave_img, self.wave_quads[2][self.wave_index], self.nowX-world.x, self.nowY-world.y-100)
     love.graphics.draw(self.wave_img, self.wave_quads[2][self.wave_index], self.nowX-world.x+100, self.nowY-world.y-100)
@@ -221,6 +230,7 @@ function boss1:wave_attack()
     love.graphics.draw(self.wave_img, self.wave_quads[7][self.wave_index], self.nowX-world.x, self.nowY-world.y+200)
     love.graphics.draw(self.wave_img, self.wave_quads[7][self.wave_index], self.nowX-world.x+100, self.nowY-world.y+200)
     love.graphics.draw(self.wave_img, self.wave_quads[8][self.wave_index], self.nowX-world.x+200, self.nowY-world.y+200)
+
 end
 
 function boss1:attack_check(charX,charY,boss1X,boss1Y)
