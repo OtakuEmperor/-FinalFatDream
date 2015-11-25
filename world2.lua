@@ -266,14 +266,14 @@ function barrierCreate2()
     end
     q5_data = love.filesystem.read(string.format("npcDialog/npc%d.dat", 1), all)
     for k in string.gmatch(q5_data, "[^,^\n]+") do
-        table.insert(deskChair[19].dialog, k)
+        table.insert(deskChair[26].dialog, k)
     end
-    deskChair[19].dialogLength = table.getn(deskChair[19].dialog)
+    deskChair[26].dialogLength = table.getn(deskChair[26].dialog)
     q5_data = love.filesystem.read(string.format("npcDialog/npc%d.dat", 1), all)
     for k in string.gmatch(q5_data, "[^,^\n]+") do
-        table.insert(deskChair[18].dialog, k)
+        table.insert(deskChair[34].dialog, k)
     end
-    deskChair[18].dialogLength = table.getn(deskChair[18].dialog)
+    deskChair[34].dialogLength = table.getn(deskChair[34].dialog)
     deskChair[20].moveable=true
     deskChair[20].Barrier=false
     --stair
@@ -387,6 +387,7 @@ function world2_keypressed(key)
     triggerKeyPress(key)
     question4_keypressedLine(key)
     q4_keypressedKey(key)
+    q5_keypressedKey(key)
     npc2_keypressed(key)
 end
 

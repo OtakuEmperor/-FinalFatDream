@@ -8,12 +8,14 @@ function triggerLoad()
     require "question2"
     require "question3"
     require "question4"
+    require "question5"
     require "npcDialog"
     require "npcDialog2"
     question1_load()
     question2_load()
     question3_load()
     question4_load()
+    question5_load()
     npcDialog_load()
     sloveProblem = love.audio.newSource("audio/sloveProblem.ogg", "static")
 end
@@ -23,7 +25,10 @@ function triggerUpdate(dt)
         question1_update(dt)
         question2_update(dt)
         question3_update(dt)
-        question4_update(dt)
+        question4_update(dt) 
+    end
+    if deskChair[18].isSolve == false then
+        question5_update(dt)
     end
 end
 
@@ -189,7 +194,8 @@ function triggerKeyPress(key)
                     counter = counter + 1
                 end
                 for j = 2000, 2600, 200 do
-                    if (character.x+world.x+100)==deskChair[counter].x and (character.y+world.y)== deskChair[counter].y and deskChair[counter].isSolve == false then
+                    if (character.x+world.x+100)==deskChair[counter].x and (character.y+world.y)== deskChair[counter].y  then
+                        dialogNum=counter
                         question = true
                         questionNum=4
                         showKey = true
@@ -199,6 +205,28 @@ function triggerKeyPress(key)
                     counter = counter + 1
                 end
             end
+            for i=1,2 do
+                if i==1 then
+                    j=26
+                else
+                    j=34
+                end
+                if (character.x+world.x+100)==deskChair[j].x and (character.y+world.y)== deskChair[j].y  then
+                    dialogNum=j
+                    question = true
+                    questionNum=5
+                    showKey = true
+                    q5_dialogLockKey = false
+                    love_newDialog()
+                end
+            end
+            if (character.x+world.x+100)==deskChair[18].x and (character.y+world.y)== deskChair[18].y and deskChair[18].isSolve == false then
+                    question = true
+                    questionNum=5
+                    q5Set()
+                    --q4_dialogLockLine = false
+                    --love_newDialog()
+                end
             if (character.x+100)==500-world.x and character.y== 1100-world.y then
                 if deskChair[20].x ~= 500 or deskChair[20].y ~= 1100 then
                     conversation = true
@@ -216,6 +244,7 @@ function triggerKeyPress(key)
                 end
                 for j = 2000, 2600, 200 do
                     if (character.x+world.x-100)==deskChair[counter].x and (character.y+world.y)== deskChair[counter].y and deskChair[counter].isSolve == false then
+                        dialogNum=counter
                         question = true
                         questionNum=4
                         showKey = true
@@ -225,6 +254,28 @@ function triggerKeyPress(key)
                     counter = counter + 1
                 end
             end
+            for i=1,2 do
+                if i==1 then
+                    j=26
+                else
+                    j=34
+                end
+                if (character.x+world.x-100)==deskChair[j].x and (character.y+world.y)== deskChair[j].y  then
+                    dialogNum=j
+                    question = true
+                    questionNum=5
+                    showKey = true
+                    q5_dialogLockKey = false
+                    love_newDialog()
+                end
+            end
+            if (character.x+world.x-100)==deskChair[18].x and (character.y+world.y)== deskChair[18].y and deskChair[18].isSolve == false then
+                    question = true
+                    questionNum=5
+                    q5Set()
+                    --q4_dialogLockLine = false
+                    --love_newDialog()
+                end
             if (character.x-100)==500-world.x and character.y== 1100-world.y then
                 if deskChair[20].x ~= 500 or deskChair[20].y ~= 1100 then
                     conversation = true
@@ -242,6 +293,7 @@ function triggerKeyPress(key)
                 end
                 for j = 2000, 2600, 200 do
                     if (character.x+world.x)==deskChair[counter].x and (character.y+world.y+100)== deskChair[counter].y and deskChair[counter].isSolve == false then
+                        dialogNum=counter
                         question = true
                         questionNum=4
                         showKey = true
@@ -250,6 +302,28 @@ function triggerKeyPress(key)
                     end
                     counter = counter + 1
                 end
+            end
+            for i=1,2 do
+                if i==1 then
+                    j=26
+                else
+                    j=34
+                end
+                if (character.x+world.x)==deskChair[j].x and (character.y+world.y+100)== deskChair[j].y  then
+                    dialogNum=j
+                    question = true
+                    questionNum=5
+                    showKey = true
+                    q5_dialogLockKey = false
+                    love_newDialog()
+                end
+            end
+            if (character.x+world.x)==deskChair[18].x and (character.y+world.y+100)== deskChair[18].y and deskChair[18].isSolve == false then
+                    question = true
+                    questionNum=5
+                    q5Set()
+                    --q4_dialogLockLine = false
+                    --love_newDialog()
             end
             if (character.x)==500-world.x and character.y+100== 1100-world.y then
                 if deskChair[20].x ~= 500 or deskChair[20].y ~= 1100 then
@@ -276,6 +350,7 @@ function triggerKeyPress(key)
                 end
                 for j = 2000, 2600, 200 do
                     if (character.x+world.x)==deskChair[counter].x and (character.y+world.y-100)== deskChair[counter].y and deskChair[counter].isSolve == false then
+                        dialogNum=counter
                         question = true
                         questionNum=4
                         showKey = true
@@ -285,6 +360,28 @@ function triggerKeyPress(key)
                     counter = counter + 1
                 end
             end
+            for i=1,2 do
+                if i==1 then
+                    j=26
+                else
+                    j=34
+                end
+                if (character.x+world.x)==deskChair[j].x and (character.y+world.y-100)== deskChair[j].y  then
+                    dialogNum=j
+                    question = true
+                    questionNum=5
+                    showKey = true
+                    q5_dialogLockKey = false
+                    love_newDialog()
+                end
+            end
+            if (character.x+world.x)==deskChair[18].x and (character.y+world.y-100)== deskChair[18].y and deskChair[18].isSolve == false then
+                    question = true
+                    questionNum=5
+                    q5Set()
+                    --q4_dialogLockLine = false
+                    --love_newDialog()
+                end
             for i=20,28 do
                 if (character.x+world.x)==lightWall[i].x and (character.y+world.y-100)== lightWall[i].y and lightWall[i].isSolve == false then
                     question = true
@@ -349,6 +446,12 @@ function triggerKeyPress(key)
                 selectDayT()
             end
     elseif love.keyboard.isDown("escape") then
+        q5_dialogLockKey = true
+        q5_dialog_state = 2
+        q5_dialog_namestate = 1
+        q4_dialogLockKey = true
+        q4_dialog_state = 2
+        q4_dialog_namestate = 1
         q1_dialog_state = 1
         q2_dialog_stateKey = 1
         q2_dialog_stateLine = 1
@@ -379,7 +482,10 @@ function triggerDraw()
                 question3_draw()
             end,
             [4] = function()
-                question4_draw()
+                question4_draw(dialogNum)
+            end,
+            [5] = function()
+                question5_draw(dialogNum)
             end
         }
         local questionN = switchQuestion[questionNum]
