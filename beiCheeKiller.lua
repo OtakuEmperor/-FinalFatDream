@@ -19,7 +19,6 @@ function beiCheeKiller_keypressed(key)
     --set audio
     beiCheeKiller.button:setVolume(getVol())
     love.audio.rewind(beiCheeKiller.button)
-    beiCheeKiller.button:play()
     --select accept or cancel
     if beiCheeKiller.isSelect == true then
         if key == "left" and beiCheeKiller.stage == 2 then

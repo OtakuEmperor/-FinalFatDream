@@ -93,9 +93,9 @@ function love.keypressed(key)
             end
     end
     --press esc to open or close setting.lua
-    if key == "escape" and isSetting == false then
+    if key == "escape" and isSetting == false and gameStage == 2 then
         isSetting = true
-    elseif key == "escape" and isSetting == true then
+    elseif key == "escape" and isSetting == true and gameStage == 2 then
         isSetting = false
     end
 

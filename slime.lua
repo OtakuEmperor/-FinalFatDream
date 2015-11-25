@@ -67,7 +67,7 @@ function slime:update(dt,charX,charY,dt)
         end
         if self.timeTick > self.moveSpeed then
             self.underAttacking = false
-            self.timeTick = 0 
+            self.timeTick = 0
             self.animationIndex = self.animationIndex + 1
             if self.animationIndex > 4  then
                 self.distance = math.sqrt(math.pow((charX-self.keyPointX), 2)+ math.pow((charY-self.keyPointY), 2))
@@ -128,7 +128,7 @@ function slime:update(dt,charX,charY,dt)
                 end
 
                 if self.moveIndex > table.getn(self.moveStep) then
-                    self.moveIndex = 1 
+                    self.moveIndex = 1
                 end
                 -- self.slimeMoveSound:play()
                 self.animationIndex = 1
@@ -172,7 +172,7 @@ function slime:underAttack(faceDir,damageBlood)
         self.pastX = self.nowX
         self.nowX = self.nowX + 100
     end
-        
+
 end
 
 function slime:die()

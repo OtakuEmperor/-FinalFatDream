@@ -124,5 +124,6 @@ function love_save()
     f2:write(tostring(data[2]) .. "\n" .. tostring(data[3]) .. "\n" .. tostring(data[4]) .. "\n" .. tostring(data[5]) .. "\n" .. tostring(data[6]))
     f:close()
     f2:close()
-    love.audio.play(setting.saveSuccess)
+    setting.saveSuccess:setVolume(getVol())
+    setting.saveSuccess:play()
 end
