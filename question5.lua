@@ -1,4 +1,5 @@
 local q5Floor={}
+local q5temp=false
 local keyWidth=670
 local keyHeight=390
 local delay = 0.15
@@ -8,6 +9,7 @@ local ans=0
 local Image = love.graphics.newImage("img/world2/aisle.png")
 local isImage = love.graphics.newImage("img//world2/aisleBlue.png")
 local isImage2 = love.graphics.newImage("img//world2/aisleRed.png")
+local isImage3 = love.graphics.newImage("img/books.png")
 -- this function is for OOP
 function newObject(o, class)
     class.__index = class
@@ -44,16 +46,19 @@ end
 
 function question5_update(dt)
     if (character.x+world.x)==1200 and (character.y+world.y)==300 then
-        q5Set()
+        q5Set(q5temp)
     end
     if (character.x+world.x)==1200 and (character.y+world.y)==400 then
-        q5Set()
+        q5Set(q5temp)
     end
     counter = 1
     for i = 1300, 1600, 100 do
         for j = 0, 2700, 100 do
-            if q5Floor[counter].isBarrier then
+            if q5Floor[counter].isBarrier and q5Floor[counter].isPeople == false then
                 aisle[counter].Image=isImage2
+            end
+            if q5Floor[counter].isBarrier and q5Floor[counter].isPeople == true then
+                aisle[counter].Image=isImage3
             end
             if (character.x+world.x)==q5Floor[counter].x and (character.y+world.y)==q5Floor[counter].y then
                 if q5Floor[counter].isWalked ==false and q5Floor[counter].isOn == false then
@@ -63,13 +68,15 @@ function question5_update(dt)
                     q5Floor[lastSetpCounter].isOn = false
                     lastSetpCounter = counter
                 elseif q5Floor[counter].isWalked == true and q5Floor[counter].isOn == false then
-                    q5Set()
+                    if q5Floor[counter].isPeople == true then
+                        q5Floor[counter].isBarrier=true
+                    end
+                    q5Set(q5temp)
                     aisle[counter].Image=isImage
                     q5Floor[counter].isWalked = true
                     q5Floor[counter].isOn = true
                     q5Floor[lastSetpCounter].isOn = false
                     lastSetpCounter = counter
-
                 end
                 --q5Set()
             end
@@ -79,7 +86,7 @@ function question5_update(dt)
             counter = counter + 1
         end
     end
-    if ans ==112 and (character.x+world.x)==1700 and (character.y+world.y)==2500 then
+    if ans ==112 and q5temp == true and (character.x+world.x)==1700 and (character.y+world.y)==2500 then
         addKey()
         counter=1
         for i = 1300, 1600, 100 do
@@ -145,6 +152,7 @@ function q5Floor.new (originPointX,originPointY)
         isWalked=false,
         isBarrier=false,
         isOn=false,
+        isPeople=false,
         x = originPointX,
         y = originPointY
     }
@@ -152,17 +160,29 @@ function q5Floor.new (originPointX,originPointY)
     return obj
 end
     
-function q5Set()
+function q5Set(q5count)
+    q5temp=q5count
+    if q5count then
     local count = 1
     for i = 1300, 1600, 100 do
         for j = 0, 2700, 100 do
             q5Floor[count].isWalked=false
             q5Floor[count].isOn = false
-            q5Floor[count].isBarrier=false
+            --q5Floor[count].isBarrier=false
             aisle[count].Image=Image
             count = count + 1
         end
     end
+    q5Floor[5].isPeople=true
+    q5Floor[10].isPeople=true 
+    q5Floor[11].isPeople=true
+    q5Floor[18].isPeople=true
+    q5Floor[27].isPeople=true
+    q5Floor[28].isPeople=true
+    q5Floor[35].isPeople=true
+    q5Floor[36].isPeople=true
+    q5Floor[56].isPeople=true
+    q5Floor[75].isPeople=true
     q5Floor[5].isWalked=true
     q5Floor[10].isWalked=true 
     q5Floor[11].isWalked=true
@@ -175,11 +195,16 @@ function q5Set()
     q5Floor[75].isWalked=true
     for i=89,94 do
         q5Floor[i].isWalked=true
+        q5Floor[i].isPeople=true
     end
     q5Floor[105].isWalked=true 
     q5Floor[108].isWalked=true 
     q5Floor[109].isWalked=true 
     q5Floor[111].isWalked=true
+    q5Floor[105].isPeople=true 
+    q5Floor[108].isPeople=true 
+    q5Floor[109].isPeople=true 
+    q5Floor[111].isPeople=true
 ---------top 3 column----------- 
     q5Floor[1].isWalked=true
     q5Floor[1].isBarrier=true
@@ -240,8 +265,5 @@ function q5Set()
     q5Floor[95].isBarrier=true
     q5Floor[112].isWalked=true
     q5Floor[112].isBarrier=true
-end
-    
-function q5Floor:update(dt)
-    
+    end
 end
