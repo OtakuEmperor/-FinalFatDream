@@ -76,7 +76,7 @@ function world3_draw()
     character_draw()
     interface_draw()
     --testdraw()
-    love.audio.setVolume(0.8)
+    love.audio.setVolume(0.8 * getVol())
     fight_bgm:play()
 end
 function characterCreate3()

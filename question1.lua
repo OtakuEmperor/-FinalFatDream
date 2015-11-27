@@ -25,7 +25,7 @@ function question1_load()
 end
 
 function question1_update(dt)
-    if block1 == true then 
+    if block1 == true then
         count=1
     elseif block2 == true then
         count=2
@@ -50,6 +50,7 @@ function question1_update(dt)
                 block4=false
                 q1delta = 0
                 addKey()
+                sloveProblem:setVolume(getVol())
                 sloveProblem:play()
             end
         end
@@ -86,7 +87,7 @@ function question1_keypressed(key)
             block1=true
             block2=false
             block3=false
-            block4=false 
+            block4=false
         end
     }
     local switchL = {
@@ -112,7 +113,7 @@ function question1_keypressed(key)
             block1=false
             block2=false
             block3=true
-            block4=false 
+            block4=false
         end
     }
     local switchU = {
@@ -222,21 +223,21 @@ function question1_draw()
         love.graphics.setColor(0,0,0)
     end
     love.graphics.rectangle("fill", 197, love.graphics.getHeight()*2/3+(love.graphics.getHeight()*1/3-100)/2-3, 106, 106 )
-    
+
     if block2 == true then
         love.graphics.setColor(255,0,0)
     else
         love.graphics.setColor(0,0,0)
     end
     love.graphics.rectangle("fill", 397,love.graphics.getHeight()*2/3+(love.graphics.getHeight()*1/3-100)/2-3, 106, 106 )
-    
+
     if block3 == true then
         love.graphics.setColor(255,0,0)
     else
         love.graphics.setColor(0,0,0)
     end
     love.graphics.rectangle("fill", 597, love.graphics.getHeight()*2/3+(love.graphics.getHeight()*1/3-100)/2-3, 106, 106 )
-    
+
     if block4 == true then
         love.graphics.setColor(255,0,0)
     else
@@ -244,7 +245,7 @@ function question1_draw()
     end
     love.graphics.rectangle("fill", 797, love.graphics.getHeight()*2/3+(love.graphics.getHeight()*1/3-100)/2-3, 106, 106 )
     love.graphics.setColor(255,255,255)
-    love.graphics.rectangle("fill", 200, love.graphics.getHeight()*2/3+(love.graphics.getHeight()*1/3-100)/2, 100, 100 ) 
+    love.graphics.rectangle("fill", 200, love.graphics.getHeight()*2/3+(love.graphics.getHeight()*1/3-100)/2, 100, 100 )
     love.graphics.rectangle("fill", 400, love.graphics.getHeight()*2/3+(love.graphics.getHeight()*1/3-100)/2, 100, 100 )
     love.graphics.rectangle("fill", 600, love.graphics.getHeight()*2/3+(love.graphics.getHeight()*1/3-100)/2, 100, 100 )
     love.graphics.rectangle("fill", 800, love.graphics.getHeight()*2/3+(love.graphics.getHeight()*1/3-100)/2, 100, 100 )

@@ -35,7 +35,8 @@ function op_draw()
   if (t - t0) < logoRange1 then --fade in
     love.graphics.setColor(255, 255, 255, 255 * (t - t0) / logoRange1)
     love.graphics.draw(logo, width / 2 - 256, height / 2 - 256)
-    guileTheme:play()
+    --guileTheme:setVolume(getVol())
+    --guileTheme:play()
   elseif (t - t0) == logoRange1 or (t - t0) > logoRange1 and (t - t0) < (logoRange1 + logoRange2) then --stop
     love.graphics.setColor(255, 255, 255, 255)
     love.graphics.draw(logo, width / 2 - 256, height / 2 - 256)

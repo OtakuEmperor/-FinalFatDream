@@ -22,6 +22,7 @@ end
 function q4_keypressedKey(key)
     if not q4_dialogLockKey  then
         if love.keyboard.isDown(" ") then
+            clicksound:setVolume(getVol())
             clicksound:play()
             says_index = 3
             dialog_timer = 0
@@ -42,7 +43,7 @@ function question4_update(dt)
         if delta >= 0.5 then
             question=false
             for i=20,28 do
-                lightWall[i].isSolved = true 
+                lightWall[i].isSolved = true
             end
             for i=1,12 do
                 bar[i]= false
@@ -50,6 +51,7 @@ function question4_update(dt)
             end
             bar[1]=true
             addKey()
+            sloveProblem:setVolume(getVol())
             sloveProblem:play()
         end
     end
@@ -76,7 +78,7 @@ function question4_keypressedLine(key)
             end
             bar[1]=true
     end
-   
+
     local switchL = {}
     for i=2,12 do
         switchL[i]=function()
@@ -92,28 +94,28 @@ function question4_keypressedLine(key)
             end
             bar[12]=true
     end
-        
+
     local switchU = {}
-    for i=1,12 do 
+    for i=1,12 do
         switchU[i]=function()
             if barHeight[i] ~=2 then
                 barHeight[i]=barHeight[i]+1
-            else 
+            else
                 barHeight[i]=2
             end
         end
     end
-    
+
     local switchD = {}
-    for i=1,12 do 
+    for i=1,12 do
         switchD[i]=function()
             if barHeight[i] ~=0 then
                 barHeight[i]=barHeight[i]-1
-            else 
+            else
                 barHeight[i]=0
             end
         end
-    end 
+    end
         if love.keyboard.isDown("right") and question == true then
             --switch&case()
             local selectR = switchR[count]
@@ -160,14 +162,14 @@ function question4_draw(dialogNum)
         if deskChair[dialogNum].dialog[q4_dialog_namestate] == "nil" then
             deskChair[dialogNum].dialog[q4_dialog_namestate] = " "
         end
-                print_dialog(deskChair[dialogNum].dialog[q4_dialog_namestate],deskChair[dialogNum].dialog[q4_dialog_state])   
+                print_dialog(deskChair[dialogNum].dialog[q4_dialog_namestate],deskChair[dialogNum].dialog[q4_dialog_state])
     else
         love.graphics.draw(questionImage4, 0, 0,0,1100/imageWidth4,614/imageHeight4)
         for i=1,12 do
            if bar[i]==true then
                 love.graphics.setColor(255,0,0)
             else
-                love.graphics.setColor(0,0,0) 
+                love.graphics.setColor(0,0,0)
             end
             love.graphics.rectangle("fill", 1000*i/13+25,600-(550*barHeight[i]/3) -85, 700/12-20, 530*barHeight[i]/3 )
         end
@@ -182,6 +184,3 @@ function question4_draw(dialogNum)
         --end
     end
 end
-
-
-

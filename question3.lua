@@ -26,7 +26,7 @@ function question3_load()
         q3BlockNum[i] = 0
     end
     q3Block[1] = true
-    
+
     q3_dialogLock = true
     q3_dialog_state = 1
 end
@@ -48,6 +48,7 @@ function question3_update(dt)
             end
             q3Block[1] = true
             addKey()
+            sloveProblem:setVolume(getVol())
             sloveProblem:play()
         end
     end
@@ -106,7 +107,7 @@ function question3_keypressed(key)
             end
             q3Block[i+10]=true
         end
-    end 
+    end
     if love.keyboard.isDown("right") and question == true then
          --switch&case()
         local selectR = switchR[count]
@@ -133,14 +134,14 @@ function question3_keypressed(key)
         local selectD = switchD[count]
             if(selectD) then
                 selectD()
-            end 
+            end
     end
     if love.keyboard.isDown("9") and question == true then
         selectR = switchR[count]
             q3BlockNum[count]=9
             if(selectR) then
                 selectR()
-            end 
+            end
     end
     if love.keyboard.isDown("8") and question == true then
         selectR = switchR[count]
@@ -182,14 +183,14 @@ function question3_keypressed(key)
             q3BlockNum[count]=3
             if(selectR) then
                 selectR()
-            end 
+            end
     end
     if love.keyboard.isDown("2") and question == true then
         selectR = switchR[count]
             q3BlockNum[count]=2
             if(selectR) then
                 selectR()
-            end 
+            end
     end
     if love.keyboard.isDown("1") and question == true then
         selectR = switchR[count]
@@ -197,14 +198,14 @@ function question3_keypressed(key)
             if(selectR) then
                 selectR()
             end
- 
+
     end
     if love.keyboard.isDown("0") and question == true then
         selectR = switchR[count]
             q3BlockNum[count]=0
             if(selectR) then
                 selectR()
-            end 
+            end
     end
 end
 

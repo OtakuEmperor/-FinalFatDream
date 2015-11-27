@@ -184,6 +184,7 @@ function boss1:getPositionY()
 end
 
 function boss1:underAttack(faceDir,damageBlood)
+    underAttackBGM_boss:setVolume(getVol())
     underAttackBGM_boss:play()
     self.underAttacking = true
     self.hp = self.hp - damageBlood

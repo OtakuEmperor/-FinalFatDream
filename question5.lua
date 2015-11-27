@@ -35,6 +35,7 @@ end
 function q5_keypressedKey(key)
     if not q5_dialogLockKey  then
         if love.keyboard.isDown(" ") then
+            clicksound:setVolume(getVol())
             clicksound:play()
             says_index = 3
             dialog_timer = 0
@@ -111,7 +112,7 @@ function question5_keypressedLine(key)
         --    q2_dialog_stateLine = love_dialogKeyPressed(q2_dialog_stateLine)
         --end
     --end
-    
+
 end
 
 function question5_draw(dialogNum)
@@ -130,8 +131,8 @@ function question5_draw(dialogNum)
         if deskChair[dialogNum].dialog[q5_dialog_namestate] == "nil" then
             deskChair[dialogNum].dialog[q5_dialog_namestate] = " "
         end
-                print_dialog(deskChair[dialogNum].dialog[q5_dialog_namestate],deskChair[dialogNum].dialog[q5_dialog_state])   
-    
+                print_dialog(deskChair[dialogNum].dialog[q5_dialog_namestate],deskChair[dialogNum].dialog[q5_dialog_state])
+
     else
         love.graphics.draw(questionImage5, 550-imageWidth5/2, 0)
         --love.graphics.draw(questionImage5, 307-imageWidth5/2, 0,0,1100/,614/imageHeight5)
@@ -159,7 +160,7 @@ function q5Floor.new (originPointX,originPointY)
     obj = newObject(obj, q5Floor)
     return obj
 end
-    
+
 function q5Set(q5count)
     q5temp=q5count
     if q5count then
@@ -174,7 +175,7 @@ function q5Set(q5count)
         end
     end
     q5Floor[5].isPeople=true
-    q5Floor[10].isPeople=true 
+    q5Floor[10].isPeople=true
     q5Floor[11].isPeople=true
     q5Floor[18].isPeople=true
     q5Floor[27].isPeople=true
@@ -184,7 +185,7 @@ function q5Set(q5count)
     q5Floor[56].isPeople=true
     q5Floor[75].isPeople=true
     q5Floor[5].isWalked=true
-    q5Floor[10].isWalked=true 
+    q5Floor[10].isWalked=true
     q5Floor[11].isWalked=true
     q5Floor[18].isWalked=true
     q5Floor[27].isWalked=true
@@ -197,15 +198,15 @@ function q5Set(q5count)
         q5Floor[i].isWalked=true
         q5Floor[i].isPeople=true
     end
-    q5Floor[105].isWalked=true 
-    q5Floor[108].isWalked=true 
-    q5Floor[109].isWalked=true 
+    q5Floor[105].isWalked=true
+    q5Floor[108].isWalked=true
+    q5Floor[109].isWalked=true
     q5Floor[111].isWalked=true
-    q5Floor[105].isPeople=true 
-    q5Floor[108].isPeople=true 
-    q5Floor[109].isPeople=true 
+    q5Floor[105].isPeople=true
+    q5Floor[108].isPeople=true
+    q5Floor[109].isPeople=true
     q5Floor[111].isPeople=true
----------top 3 column----------- 
+---------top 3 column-----------
     q5Floor[1].isWalked=true
     q5Floor[1].isBarrier=true
     q5Floor[2].isWalked=true

@@ -362,7 +362,7 @@ function setMapMove(dt)
     end
 end
 function mapMove(direction, dt)
-
+     character.animation.sound:setVolume(getVol())
      if direction == character.animation.Directions.Down and question==false and conversation == false then
         character.animation.sound:play()
         if world.y < world.ny then

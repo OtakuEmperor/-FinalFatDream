@@ -85,7 +85,7 @@ function world2_draw()
     triggerDraw()
     love.graphics.setBackgroundColor(68, 69, 69)
     --testdraw()
-    love.audio.setVolume(0.8)
+    love.audio.setVolume(0.8 * getVol())
     fight_bgm:play()
 end
 function monsterCreate2()
