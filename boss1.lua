@@ -10,7 +10,7 @@ function boss1.new (originPointX,originPointY)
     underAttackBGM_boss1 = love.audio.newSource("audio/bossHit.wav","static")
     waveBGM = love.audio.newSource("audio/bossWave2.wav", "static")
     thunderballBGM = love.audio.newSource("audio/thunderBall.wav", "static")
-    dieBGM = love.audio.newSource("audio/bossDie.wav", "static")
+    dieBGM_boss1 = love.audio.newSource("audio/bossDie.wav", "static")
     local guardMode = 1
     local attackMode = 2
     local boss1AnimaLength = 4
@@ -190,8 +190,8 @@ function boss1:underAttack(faceDir,damageBlood)
     self.hp = self.hp - damageBlood
     if self.hp <= 0 then
         self.alive = flase
-        dieBGM:setVolume(getVol())
-        dieBGM:play()
+        dieBGM_boss1:setVolume(getVol())
+        dieBGM_boss1:play()
     end
     self.timeTick = 0
     -- if faceDir == "up" then
