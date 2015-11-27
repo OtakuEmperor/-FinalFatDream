@@ -475,4 +475,12 @@ function monster_draw2()
             love.graphics.draw(monster.slimeImgFile, monster.slimeQuads[monster.face][monster.animationIndex], monster.nowX-world.x, monster.nowY-world.y)
         end
     end
+
+    --play boss bgm
+    if monsters[1].alive then
+        love.audio.stop(fight_bgm)
+        love.audio.rewind(bossBGM)
+        bossBGM:setVolume(getVol())
+        bossBGM:play()
+    end
 end

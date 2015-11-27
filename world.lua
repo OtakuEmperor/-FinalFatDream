@@ -22,6 +22,7 @@ function world_load()
     monsters[10] = kagemusha.new(monsters[8], 1100, 800)
     monsters[11] = kagemusha.new(monsters[8], 1000, 800)
     fight_bgm = love.audio.newSource("audio/night.mp3", "stream")
+    bossBGM = love.audio.newSource("audio/Battle-Furious-SYNTH_loop.ogg")
     world1_fade_color = 0
     world1_fade = false
     world1_fade_timer = 0
@@ -581,6 +582,13 @@ function monster_draw()
         boss1_dialogState = 3
         boss1_dialogLock = false
         love_newDialog()
+    end
+
+    --play boss bgm
+    if monsters[8].alive then
+        love.audio.stop(fight_bgm)
+        bossBGM:setVolume(getVol())
+        bossBGM:play()
     end
 end
 function trap_draw()
