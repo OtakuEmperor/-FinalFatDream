@@ -7,7 +7,7 @@ end
 
 function boss2.new (originPointX, originPointY)
     local boss2AnimaLength = 4
-    underAttackBGM = love.audio.newSource("audio/bossHit.wav", "static")
+    underAttackBGM_boss2 = love.audio.newSource("audio/bossHit.wav", "static")
     local obj = {
         alive = true,
         hp = 20,
@@ -121,8 +121,8 @@ function boss2:getPositionY()
 end
 
 function boss2:underAttack(faceDir,damageBlood)
-    underAttackBGM:setVolume(getVol())
-    underAttackBGM:play()
+    underAttackBGM_boss2:setVolume(getVol())
+    underAttackBGM_boss2:play()
     self.underAttacking = true
     self.hp = self.hp - damageBlood
     if self.hp <= 0 then

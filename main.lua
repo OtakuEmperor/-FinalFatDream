@@ -135,12 +135,15 @@ function love.draw()
     elseif gameStage == 3 then
         local switchDayD = {
             [1] = function()    -- for case 1
+                interface.days = 1
                 world_draw()
             end,
             [2] = function()    -- for case 2
+                interface.days = 2
                 world2_draw()
             end,
             [3] = function()    -- for case 3
+                interface.days = 3
                 world3_draw()
             end,
             [4] = function()    -- for case 4

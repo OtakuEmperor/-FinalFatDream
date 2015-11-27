@@ -16,7 +16,6 @@ function world2_load()
     --fight_bgm = love.audio.newSource("audio/night.mp3", "stream")
     --interface_load()
     --character_load()
-
 end
 
 function world2_update(dt)
