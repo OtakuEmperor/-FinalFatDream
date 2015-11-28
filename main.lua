@@ -13,6 +13,7 @@ function love.load()
     require "world3"
     require "world4"
     require "world5"
+    require "ed"
     gameStage = 0
     isSetting = false
     op_load()
@@ -24,6 +25,7 @@ function love.load()
     world5_load()
         loveavg_load()
         setting_load()
+        ed_load()
 end
 
 function love.update(dt)
@@ -53,6 +55,8 @@ function love.update(dt)
             if(selectDay) then
                 selectDay()
             end
+    elseif gameStage == 4 then
+        ed_update()
     end
 end
 
@@ -157,6 +161,8 @@ function love.draw()
             if(selectDayD) then
                 selectDayD()
             end
+    elseif gameStage == 4 then
+        ed_draw()
     end
     if fps then
         love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 10, 10)
