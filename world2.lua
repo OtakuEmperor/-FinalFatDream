@@ -481,7 +481,7 @@ function monster_draw2()
     if monsters[1].alive then
         --love.audio.stop(fight_bgm2)
         --love.audio.rewind(bossBGM)
-        --bossBGM:setVolume(getVol())
-        --bossBGM:play()
+        bossBGM:setVolume(getVol())
+        bossBGM:play()
     end
 end
