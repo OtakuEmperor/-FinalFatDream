@@ -13,7 +13,7 @@ function world2_load()
     require "interface"
     require "barrierMove"
     require "kagemusha"
-    --fight_bgm = love.audio.newSource("audio/night.mp3", "stream")
+    fight_bgm2 = love.audio.newSource("audio/night2.ogg")
     --interface_load()
     --character_load()
 end
@@ -84,8 +84,8 @@ function world2_draw()
     triggerDraw()
     love.graphics.setBackgroundColor(68, 69, 69)
     --testdraw()
-    love.audio.setVolume(0.8 * getVol())
-    fight_bgm:play()
+    love.audio.setVolume(0.6 * getVol())
+    fight_bgm2:play()
 end
 function monsterCreate2()
     monsters = {}
@@ -478,9 +478,9 @@ function monster_draw2()
 
     --play boss bgm
     if monsters[1].alive then
-        love.audio.stop(fight_bgm)
-        love.audio.rewind(bossBGM)
-        bossBGM:setVolume(getVol())
-        bossBGM:play()
+        --love.audio.stop(fight_bgm2)
+        --love.audio.rewind(bossBGM)
+        --bossBGM:setVolume(getVol())
+        --bossBGM:play()
     end
 end
