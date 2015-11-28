@@ -14,7 +14,7 @@ function love.load()
     require "world4"
     require "world5"
     require "ed"
-    gameStage = 4
+    gameStage = 0
     isSetting = false
     op_load()
     menu_load()
