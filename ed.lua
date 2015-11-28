@@ -7,9 +7,9 @@ function ed_load()
     --load audio
     ed.bgm = love.audio.newSource("audio/ed.mp3")
     --set the end
-    ed.theEnd = "xxTHE ENDxx"
-    ed.size1 = 72
-    ed.font1 = love.graphics.newFont("font/NotoSansCJKtc-Black.otf", ed.size1)
+    ed.theEnd = "THE END"
+    ed.size1 = 96
+    ed.font1 = love.graphics.newFont("font/FFFFORWA.TTF", ed.size1)
     ed.font3 = love.graphics.newFont("font/NotoSansCJKtc-Black.otf", 15)
     ed.range1 = 0
     ed.opacity = 0
@@ -50,9 +50,9 @@ function ed_draw()
     end
     love.graphics.setFont(ed.font1)
     if ed.s < 7 then
-        love.graphics.print(ed.theEnd, ed.width/2-ed.size1*string.len(ed.theEnd)/3, ed.height/3)
+        love.graphics.print(ed.theEnd, ed.width/4, ed.height/3)
     elseif ed.s > 7 and (ed.height - ed.range1) > -72 then
-        love.graphics.print(ed.theEnd, ed.width/2-ed.size1*string.len(ed.theEnd)/3, ed.height/3 - ed.range1)
+        love.graphics.print(ed.theEnd, ed.width/4, ed.height/3 - ed.range1)
         ed.range1 = ed.range1 + 1
     end
 
