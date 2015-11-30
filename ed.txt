@@ -1,17 +1,18 @@
 Professor
-   LYU, JYUN-SIAN
+   LYU,  JYUN-SIAN
 
 Fats
-   ZENG, WUN-YOU
-   WU, DONG-YE
-   TAN, JHONG-JIE
-   SYU, DENG-JIE
+   ZENG,  WUN-YOU
+   WU,  DONG-YE
+   TAN,  JHONG-JIE
+   SYU,  DENG-JIE
 
 Powered by
    LOVE 2D
-   Pixen
    Git
    Trello
+   Pixen
+   Audacity
 
 Audio
    Freesound
