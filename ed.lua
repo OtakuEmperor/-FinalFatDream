@@ -48,7 +48,7 @@ function ed_update(dt)
     end
     --quit
     if ed.s > 48 then
-        love.event.quit()
+        gameStage = 1
     end
 end
 
