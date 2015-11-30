@@ -14,7 +14,7 @@ function love.load()
     require "world4"
     require "world5"
     require "ed"
-    gameStage = 4
+    gameStage = 0
     isSetting = false
     op_load()
     menu_load()
@@ -117,6 +117,8 @@ function love.keypressed(key)
     elseif love.keyboard.isDown("5") and love.keyboard.isDown("lalt") then
         day_state = 2
         gameStage = 3
+    elseif love.keyboard.isDown("6") and love.keyboard.isDown("lalt") then
+        gameStage = 4
     elseif love.keyboard.isDown("f") and love.keyboard.isDown("lalt") then
         if fps then
             fps=false
