@@ -53,7 +53,7 @@ function ed_update(dt)
 end
 
 function ed_draw()
-    love.graphics.setBackgroundColor(0, 0, 0)
+    love.graphics.setBackgroundColor(100, 100, 255)
     --draw the end
     if ed.opacity1 < 255 then
         love.graphics.setColor(255, 255, 255, ed.opacity1)
