@@ -7,6 +7,12 @@ Fats
    TAN, JHONG-JIE
    SYU, DENG-JIE
 
+Powered by
+   LOVE 2D
+   Pixen
+   Git
+   Trello
+
 Audio
    Freesound
    MaouDaMaShii

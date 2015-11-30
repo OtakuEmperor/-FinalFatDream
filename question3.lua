@@ -9,6 +9,7 @@ local delay=0.15
 local delta=0
 local trapDelta = 0
 local count
+local lazer = love.audio.newSource("audio/lazer.mp3")
 -- this function is for OOP
 function newObject(o, class)
     class.__index = class
@@ -300,6 +301,10 @@ end
 function q3Trap:update(dt)
     self.delta = self.delta + dt
     if self.showBar == true then
+        if (character.x+world.x) > 900 and (character.y+world.y) > 1300 then
+            lazer:setVolume(getVol()*0.8)
+            lazer:play()
+        end
         if self.delta >= self.showDelay then
             self.showBar=false
             self.delta=0
