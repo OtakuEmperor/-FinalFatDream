@@ -587,7 +587,7 @@ function monster_draw()
     --play boss bgm
     if monsters[8].alive then
         love.audio.stop(fight_bgm)
-        bossBGM:setVolume(getVol())
+        bossBGM:setVolume(getVol()*0.4)
         bossBGM:play()
     end
 end
