@@ -50,11 +50,11 @@ function world2_update(dt)
             --end
         --end
     --end
-    --if not (world1_dialogLock and q1_dialogLock and q2_dialogLockKey and q2_dialogLockLine and q3_dialogLock and npc_dialogLock and boss1_dialogLcok) then
-      --  isCharacterWake = false
-    --else
-      --  isCharacterWake = true
-    --end
+    if not (q4_dialogLockKey and q5_dialogLockKey) then
+       isCharacterWake = false
+    else
+       isCharacterWake = true
+    end
     if character.die then
        -- world1_fade = true
         --if world1_fade_timer >= 2 then
