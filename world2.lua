@@ -7,7 +7,7 @@ local characterY=300
 local resetKey = false
 function world2_load()
     require "character"
-    --require "slime"
+    require "slime"
     require "boss2"
     require "barrierCreate"
     require "interface"
@@ -94,6 +94,8 @@ function monsterCreate2()
     monsters[2] = kagemusha.new(monsters[1], 2400, 200)
     monsters[3] = kagemusha.new(monsters[1], 2500, 100)
     monsters[4] = kagemusha.new(monsters[1], 2500, 200)
+    
+
 end
 function characterCreate2()
     character.x = characterX
