@@ -22,6 +22,7 @@ function world_load()
     monsters[10] = kagemusha.new(monsters[8], 1100, 800)
     monsters[11] = kagemusha.new(monsters[8], 1000, 800)
     fight_bgm = love.audio.newSource("audio/night.mp3", "stream")
+    bossBGM = love.audio.newSource("audio/Battle-Furious-SYNTH_loop.ogg")
     world1_fade_color = 0
     world1_fade = false
     world1_fade_timer = 0
@@ -362,7 +363,7 @@ function setMapMove(dt)
     end
 end
 function mapMove(direction, dt)
-
+     character.animation.sound:setVolume(getVol())
      if direction == character.animation.Directions.Down and question==false and conversation == false then
         character.animation.sound:play()
         if world.y < world.ny then
@@ -581,6 +582,13 @@ function monster_draw()
         boss1_dialogState = 3
         boss1_dialogLock = false
         love_newDialog()
+    end
+
+    --play boss bgm
+    if monsters[8].alive then
+        love.audio.stop(fight_bgm)
+        bossBGM:setVolume(getVol()*0.4)
+        bossBGM:play()
     end
 end
 function trap_draw()

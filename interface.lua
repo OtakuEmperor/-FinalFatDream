@@ -21,7 +21,7 @@ function interface_load()
     interface.font = love.graphics.newFont("font/FFFFORWA.TTF", 36)
     itemfont = love.graphics.newFont("font/FFFFORWA.TTF", 12)
     --set days
-    interface.days = 1
+    interface.days = 0
     --set day(true) or night(false)
     interface.dn = true
     --set key number

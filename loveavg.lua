@@ -48,6 +48,7 @@ function loveavg_load()
 end
 
 function loveavg_keypressed(key)
+    clicksound:setVolume(getVol())
     if not dialogLock then
         if love.keyboard.isDown(" ") then
             clicksound:play()
@@ -284,6 +285,7 @@ function play_bgm(day, dialog)
             end
         end
     end
+    bgm:setVolume(getVol())
     bgm:play()
 end
 

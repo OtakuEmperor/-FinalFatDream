@@ -16,7 +16,6 @@ function world3_load()
     --fight_bgm = love.audio.newSource("audio/night.mp3", "stream")
     --interface_load()
     --character_load()
-
 end
 
 function world3_update(dt)
@@ -76,7 +75,7 @@ function world3_draw()
     character_draw()
     interface_draw()
     --testdraw()
-    love.audio.setVolume(0.8)
+    love.audio.setVolume(0.8 * getVol())
     fight_bgm:play()
 end
 function characterCreate3()

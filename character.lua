@@ -120,7 +120,7 @@ function characterUpdate(dt)
     --        character.disappear.count = 0
     --     end
     -- end
-    if character.backMove == true then    
+    if character.backMove == true then
         character.speed = 1000
         charabackMoveUpdate(dt)
     elseif character.die==false and question==false and conversation == false then
@@ -177,7 +177,7 @@ function characterUpdate(dt)
                 characterMove(character.Directions.Right, dt)
             end
              elseif love.keyboard.isDown("up") and character.y%100 == 0 and character.y == character.ny and character.x%100 == 0 and character.x == character.nx  then
-            character.animation.walking = true 
+            character.animation.walking = true
             characterSetDirection( character.animation.Directions.Up)
             character.faceDir = "up"
             character.delta = character.delta + dt
@@ -250,6 +250,7 @@ function charabackMoveUpdate(dt)
 end
 -----------------characterMove----------------------------------------------
 function characterMove(direction, dt)
+    character.animation.sound:setVolume(getVol())
     if direction == character.animation.Directions.Down and question==false and conversation == false then
         character.animation.sound:play()
         if character.y < character.ny then

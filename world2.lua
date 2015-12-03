@@ -13,10 +13,9 @@ function world2_load()
     require "interface"
     require "barrierMove"
     require "kagemusha"
-    --fight_bgm = love.audio.newSource("audio/night.mp3", "stream")
+    fight_bgm2 = love.audio.newSource("audio/night2.ogg")
     --interface_load()
     --character_load()
-
 end
 
 function world2_update(dt)
@@ -51,11 +50,11 @@ function world2_update(dt)
             --end
         --end
     --end
-    --if not (world1_dialogLock and q1_dialogLock and q2_dialogLockKey and q2_dialogLockLine and q3_dialogLock and npc_dialogLock and boss1_dialogLcok) then
-      --  isCharacterWake = false
-    --else
-      --  isCharacterWake = true
-    --end
+    if not (q4_dialogLockKey and q5_dialogLockKey) then
+       isCharacterWake = false
+    else
+       isCharacterWake = true
+    end
     if character.die then
        -- world1_fade = true
         --if world1_fade_timer >= 2 then
@@ -85,8 +84,9 @@ function world2_draw()
     triggerDraw()
     love.graphics.setBackgroundColor(68, 69, 69)
     --testdraw()
-    love.audio.setVolume(0.8)
-    fight_bgm:play()
+    love.audio.stop(fight_bgm)
+    fight_bgm2:setVolume(0.3 * getVol())
+    fight_bgm2:play()
 end
 function monsterCreate2()
     monsters = {}
@@ -475,5 +475,13 @@ function monster_draw2()
             love.graphics.setColor(255,255,255)
             love.graphics.draw(monster.slimeImgFile, monster.slimeQuads[monster.face][monster.animationIndex], monster.nowX-world.x, monster.nowY-world.y)
         end
+    end
+
+    --play boss bgm
+    if monsters[1].alive then
+        --love.audio.stop(fight_bgm2)
+        --love.audio.rewind(bossBGM)
+        bossBGM:setVolume(getVol()*0.4)
+        bossBGM:play()
     end
 end

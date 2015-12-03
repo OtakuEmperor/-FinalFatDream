@@ -1,4 +1,5 @@
 local dialogNum=0
+local q5count=false
 function triggerLoad()
     question=false
     showKey = false
@@ -223,7 +224,8 @@ function triggerKeyPress(key)
             if (character.x+world.x+100)==deskChair[18].x and (character.y+world.y)== deskChair[18].y and deskChair[18].isSolve == false then
                     question = true
                     questionNum=5
-                    q5Set()
+                    q5count=true
+                    q5Set(q5count)
                     --q4_dialogLockLine = false
                     --love_newDialog()
                 end
@@ -272,7 +274,8 @@ function triggerKeyPress(key)
             if (character.x+world.x-100)==deskChair[18].x and (character.y+world.y)== deskChair[18].y and deskChair[18].isSolve == false then
                     question = true
                     questionNum=5
-                    q5Set()
+                    q5count=true    
+                    q5Set(q5count)
                     --q4_dialogLockLine = false
                     --love_newDialog()
                 end
@@ -321,7 +324,8 @@ function triggerKeyPress(key)
             if (character.x+world.x)==deskChair[18].x and (character.y+world.y+100)== deskChair[18].y and deskChair[18].isSolve == false then
                     question = true
                     questionNum=5
-                    q5Set()
+                    q5count=true
+                    q5Set(q5count)
                     --q4_dialogLockLine = false
                     --love_newDialog()
             end
@@ -378,7 +382,8 @@ function triggerKeyPress(key)
             if (character.x+world.x)==deskChair[18].x and (character.y+world.y-100)== deskChair[18].y and deskChair[18].isSolve == false then
                     question = true
                     questionNum=5
-                    q5Set()
+                    q5count=true
+                    q5Set(q5count)
                     --q4_dialogLockLine = false
                     --love_newDialog()
                 end

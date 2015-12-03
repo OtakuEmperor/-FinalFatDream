@@ -13,6 +13,7 @@ function love.load()
     require "world3"
     require "world4"
     require "world5"
+    require "ed"
     gameStage = 0
     isSetting = false
     op_load()
@@ -24,6 +25,7 @@ function love.load()
     world5_load()
         loveavg_load()
         setting_load()
+        ed_load()
 end
 
 function love.update(dt)
@@ -53,6 +55,8 @@ function love.update(dt)
             if(selectDay) then
                 selectDay()
             end
+    elseif gameStage == 4 then
+        ed_update()
     end
 end
 
@@ -113,6 +117,8 @@ function love.keypressed(key)
     elseif love.keyboard.isDown("5") and love.keyboard.isDown("lalt") then
         day_state = 2
         gameStage = 3
+    elseif love.keyboard.isDown("6") and love.keyboard.isDown("lalt") then
+        gameStage = 4
     elseif love.keyboard.isDown("f") and love.keyboard.isDown("lalt") then
         if fps then
             fps=false
@@ -135,12 +141,15 @@ function love.draw()
     elseif gameStage == 3 then
         local switchDayD = {
             [1] = function()    -- for case 1
+                interface.days = 1
                 world_draw()
             end,
             [2] = function()    -- for case 2
+                interface.days = 2
                 world2_draw()
             end,
             [3] = function()    -- for case 3
+                interface.days = 3
                 world3_draw()
             end,
             [4] = function()    -- for case 4
@@ -154,6 +163,8 @@ function love.draw()
             if(selectDayD) then
                 selectDayD()
             end
+    elseif gameStage == 4 then
+        ed_draw()
     end
     if fps then
         love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 10, 10)

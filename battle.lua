@@ -103,6 +103,7 @@ end
 function battle_keyPress(key)
     if love.keyboard.isDown(" ") and atkTimer > 1 then
         if character.weapon == "sword" then
+            hitSound1:setVolume(getVol())
             hitSound1:play()
             swordAtk = true
             battle_x = getHeroX()
@@ -110,6 +111,7 @@ function battle_keyPress(key)
             battleFace = character.faceDir
             doAttackDamage(atk_range)
         elseif character.weapon == "gun" and character.bullet > 0 then
+            gunAttackSound:setVolume(getVol())
             gunAttackSound:play()
             character.bullet = character.bullet - 1
             gunAtk = true
@@ -129,6 +131,7 @@ function battle_keyPress(key)
                 gunAtk = false
             end
         elseif character.weapon == "gun" and character.bullet == 0 then
+            noBulletSound:setVolume(getVol())
             noBulletSound:play()
         end
     end

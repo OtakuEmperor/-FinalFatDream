@@ -7,7 +7,9 @@ end
 
 function boss2.new (originPointX, originPointY)
     local boss2AnimaLength = 4
-    underAttackBGM = love.audio.newSource("audio/bossHit.wav", "static")
+    underAttackBGM_boss2 = love.audio.newSource("audio/bossHit.wav", "static")
+    bossRun = love.audio.newSource("audio/bossRun.wav")
+    dieBGM_boss2 = love.audio.newSource("audio/bossDie.wav", "static")
     local obj = {
         alive = true,
         hp = 20,
@@ -46,6 +48,13 @@ function boss2.new (originPointX, originPointY)
 end
 
 function boss2:update(dt,charX,charY)
+    if self.startRun then
+        love.audio.rewind(bossRun)
+        bossRun:setVolume(getVol())
+        bossRun:play()
+    else
+        love.audio.stop(bossRun)
+    end
     self.animationTimer = self.animationTimer + dt
     if self.isRun then
         self.runTimer = self.runTimer + dt
@@ -121,11 +130,13 @@ function boss2:getPositionY()
 end
 
 function boss2:underAttack(faceDir,damageBlood)
-    underAttackBGM:setVolume(getVol())
-    underAttackBGM:play()
+    underAttackBGM_boss2:setVolume(getVol())
+    underAttackBGM_boss2:play()
     self.underAttacking = true
     self.hp = self.hp - damageBlood
     if self.hp <= 0 then
+        dieBGM_boss2:setVolume(getVol())
+        dieBGM_boss2:play()
         self.alive = flase
     end
 end

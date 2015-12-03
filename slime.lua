@@ -150,6 +150,7 @@ function slime:getPositionY()
 end
 
 function slime:underAttack(faceDir,damageBlood)
+    underAttackBGM:setVolume(getVol())
     underAttackBGM:play()
     self.underAttacking = true
     self.animationIndex = 5

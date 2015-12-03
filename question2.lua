@@ -22,14 +22,14 @@ function question2_load()
         barHeight[i]=1
     end
     bar[1]=true
-    
+
     q2_dialogLockKey = true
     q2_dialogLockLine = true
     q2_dialog_stateKey = 1
     q2_dialog_stateLine = 1
 end
 function question2_update(dt)
-    
+
     for i=1,12 do
         if bar[i]==true then
             count=i
@@ -46,6 +46,7 @@ function question2_update(dt)
             end
             bar[1]=true
             addKey()
+            sloveProblem:setVolume(getVol())
             sloveProblem:play()
         end
     end
@@ -80,7 +81,7 @@ function question2_keypressedLine(key)
             end
             bar[1]=true
     end
-   
+
     local switchL = {}
     for i=2,12 do
         switchL[i]=function()
@@ -96,31 +97,31 @@ function question2_keypressedLine(key)
             end
             bar[12]=true
     end
-        
+
     local switchU = {}
-    
-    for i=1,12 do 
+
+    for i=1,12 do
         switchU[i]=function()
             if barHeight[i] ~=2 then
                 barHeight[i]=barHeight[i]+1
-            else 
+            else
                 barHeight[i]=2
             end
         end
     end
-    
-    
+
+
     local switchD = {}
-    for i=1,12 do 
+    for i=1,12 do
         switchD[i]=function()
             if barHeight[i] ~=0 then
                 barHeight[i]=barHeight[i]-1
-            else 
+            else
                 barHeight[i]=0
             end
         end
     end
-    if q2_dialog_stateLine >= 4 then  
+    if q2_dialog_stateLine >= 4 then
         if love.keyboard.isDown("right") and question == true then
             --switch&case()
             local selectR = switchR[count]
@@ -184,7 +185,7 @@ function question2_draw()
            if bar[i]==true then
                 love.graphics.setColor(255,0,0)
             else
-                love.graphics.setColor(0,0,0) 
+                love.graphics.setColor(0,0,0)
             end
             love.graphics.rectangle("fill", 1000*i/13+25,600-(550*barHeight[i]/3) -85, 700/12-20, 530*barHeight[i]/3 )
         end
@@ -198,7 +199,7 @@ function question2_draw()
             q2_dialogLockLine = true
         end
     end
-    
+
 end
 
 
