@@ -1,4 +1,28 @@
-for i in {1..100}
+for i in {1..4}
 do
-    echo "###" >> table$i.dat
+    rm -f table$i.dat
+done
+for i in {9..12}
+do
+    rm -f table$i.dat
+done
+for i in {17..20}
+do
+    rm -f table$i.dat
+done
+for i in {25..28}
+do
+    rm -f table$i.dat
+done
+for i in {33..36}
+do
+    rm -f table$i.dat
+done
+for i in {41..44}
+do
+    rm -f table$i.dat
+done
+for i in {49..100}
+do
+    rm -f table$i.dat
 done

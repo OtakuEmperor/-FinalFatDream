@@ -1,0 +1,5 @@
+for i in {32..32}
+do
+    echo "$i,$i" > table$i.dat
+    echo "###" >> table$i.dat
+done

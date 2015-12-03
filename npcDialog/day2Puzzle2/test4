@@ -1,0 +1,7 @@
+for i in {1..100}
+do
+    echo -n "３年４班" > table$i.dat
+    echo -n "$i" >> table$i.dat
+    echo "號,數學期中考分數：" >> table$i.dat
+    echo "###" >> table$i.dat
+done
