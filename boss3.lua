@@ -18,6 +18,7 @@ function boss3.new (originPointX, originPointY)
         nowY = originPointY,
         toX = originPointX,
         toY = originPointY,
+        startAttack = false,
         isRun = false,
         runDir = 1, -- up 1, down 2, left 3, right 4
         runTimer = 0,
@@ -27,6 +28,7 @@ function boss3.new (originPointX, originPointY)
         startRun = false,
         moveStep = {},
         slimeQuads = {},
+        thunderballs = {},
         moveIndex = 1,
         animationIndex = 1,
         animationTimer = 0,
@@ -43,6 +45,9 @@ function boss3.new (originPointX, originPointY)
             obj.slimeQuads[i][j] = love.graphics.newQuad( (200*j)-200, (200*i)-200, 200, 200, 800, 800)
         end
     end
+    obj.thunderballs[1]=thunderball.new (700, 1000)
+    obj.thunderballs[2]=thunderball.new (800, 1100)
+    obj.thunderballs[3]=thunderball.new (900, 1200)
     obj = newObject(obj, boss3)
     return obj
 end
@@ -117,6 +122,29 @@ function boss3:update(dt,charX,charY)
         if self.runCD > self.attackSpeed then
             self:run(character.x+world.x, character.y+world.y)
             self.runCD = 0
+        end
+    end
+    self.thunderballs[1]:update(dt, charX, charY)
+    self.thunderballs[2]:update(dt, charX, charY)
+    self.thunderballs[3]:update(dt, charX, charY)
+    if self.alive == true and self.startAttack then
+        if self.thunderballs[1].thunder_ball_cool_down > 2.5 then
+            self.thunderballs[1].thunderball_x = charX
+            self.thunderballs[1].thunderball_y = charY
+            self.thunderballs[1].isThunderBallAttack = true
+            self.thunderballs[1].thunder_ball_cool_down = 0
+        end
+        if self.thunderballs[2].thunder_ball_cool_down > 2.1 then
+            self.thunderballs[2].thunderball_x = charX
+            self.thunderballs[2].thunderball_y = charY
+            self.thunderballs[2].isThunderBallAttack = true
+            self.thunderballs[2].thunder_ball_cool_down = 0
+        end
+        if self.thunderballs[3].thunder_ball_cool_down > 1.7 then
+            self.thunderballs[3].thunderball_x = charX
+            self.thunderballs[3].thunderball_y = charY
+            self.thunderballs[3].isThunderBallAttack = true
+            self.thunderballs[3].thunder_ball_cool_down = 0
         end
     end
 end
