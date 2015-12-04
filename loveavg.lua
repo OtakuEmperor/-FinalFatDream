@@ -23,7 +23,11 @@ function loveavg_load()
     room_night = love.graphics.newImage("img/cg/room_night.jpg")
     dialogImg = love.graphics.newImage("img/dialog.png")
     lovefont = love.graphics.newFont("font/wt006.ttf", 25)
-    press_button = love.graphics.newImage("img/slimeJuice.png")
+    press_button = love.graphics.newImage("img/next/next.png")
+    press_button2 = love.graphics.newImage("img/next/next2.png")
+    press_button3 = love.graphics.newImage("img/next/next3.png")
+    press_button_index = 1
+    press_button_timer = 0
     choose = {}
     chooseLock = true
     dialogLock = false
@@ -198,7 +202,13 @@ function print_dialog(who, says)
     love.graphics.print(says, 5, love.graphics.getHeight()*2/3+35)
     love.graphics.print(says_nd, 5, love.graphics.getHeight()*2/3+65)
     if waitSpace or waitNextDialog then
-        love.graphics.draw(press_button, love.graphics.getWidth() - 50,love.graphics.getHeight() - 50)
+        if press_button_index == 1 then
+            love.graphics.draw(press_button, love.graphics.getWidth() - 50,love.graphics.getHeight() - 60, 0, 1/2, 1/2)
+        elseif press_button_index == 2 then
+            love.graphics.draw(press_button2, love.graphics.getWidth() - 50,love.graphics.getHeight() - 60, 0, 1/2, 1/2)
+        elseif press_button_index == 3 then
+            love.graphics.draw(press_button3, love.graphics.getWidth() - 50,love.graphics.getHeight() - 60, 0, 1/2, 1/2)
+        end
     end
 end
 
@@ -324,7 +334,7 @@ function isempty(s)
 end
 
 function loveSave()
-    return {choose, chooseLock, dialogLock, day_state, day_branch, dialog_state, choose_no, battle_log}
+    return {choose, chooseLock, dialogLock, day_state, day_branch, dialog_state, choose_no}
 end
 
 function loveLoad(data)
@@ -335,11 +345,30 @@ function loveLoad(data)
     day_branch = data[5] -- int
     dialog_state = data[6] -- int
     choose_no = data[7] -- int table
-    battle_log = data[8] -- int table
 end
 
 function love_reloadDay()
-    file_data = love.filesystem.read(string.format("day%d.dat", day_state), all)
+    branch_setting = love.filesystem.read(string.format("day_branch.conf"), all)
+    for i in string.gmatch(branch_setting, "[^\n]+") do
+        data = {}
+        for j in string.gmatch(i, "[^,]+") do
+            table.insert(data, tonumber(j))
+        end
+        if not isempty(choose[data[1]]) then
+            if choose[data[1]] % data[2] == data[3] - 1 then
+                day_branch = data[4]
+            else
+                day_branch = 0
+            end
+        end
+    end
+
+
+    if day_branch == 0 then
+        file_data = love.filesystem.read(string.format("day%d.dat", day_state), all)
+    elseif not day_branch == 0 then
+        file_data = love.filesystem.read(string.format("day%d-%d.dat", day_state, day_branch), all)
+    end
     dialog = {}
     -- parse data
     for i in string.gmatch(file_data, "[^\n]+") do
@@ -364,6 +393,15 @@ function love_update(dt)
     else
         love_fade_timer = 0
         love_fade_color = 255
+    end
+
+    press_button_timer = press_button_timer + dt
+    if press_button_timer > 0.3 then
+        press_button_index = press_button_index + 1
+        if press_button_index > 3 then
+            press_button_index = 1
+        end
+        press_button_timer = 0
     end
 end
 
