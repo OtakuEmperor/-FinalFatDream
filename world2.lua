@@ -9,6 +9,7 @@ function world2_load()
     require "character"
     require "slime"
     require "boss2"
+    require "boss3"
     require "barrierCreate"
     require "interface"
     require "barrierMove"
@@ -94,6 +95,7 @@ function monsterCreate2()
     monsters[2] = kagemusha.new(monsters[1], 2400, 200)
     monsters[3] = kagemusha.new(monsters[1], 2500, 100)
     monsters[4] = kagemusha.new(monsters[1], 2500, 200)
+    monsters[5] = boss3.new(2400, 100)
     
 
 end

@@ -52,6 +52,8 @@ function battle_load()
     hitSound1 = love.audio.newSource("audio/normalAttack.ogg", "static")
     gunAttackSound = love.audio.newSource("audio/gun.wav", "static")
     noBulletSound = love.audio.newSource("audio/noBullet.wav", "static")
+
+    battle_log = {}
 end
 
 function battle_update(dt)

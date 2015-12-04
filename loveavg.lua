@@ -28,6 +28,7 @@ function loveavg_load()
     chooseLock = true
     dialogLock = false
     day_state = 1
+    day_branch = 0
     dialog_state = 1
     choose_no = 0
     love_fade_color = 255
@@ -39,7 +40,28 @@ function loveavg_load()
     waitNextDialog = false
     waitSpace = false
     space = "　"
-    file_data = love.filesystem.read(string.format("day%d.dat", day_state), all)
+
+    branch_setting = love.filesystem.read(string.format("day_branch.conf"), all)
+    for i in string.gmatch(branch_setting, "[^\n]+") do
+        data = {}
+        for j in string.gmatch(i, "[^,]+") do
+            table.insert(data, tonumber(j))
+        end
+        if not isempty(choose[data[1]]) then
+            if choose[data[1]] % data[2] == data[3] - 1 then
+                day_branch = data[4]
+            else
+                day_branch = 0
+            end
+        end
+    end
+
+
+    if day_branch == 0 then
+        file_data = love.filesystem.read(string.format("day%d.dat", day_state), all)
+    elseif not day_branch == 0 then
+        file_data = love.filesystem.read(string.format("day%d-%d.dat", day_state, day_branch), all)
+    end
     dialog = {}
     -- parse data
     for i in string.gmatch(file_data, "[^\n]+") do
@@ -193,7 +215,7 @@ function print_choose(n, dialog_n, a, b, c)
     chooseLock = false
     dialogLock = true
     -- choose
-    choose_no = tonumber(string.format("%d%d", day_state, dialog_n))
+    choose_no = tonumber(string.format("%d%d%d", day_state, day_branch, dialog_n))
     if isempty(choose[choose_no]) then
         choose[choose_no] = 0
     end
@@ -302,16 +324,18 @@ function isempty(s)
 end
 
 function loveSave()
-    return {choose, chooseLock, dialogLock, day_state, dialog_state, choose_no}
+    return {choose, chooseLock, dialogLock, day_state, day_branch, dialog_state, choose_no, battle_log}
 end
 
 function loveLoad(data)
-    choose = data[1]
-    chooseLock = data[2]
-    dialogLock = data[3]
-    day_state = data[4]
-    dialog_state = data[5]
-    choose_no = data[6]
+    choose = data[1] -- int
+    chooseLock = data[2] -- boolean
+    dialogLock = data[3] -- boolean
+    day_state = data[4] -- int
+    day_branch = data[5] -- int
+    dialog_state = data[6] -- int
+    choose_no = data[7] -- int table
+    battle_log = data[8] -- int table
 end
 
 function love_reloadDay()
