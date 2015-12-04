@@ -443,14 +443,14 @@ function isBarrier(barrierX,barrierY)
         character.count=false
         world.count=false
     end
-    if day_state == 1 then
+    --if day_state == 1 then
         for i, monster in ipairs(monsters) do
             if monster.nowX-world.x ==barrierX and monster.nowY-world.y == barrierY then
                 monster.nowX=monster.pastX
                 monster.nowY=monster.pastY
             end
         end
-    end
+    --end
     for i=1,1 do
         tree[i].nx=getMoveableNx()
         tree[i].ny=getMoveableNy()
