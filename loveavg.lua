@@ -150,6 +150,9 @@ function loveavg_draw()
             elseif day_state == 2 then
                 isCharacterWake = true
                 gameStage = 3
+            elseif day_state == 3 then
+                isCharacterWake = true
+                gameStage = 3
             end
         end
     end
@@ -312,7 +315,7 @@ function print_background(day, dialog, branch)
             bg = schoolroad_light
         elseif (130 <= dialog and dialog <= 144) then
             bg = class_light
-        elseif (115 <= dialog and dialog <= 129) and (145 <= dialog and dialog <= 169) then
+        elseif (115 <= dialog and dialog <= 129) or (145 <= dialog and dialog <= 169) then
             bg = room_night
         end
     end
