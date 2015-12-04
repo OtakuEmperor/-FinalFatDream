@@ -25,7 +25,7 @@ function boss3.new (originPointX, originPointY)
         runCounter = 0,
         runCD = 0,
         attackSpeed = 1,
-        startRun = false,
+        startRun = true,
         moveStep = {},
         slimeQuads = {},
         thunderballs = {},
