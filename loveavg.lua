@@ -421,8 +421,8 @@ function loveLoad(data)
     dialog_state = data[6] -- int
     choose_no = data[7] -- int
     world1_success = data[8]
-    world2_success = data[8]
-    world3_success = data[8]
+    world2_success = data[9]
+    world3_success = data[10]
 end
 
 function love_reloadDay()
