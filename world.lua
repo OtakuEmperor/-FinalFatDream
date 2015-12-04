@@ -123,8 +123,6 @@ function world_draw()
     monster_draw()
     interface_draw()
     triggerDraw()
-    love.graphics.print(character.x+world.x, 200, 200)
-    love.graphics.print(character.y+world.y, 300, 200)
     love.graphics.setBackgroundColor(178, 203, 148)
     if world1_dialog_state == 1 then
         print_dialog("我", "這裏是　什麼地方？")
