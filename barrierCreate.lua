@@ -34,6 +34,7 @@ sofa={}
 tv={}
 bigTable={}
 smallTable={}
+sj={}
 tv_fake = 1
 bed_fake = 1
 kotatsu_fake = 1
@@ -429,5 +430,15 @@ function sofa.new (originPointX,originPointY)
         y = originPointY
     }
     obj = newObject(obj, sofa)
+    return obj
+end
+function sj.new (originPointX,originPointY)
+   local obj = {
+        Image = love.graphics.newImage("img/slimeJuice.png"),
+        Barrier=true,
+        x = originPointX,
+        y = originPointY
+    }
+    obj = newObject(obj, sj)
     return obj
 end
