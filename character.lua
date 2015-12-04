@@ -3,6 +3,11 @@ local hpDecrease=0
 local characterSpeed=300
 local characterX,characterY=love.graphics.getDimensions( )
 local screenWidth,screenHeight=love.graphics.getDimensions( )
+local heroTryCatchDelay=0.15
+local heroTryCatchDelta=0
+local heroTryCatchCountX=0
+local heroTryCatchCountY=0
+local heroTryCatchLock=true
 characterHeight=100
 characterWidth=100
 --character.__index = character
@@ -533,4 +538,35 @@ function charaMoveBack(backFace,dt)
             character.backMove =true
         end
     end
+end
+function heroTryCatch(dt)
+     if heroTryCatchLock then
+     heroTryCatchCountX=character.x
+     heroTryCatchCountY=character.y
+     heroTryCatchLock=false
+    end
+     heroTryCatchDelta = heroTryCatchDelta + dt
+    if heroTryCatchDelta >= heroTryCatchDelay then
+        if character.x == heroTryCatchCountX and character.x%100 ~=0 then
+            if character.x % 100 >50 then
+                character.x = character.x - (character.x % 100) + 100
+                character.nx=character.x
+            else
+                character.x = character.x - (character.x % 100)
+                character.nx=character.x   
+            end
+        end
+        if character.y == heroTryCatchCountY and character.y%100 ~=0 then
+            if character.y % 100 >50 then
+                character.y = character.y - (character.y % 100) + 100
+                character.ny=character.y
+            else
+                character.y = character.y - (character.y % 100)   
+                character.ny=character.y
+            end
+        end
+        heroTryCatchDelta=0
+        heroTryCatchLock=true
+    end
+
 end
