@@ -238,6 +238,16 @@ function barrierCreate2()
             counter = counter + 1
         end
     end
+    --deepWall_boss
+    counter = 1
+    if monsters[1].alive then
+        for i = 1700, 1800, 100 do
+            for j = 2400, 2700, 100 do
+                deepWall_boss[counter] = deepWall_boss.new(i, j)
+                counter = counter + 1
+            end
+        end
+    end
 
     --lightWall
     counter = 1
@@ -516,6 +526,15 @@ function barrier2_draw()
     for i = 1, #UNG, 1 do
         if UNG[i].Barrier then
             isBarrier(UNG[i].x-world.x, UNG[i].y-world.y)
+        end
+    end
+    --deepWall_boss
+    if monsters[1].alive then
+        for i = 1, #deepWall_boss, 1 do
+            love.graphics.draw(deepWall_boss[i].Image, deepWall_boss[i].x-world.x, deepWall_boss[i].y-world.y)
+            if deepWall_boss[i].Barrier then
+                isBarrier(deepWall_boss[i].x-world.x, deepWall_boss[i].y-world.y)
+            end
         end
     end
 end

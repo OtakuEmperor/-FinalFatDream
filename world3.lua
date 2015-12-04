@@ -7,12 +7,16 @@ local resetKey = false
 function world3_load()
     require "character"
     --require "slime"
-    --require "boss1"
+    require "boss3"
     require "barrierCreate"
     require "interface"
     require "barrierMove"
-    --require "kagemusha"
-    --monsters = {}
+    require "kagemusha"
+    monsters = {}
+    monsters[1] = boss3.new(1100, 0)
+    monsters[2] = kagemusha.new(monsters[1], 1200, 0)
+    monsters[3] = kagemusha.new(monsters[1], 1100, 100)
+    monsters[4] = kagemusha.new(monsters[1], 1200, 100)
     --fight_bgm = love.audio.newSource("audio/night.mp3", "stream")
     --interface_load()
     --character_load()
@@ -31,6 +35,9 @@ function world3_update(dt)
         creatMapLock = creatMapLock+1
     end
     interface_update(dt)
+    for i, monster in ipairs(monsters) do
+        monster:update(dt,character.x+world.x,character.y+world.y,dt)
+    end
     love_update(dt)
     character_run(dt)
     character.py = character.y
@@ -74,6 +81,7 @@ function world3_draw()
     barrier3_draw()
     character_draw()
     interface_draw()
+    monster_draw3()
     love.graphics.setBackgroundColor(100, 100, 100)
     --testdraw()
     love.audio.setVolume(0.8 * getVol())
@@ -283,5 +291,26 @@ function barrier3_draw()
         if bed[i].Barrier then
             isBarrier(bed[i].x-world.x, bed[i].y-world.y)
         end
+    end
+end
+
+function monster_draw3()
+    for i, monster in ipairs(monsters) do
+        if monster.alive then
+            love.graphics.setColor(255,255,255)
+            love.graphics.draw(monster.slimeImgFile, monster.slimeQuads[monster.face][monster.animationIndex], monster.nowX-world.x, monster.nowY-world.y)
+        end
+    end
+
+    --play boss bgm
+    if monsters[1].alive then
+        --love.audio.stop(fight_bgm2)
+        --love.audio.rewind(bossBGM)
+        bossBGM:setVolume(getVol()*0.4)
+        bossBGM:play()
+    end
+
+    if not monsters[1].alive and monsters[1].hp <= 0 then
+        
     end
 end
