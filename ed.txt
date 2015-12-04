@@ -5,7 +5,7 @@ Fats
    ZENG,  WUN-YOU
    WU,  TUNG-YEH
    TAN,  JHONG-JIE
-   SYU,  DENG-JIE
+   HSU,  DENG-JIE
 
 Powered by
    LOVE 2D
