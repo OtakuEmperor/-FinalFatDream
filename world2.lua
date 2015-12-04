@@ -68,6 +68,7 @@ function world2_update(dt)
            dialog_state = 1
            gameStage = 2
            love.audio.stop()
+           state_check()
            love_reloadDay()
        end
     end
@@ -521,6 +522,7 @@ function monster_draw2()
            gameStage = 2
            world2_success = true
            love.audio.stop()
+           state_check()
            love_reloadDay()
        end
     end

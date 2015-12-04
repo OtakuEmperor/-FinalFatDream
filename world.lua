@@ -64,6 +64,7 @@ function world_update(dt)
         if world1_fade_timer >= 2 then
             day_state = 2
             gameStage = 2
+            state_check()
             love_reloadDay()
         end
     end
@@ -571,6 +572,7 @@ function monster_draw()
                 day_state = 2
                 gameStage = 2
                 world1_success = true
+                state_check()
                 love_reloadDay()
             end
         end

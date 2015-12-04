@@ -389,37 +389,13 @@ function loveLoad(data)
 end
 
 function love_reloadDay()
-    if day_state == 2 then
-        if world1_success then
-            dialog_state = 1
-        else
-            dialog_state = 16
-        end
-    end
-
-    if day_state == 3 then
-        if not isempty(choose[20276]) then
-            if choose[20276] % 2 == 0 then
-                day_branch = 1
-            end
-        elseif not isempty(choose[2035]) then
-            if choose[2035] % 2 == 0 then
-                if not world2_success then
-                    day_branch = 3
-                end
-            elseif choose[2035] % 2 == 1 then
-                if not world2_success then
-                    day_branch = 2
-                end
-            end
-        else
-            day_branch = 0
-        end
-    end
-
+    print(day_state)
+    print(day_branch)
     if day_branch == 0 then
+        print(string.format("day%d.dat", day_state))
         file_data = love.filesystem.read(string.format("day%d.dat", day_state), all)
-    elseif not day_branch == 0 then
+    else
+        print(string.format("day%d-%d.dat", day_state, day_branch))
         file_data = love.filesystem.read(string.format("day%d-%d.dat", day_state, day_branch), all)
     end
     dialog = {}
@@ -511,4 +487,46 @@ end
 function love_newDialog()
     says_index = 3
     dialog_timer = 0
+end
+
+function state_check()
+    if day_state == 2 then
+        if world1_success then
+            dialog_state = 1
+        else
+            dialog_state = 16
+        end
+    end
+
+    if day_state == 3 then
+        if not isempty(choose[20276]) then
+            if choose[20276] % 2 == 0 then
+                day_branch = 1
+                if world2_success then
+                    dialog_state = 17
+                else
+                    dialog_state = 1
+                end
+            end
+        elseif not isempty(choose[2035]) then
+            if choose[2035] % 2 == 0 then
+                if not world2_success then
+                    day_branch = 3
+                end
+            end
+        elseif not isempty(choose[2056]) then
+            if choose[2056] % 2 == 1 then
+                if not world2_success then
+                    day_branch = 2
+                end
+            end
+        else
+            day_branch = 0
+            if world2_success then
+                dialog_state = 17
+            else
+                dialog_state = 1
+            end
+        end
+    end
 end
