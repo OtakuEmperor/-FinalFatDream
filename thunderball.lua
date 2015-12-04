@@ -26,11 +26,12 @@ function thunderball.new (x, y)
         obj.thunderball_quads[i] = love.graphics.newQuad(100*(i-10), 0, 100, 100, 500, 100)
     end
 
-    obj = newObject(obj, boss3)
+    obj = newObject(obj, thunderball)
     return obj
 end
 
 function thunderball:update(dt, charX, charY)
+    if self.isThunderBallAttack then
     self.thunderball_timer = self.thunderball_timer + dt
     if self.thunderball_timer > 0.05 then
         self.thunderball_timer = 0
@@ -46,6 +47,7 @@ function thunderball:update(dt, charX, charY)
         self.isThunderBallAttack = false
         self.thunder_ball_dmg_taken = false
         self.thunder_ball_index = 1
+    end
     end
 end
 
