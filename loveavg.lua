@@ -390,13 +390,13 @@ function loveSave()
 end
 
 function loveLoad(data)
-    choose = data[1] -- int
+    choose = data[1] -- int table
     chooseLock = data[2] -- boolean
     dialogLock = data[3] -- boolean
     day_state = data[4] -- int
     day_branch = data[5] -- int
     dialog_state = data[6] -- int
-    choose_no = data[7] -- int table
+    choose_no = data[7] -- int
 end
 
 function love_reloadDay()

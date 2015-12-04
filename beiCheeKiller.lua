@@ -104,6 +104,6 @@ function save_load()
     else
         bool2 = false
     end
-    loveLoad({data, bool1, bool2, tonumber(data2[3]), tonumber(data2[4]), tonumber(data2[5])})
+    loveLoad({data, bool1, bool2, tonumber(data2[3]), tonumber(data2[4]), tonumber(data2[5]), tonumber(data2[6])})
     love_reloadDay()
 end
