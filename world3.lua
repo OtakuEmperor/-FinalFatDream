@@ -196,10 +196,11 @@ function barrierCreate3()
     bed[2] = bed.new(900, 100)
     --potted
     potted[1] = potted.new(800, 700)
-    potted[2] = potted.new(100, 1000)
-    potted[3] = potted.new(400, 1000)
-    potted[4] = potted.new(100, 100)
-    potted[5] = potted.new(400, 100)
+    potted[2] = potted.new(400, 1000)
+    potted[3] = potted.new(1400, 900)
+    potted[4] = potted.new(1400, 1000)
+    potted[5] = potted.new(100, 100)
+    potted[6] = potted.new(400, 100)
     --tv
     tv[1] = tv.new(100, 500)
     tv[2] = tv.new(100, 600)
@@ -222,12 +223,17 @@ function barrierCreate3()
 
     bookcase[9] = bookcase.new(900, 0)
     bookcase[10] = bookcase.new(1300, 700)
-
+    --slimeJuice
+    sj[1] = sj.new(100, 1000)
 end
 
 function world3_keypressed(key)
     if love.keyboard.isDown("k") then
         addKey()
+    end
+    --get slimeJuice
+    if key == "f" and (character.x+world.x) == 100 and (character.y+world.y) == 900 and character.faceDir == "down" then
+        character.water = true
     end
     character_keyPressed(key)
 end
@@ -310,6 +316,11 @@ function barrier3_draw()
             isBarrier(bookcase[i].x-world.x, bookcase[i].y-world.y)
         end
     end
+    --slimeJuice
+    love.graphics.draw(sj[1].Image, sj[1].x-world.x, sj[1].y-world.y)
+    if sj[1].Barrier then
+        isBarrier(sj[1].x-world.x, sj[1].y-world.y)
+    end
 end
 
 function monster_draw3()
@@ -329,6 +340,6 @@ function monster_draw3()
     end
 
     if not monsters[1].alive and monsters[1].hp <= 0 then
-        
+
     end
 end
