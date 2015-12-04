@@ -67,6 +67,7 @@ function world2_update(dt)
            day_state = 3
            dialog_state = 1
            gameStage = 2
+           love.audio.stop()
            love_reloadDay()
        end
     end
@@ -517,8 +518,9 @@ function monster_draw2()
         world2_fade = true
         if world2_fade_timer >= 2 then
            day_state = 3
-           dialog_state = 1
            gameStage = 2
+           world2_success = true
+           love.audio.stop()
            love_reloadDay()
        end
     end
