@@ -130,7 +130,7 @@ end
 
 function loveavg_draw()
     dialog_element = {}
-    print_background(day_state, dialog_state)
+    print_background(day_state, dialog_state, day_branch)
     play_bgm(day_state, dialog_state)
     for i in string.gmatch(dialog[dialog_state], "[^,]+") do
         table.insert(dialog_element, i)
@@ -253,7 +253,7 @@ function print_choose(n, dialog_n, a, b, c)
     end
 end
 
-function print_background(day, dialog)
+function print_background(day, dialog, branch)
     if day == 1 then
         if (1 <= dialog and dialog <= 13) or (167 <= dialog and dialog <= 182) then
             bg = night
@@ -278,10 +278,58 @@ function print_background(day, dialog)
             bg = schoolroad_light
         elseif (163 <= dialog and dialog <= 209) then
             bg = schoolEntry_light
-        elseif (210 <= dialog and dialog <= 305) then
+        elseif (210 <= dialog and dialog <= 312) then
             bg = class_light
-        elseif (306 <= dialog and dialog <= 363) or (364 <= dialog and dialog <= 399) then
+        elseif (313 <= dialog and dialog <= 370) or (371 <= dialog and dialog <= 406) then
             bg = room_night
+        end
+    end
+
+    if day == 3 and branch == 0 then
+        if (1 <= dialog and dialog <= 31) then
+            bg = room_light
+        elseif (32 <= dialog and dialog <= 45) then
+            bg = schoolroad_light
+        elseif (46 <= dialog and dialog <= 69) then
+            bg = class_light
+        elseif (70 <= dialog and dialog <= 94) then
+            bg = room_night
+        end
+    end
+
+    if day == 3 and branch == 1 then
+        if (1 <= dialog and dialog <= 31) then
+            bg = room_light
+        elseif (32 <= dialog and dialog <= 114) then
+            bg = schoolroad_light
+        elseif (130 <= dialog and dialog <= 144) then
+            bg = class_light
+        elseif (115 <= dialog and dialog <= 129) and (145 <= dialog and dialog <= 169) then
+            bg = room_night
+        end
+    end
+
+    if day == 3 and branch == 2 then
+        if (1 <= dialog and dialog <= 3) then
+            bg = room_light
+        elseif (4 <= dialog and dialog <= 44) then
+            bg = schoolroad_light
+        elseif (45 <= dialog and dialog <= 60) then
+            bg = class_light
+        elseif (61 <= dialog and dialog <= 74) then
+            bg = room_night
+        end
+    end
+
+    if day == 3 and branch == 3 then
+        if (1 <= dialog and dialog <= 3) then
+            bg = room_light
+        elseif (4 <= dialog and dialog <= 25) and (34 <= dialog and dialog <= 55) then
+            bg = computer
+        elseif (26 <= dialog and dialog <= 29) then
+            bg = schoolroad_light
+        elseif (30 <= dialog and dialog <= 33) then
+            bg = class_light
         end
     end
     love.graphics.setColor(255, 255, 255 ,love_fade_color)
@@ -309,13 +357,17 @@ function play_bgm(day, dialog)
         end
     end
     if day == 2 then
-        if 1 <= dialog and dialog <= 399 then
+        if 1 <= dialog and dialog <= 406 then
             if not (bgm_name == "class_bgm") then
                 love.audio.stop()
                 bgm = class_bgm
                 bgm_name = "class_bgm"
             end
         end
+    end
+    if day == 3 then
+        bgm = class_bgm
+        bgm_name = "class_bgm"
     end
     bgm:setVolume(getVol())
     bgm:play()
@@ -406,36 +458,36 @@ function love_update(dt)
 end
 
 function world1_change()
-    if not isempty(choose[1136]) then
-        if choose[1136] % 2 == 0 then
+    if not isempty(choose[10136]) then
+        if choose[10136] % 2 == 0 then
             monsters[8].hp = 50
             character.hp = 150
             character.maxHp = 150
             q3Trap[1].disappearDelay = 8
-        elseif choose[1136] % 2 == 1 then
+        elseif choose[10136] % 2 == 1 then
             monsters[8].hp = 70
             character.hp = 150
             character.maxHp = 150
             q3Trap[1].disappearDelay = 5
         end
     end
-    if not isempty(choose[1136]) then
-        if choose[1127] % 3 == 1 then
+    if not isempty(choose[10136]) then
+        if choose[10127] % 3 == 1 then
             monsters[8].hp = 70
             character.hp = 100
             character.maxHp = 100
             q3Trap[1].disappearDelay = 5
-        elseif choose[1127] % 3 == 2 then
+        elseif choose[10127] % 3 == 2 then
             monsters[8].hp = 70
             character.hp = 100
             character.maxHp = 100
             q3Trap[1].disappearDelay = 8
         end
     end
-    if not isempty(choose[1136]) then
-        if choose[156] % 2 == 0 then
+    if not isempty(choose[10136]) then
+        if choose[1056] % 2 == 0 then
             character.atk = 5
-        elseif choose[156] % 2 == 1 then
+        elseif choose[1056] % 2 == 1 then
             character.atk = 3
         end
     end
