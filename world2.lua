@@ -25,7 +25,6 @@ function world2_load()
 end
 
 function world2_update(dt)
-    print(monsters[1].hp)
     --reset Key
     if resetKey == false then
         zeroKey()
