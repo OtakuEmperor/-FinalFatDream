@@ -74,6 +74,7 @@ function world3_draw()
     barrier3_draw()
     character_draw()
     interface_draw()
+    love.graphics.setBackgroundColor(100, 100, 100)
     --testdraw()
     love.audio.setVolume(0.8 * getVol())
     fight_bgm:play()
@@ -104,8 +105,8 @@ function mapCreate3()
     world.downMove=false
     world.x=0
     world.y=0
-    world.width=2000
-    world.height=2000
+    world.width=1400
+    world.height=1200
     world.nx=0
     world.ny=0
     world.count=false
@@ -120,14 +121,89 @@ function mapCreate3()
 end
 
 function barrierCreate3()
-    --create grass
+    --create houseFloor
     local counter = 1
-    for i = 0, 2000, 100 do
-        for j = 0, 2000, 100 do
-            grass[counter] = grass.new(i, j)
+    for i = 0, 1500, 100 do
+        for j = 0, 1200, 100 do
+            houseFloor[counter] = houseFloor.new(i, j)
             counter = counter + 1
         end
     end
+    --houseWall
+    counter = 1
+    for j = 100, 1000, 100 do
+        houseWall[counter] = houseWall.new(0, j)
+        counter = counter + 1
+    end
+    for j = 100, 700, 100 do
+        houseWall[counter] = houseWall.new(700, j)
+        counter = counter + 1
+    end
+    houseWall[counter] = houseWall.new(0, 0)
+    counter = counter + 1
+    houseWall[counter] = houseWall.new(100, 0)
+    counter = counter + 1
+    houseWall[counter] = houseWall.new(400, 0)
+    counter = counter + 1
+    houseWall[counter] = houseWall.new(500, 0)
+    counter = counter + 1
+    houseWall[counter] = houseWall.new(600, 0)
+    counter = counter + 1
+    houseWall[counter] = houseWall.new(700, 0)
+    counter = counter + 1
+    houseWall[counter] = houseWall.new(700, 800)
+    counter = counter + 1
+    houseWall[counter] = houseWall.new(800, 800)
+    counter = counter + 1
+    houseWall[counter] = houseWall.new(900, 800)
+    counter = counter + 1
+    houseWall[counter] = houseWall.new(1200, 800)
+    counter = counter + 1
+    houseWall[counter] = houseWall.new(1300, 800)
+    counter = counter + 1
+    houseWall[counter] = houseWall.new(1400, 800)
+    counter = counter + 1
+    for i = 0, 1400, 100 do
+        houseWall[counter] = houseWall.new(i, 1100)
+        counter = counter + 1
+    end
+    for i = 0, 1400, 100 do
+        houseWall[counter] = houseWall.new(i, 1200)
+        counter = counter + 1
+    end
+    --kotatsu
+    kotatsu[1] = kotatsu.new(1000, 400)
+    kotatsu[2] = kotatsu.new(1100, 400)
+    kotatsu[3] = kotatsu.new(1000, 500)
+    kotatsu[4] = kotatsu.new(1000, 500)
+    --bigTable
+    bigTable[1] = bigTable.new(1300, 0)
+    bigTable[2] = bigTable.new(1400, 0)
+    bigTable[3] = bigTable.new(1300, 100)
+    bigTable[4] = bigTable.new(1300, 100)
+    --bed
+    bed[1] = bed.new(800, 100)
+    bed[2] = bed.new(900, 100)
+    --potted
+    counter = 1
+    potted[counter] = potted.new(800, 700)
+    counter = counter + 1
+    potted[counter] = potted.new(100, 1000)
+    counter = counter + 1
+    potted[counter] = potted.new(400, 1000)
+    counter = counter + 1
+    --tv
+    tv[1] = tv.new(100, 500)
+    tv[2] = tv.new(100, 600)
+    --smallTable
+    smallTable[1] = smallTable.new(400, 500)
+    smallTable[2] = smallTable.new(400, 600)
+    --sofa
+    sofa[1] = sofa.new(600, 400)
+    sofa[2] = sofa.new(600, 500)
+    sofa[3] = sofa.new(600, 600)
+    sofa[4] = sofa.new(600, 700)
+
 end
 
 function world3_keypressed(key)
@@ -138,11 +214,74 @@ function world3_keypressed(key)
 end
 
 function barrier3_draw()
-
-    for i=1,441 do
-        love.graphics.draw(grass[i].Image, grass[i].x-world.x, grass[i].y-world.y)
-        if grass[i].Barrier then
-            isBarrier(grass[i].x-world.x, grass[i].y-world.y)
+    --houseFloor
+    for i=1, #houseFloor, 1 do
+        love.graphics.draw(houseFloor[i].Image, houseFloor[i].x-world.x, houseFloor[i].y-world.y)
+        if houseFloor[i].Barrier then
+            isBarrier(houseFloor[i].x-world.x, houseFloor[i].y-world.y)
+        end
+    end
+    --houseWall
+    for i=1, #houseWall, 1 do
+        love.graphics.draw(houseWall[i].Image, houseWall[i].x-world.x, houseWall[i].y-world.y)
+        if houseWall[i].Barrier then
+            isBarrier(houseWall[i].x-world.x, houseWall[i].y-world.y)
+        end
+    end
+    --bigTable
+    for i=1, #bigTable, 1 do
+        love.graphics.draw(bigTable[i].Image, bigTable[i].x-world.x, bigTable[i].y-world.y)
+        if bigTable[i].Barrier then
+            isBarrier(bigTable[i].x-world.x, bigTable[i].y-world.y)
+        end
+    end
+    --smallTable
+    for i=1, #smallTable, 1 do
+        love.graphics.draw(smallTable[i].Image, smallTable[i].x-world.x, smallTable[i].y-world.y)
+        if smallTable[i].Barrier then
+            isBarrier(smallTable[i].x-world.x, smallTable[i].y-world.y)
+        end
+    end
+    --bigTable
+    for i=1, #bigTable, 1 do
+        love.graphics.draw(bigTable[i].Image, bigTable[i].x-world.x, bigTable[i].y-world.y)
+        if bigTable[i].Barrier then
+            isBarrier(bigTable[i].x-world.x, bigTable[i].y-world.y)
+        end
+    end
+    --tv
+    for i=1, #tv, 1 do
+        love.graphics.draw(tv[i].Image, tv[i].x-world.x, tv[i].y-world.y)
+        if tv[i].Barrier then
+            isBarrier(tv[i].x-world.x, tv[i].y-world.y)
+        end
+    end
+    --sofa
+    for i=1, #sofa, 1 do
+        love.graphics.draw(sofa[i].Image, sofa[i].x-world.x, sofa[i].y-world.y)
+        if sofa[i].Barrier then
+            isBarrier(sofa[i].x-world.x, sofa[i].y-world.y)
+        end
+    end
+    --kotatsu
+    for i=1, #kotatsu, 1 do
+        love.graphics.draw(kotatsu[i].Image, kotatsu[i].x-world.x, kotatsu[i].y-world.y)
+        if kotatsu[i].Barrier then
+            isBarrier(kotatsu[i].x-world.x, kotatsu[i].y-world.y)
+        end
+    end
+    --potted
+    for i=1, #potted, 1 do
+        love.graphics.draw(potted[i].Image, potted[i].x-world.x, potted[i].y-world.y)
+        if potted[i].Barrier then
+            isBarrier(potted[i].x-world.x, potted[i].y-world.y)
+        end
+    end
+    --bed
+    for i=1, #bed, 1 do
+        love.graphics.draw(bed[i].Image, bed[i].x-world.x, bed[i].y-world.y)
+        if bed[i].Barrier then
+            isBarrier(bed[i].x-world.x, bed[i].y-world.y)
         end
     end
 end

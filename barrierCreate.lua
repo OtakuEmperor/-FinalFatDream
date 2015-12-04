@@ -22,6 +22,23 @@ deepWall_counter = 1
 lightWall_counter = 1
 fence_counter = 1
 deskChair_counter = 1
+--world3
+houseWall={}
+houseFloor={}
+bookcase={}
+bed={}
+kotatsu={}
+potted={}
+sofa={}
+tv={}
+bigTable={}
+smallTable={}
+tv_fake = 1
+bed_fake = 1
+kotatsu_fake = 1
+sofa_fake = 1
+bigTable_fake = 1
+smallTable_fake = 1
 -- this function is for OOP
 function newObject(o, class)
     class.__index = class
@@ -239,5 +256,149 @@ function UNG.new (originPointX,originPointY)
         y = originPointY
     }
     obj = newObject(obj, UNG)
+    return obj
+end
+
+--world3
+function houseWall.new (originPointX,originPointY)
+   local obj = {
+        Image = love.graphics.newImage("img/world3/houseWall.png"),
+        Barrier=true,
+        x = originPointX,
+        y = originPointY
+    }
+    obj = newObject(obj, houseWall)
+    return obj
+end
+function houseFloor.new (originPointX,originPointY)
+   local obj = {
+        Image = love.graphics.newImage("img/world3/houseFloor.png"),
+        Barrier=false,
+        x = originPointX,
+        y = originPointY
+    }
+    obj = newObject(obj, houseFloor)
+    return obj
+end
+function kotatsu.new (originPointX,originPointY)
+    local kotatsuImg
+    if kotatsu_fake == 1 then
+        kotatsuImg = "img/world3/kotatsu.png"
+    else
+        kotatsuImg = "img/world3/nothing.png"
+    end
+    kotatsu_fake = kotatsu_fake + 1
+   local obj = {
+        Image = love.graphics.newImage(kotatsuImg),
+        Barrier=true,
+        x = originPointX,
+        y = originPointY
+    }
+    obj = newObject(obj, kotatsu)
+    return obj
+end
+function bed.new (originPointX,originPointY)
+    local bedImg
+    if bed_fake == 1 then
+        bedImg = "img/world3/bed.png"
+    else
+        bedImg = "img/world3/nothing.png"
+    end
+    bed_fake = bed_fake + 1
+   local obj = {
+        Image = love.graphics.newImage(bedImg),
+        Barrier=true,
+        x = originPointX,
+        y = originPointY
+    }
+    obj = newObject(obj, bed)
+    return obj
+end
+function potted.new (originPointX,originPointY)
+   local obj = {
+        Image = love.graphics.newImage("img/world3/potted.png"),
+        Barrier=true,
+        x = originPointX,
+        y = originPointY
+    }
+    obj = newObject(obj, potted)
+    return obj
+end
+function bookcase.new (originPointX,originPointY)
+   local obj = {
+        Image = love.graphics.newImage("img/world3/bookcase.png"),
+        Barrier=true,
+        x = originPointX,
+        y = originPointY
+    }
+    obj = newObject(obj, bookcase)
+    return obj
+end
+function tv.new (originPointX,originPointY)
+    local tvImg
+    if tv_fake == 1 then
+        tvImg = "img/world3/tv.png"
+    else
+        tvImg = "img/world3/nothing.png"
+    end
+    tv_fake = tv_fake + 1
+   local obj = {
+        Image = love.graphics.newImage(tvImg),
+        Barrier=true,
+        x = originPointX,
+        y = originPointY
+    }
+    obj = newObject(obj, tv)
+    return obj
+end
+function smallTable.new (originPointX,originPointY)
+    local smallTableImg
+    if smallTable_fake == 1 then
+        smallTableImg = "img/world3/smallTable.png"
+    else
+        smallTableImg = "img/world3/nothing.png"
+    end
+    smallTable_fake = smallTable_fake + 1
+   local obj = {
+        Image = love.graphics.newImage(smallTableImg),
+        Barrier=true,
+        x = originPointX,
+        y = originPointY
+    }
+    obj = newObject(obj, smallTable)
+    return obj
+end
+function bigTable.new (originPointX,originPointY)
+    local bigTableImg
+    if bigTable_fake == 1 then
+        bigTableImg = "img/world3/bigTable.png"
+    else
+        bigTableImg = "img/world3/nothing.png"
+    end
+    bigTable_fake = bigTable_fake + 1
+   local obj = {
+        Image = love.graphics.newImage(bigTableImg),
+        Barrier=true,
+        x = originPointX,
+        y = originPointY
+    }
+    obj = newObject(obj, bigTable)
+    return obj
+end
+function sofa.new (originPointX,originPointY)
+    local sofaImg
+    if sofa_fake == 1 then
+        sofaImg = "img/world3/sofa.png"
+    else
+        sofaImg = "img/world3/nothing.png"
+    end
+    sofa_fake = sofa_fake + 1
+   local obj = {
+        Image = love.graphics.newImage(sofaImg),
+        Barrier=true,
+        x = originPointX,
+        y = originPointY
+    }
+    obj = newObject(obj, sofa)
     return obj
 end
