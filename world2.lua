@@ -37,6 +37,7 @@ function world2_update(dt)
         monsterCreate2()
         creatMapLock = creatMapLock+1
     end
+    heroTryCatch(dt)
     barrierMove_update(dt)
     love_update(dt)
     triggerUpdate(dt)
@@ -103,10 +104,10 @@ function world2_draw()
     love.audio.stop(fight_bgm)
     fight_bgm2:setVolume(0.3 * getVol())
     fight_bgm2:play()
-    love.graphics.print(character.x+world.x,200, 200)
-    love.graphics.print(character.y+world.y,200, 300)
-    love.graphics.print(character.nx+world.nx,500, 200)
-    love.graphics.print(character.ny+world.ny,500, 300)
+    love.graphics.print(character.x,200, 200)
+    love.graphics.print(character.y,200, 300)
+    love.graphics.print(character.nx,500, 200)
+    love.graphics.print(character.ny,500, 300)
 end
 function monsterCreate2()
     monsters = {}
