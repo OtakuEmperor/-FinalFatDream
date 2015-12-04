@@ -162,12 +162,15 @@ function lightWall.new (originPointX,originPointY)
         lightWallImg = "img/world2/lightWall_left.png"
     elseif lightWall_counter > 5 and lightWall_counter <= 10 then
         lightWallImg = "img/world2/lightWall_right.png"
-    elseif lightWall_counter > 10 and lightWall_counter <= 28 then
+    elseif lightWall_counter > 10 and lightWall_counter <= 28 and lightWall_counter ~= 25 then
         lightWallImg = "img/world2/lightWall_down.png"
     elseif lightWall_counter == 29 or lightWall_counter == 30 then
         lightWallImg = "img/world2/lightWall_leftCorner.png"
     elseif lightWall_counter == 31 or lightWall_counter == 32 then
         lightWallImg = "img/world2/lightWall_rightCorner.png"
+    end
+    if lightWall_counter == 25 then
+        lightWallImg = "img/world2/lightWall_down_blood.png"
     end
     lightWall_counter = lightWall_counter + 1
    local obj = {
