@@ -233,10 +233,13 @@ function triggerKeyPress(key)
                 end
             if (character.x+100)==500-world.x and character.y== 1100-world.y then
                 if deskChair[20].x ~= 500 or deskChair[20].y ~= 1100 then
+                    if deskChair[20].isSolve==false then
                     conversation = true
                     dialogNum=1
                     npc_dialogLock = false
                     love_newDialog()
+                        deskChair[20].isSolve=true
+                    end
                 end
             end
         end,
@@ -285,10 +288,13 @@ function triggerKeyPress(key)
                 end
             if (character.x-100)==500-world.x and character.y== 1100-world.y then
                 if deskChair[20].x ~= 500 or deskChair[20].y ~= 1100 then
+                    if deskChair[20].isSolve==false then
                     conversation = true
                     dialogNum=1
                     npc_dialogLock = false
                     love_newDialog()
+                        deskChair[20].isSolve=true
+                    end
                 end
             end
         end,
@@ -337,10 +343,13 @@ function triggerKeyPress(key)
             end
             if (character.x)==500-world.x and character.y+100== 1100-world.y then
                 if deskChair[20].x ~= 500 or deskChair[20].y ~= 1100 then
+                    if deskChair[20].isSolve==false then
                     conversation = true
                     dialogNum=1
                     npc_dialogLock = false
                     love_newDialog()
+                        deskChair[20].isSolve=true
+                    end
                 end
             end
             if character.x==2200-world.x and character.y+100== 300-world.y then
@@ -413,10 +422,13 @@ function triggerKeyPress(key)
             end
             if character.x==500-world.x and character.y-100== 1100-world.y then
                 if deskChair[20].x ~= 500 or deskChair[20].y ~= 1100 then
+                   if deskChair[20].isSolve==false then
                     conversation = true
                     dialogNum=1
                     npc_dialogLock = false
                     love_newDialog()
+                        deskChair[20].isSolve=true
+                    end
                 end
             end
             if character.x==2200-world.x and character.y-100== 300-world.y then
@@ -445,10 +457,13 @@ function triggerKeyPress(key)
                     face2()
                 end
                 if character.x==500-world.x and character.y== 1100-world.y then
+                    if deskChair[20].isSolve==false then
                     conversation = true
                     dialogNum=1
                     npc_dialogLock = false
                     love_newDialog()
+                        deskChair[20].isSolve=true
+                    end
                 end
             end,
             [3] = function()    -- for case 3

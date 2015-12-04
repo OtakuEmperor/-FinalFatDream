@@ -22,6 +22,9 @@ function npc2_draw(dialogNum)
             npc_dialog_state = 2
             npc_dialog_namestate = 1
             atk_timeout = 0
+            character.bullet = character.bullet + 2
+            sloveProblem:setVolume(getVol())
+            sloveProblem:play()
         end
         if underDeskPaper_dialog[npc_dialog_namestate] == "nil" then
             underDeskPaper_dialog[npc_dialog_namestate] = " "
