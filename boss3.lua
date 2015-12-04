@@ -47,7 +47,9 @@ function boss3.new (originPointX, originPointY)
     end
     obj.thunderballs[1]=thunderball.new (700, 1000)
     obj.thunderballs[2]=thunderball.new (800, 1100)
+    obj.thunderballs[2].thunderball_img = love.graphics.newImage("img/thunderBall2.png")
     obj.thunderballs[3]=thunderball.new (900, 1200)
+    obj.thunderballs[3].thunderball_img = love.graphics.newImage("img/thunderBall3.png")
     obj = newObject(obj, boss3)
     return obj
 end

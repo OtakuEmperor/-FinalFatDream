@@ -96,9 +96,8 @@ function ed_draw()
         end
     end
 
-
     --draw s
-    love.graphics.setColor(255,255,255)
-    love.graphics.setFont(ed.font3)
-    love.graphics.print(tostring(ed.s), 10, 10)
+    --love.graphics.setColor(255,255,255)
+    --love.graphics.setFont(ed.font3)
+    --love.graphics.print(tostring(ed.s), 10, 10)
 end
