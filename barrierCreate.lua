@@ -40,6 +40,8 @@ kotatsu_fake = 1
 sofa_fake = 1
 bigTable_fake = 1
 smallTable_fake = 1
+houseWall_counter = 1
+bookcase_counter = 1
 -- this function is for OOP
 function newObject(o, class)
     class.__index = class
@@ -272,8 +274,15 @@ end
 
 --world3
 function houseWall.new (originPointX,originPointY)
+    local houseWallImg
+    if houseWall_counter <= 17 then
+        houseWallImg = "img/world3/houseWall.png"
+    else
+        houseWallImg = "img/world3/houseWall_hor.png"
+    end
+    houseWall_counter = houseWall_counter + 1
    local obj = {
-        Image = love.graphics.newImage("img/world3/houseWall.png"),
+        Image = love.graphics.newImage(houseWallImg),
         Barrier=true,
         x = originPointX,
         y = originPointY
@@ -336,8 +345,17 @@ function potted.new (originPointX,originPointY)
     return obj
 end
 function bookcase.new (originPointX,originPointY)
+    local bookcaseImg
+    if bookcase_counter <= 4 then
+        bookcaseImg = "img/world3/bookcase_left.png"
+    elseif bookcase_counter > 4 and bookcase_counter <= 8 then
+        bookcaseImg = "img/world3/bookcase_right.png"
+    else
+        bookcaseImg = "img/world3/bookcase_mid.png"
+    end
+    bookcase_counter = bookcase_counter + 1
    local obj = {
-        Image = love.graphics.newImage("img/world3/bookcase.png"),
+        Image = love.graphics.newImage(bookcaseImg),
         Barrier=true,
         x = originPointX,
         y = originPointY
