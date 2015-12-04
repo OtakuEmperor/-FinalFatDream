@@ -14,8 +14,10 @@ function thunderball.new (x, y)
         thunderball_quads = {},
         thunderball_index = 1,
         thunderball_timer = 0,
+        thunder_ball_cool_down = 1,
         thunderball_dmg_taken = false,
         thunderball_end = false,
+        isThunderBallAttack = false,
         thunderball_dmg = 5
     }
 
@@ -31,22 +33,23 @@ function thunderball.new (x, y)
 end
 
 function thunderball:update(dt, charX, charY)
-    if self.isThunderBallAttack then
+    self.thunder_ball_cool_down = self.thunder_ball_cool_down + dt
     self.thunderball_timer = self.thunderball_timer + dt
+    if self.isThunderBallAttack then
     if self.thunderball_timer > 0.05 then
         self.thunderball_timer = 0
         self.thunderball_index = self.thunderball_index + 1
         if self.thunderball_index >= 11 and not self.thunderballdmg_taken then
-            if charX == self.thunderball_x and charY == self.thunderball_y then
+            if charX == self.thunderball_x and charY == self.thunderball_y and not self.thunderball_dmg_taken then
                 hpDecline(self.thunderball_dmg)
                 self.thunderball_dmg_taken = true
             end
         end
     end
-    if self.thunder_ball_index > 14 then
+    if self.thunderball_index > 14 then
         self.isThunderBallAttack = false
-        self.thunder_ball_dmg_taken = false
-        self.thunder_ball_index = 1
+        self.thunderball_dmg_taken = false
+        self.thunderball_index = 1
     end
     end
 end

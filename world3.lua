@@ -15,6 +15,7 @@ function world3_load()
     require "interface"
     require "barrierMove"
     require "kagemusha"
+    require "thunderball"
     --fight_bgm = love.audio.newSource("audio/night.mp3", "stream")
     --interface_load()
     --character_load()
@@ -73,6 +74,7 @@ function world3_update(dt)
         world.speed = 300
         setMapMove(dt)
     end
+    monsters[1].startAttack = true
 end
 
 function world3_draw()
@@ -357,7 +359,11 @@ function monster_draw3()
             love.graphics.draw(monster.slimeImgFile, monster.slimeQuads[monster.face][monster.animationIndex], monster.nowX-world.x, monster.nowY-world.y)
         end
     end
-
+    for i=1,3 do
+        if monsters[1].thunderballs[i].isThunderBallAttack then
+            monsters[1].thunderballs[i]:draw()
+        end
+    end
     --play boss bgm
     if monsters[1].alive then
         --love.audio.stop(fight_bgm2)
