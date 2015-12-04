@@ -187,6 +187,11 @@ function interface_draw()
             interface.weaponIsPlayed = true
         end
     end
+    --draw red red
+    if wakeOriginNumber > 80 and wakeOriginNumber < 100 then
+        love.graphics.setColor(255, 0, 0, wakeOriginNumber)
+        love.graphics.rectangle("fill", 0, 0, interface.width, interface.height)
+    end
     --draw days
     if interface.dn == true then
         love.graphics.setColor(0, 128, 255)
