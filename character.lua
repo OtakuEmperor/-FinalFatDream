@@ -45,11 +45,11 @@ function character_keyPressed(key)
     if love.keyboard.isDown("w") then
         if character.weapon == "sword" then
             character.weapon = "gun"
-            character.atk = 7
+            character.atk = character.gunAtk
             atk_range = 500
         elseif character.weapon == "gun" then
             character.weapon = "sword"
-            character.atk = 5
+            character.atk = character.swordAtk
             atk_range = 100
         end
     end
@@ -92,6 +92,8 @@ function characterCreate()
     character.water = false
     character.weapon = "sword"
     character.bullet = 2
+    character.gunAtk = 7
+    character.swordAtk = 5
     charUnderAttack = love.audio.newSource("audio/charUnderAttack.wav", "static")
 end
 

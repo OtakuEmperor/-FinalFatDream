@@ -85,6 +85,7 @@ function world2_update(dt)
 
     if not boss2_summon and interface.keyNum == 3 then
         boss2_summon = true
+        monsters[1].alive = true
         monsters[1].startRun = true
     end
 end

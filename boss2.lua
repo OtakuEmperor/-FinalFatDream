@@ -11,7 +11,7 @@ function boss2.new (originPointX, originPointY)
     bossRun = love.audio.newSource("audio/bossRun.wav")
     dieBGM_boss2 = love.audio.newSource("audio/bossDie.wav", "static")
     local obj = {
-        alive = true,
+        alive = false,
         hp = 20,
         face = 1, -- down 1, up 2, left 3, right 4
         nowX = originPointX,
