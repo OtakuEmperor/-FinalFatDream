@@ -19,6 +19,9 @@ function world3_load()
     --fight_bgm = love.audio.newSource("audio/night.mp3", "stream")
     --interface_load()
     --character_load()
+    world3_dialogLock = true
+    world3_dialog_state = 0
+    boss3_summon = false
 end
 
 function world3_update(dt)
@@ -51,11 +54,11 @@ function world3_update(dt)
             --end
         --end
     --end
-    --if not (world1_dialogLock and q1_dialogLock and q2_dialogLockKey and q2_dialogLockLine and q3_dialogLock and npc_dialogLock and boss1_dialogLcok) then
-      --  isCharacterWake = false
-    --else
-      --  isCharacterWake = true
-    --end
+    if not (world3_dialogLock) then
+       isCharacterWake = false
+    else
+       isCharacterWake = true
+    end
     if character.die then
        -- world1_fade = true
         --if world1_fade_timer >= 2 then
@@ -75,6 +78,13 @@ function world3_update(dt)
         setMapMove(dt)
     end
     monsters[1].startAttack = true
+    if character.x + world.x >= 800 and character.y + world.y == 300 and not boss3_summon then
+        world3_dialogLock = false
+        world3_dialog_state = 1
+        boss3_summon = true
+        love_newDialog()
+    end
+
 end
 
 function world3_draw()
@@ -87,6 +97,22 @@ function world3_draw()
     --testdraw()
     love.audio.setVolume(0.8 * getVol())
     fight_bgm:play()
+
+    if world3_dialog_state == 1 then
+        print_dialog("Ｘ", "哈哈哈哈哈哈哈")
+    elseif world3_dialog_state == 2 then
+        print_dialog("Ｘ", "我是你內心的夢魘")
+    elseif world3_dialog_state == 3 then
+        print_dialog("Ｘ", "想要離開這裡就打敗我吧！")
+    elseif world3_dialog_state == 4 then
+        print_dialog("Ｘ", "但你就是我　我就是你")
+    elseif world3_dialog_state == 5 then
+        print_dialog("Ｘ", "你該怎麼辦呢？　哈哈哈哈哈哈哈")
+    elseif world3_dialog_state == 6 then
+        world3_dialogLock = true
+        monsters[1].startRun = true
+        world3_dialog_state = world3_dialog_state + 1
+    end
 end
 function characterCreate3()
     character.x = characterX
@@ -251,6 +277,9 @@ function world3_keypressed(key)
         sj3 = false
     end
     character_keyPressed(key)
+    if love.keyboard.isDown(" ") and not world3_dialogLock then
+        world3_dialog_state = love_dialogKeyPressed(world3_dialog_state)
+    end
 end
 
 function barrier3_draw()
@@ -359,9 +388,11 @@ function monster_draw3()
             love.graphics.draw(monster.slimeImgFile, monster.slimeQuads[monster.face][monster.animationIndex], monster.nowX-world.x, monster.nowY-world.y)
         end
     end
-    for i=1,3 do
-        if monsters[1].thunderballs[i].isThunderBallAttack then
-            monsters[1].thunderballs[i]:draw()
+    if monsters[1].startRun then
+        for i=1,3 do
+            if monsters[1].thunderballs[i].isThunderBallAttack then
+                monsters[1].thunderballs[i]:draw()
+            end
         end
     end
     --play boss bgm

@@ -135,28 +135,7 @@ function loveavg_draw()
     end
     dialogStartDrawLock = true
     ele_len = table.getn(dialog_element)
-    if ele_len == 1 and dialog_element[1] == "###" then
-        dialogLock = true
-        love_fade = true
-        if love_fade_timer >= 2 then
-            love.audio.stop()
-            dialogLock = false
-            love_fade = false
-            if day_state == 1 then
-                world1_dialogLock = false
-                world1_change()
-                isCharacterWake = true
-                love_newDialog()
-                gameStage = 3
-            elseif day_state == 2 then
-                isCharacterWake = true
-                gameStage = 3
-            elseif day_state == 3 then
-                isCharacterWake = true
-                gameStage = 3
-            end
-        end
-    end
+
     -- tachie
     if dialog_element[1] == "我" then
         tachie(fat, "left")
@@ -183,6 +162,27 @@ function loveavg_draw()
             love.graphics.draw(end4, 0 ,0)
         elseif dialog_element[2] == "5" and endding_fade then
             love.graphics.draw(end5, 0 ,0)
+        end
+    elseif dialog_element[1] == "###" then
+        dialogLock = true
+        love_fade = true
+        if love_fade_timer >= 2 then
+            love.audio.stop()
+            dialogLock = false
+            love_fade = false
+            if day_state == 1 then
+                world1_dialogLock = false
+                world1_change()
+                isCharacterWake = true
+                love_newDialog()
+                gameStage = 3
+            elseif day_state == 2 then
+                isCharacterWake = true
+                gameStage = 3
+            elseif day_state == 3 then
+                isCharacterWake = true
+                gameStage = 3
+            end
         end
     else
         if not (isempty(dialog_element[2])) then

@@ -33,7 +33,7 @@ function character_update(dt)
 end
 
 function character_keyPressed(key)
-    if world1_dialogLock and q1_dialogLock and q2_dialogLockKey and q2_dialogLockLine and q3_dialogLock and npc_dialogLock and boss1_dialogLock and q4_dialogLockKey and q5_dialogLockKey then
+    if world1_dialogLock and q1_dialogLock and q2_dialogLockKey and q2_dialogLockLine and q3_dialogLock and npc_dialogLock and boss1_dialogLock and q4_dialogLockKey and q5_dialogLockKey and world3_dialogLock then
         battle_keyPress(key)
     end
     if love.keyboard.isDown("q") then

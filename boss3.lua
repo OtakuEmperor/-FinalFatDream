@@ -25,7 +25,7 @@ function boss3.new (originPointX, originPointY)
         runCounter = 0,
         runCD = 0,
         attackSpeed = 1,
-        startRun = true,
+        startRun = false,
         moveStep = {},
         slimeQuads = {},
         thunderballs = {},
@@ -45,10 +45,10 @@ function boss3.new (originPointX, originPointY)
             obj.slimeQuads[i][j] = love.graphics.newQuad( (200*j)-200, (200*i)-200, 200, 200, 800, 800)
         end
     end
-    obj.thunderballs[1]=thunderball.new (700, 1000)
-    obj.thunderballs[2]=thunderball.new (800, 1100)
+    obj.thunderballs[1]=thunderball.new (-100, -100)
+    obj.thunderballs[2]=thunderball.new (-100, -100)
     obj.thunderballs[2].thunderball_img = love.graphics.newImage("img/thunderBall2.png")
-    obj.thunderballs[3]=thunderball.new (900, 1200)
+    obj.thunderballs[3]=thunderball.new (-100, -100)
     obj.thunderballs[3].thunderball_img = love.graphics.newImage("img/thunderBall3.png")
     obj = newObject(obj, boss3)
     return obj
@@ -126,10 +126,12 @@ function boss3:update(dt,charX,charY)
             self.runCD = 0
         end
     end
-    self.thunderballs[1]:update(dt, charX, charY)
-    self.thunderballs[2]:update(dt, charX, charY)
-    self.thunderballs[3]:update(dt, charX, charY)
-    if self.alive == true and self.startAttack then
+    if self.startRun then
+        self.thunderballs[1]:update(dt, charX, charY)
+        self.thunderballs[2]:update(dt, charX, charY)
+        self.thunderballs[3]:update(dt, charX, charY)
+    end
+    if self.alive == true and self.startAttack and self.startRun then
         if self.thunderballs[1].thunder_ball_cool_down > 2.5 then
             self.thunderballs[1].thunderball_x = charX
             self.thunderballs[1].thunderball_y = charY
