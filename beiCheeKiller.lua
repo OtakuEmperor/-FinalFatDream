@@ -74,7 +74,7 @@ end
 function save_load()
     local data = {}
     local data2 = {}
-    local bool1, bool2
+    local bool1, bool2, bool3, bool4, bool5
     local f = love.filesystem.newFile("data.txt")
     local f2 = love.filesystem.newFile("data2.txt")
     f:open("r")
@@ -104,6 +104,33 @@ function save_load()
     else
         bool2 = false
     end
-    loveLoad({data, bool1, bool2, tonumber(data2[3]), tonumber(data2[4]), tonumber(data2[5]), tonumber(data2[6])})
+    if data2[7] == "true" then
+        bool3 = true
+    else
+        bool3 = false
+    end
+    if data2[8] == "true" then
+        bool4 = true
+    else
+        bool4 = false
+    end
+    if data2[9] == "true" then
+        bool5 = true
+    else
+        bool5 = false
+    end
+    loveLoad({data, bool1, bool2, tonumber(data2[3]), tonumber(data2[4]), tonumber(data2[5]), tonumber(data2[6]), bool3, bool4, bool5 })
+    --[[
+    print(data)
+    print(bool1)
+    print(bool2)
+    print(data2[3])
+    print(data2[4])
+    print(data[5])
+    print(data[6])
+    print(bool3)
+    print(bool4)
+    print(bool5)
+    ]]--
     love_reloadDay()
 end
