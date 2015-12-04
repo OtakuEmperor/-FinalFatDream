@@ -33,6 +33,7 @@ function loveavg_load()
     end3 = love.graphics.newImage("img/end/end3.png")
     end4 = love.graphics.newImage("img/end/end4.png")
     end5 = love.graphics.newImage("img/end/end5.png")
+    black = love.graphics.newImage("img/end/black.png")
     choose = {}
     chooseLock = true
     dialogLock = false
@@ -311,12 +312,14 @@ function print_background(day, dialog, branch)
     if day == 3 and branch == 0 then
         if (1 <= dialog and dialog <= 31) then
             bg = room_light
-        elseif (32 <= dialog and dialog <= 114) then
+        elseif (32 <= dialog and dialog <= 114) or (125 <= dialog and dialog <= 129) then
             bg = schoolroad_light
         elseif (130 <= dialog and dialog <= 144) then
             bg = class_light
-        elseif (115 <= dialog and dialog <= 129) or (145 <= dialog and dialog <= 169) then
+        elseif (115 <= dialog and dialog <= 124) or (145 <= dialog and dialog <= 169) then
             bg = room_night
+        elseif (171 <= dialog and dialog <= 175) then
+            bg = black
         end
     end
 
@@ -341,6 +344,8 @@ function print_background(day, dialog, branch)
             bg = class_light
         elseif (61 <= dialog and dialog <= 74) then
             bg = room_night
+        elseif (75 <= dialog and dialog <= 80) then
+            bg = black
         end
     end
 
@@ -353,6 +358,10 @@ function print_background(day, dialog, branch)
             bg = schoolroad_light
         elseif (30 <= dialog and dialog <= 33) then
             bg = class_light
+        elseif (34 <= dialog and dialog <= 38) then
+            bg = room_night
+        elseif (39 <= dialog and dialog <= 55) then
+            bg = black
         end
     end
     love.graphics.setColor(255, 255, 255 ,love_fade_color)

@@ -178,11 +178,11 @@ function question4_draw(dialogNum)
             love.graphics.rectangle("fill", 1000*i/13+25,600-(550*barHeight[i]/3) -85, 700/12-20, 530*barHeight[i]/3 )
         end
         if q4_dialog_stateLine == 1 then
-            print_dialog("", "ＯＥ小雞雞？")
-        --elseif q4_dialog_stateLine == 2 then
-          --  print_dialog("", "真是麻煩")
+            print_dialog("", "成績統計表？")
+        elseif q4_dialog_stateLine == 2 then
+           print_dialog("", "真是麻煩")
         elseif q4_dialog_stateLine == 3 then
-          --  print_dialog("", "真是一個不標準的長條圖，什麼標示都沒有")
+           print_dialog("", "又是一個不標準的長條圖，什麼標示都沒有")
         --elseif q2_dialog_stateLine == 4 then
             q4_dialogLockLine = true
            q4_dialog_stateLine=1
