@@ -206,11 +206,13 @@ function triggerKeyPress(key)
                     counter = counter + 1
                 end
             end
-            for i=1,2 do
+            for i=1,3 do
                 if i==1 then
-                    j=26
-                else
+                    j=1
+                elseif i==2 then
                     j=34
+                else 
+                    j=44
                 end
                 if (character.x+world.x+100)==deskChair[j].x and (character.y+world.y)== deskChair[j].y  then
                     dialogNum=j
@@ -226,8 +228,8 @@ function triggerKeyPress(key)
                     questionNum=5
                     q5count=true
                     q5Set(q5count)
-                    --q4_dialogLockLine = false
-                    --love_newDialog()
+                    q5_dialogLockQ = false
+                    love_newDialog()
                 end
             if (character.x+100)==500-world.x and character.y== 1100-world.y then
                 if deskChair[20].x ~= 500 or deskChair[20].y ~= 1100 then
@@ -256,11 +258,13 @@ function triggerKeyPress(key)
                     counter = counter + 1
                 end
             end
-            for i=1,2 do
+            for i=1,3 do
                 if i==1 then
-                    j=26
-                else
+                    j=1
+                elseif i==2 then
                     j=34
+                else 
+                    j=44
                 end
                 if (character.x+world.x-100)==deskChair[j].x and (character.y+world.y)== deskChair[j].y  then
                     dialogNum=j
@@ -276,8 +280,8 @@ function triggerKeyPress(key)
                     questionNum=5
                     q5count=true    
                     q5Set(q5count)
-                    --q4_dialogLockLine = false
-                    --love_newDialog()
+                    q5_dialogLock = false
+                    love_newDialog()
                 end
             if (character.x-100)==500-world.x and character.y== 1100-world.y then
                 if deskChair[20].x ~= 500 or deskChair[20].y ~= 1100 then
@@ -306,11 +310,13 @@ function triggerKeyPress(key)
                     counter = counter + 1
                 end
             end
-            for i=1,2 do
+            for i=1,3 do
                 if i==1 then
-                    j=26
-                else
+                    j=1
+                elseif i==2 then
                     j=34
+                else 
+                    j=44
                 end
                 if (character.x+world.x)==deskChair[j].x and (character.y+world.y+100)== deskChair[j].y  then
                     dialogNum=j
@@ -326,13 +332,21 @@ function triggerKeyPress(key)
                     questionNum=5
                     q5count=true
                     q5Set(q5count)
-                    --q4_dialogLockLine = false
-                    --love_newDialog()
+                    q5_dialogLock = false
+                    love_newDialog()
             end
             if (character.x)==500-world.x and character.y+100== 1100-world.y then
                 if deskChair[20].x ~= 500 or deskChair[20].y ~= 1100 then
                     conversation = true
                     dialogNum=1
+                    npc_dialogLock = false
+                    love_newDialog()
+                end
+            end
+            if character.x==2200-world.x and character.y+100== 300-world.y then
+                if interface.keyNum==2 then
+                    conversation = true
+                    dialogNum=2
                     npc_dialogLock = false
                     love_newDialog()
                 end
@@ -364,11 +378,13 @@ function triggerKeyPress(key)
                     counter = counter + 1
                 end
             end
-            for i=1,2 do
+            for i=1,3 do
                 if i==1 then
-                    j=26
-                else
+                    j=1
+                elseif i==2 then
                     j=34
+                else 
+                    j=44
                 end
                 if (character.x+world.x)==deskChair[j].x and (character.y+world.y-100)== deskChair[j].y  then
                     dialogNum=j
@@ -384,21 +400,29 @@ function triggerKeyPress(key)
                     questionNum=5
                     q5count=true
                     q5Set(q5count)
-                    --q4_dialogLockLine = false
-                    --love_newDialog()
+                    q5_dialogLock = false
+                    love_newDialog()
                 end
             for i=20,28 do
                 if (character.x+world.x)==lightWall[i].x and (character.y+world.y-100)== lightWall[i].y and lightWall[i].isSolve == false then
                     question = true
                     questionNum=4
-                    --q4_dialogLockLine = false
-                    --love_newDialog()
+                    q4_dialogLockLine = false
+                    love_newDialog()
                 end
             end
             if character.x==500-world.x and character.y-100== 1100-world.y then
                 if deskChair[20].x ~= 500 or deskChair[20].y ~= 1100 then
                     conversation = true
                     dialogNum=1
+                    npc_dialogLock = false
+                    love_newDialog()
+                end
+            end
+            if character.x==2200-world.x and character.y-100== 300-world.y then
+                if interface.keyNum==2 then
+                    conversation = true
+                    dialogNum=2
                     npc_dialogLock = false
                     love_newDialog()
                 end
@@ -452,9 +476,13 @@ function triggerKeyPress(key)
             end
     elseif love.keyboard.isDown("escape") then
         q5_dialogLockKey = true
+        q5_dialogLock = true
         q5_dialog_state = 2
+        q5_dialog_stateQ = 1
         q5_dialog_namestate = 1
         q4_dialogLockKey = true
+        q4_dialogLockLine = true
+        q4_dialog_stateLine=1
         q4_dialog_state = 2
         q4_dialog_namestate = 1
         q1_dialog_state = 1

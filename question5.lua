@@ -7,9 +7,9 @@ local delta = 0
 local counter
 local ans=0
 local Image = love.graphics.newImage("img/world2/aisle.png")
-local isImage = love.graphics.newImage("img//world2/aisleBlue.png")
-local isImage2 = love.graphics.newImage("img//world2/aisleRed.png")
-local isImage3 = love.graphics.newImage("img/books.png")
+local isImage = love.graphics.newImage("img/world2/aisleBlue.png")
+local isImage2 = love.graphics.newImage("img/world2/aisleRed.png")
+local isImage3 = love.graphics.newImage("img/world2/aisleGreen.png")
 -- this function is for OOP
 function newObject(o, class)
     class.__index = class
@@ -21,6 +21,8 @@ function question5_load()
     imageHeight5=600
     q5_dialogLockKey = true
     q5_dialog_state = 2
+    q5_dialogLock = true
+    q5_dialog_stateQ = 1
     q5_dialog_namestate = 1
     counter = 1
     lastSetpCounter = 1
@@ -41,6 +43,16 @@ function q5_keypressedKey(key)
             dialog_timer = 0
             q5_dialog_state = q5_dialog_state + 2
             q5_dialog_namestate = q5_dialog_namestate +2
+        end
+    end
+    if not q5_dialogLock  then
+        if love.keyboard.isDown(" ") then
+            clicksound:setVolume(getVol())
+            clicksound:play()
+            --says_index = 3
+            --dialog_timer = 0
+            q5_dialog_stateQ = q5_dialog_stateQ + 1
+            --q5_dialog_namestateQ = q5_dialog_namestateQ +2
         end
     end
 end
@@ -89,6 +101,8 @@ function question5_update(dt)
     end
     if ans ==112 and q5temp == true and (character.x+world.x)==1700 and (character.y+world.y)==2500 then
         addKey()
+        sloveProblem:setVolume(getVol())
+        sloveProblem:play()
         counter=1
         for i = 1300, 1600, 100 do
             for j = 0, 2700, 100 do
@@ -136,15 +150,18 @@ function question5_draw(dialogNum)
     else
         love.graphics.draw(questionImage5, 550-imageWidth5/2, 0)
         --love.graphics.draw(questionImage5, 307-imageWidth5/2, 0,0,1100/,614/imageHeight5)
-        --if q2_dialog_stateLine == 1 then
-          --  print_dialog("", "長條圖？")
-        --elseif q2_dialog_stateLine == 2 then
+        if q5_dialog_stateQ == 1 then
+            print_dialog("", "走廊？")
+        elseif q5_dialog_stateQ == 2 then
           --  print_dialog("", "真是麻煩")
         --elseif q2_dialog_stateLine == 3 then
           --  print_dialog("", "真是一個不標準的長條圖，什麼標示都沒有")
         --elseif q2_dialog_stateLine == 4 then
-          --  q2_dialogLockLine = true
-        --end
+            q5_dialogLock = true
+            q5_dialog_stateQ=1
+            question = false
+            atk_timeout = 0
+        end
     end
 end
 

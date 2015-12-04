@@ -7,7 +7,7 @@ local characterY=300
 local resetKey = false
 function world2_load()
     require "character"
-    --require "slime"
+    require "slime"
     require "boss2"
     require "barrierCreate"
     require "interface"
@@ -94,6 +94,8 @@ function monsterCreate2()
     monsters[2] = kagemusha.new(monsters[1], 2400, 200)
     monsters[3] = kagemusha.new(monsters[1], 2500, 100)
     monsters[4] = kagemusha.new(monsters[1], 2500, 200)
+    
+
 end
 function characterCreate2()
     character.x = characterX
@@ -137,14 +139,21 @@ function mapCreate2()
 end
 
 function barrierCreate2()
-    underDeskPaper=love.graphics.newImage("img/books.png")
+    underDeskPaper=love.graphics.newImage("img/underPaper.png")
     underDeskPaper_dialog={}
     underDeskPaper_dialogLength=0
-    paper_data = love.filesystem.read(string.format("npcDialog/npc%d.dat", 1), all)
+    paper_data = love.filesystem.read("npcDialog/day2Puzzle2/underPaper.dat", all)
     for k in string.gmatch(paper_data, "[^,^\n]+") do
         table.insert(underDeskPaper_dialog, k)
     end
     underDeskPaper_dialogLength = table.getn(underDeskPaper_dialog)
+    question6_dialog={}
+    question6_dialogLength=0
+    question6_data = love.filesystem.read("npcDialog/day2Puzzle2/question6.dat", all)
+    for k in string.gmatch(question6_data, "[^,^\n]+") do
+        table.insert(question6_dialog, k)
+    end
+    question6_dialogLength = table.getn(question6_dialog)
     --blackboard
     local counter = 1
     for i = 200, 1000, 100 do
@@ -264,16 +273,21 @@ function barrierCreate2()
             counter = counter + 1
         end
     end
-    q5_data = love.filesystem.read(string.format("npcDialog/npc%d.dat", 1), all)
+    q5_data = love.filesystem.read(string.format("npcDialog/day2Puzzle2/table%d.dat", 1), all)
     for k in string.gmatch(q5_data, "[^,^\n]+") do
-        table.insert(deskChair[26].dialog, k)
+        table.insert(deskChair[1].dialog, k)
     end
-    deskChair[26].dialogLength = table.getn(deskChair[26].dialog)
-    q5_data = love.filesystem.read(string.format("npcDialog/npc%d.dat", 1), all)
+    deskChair[1].dialogLength = table.getn(deskChair[1].dialog)
+    q5_data = love.filesystem.read(string.format("npcDialog/day2Puzzle2/table%d.dat", 34), all)
     for k in string.gmatch(q5_data, "[^,^\n]+") do
         table.insert(deskChair[34].dialog, k)
     end
     deskChair[34].dialogLength = table.getn(deskChair[34].dialog)
+    q5_data = love.filesystem.read(string.format("npcDialog/day2Puzzle2/table%d.dat", 44), all)
+    for k in string.gmatch(q5_data, "[^,^\n]+") do
+        table.insert(deskChair[44].dialog, k)
+    end
+    deskChair[44].dialogLength = table.getn(deskChair[44].dialog)
     deskChair[20].moveable=true
     deskChair[20].Barrier=false
     --stair

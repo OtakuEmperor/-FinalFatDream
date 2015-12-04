@@ -21,6 +21,7 @@ UNG={}
 deepWall_counter = 1
 lightWall_counter = 1
 fence_counter = 1
+deskChair_counter = 1
 -- this function is for OOP
 function newObject(o, class)
     class.__index = class
@@ -169,8 +170,15 @@ function aisle.new (originPointX,originPointY)
     return obj
 end
 function deskChair.new (originPointX,originPointY)
+    local deskChairIMG
+    if deskChair_counter == 1 or deskChair_counter == 18 or deskChair_counter == 34 then
+        deskChairIMG = ("img/world2/deskChair_blood.png")
+    else
+        deskChairIMG = ("img/world2/deskChair.png")
+    end
+    deskChair_counter = deskChair_counter + 1
    local obj = {
-        Image = love.graphics.newImage("img/world2/deskChair.png"),
+        Image = love.graphics.newImage(deskChairIMG),
         Barrier=true,
         isSolve=false,
         dialog={},

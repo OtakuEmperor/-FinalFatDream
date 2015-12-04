@@ -6,9 +6,9 @@ local delay = 0.15
 local delta = 0
 local count
 function question4_load()
-    questionImage4 = love.graphics.newImage("img/question2.png")
-    imageWidth4=1092
-    imageHeight4=614
+    questionImage4 = love.graphics.newImage("img/question4.png")
+    imageWidth4=100
+    imageHeight4=100
     for i=1,12 do
         bar[i]= false
         barHeight[i]=1
@@ -17,6 +17,8 @@ function question4_load()
     q4_dialogLockKey = true
     q4_dialog_state = 2
     q4_dialog_namestate = 1
+    q4_dialog_stateLine = 1
+    q4_dialogLockLine = true
 end
 
 function q4_keypressedKey(key)
@@ -30,6 +32,13 @@ function q4_keypressedKey(key)
             q4_dialog_namestate = q4_dialog_namestate +2
         end
     end
+    if not q4_dialogLockLine then
+        if love.keyboard.isDown(" ") then
+            clicksound:setVolume(getVol())
+            clicksound:play()
+            q4_dialog_stateLine = q4_dialog_stateLine +1
+        end
+    end
 end
 
 function question4_update(dt)
@@ -38,7 +47,7 @@ function question4_update(dt)
             count=i
         end
     end
-    if barHeight[1] == 2 and barHeight[2] == 1 and barHeight[3] == 2 and barHeight[4] == 0 and barHeight[5] == 0 and barHeight[6] == 2 and barHeight[7] == 0 and barHeight[8] == 1 and barHeight[9] == 2 and barHeight[10] == 1 and barHeight[11] == 0 and barHeight[12] == 2 then
+    if barHeight[1] == 2 and barHeight[2] == 1 and barHeight[3] == 0 and barHeight[4] == 2 and barHeight[5] == 2 and barHeight[6] == 1 and barHeight[7] == 0 and barHeight[8] == 1 and barHeight[9] == 2 and barHeight[10] == 1 and barHeight[11] == 0 and barHeight[12] == 2 then
         delta = delta + dt
         if delta >= 0.5 then
             question=false
@@ -58,11 +67,6 @@ function question4_update(dt)
 end
 
 function question4_keypressedLine(key)
-    --if not q2_dialogLockLine then
-      --  if love.keyboard.isDown(" ") then
-        --    q2_dialog_stateLine = love_dialogKeyPressed(q2_dialog_stateLine)
-        --end
-    --end
     local switchR = {}
     for i=1,11 do
         switchR[i]=function()
@@ -173,14 +177,16 @@ function question4_draw(dialogNum)
             end
             love.graphics.rectangle("fill", 1000*i/13+25,600-(550*barHeight[i]/3) -85, 700/12-20, 530*barHeight[i]/3 )
         end
-        --if q2_dialog_stateLine == 1 then
-          --  print_dialog("", "長條圖？")
-        --elseif q2_dialog_stateLine == 2 then
+        if q4_dialog_stateLine == 1 then
+            print_dialog("", "ＯＥ小雞雞？")
+        --elseif q4_dialog_stateLine == 2 then
           --  print_dialog("", "真是麻煩")
-        --elseif q2_dialog_stateLine == 3 then
+        elseif q4_dialog_stateLine == 3 then
           --  print_dialog("", "真是一個不標準的長條圖，什麼標示都沒有")
         --elseif q2_dialog_stateLine == 4 then
-          --  q2_dialogLockLine = true
-        --end
+            q4_dialogLockLine = true
+           q4_dialog_stateLine=1
+            question = false
+        end
     end
 end
