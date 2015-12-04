@@ -389,13 +389,9 @@ function loveLoad(data)
 end
 
 function love_reloadDay()
-    print(day_state)
-    print(day_branch)
     if day_branch == 0 then
-        print(string.format("day%d.dat", day_state))
         file_data = love.filesystem.read(string.format("day%d.dat", day_state), all)
     else
-        print(string.format("day%d-%d.dat", day_state, day_branch))
         file_data = love.filesystem.read(string.format("day%d-%d.dat", day_state, day_branch), all)
     end
     dialog = {}
@@ -499,6 +495,8 @@ function state_check()
     end
 
     if day_state == 3 then
+        day_branch = 0
+        dialog_state = 1
         if not isempty(choose[20276]) then
             if choose[20276] % 2 == 0 then
                 day_branch = 1
@@ -520,8 +518,9 @@ function state_check()
                     day_branch = 2
                 end
             end
-        else
-            day_branch = 0
+        end
+
+        if day_branch == 0 or day_branch == 1 then
             if world2_success then
                 dialog_state = 17
             else
