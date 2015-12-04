@@ -63,8 +63,8 @@ function world_update(dt)
         world1_fade = true
         if world1_fade_timer >= 2 then
             day_state = 2
-            dialog_state = 16
             gameStage = 2
+            state_check()
             love_reloadDay()
         end
     end
@@ -570,8 +570,9 @@ function monster_draw()
             if world1_fade_timer >= 2 then
                 boss1_dialogLock = true
                 day_state = 2
-                dialog_state = 1
                 gameStage = 2
+                world1_success = true
+                state_check()
                 love_reloadDay()
             end
         end

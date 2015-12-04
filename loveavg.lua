@@ -23,7 +23,11 @@ function loveavg_load()
     room_night = love.graphics.newImage("img/cg/room_night.jpg")
     dialogImg = love.graphics.newImage("img/dialog.png")
     lovefont = love.graphics.newFont("font/wt006.ttf", 25)
-    press_button = love.graphics.newImage("img/slimeJuice.png")
+    press_button = love.graphics.newImage("img/next/next.png")
+    press_button2 = love.graphics.newImage("img/next/next2.png")
+    press_button3 = love.graphics.newImage("img/next/next3.png")
+    press_button_index = 1
+    press_button_timer = 0
     choose = {}
     chooseLock = true
     dialogLock = false
@@ -39,23 +43,9 @@ function loveavg_load()
     says_length = 0
     waitNextDialog = false
     waitSpace = false
+    world1_success = false
+    world2_success = false
     space = "　"
-
-    branch_setting = love.filesystem.read(string.format("day_branch.conf"), all)
-    for i in string.gmatch(branch_setting, "[^\n]+") do
-        data = {}
-        for j in string.gmatch(i, "[^,]+") do
-            table.insert(data, tonumber(j))
-        end
-        if not isempty(choose[data[1]]) then
-            if choose[data[1]] % data[2] == data[3] - 1 then
-                day_branch = data[4]
-            else
-                day_branch = 0
-            end
-        end
-    end
-
 
     if day_branch == 0 then
         file_data = love.filesystem.read(string.format("day%d.dat", day_state), all)
@@ -126,7 +116,7 @@ end
 
 function loveavg_draw()
     dialog_element = {}
-    print_background(day_state, dialog_state)
+    print_background(day_state, dialog_state, day_branch)
     play_bgm(day_state, dialog_state)
     for i in string.gmatch(dialog[dialog_state], "[^,]+") do
         table.insert(dialog_element, i)
@@ -198,7 +188,13 @@ function print_dialog(who, says)
     love.graphics.print(says, 5, love.graphics.getHeight()*2/3+35)
     love.graphics.print(says_nd, 5, love.graphics.getHeight()*2/3+65)
     if waitSpace or waitNextDialog then
-        love.graphics.draw(press_button, love.graphics.getWidth() - 50,love.graphics.getHeight() - 50)
+        if press_button_index == 1 then
+            love.graphics.draw(press_button, love.graphics.getWidth() - 50,love.graphics.getHeight() - 60, 0, 1/2, 1/2)
+        elseif press_button_index == 2 then
+            love.graphics.draw(press_button2, love.graphics.getWidth() - 50,love.graphics.getHeight() - 60, 0, 1/2, 1/2)
+        elseif press_button_index == 3 then
+            love.graphics.draw(press_button3, love.graphics.getWidth() - 50,love.graphics.getHeight() - 60, 0, 1/2, 1/2)
+        end
     end
 end
 
@@ -243,7 +239,7 @@ function print_choose(n, dialog_n, a, b, c)
     end
 end
 
-function print_background(day, dialog)
+function print_background(day, dialog, branch)
     if day == 1 then
         if (1 <= dialog and dialog <= 13) or (167 <= dialog and dialog <= 182) then
             bg = night
@@ -268,10 +264,58 @@ function print_background(day, dialog)
             bg = schoolroad_light
         elseif (163 <= dialog and dialog <= 209) then
             bg = schoolEntry_light
-        elseif (210 <= dialog and dialog <= 305) then
+        elseif (210 <= dialog and dialog <= 312) then
             bg = class_light
-        elseif (306 <= dialog and dialog <= 363) or (364 <= dialog and dialog <= 399) then
+        elseif (313 <= dialog and dialog <= 370) or (371 <= dialog and dialog <= 406) then
             bg = room_night
+        end
+    end
+
+    if day == 3 and branch == 0 then
+        if (1 <= dialog and dialog <= 31) then
+            bg = room_light
+        elseif (32 <= dialog and dialog <= 114) then
+            bg = schoolroad_light
+        elseif (130 <= dialog and dialog <= 144) then
+            bg = class_light
+        elseif (115 <= dialog and dialog <= 129) and (145 <= dialog and dialog <= 169) then
+            bg = room_night
+        end
+    end
+
+    if day == 3 and branch == 1 then
+        if (1 <= dialog and dialog <= 31) then
+            bg = room_light
+        elseif (32 <= dialog and dialog <= 45) then
+            bg = schoolroad_light
+        elseif (46 <= dialog and dialog <= 69) then
+            bg = class_light
+        elseif (70 <= dialog and dialog <= 94) then
+            bg = room_night
+        end
+    end
+
+    if day == 3 and branch == 2 then
+        if (1 <= dialog and dialog <= 3) then
+            bg = room_light
+        elseif (4 <= dialog and dialog <= 44) then
+            bg = schoolroad_light
+        elseif (45 <= dialog and dialog <= 60) then
+            bg = class_light
+        elseif (61 <= dialog and dialog <= 74) then
+            bg = room_night
+        end
+    end
+
+    if day == 3 and branch == 3 then
+        if (1 <= dialog and dialog <= 3) then
+            bg = room_light
+        elseif (4 <= dialog and dialog <= 25) and (34 <= dialog and dialog <= 55) then
+            bg = computer
+        elseif (26 <= dialog and dialog <= 29) then
+            bg = schoolroad_light
+        elseif (30 <= dialog and dialog <= 33) then
+            bg = class_light
         end
     end
     love.graphics.setColor(255, 255, 255 ,love_fade_color)
@@ -299,12 +343,19 @@ function play_bgm(day, dialog)
         end
     end
     if day == 2 then
-        if 1 <= dialog and dialog <= 399 then
+        if 1 <= dialog and dialog <= 406 then
             if not (bgm_name == "class_bgm") then
                 love.audio.stop()
                 bgm = class_bgm
                 bgm_name = "class_bgm"
             end
+        end
+    end
+    if day == 3 then
+        if not (bgm_name == "class_bgm") then
+            love.audio.stop()
+            bgm = class_bgm
+            bgm_name = "class_bgm"
         end
     end
     bgm:setVolume(getVol())
@@ -324,22 +375,25 @@ function isempty(s)
 end
 
 function loveSave()
-    return {choose, chooseLock, dialogLock, day_state, day_branch, dialog_state, choose_no, battle_log}
+    return {choose, chooseLock, dialogLock, day_state, day_branch, dialog_state, choose_no}
 end
 
 function loveLoad(data)
-    choose = data[1] -- int
+    choose = data[1] -- int table
     chooseLock = data[2] -- boolean
     dialogLock = data[3] -- boolean
     day_state = data[4] -- int
     day_branch = data[5] -- int
     dialog_state = data[6] -- int
-    choose_no = data[7] -- int table
-    battle_log = data[8] -- int table
+    choose_no = data[7] -- int
 end
 
 function love_reloadDay()
-    file_data = love.filesystem.read(string.format("day%d.dat", day_state), all)
+    if day_branch == 0 then
+        file_data = love.filesystem.read(string.format("day%d.dat", day_state), all)
+    else
+        file_data = love.filesystem.read(string.format("day%d-%d.dat", day_state, day_branch), all)
+    end
     dialog = {}
     -- parse data
     for i in string.gmatch(file_data, "[^\n]+") do
@@ -365,39 +419,48 @@ function love_update(dt)
         love_fade_timer = 0
         love_fade_color = 255
     end
+
+    press_button_timer = press_button_timer + dt
+    if press_button_timer > 0.3 then
+        press_button_index = press_button_index + 1
+        if press_button_index > 3 then
+            press_button_index = 1
+        end
+        press_button_timer = 0
+    end
 end
 
 function world1_change()
-    if not isempty(choose[1136]) then
-        if choose[1136] % 2 == 0 then
+    if not isempty(choose[10136]) then
+        if choose[10136] % 2 == 0 then
             monsters[8].hp = 50
             character.hp = 150
             character.maxHp = 150
             q3Trap[1].disappearDelay = 8
-        elseif choose[1136] % 2 == 1 then
+        elseif choose[10136] % 2 == 1 then
             monsters[8].hp = 70
             character.hp = 150
             character.maxHp = 150
             q3Trap[1].disappearDelay = 5
         end
     end
-    if not isempty(choose[1136]) then
-        if choose[1127] % 3 == 1 then
+    if not isempty(choose[10136]) then
+        if choose[10127] % 3 == 1 then
             monsters[8].hp = 70
             character.hp = 100
             character.maxHp = 100
             q3Trap[1].disappearDelay = 5
-        elseif choose[1127] % 3 == 2 then
+        elseif choose[10127] % 3 == 2 then
             monsters[8].hp = 70
             character.hp = 100
             character.maxHp = 100
             q3Trap[1].disappearDelay = 8
         end
     end
-    if not isempty(choose[1136]) then
-        if choose[156] % 2 == 0 then
+    if not isempty(choose[10136]) then
+        if choose[1056] % 2 == 0 then
             character.atk = 5
-        elseif choose[156] % 2 == 1 then
+        elseif choose[1056] % 2 == 1 then
             character.atk = 3
         end
     end
@@ -420,4 +483,49 @@ end
 function love_newDialog()
     says_index = 3
     dialog_timer = 0
+end
+
+function state_check()
+    if day_state == 2 then
+        if world1_success then
+            dialog_state = 1
+        else
+            dialog_state = 16
+        end
+    end
+
+    if day_state == 3 then
+        day_branch = 0
+        dialog_state = 1
+        if not isempty(choose[20276]) then
+            if choose[20276] % 2 == 0 then
+                day_branch = 1
+                if world2_success then
+                    dialog_state = 17
+                else
+                    dialog_state = 1
+                end
+            end
+        elseif not isempty(choose[2035]) then
+            if choose[2035] % 2 == 0 then
+                if not world2_success then
+                    day_branch = 3
+                end
+            end
+        elseif not isempty(choose[2056]) then
+            if choose[2056] % 2 == 1 then
+                if not world2_success then
+                    day_branch = 2
+                end
+            end
+        end
+
+        if day_branch == 0 or day_branch == 1 then
+            if world2_success then
+                dialog_state = 17
+            else
+                dialog_state = 1
+            end
+        end
+    end
 end
