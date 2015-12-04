@@ -1,3 +1,4 @@
+local underDeskPaperQ=love.graphics.newImage("img/world2/floor.png")
 function npc2_keypressed(key)
     if not npc_dialogLock  then
         if love.keyboard.isDown(" ") then
@@ -22,6 +23,10 @@ function npc2_draw(dialogNum)
             npc_dialog_state = 2
             npc_dialog_namestate = 1
             atk_timeout = 0
+            character.bullet = character.bullet + 2
+            sloveProblem:setVolume(getVol())
+            sloveProblem:play()
+            underDeskPaper=underDeskPaperQ
         end
         if underDeskPaper_dialog[npc_dialog_namestate] == "nil" then
             underDeskPaper_dialog[npc_dialog_namestate] = " "

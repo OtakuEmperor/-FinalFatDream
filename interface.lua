@@ -123,25 +123,27 @@ function interface_draw()
     love.graphics.print(wake, interface.width * (1/20), interface.height * (1/20))
 
     --draw key
-    love.graphics.setColor(255, 255, 255, 200)
-    love.graphics.draw(interface.key2, interface.width * (9/200), interface.height * (1/8))
-    love.graphics.draw(interface.key2, interface.width * (9/200) + 32, interface.height * (1/8))
-    love.graphics.draw(interface.key2, interface.width * (9/200) + 64, interface.height * (1/8))
-    love.graphics.setColor(255, 255, 255, 255)
-    if interface.keyNum == 1 then
-        love.graphics.draw(interface.key, interface.width * (9/200), interface.height * (1/8))
-    elseif interface.keyNum == 2 then
-        love.graphics.draw(interface.key, interface.width * (9/200), interface.height * (1/8))
-        love.graphics.draw(interface.key, interface.width * (9/200) + 32, interface.height * (1/8))
-    elseif interface.keyNum == 3 then
-        love.graphics.draw(interface.key, interface.width * (9/200), interface.height * (1/8))
-        love.graphics.draw(interface.key, interface.width * (9/200) + 32, interface.height * (1/8))
-        love.graphics.draw(interface.key, interface.width * (9/200) + 64, interface.height * (1/8))
-        if interface.questionLock == false then
-            if day_state == 1 then
-                monsters[8]:summon()
+    if interface.days ~= 3 then
+        love.graphics.setColor(255, 255, 255, 200)
+        love.graphics.draw(interface.key2, interface.width * (9/200), interface.height * (1/8))
+        love.graphics.draw(interface.key2, interface.width * (9/200) + 32, interface.height * (1/8))
+        love.graphics.draw(interface.key2, interface.width * (9/200) + 64, interface.height * (1/8))
+        love.graphics.setColor(255, 255, 255, 255)
+        if interface.keyNum == 1 then
+            love.graphics.draw(interface.key, interface.width * (9/200), interface.height * (1/8))
+        elseif interface.keyNum == 2 then
+            love.graphics.draw(interface.key, interface.width * (9/200), interface.height * (1/8))
+            love.graphics.draw(interface.key, interface.width * (9/200) + 32, interface.height * (1/8))
+        elseif interface.keyNum == 3 then
+            love.graphics.draw(interface.key, interface.width * (9/200), interface.height * (1/8))
+            love.graphics.draw(interface.key, interface.width * (9/200) + 32, interface.height * (1/8))
+            love.graphics.draw(interface.key, interface.width * (9/200) + 64, interface.height * (1/8))
+            if interface.questionLock == false then
+                if day_state == 1 then
+                    monsters[8]:summon()
+                end
+                interface.questionLock = true
             end
-            interface.questionLock = true
         end
     end
     --draw water

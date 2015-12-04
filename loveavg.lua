@@ -311,11 +311,11 @@ function print_background(day, dialog, branch)
     if day == 3 and branch == 0 then
         if (1 <= dialog and dialog <= 31) then
             bg = room_light
-        elseif (32 <= dialog and dialog <= 114) then
+        elseif (32 <= dialog and dialog <= 114) or (125 <= dialog and dialog <= 129) then
             bg = schoolroad_light
         elseif (130 <= dialog and dialog <= 144) then
             bg = class_light
-        elseif (115 <= dialog and dialog <= 129) or (145 <= dialog and dialog <= 169) then
+        elseif (115 <= dialog and dialog <= 124) or (145 <= dialog and dialog <= 169) then
             bg = room_night
         end
     end
