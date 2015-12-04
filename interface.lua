@@ -189,7 +189,7 @@ function interface_draw()
     end
     --draw red red
     if wakeOriginNumber > 80 and wakeOriginNumber < 100 then
-        love.graphics.setColor(255, 0, 0, wakeOriginNumber)
+        love.graphics.setColor(255, 0, 0, (wakeOriginNumber-80)*3)
         love.graphics.rectangle("fill", 0, 0, interface.width, interface.height)
     end
     --draw days
