@@ -149,6 +149,7 @@ function loveavg_draw()
             elseif day_state == 2 then
                 isCharacterWake = true
                 gameStage = 3
+                world2_change()
             end
         end
     end
@@ -495,6 +496,58 @@ function world1_change()
             character.atk = 5
         elseif choose[1056] % 2 == 1 then
             character.atk = 3
+        end
+    end
+end
+
+function world2_change()
+    if not isempty(choose[20276]) then
+        if world1_success and choose[20276] % 2 == 0 then
+            character.hp = 150
+            character.maxHp = 150
+            monsters[1].hp = 70
+            monsters[1].attackSpeed = 1
+            character.bullet = 2
+            character.gunAtk = 10
+            character.swordAtk = 5
+        elseif world1_success and choose[20276] % 2 == 1 then
+            character.hp = 100
+            character.maxHp = 100
+            monsters[1].hp = 50
+            monsters[1].attackSpeed = 1
+            character.bullet = 2
+            character.gunAtk = 10
+            character.swordAtk = 5
+        end
+    end
+    if not isempty(choose[2035]) then
+        if choose[2035] % 3 == 1 then
+            character.hp = 70
+            character.maxHp = 70
+            monsters[1].hp = 50
+            monsters[1].attackSpeed = 1
+            character.bullet = 2
+            character.gunAtk = 10
+            character.swordAtk = 5
+        elseif choose[2035] % 3 == 2 then
+            character.hp = 120
+            character.maxHp = 120
+            monsters[1].hp = 70
+            monsters[1].attackSpeed = 0.8
+            character.bullet = 3
+            character.gunAtk = 10
+            character.swordAtk = 7
+        end
+    end
+    if not isempty(choose[2056]) then
+        if choose[2056] % 2 == 1 then
+            character.hp = 100
+            character.maxHp = 100
+            monsters[1].hp = 50
+            monsters[1].attackSpeed = 1
+            character.bullet = 2
+            character.gunAtk = 10
+            character.swordAtk = 5
         end
     end
 end
