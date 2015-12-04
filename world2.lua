@@ -35,6 +35,7 @@ function world2_update(dt)
         mapCreate2()
         characterCreate2()
         monsterCreate2()
+        world2_change()
         creatMapLock = creatMapLock+1
     end
     heroTryCatch(dt)

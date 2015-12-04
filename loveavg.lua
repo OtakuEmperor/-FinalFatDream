@@ -50,6 +50,7 @@ function loveavg_load()
     waitSpace = false
     world1_success = false
     world2_success = false
+    world3_success = false
     endding_fade = false
     space = "　"
 
@@ -149,7 +150,9 @@ function loveavg_draw()
             elseif day_state == 2 then
                 isCharacterWake = true
                 gameStage = 3
-                world2_change()
+            elseif day_state == 3 then
+                isCharacterWake = true
+                gameStage = 3
             end
         end
     end
@@ -312,7 +315,7 @@ function print_background(day, dialog, branch)
             bg = schoolroad_light
         elseif (130 <= dialog and dialog <= 144) then
             bg = class_light
-        elseif (115 <= dialog and dialog <= 129) and (145 <= dialog and dialog <= 169) then
+        elseif (115 <= dialog and dialog <= 129) or (145 <= dialog and dialog <= 169) then
             bg = room_night
         end
     end
@@ -409,7 +412,7 @@ function isempty(s)
 end
 
 function loveSave()
-    return {choose, chooseLock, dialogLock, day_state, day_branch, dialog_state, choose_no}
+    return {choose, chooseLock, dialogLock, day_state, day_branch, dialog_state, choose_no, world1_success, world2_success, world3_success}
 end
 
 function loveLoad(data)
@@ -420,6 +423,9 @@ function loveLoad(data)
     day_branch = data[5] -- int
     dialog_state = data[6] -- int
     choose_no = data[7] -- int
+    world1_success = data[8] --boolean
+    world2_success = data[9] --boolean
+    world3_success = data[10] --boolean
 end
 
 function love_reloadDay()

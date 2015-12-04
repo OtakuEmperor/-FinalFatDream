@@ -4,6 +4,9 @@ local screenWidth,screenHeight=love.graphics.getDimensions( )
 local characterX=500
 local characterY=300
 local resetKey = false
+local sj1 = true
+local sj2 = true
+local sj3 = true
 function world3_load()
     require "character"
     --require "slime"
@@ -197,9 +200,9 @@ function barrierCreate3()
     bed[1] = bed.new(800, 100)
     bed[2] = bed.new(900, 100)
     --potted
-    potted[1] = potted.new(800, 700)
-    potted[2] = potted.new(100, 1000)
-    potted[3] = potted.new(400, 1000)
+    potted[1] = potted.new(900, 700)
+    potted[2] = potted.new(400, 1000)
+    potted[3] = potted.new(1400, 900)
     potted[4] = potted.new(100, 100)
     potted[5] = potted.new(400, 100)
     --tv
@@ -224,12 +227,28 @@ function barrierCreate3()
 
     bookcase[9] = bookcase.new(900, 0)
     bookcase[10] = bookcase.new(1300, 700)
-
+    --slimeJuice
+    sj[1] = sj.new(100, 1000)
+    sj[2] = sj.new(800, 700)
+    sj[3] = sj.new(1400, 1000)
 end
 
 function world3_keypressed(key)
     if love.keyboard.isDown("k") then
         addKey()
+    end
+    --get slimeJuice
+    if key == "f" and (character.x+world.x) == 100 and (character.y+world.y) == 900 and character.faceDir == "down" and sj1 == true then
+        character.water = true
+        sj1 = false
+    end
+    if key == "f" and (character.x+world.x) == 800 and (character.y+world.y) == 600 and character.faceDir == "down" and sj2 == true then
+        character.water = true
+        sj2 = false
+    end
+    if key == "f" and (character.x+world.x) == 1300 and (character.y+world.y) == 1000 and character.faceDir == "right" and sj3 == true then
+        character.water = true
+        sj3 = false
     end
     character_keyPressed(key)
 end
@@ -312,6 +331,25 @@ function barrier3_draw()
             isBarrier(bookcase[i].x-world.x, bookcase[i].y-world.y)
         end
     end
+    --slimeJuice
+    if sj1 then
+        love.graphics.draw(sj[1].Image, sj[1].x-world.x, sj[1].y-world.y)
+        if sj[1].Barrier then
+            isBarrier(sj[1].x-world.x, sj[1].y-world.y)
+        end
+    end
+    if sj2 then
+        love.graphics.draw(sj[2].Image, sj[2].x-world.x, sj[2].y-world.y)
+        if sj[2].Barrier then
+            isBarrier(sj[2].x-world.x, sj[2].y-world.y)
+        end
+    end
+    if sj3 then
+        love.graphics.draw(sj[3].Image, sj[3].x-world.x, sj[3].y-world.y)
+        if sj[3].Barrier then
+            isBarrier(sj[3].x-world.x, sj[3].y-world.y)
+        end
+    end
 end
 
 function monster_draw3()
@@ -335,6 +373,6 @@ function monster_draw3()
     end
 
     if not monsters[1].alive and monsters[1].hp <= 0 then
-        
+
     end
 end
