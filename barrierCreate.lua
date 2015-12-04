@@ -10,6 +10,7 @@ questionKey={}
 --world2
 blackboard={}
 deepWall={}
+deepWall_boss={}
 lightWall={}
 floor={}
 aisle={}
@@ -140,6 +141,16 @@ function deepWall.new (originPointX,originPointY)
         y = originPointY
     }
     obj = newObject(obj, deepWall)
+    return obj
+end
+function deepWall_boss.new (originPointX,originPointY)
+   local obj = {
+        Image = love.graphics.newImage("img/world2/deepWall_boss.png"),
+        Barrier=true,
+        x = originPointX,
+        y = originPointY
+    }
+    obj = newObject(obj, deepWall_boss)
     return obj
 end
 function lightWall.new (originPointX,originPointY)
