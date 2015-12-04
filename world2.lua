@@ -9,7 +9,6 @@ function world2_load()
     require "character"
     require "slime"
     require "boss2"
-    require "boss3"
     require "barrierCreate"
     require "interface"
     require "barrierMove"
@@ -17,6 +16,12 @@ function world2_load()
     fight_bgm2 = love.audio.newSource("audio/night2.ogg")
     --interface_load()
     --character_load()
+    boss2_summon = false
+    world2_fade_color = 0
+    world2_fade = false
+    world2_fade_timer = 0
+    world2_dialog_state = 1
+    world2_dialogLock = true
 end
 
 function world2_update(dt)
@@ -42,28 +47,28 @@ function world2_update(dt)
     character_run(dt)
     character.py = character.y
     character.px = character.x
-   -- if world1_fade then
-     --   world1_fade_timer = world1_fade_timer + dt
-       -- if world1_fade_timer <= 2 then
-         --   world1_fade_color = world1_fade_color + 4
-           -- if world1_fade_color >= 250 then
-             --   world1_fade_color = 255
-            --end
-        --end
-    --end
+    if world2_fade then
+        world2_fade_timer = world2_fade_timer + dt
+        if world2_fade_timer <= 2 then
+            world2_fade_color = world2_fade_color + 4
+            if world2_fade_color >= 250 then
+                world2_fade_color = 255
+            end
+        end
+    end
     if not (q4_dialogLockKey and q5_dialogLockKey) then
        isCharacterWake = false
     else
        isCharacterWake = true
     end
     if character.die then
-       -- world1_fade = true
-        --if world1_fade_timer >= 2 then
-        --    day_state = 2
-          --  dialog_state = 16
-    --        gameStage = 2
-      --      love_reloadDay()
-    --    end
+       world2_fade = true
+        if world2_fade_timer >= 2 then
+           day_state = 3
+           dialog_state = 1
+           gameStage = 2
+           love_reloadDay()
+       end
     end
     if world.backMove == true then
         --if world.rightMove == true or world.leftMove == true or world.upMove == true or world.downMove == true then
@@ -74,9 +79,17 @@ function world2_update(dt)
         world.speed = 300
         setMapMove(dt)
     end
+
+    if not boss2_summon and interface.keyNum == 3 then
+        boss2_summon = true
+        monsters[1].startRun = true
+    end
 end
 
 function world2_draw()
+    if world2_fade then
+        love.graphics.setColor(0,0,0, world2_fade_color)
+    end
     -- print(string.format("%s %s\r\n%s %s\r\n", "hp", character.hp, "max.hp", character.maxHp))
     barrier2_draw()
     character_draw()
@@ -95,7 +108,6 @@ function monsterCreate2()
     monsters[2] = kagemusha.new(monsters[1], 2400, 200)
     monsters[3] = kagemusha.new(monsters[1], 2500, 100)
     monsters[4] = kagemusha.new(monsters[1], 2500, 200)
-    monsters[5] = boss3.new(2400, 100)
     
 
 end
@@ -499,5 +511,15 @@ function monster_draw2()
         --love.audio.rewind(bossBGM)
         bossBGM:setVolume(getVol()*0.4)
         bossBGM:play()
+    end
+
+    if not monsters[1].alive and monsters[1].hp <= 0 then
+        world2_fade = true
+        if world2_fade_timer >= 2 then
+           day_state = 3
+           dialog_state = 1
+           gameStage = 2
+           love_reloadDay()
+       end
     end
 end
