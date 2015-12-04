@@ -5,6 +5,7 @@ local screenWidth,screenHeight=love.graphics.getDimensions( )
 local characterX=500
 local characterY=300
 local resetKey = false
+local hehe=love.graphics.newImage("img/bullet/baby2.jpg")
 function world2_load()
     require "character"
     require "slime"
@@ -106,6 +107,12 @@ function world2_draw()
     love.audio.stop(fight_bgm)
     fight_bgm2:setVolume(0.3 * getVol())
     fight_bgm2:play()
+    if character.x+world.x==1700 and character.y+world.y==100 then
+       love.graphics.setColor(0,0,0,150)
+        love.graphics.rectangle("fill", 0,0, 1100, 614)
+        love.graphics.setColor(255,255,255)
+        love.graphics.draw(hehe,350, 80)
+    end
 end
 function monsterCreate2()
     monsters = {}
@@ -222,6 +229,9 @@ function barrierCreate2()
     for i = 1700, 1800, 100 do
         for j = 0, 2300, 100 do
             deepWall[counter] = deepWall.new(i, j)
+            if i==1700 and j==100 then
+                deepWall[counter].Barrier=false
+            end
             counter = counter + 1
         end
     end
