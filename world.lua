@@ -1,5 +1,6 @@
 world={}
 local screenWidth,screenHeight=love.graphics.getDimensions( )
+local hehe=love.graphics.newImage("img/bullet/baby.jpg")
 function world_load()
     require "character"
     require "slime"
@@ -157,6 +158,12 @@ function world_draw()
     --testdraw()
     love.audio.setVolume(0.8)
     fight_bgm:play()
+    if tree[1].x==2000 and tree[1].y==0 then
+       love.graphics.setColor(0,0,0,150)
+        love.graphics.rectangle("fill", 0,0, 1100, 614)
+        love.graphics.setColor(255,255,255)
+        love.graphics.draw(hehe,350, 80)
+    end
 end
 
 function mapCreate()

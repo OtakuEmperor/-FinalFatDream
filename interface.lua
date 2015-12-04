@@ -68,6 +68,15 @@ function interface_update(dt)
 end
 
 function interface_draw()
+    charHP = getHeroHP()
+    charMaxHP = getHeroMaxHP()
+    wakeOriginNumber = (100-((charHP/charMaxHP)*100.0))
+    --draw red red
+    if wakeOriginNumber > 80 and wakeOriginNumber < 100 then
+        love.graphics.setColor(255, 0, 0, (wakeOriginNumber-80)*5)
+        love.graphics.rectangle("fill", 0, 0, interface.width, interface.height)
+    end
+    --draw heartbeat
     love.graphics.setColor(255, 255, 255, 255)
     if heartBeat_draw_state == 1 then
         love.graphics.draw(heartbeat1, heartBeat_x, heartBeat_y)
@@ -90,9 +99,7 @@ function interface_draw()
     elseif heartBeat_draw_state == 10 then
         love.graphics.draw(heartbeat10, heartBeat_x, heartBeat_y)
     end
-    charHP = getHeroHP()
-    charMaxHP = getHeroMaxHP()
-    wakeOriginNumber = (100-((charHP/charMaxHP)*100.0))
+
     if wakeOriginNumber > 10 then
         wake = string.format("%.1f%%", wakeOriginNumber)
     else
@@ -186,11 +193,6 @@ function interface_draw()
             interface.changeWeapon:play()
             interface.weaponIsPlayed = true
         end
-    end
-    --draw red red
-    if wakeOriginNumber > 80 and wakeOriginNumber < 100 then
-        love.graphics.setColor(255, 0, 0, wakeOriginNumber)
-        love.graphics.rectangle("fill", 0, 0, interface.width, interface.height)
     end
     --draw days
     if interface.dn == true then
