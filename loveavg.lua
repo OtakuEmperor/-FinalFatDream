@@ -43,23 +43,9 @@ function loveavg_load()
     says_length = 0
     waitNextDialog = false
     waitSpace = false
+    world1_success = false
+    world2_success = false
     space = "　"
-
-    branch_setting = love.filesystem.read(string.format("day_branch.conf"), all)
-    for i in string.gmatch(branch_setting, "[^\n]+") do
-        data = {}
-        for j in string.gmatch(i, "[^,]+") do
-            table.insert(data, tonumber(j))
-        end
-        if not isempty(choose[data[1]]) then
-            if choose[data[1]] % data[2] == data[3] - 1 then
-                day_branch = data[4]
-            else
-                day_branch = 0
-            end
-        end
-    end
-
 
     if day_branch == 0 then
         file_data = love.filesystem.read(string.format("day%d.dat", day_state), all)
@@ -288,11 +274,11 @@ function print_background(day, dialog, branch)
     if day == 3 and branch == 0 then
         if (1 <= dialog and dialog <= 31) then
             bg = room_light
-        elseif (32 <= dialog and dialog <= 45) then
+        elseif (32 <= dialog and dialog <= 114) then
             bg = schoolroad_light
-        elseif (46 <= dialog and dialog <= 69) then
+        elseif (130 <= dialog and dialog <= 144) then
             bg = class_light
-        elseif (70 <= dialog and dialog <= 94) then
+        elseif (115 <= dialog and dialog <= 129) and (145 <= dialog and dialog <= 169) then
             bg = room_night
         end
     end
@@ -300,11 +286,11 @@ function print_background(day, dialog, branch)
     if day == 3 and branch == 1 then
         if (1 <= dialog and dialog <= 31) then
             bg = room_light
-        elseif (32 <= dialog and dialog <= 114) then
+        elseif (32 <= dialog and dialog <= 45) then
             bg = schoolroad_light
-        elseif (130 <= dialog and dialog <= 144) then
+        elseif (46 <= dialog and dialog <= 69) then
             bg = class_light
-        elseif (115 <= dialog and dialog <= 129) and (145 <= dialog and dialog <= 169) then
+        elseif (70 <= dialog and dialog <= 94) then
             bg = room_night
         end
     end
@@ -366,8 +352,11 @@ function play_bgm(day, dialog)
         end
     end
     if day == 3 then
-        bgm = class_bgm
-        bgm_name = "class_bgm"
+        if not (bgm_name == "class_bgm") then
+            love.audio.stop()
+            bgm = class_bgm
+            bgm_name = "class_bgm"
+        end
     end
     bgm:setVolume(getVol())
     bgm:play()
@@ -400,25 +389,9 @@ function loveLoad(data)
 end
 
 function love_reloadDay()
-    branch_setting = love.filesystem.read(string.format("day_branch.conf"), all)
-    for i in string.gmatch(branch_setting, "[^\n]+") do
-        data = {}
-        for j in string.gmatch(i, "[^,]+") do
-            table.insert(data, tonumber(j))
-        end
-        if not isempty(choose[data[1]]) then
-            if choose[data[1]] % data[2] == data[3] - 1 then
-                day_branch = data[4]
-            else
-                day_branch = 0
-            end
-        end
-    end
-
-
     if day_branch == 0 then
         file_data = love.filesystem.read(string.format("day%d.dat", day_state), all)
-    elseif not day_branch == 0 then
+    else
         file_data = love.filesystem.read(string.format("day%d-%d.dat", day_state, day_branch), all)
     end
     dialog = {}
@@ -510,4 +483,49 @@ end
 function love_newDialog()
     says_index = 3
     dialog_timer = 0
+end
+
+function state_check()
+    if day_state == 2 then
+        if world1_success then
+            dialog_state = 1
+        else
+            dialog_state = 16
+        end
+    end
+
+    if day_state == 3 then
+        day_branch = 0
+        dialog_state = 1
+        if not isempty(choose[20276]) then
+            if choose[20276] % 2 == 0 then
+                day_branch = 1
+                if world2_success then
+                    dialog_state = 17
+                else
+                    dialog_state = 1
+                end
+            end
+        elseif not isempty(choose[2035]) then
+            if choose[2035] % 2 == 0 then
+                if not world2_success then
+                    day_branch = 3
+                end
+            end
+        elseif not isempty(choose[2056]) then
+            if choose[2056] % 2 == 1 then
+                if not world2_success then
+                    day_branch = 2
+                end
+            end
+        end
+
+        if day_branch == 0 or day_branch == 1 then
+            if world2_success then
+                dialog_state = 17
+            else
+                dialog_state = 1
+            end
+        end
+    end
 end
