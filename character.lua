@@ -45,7 +45,7 @@ function character_keyPressed(key)
     if love.keyboard.isDown("w") then
         if character.weapon == "sword" then
             character.weapon = "gun"
-            character.atk = 50
+            character.atk = 7
             atk_range = 500
         elseif character.weapon == "gun" then
             character.weapon = "sword"
@@ -91,7 +91,7 @@ function characterCreate()
     character.backMove=false
     character.water = false
     character.weapon = "sword"
-    character.bullet = 10
+    character.bullet = 2
     charUnderAttack = love.audio.newSource("audio/charUnderAttack.wav", "static")
 end
 
@@ -346,7 +346,7 @@ function character_run(dt)
     end
     battle_update(dt)
     if character.hp > character.maxHp then
-        character.hp = 100
+        character.hp = character.maxHp
     elseif character.hp < 0 then
         character.hp = 0
     end

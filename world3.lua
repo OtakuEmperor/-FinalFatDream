@@ -12,11 +12,6 @@ function world3_load()
     require "interface"
     require "barrierMove"
     require "kagemusha"
-    monsters = {}
-    monsters[1] = boss3.new(1100, 0)
-    monsters[2] = kagemusha.new(monsters[1], 1200, 0)
-    monsters[3] = kagemusha.new(monsters[1], 1100, 100)
-    monsters[4] = kagemusha.new(monsters[1], 1200, 100)
     --fight_bgm = love.audio.newSource("audio/night.mp3", "stream")
     --interface_load()
     --character_load()
@@ -32,6 +27,7 @@ function world3_update(dt)
         barrierCreate3()
         mapCreate3()
         characterCreate3()
+        monsterCreate3()
         creatMapLock = creatMapLock+1
     end
     interface_update(dt)
@@ -127,7 +123,13 @@ function mapCreate3()
     world.delay=0.15
     world.backMove =false
 end
-
+function monsterCreate3()
+     monsters = {}
+    monsters[1] = boss3.new(1100, 0)
+    monsters[2] = kagemusha.new(monsters[1], 1200, 0)
+    monsters[3] = kagemusha.new(monsters[1], 1100, 100)
+    monsters[4] = kagemusha.new(monsters[1], 1200, 100)
+end
 function barrierCreate3()
     --create houseFloor
     local counter = 1
