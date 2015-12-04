@@ -10,6 +10,7 @@ questionKey={}
 --world2
 blackboard={}
 deepWall={}
+deepWall_boss={}
 lightWall={}
 floor={}
 aisle={}
@@ -142,6 +143,16 @@ function deepWall.new (originPointX,originPointY)
     obj = newObject(obj, deepWall)
     return obj
 end
+function deepWall_boss.new (originPointX,originPointY)
+   local obj = {
+        Image = love.graphics.newImage("img/world2/deepWall_boss.png"),
+        Barrier=true,
+        x = originPointX,
+        y = originPointY
+    }
+    obj = newObject(obj, deepWall_boss)
+    return obj
+end
 function lightWall.new (originPointX,originPointY)
     local lightWallImg
     if lightWall_counter <= 5 then
@@ -188,7 +199,7 @@ function aisle.new (originPointX,originPointY)
 end
 function deskChair.new (originPointX,originPointY)
     local deskChairIMG
-    if deskChair_counter == 1 or deskChair_counter == 18 or deskChair_counter == 34 then
+    if deskChair_counter == 1 or deskChair_counter == 18 or deskChair_counter == 20 or deskChair_counter == 34 or deskChair_counter == 44 then
         deskChairIMG = ("img/world2/deskChair_blood.png")
     else
         deskChairIMG = ("img/world2/deskChair.png")

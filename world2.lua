@@ -103,6 +103,10 @@ function world2_draw()
     love.audio.stop(fight_bgm)
     fight_bgm2:setVolume(0.3 * getVol())
     fight_bgm2:play()
+    love.graphics.print(character.x+world.x,200, 200)
+    love.graphics.print(character.y+world.y,200, 300)
+    love.graphics.print(character.nx+world.nx,500, 200)
+    love.graphics.print(character.ny+world.ny,500, 300)
 end
 function monsterCreate2()
     monsters = {}
@@ -110,7 +114,23 @@ function monsterCreate2()
     monsters[2] = kagemusha.new(monsters[1], 2400, 200)
     monsters[3] = kagemusha.new(monsters[1], 2500, 100)
     monsters[4] = kagemusha.new(monsters[1], 2500, 200)
-    
+    monsters[5] = slime.new(400,600)
+    monsters[5].slimeImgFile = love.graphics.newImage("img/classmate.png")
+    monsters[6] = slime.new(400,1000)
+    monsters[6].slimeImgFile = love.graphics.newImage("img/classmate.png")
+    monsters[7] = slime.new(800,600)
+    monsters[7].slimeImgFile = love.graphics.newImage("img/classmate.png")
+    monsters[8] = slime.new(800,1000)
+    monsters[8].slimeImgFile = love.graphics.newImage("img/classmate.png")
+    monsters[9] = slime.new(400,2100)
+    monsters[9].slimeImgFile = love.graphics.newImage("img/classmate.png")
+    monsters[10] = slime.new(400,2500)
+    monsters[10].slimeImgFile = love.graphics.newImage("img/classmate.png")
+    monsters[11] = slime.new(800,2100)
+    monsters[11].slimeImgFile = love.graphics.newImage("img/classmate.png")
+    monsters[12] = slime.new(800,2500)
+    monsters[12].slimeImgFile = love.graphics.newImage("img/classmate.png")
+
 
 end
 function characterCreate2()
@@ -215,6 +235,16 @@ function barrierCreate2()
         for j = 2800, 2900, 100 do
             deepWall[counter] = deepWall.new(i, j)
             counter = counter + 1
+        end
+    end
+    --deepWall_boss
+    counter = 1
+    if monsters[1].alive then
+        for i = 1700, 1800, 100 do
+            for j = 2400, 2700, 100 do
+                deepWall_boss[counter] = deepWall_boss.new(i, j)
+                counter = counter + 1
+            end
         end
     end
 
@@ -497,13 +527,22 @@ function barrier2_draw()
             isBarrier(UNG[i].x-world.x, UNG[i].y-world.y)
         end
     end
+    --deepWall_boss
+    if monsters[1].alive then
+        for i = 1, #deepWall_boss, 1 do
+            love.graphics.draw(deepWall_boss[i].Image, deepWall_boss[i].x-world.x, deepWall_boss[i].y-world.y)
+            if deepWall_boss[i].Barrier then
+                isBarrier(deepWall_boss[i].x-world.x, deepWall_boss[i].y-world.y)
+            end
+        end
+    end
 end
 
 function monster_draw2()
     for i, monster in ipairs(monsters) do
         if monster.alive then
             love.graphics.setColor(255,255,255)
-            love.graphics.draw(monster.slimeImgFile, monster.slimeQuads[monster.face][monster.animationIndex], monster.nowX-world.x, monster.nowY-world.y)
+            love.graphics.draw(monster.slimeImgFile, monster.slimeQuads[monster.moveStep[monster.moveIndex]][monster.animationIndex], monster.nowX-world.x, monster.nowY-world.y)
         end
     end
 
