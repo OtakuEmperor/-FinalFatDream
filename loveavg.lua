@@ -50,6 +50,7 @@ function loveavg_load()
     waitSpace = false
     world1_success = false
     world2_success = false
+    world3_success = false
     endding_fade = false
     space = "　"
 
@@ -149,7 +150,6 @@ function loveavg_draw()
             elseif day_state == 2 then
                 isCharacterWake = true
                 gameStage = 3
-                world2_change()
             end
         end
     end
@@ -409,7 +409,7 @@ function isempty(s)
 end
 
 function loveSave()
-    return {choose, chooseLock, dialogLock, day_state, day_branch, dialog_state, choose_no}
+    return {choose, chooseLock, dialogLock, day_state, day_branch, dialog_state, choose_no, world1_success, world2_success, world3_success}
 end
 
 function loveLoad(data)
@@ -420,6 +420,9 @@ function loveLoad(data)
     day_branch = data[5] -- int
     dialog_state = data[6] -- int
     choose_no = data[7] -- int
+    world1_success = data[8]
+    world2_success = data[8]
+    world3_success = data[8]
 end
 
 function love_reloadDay()
