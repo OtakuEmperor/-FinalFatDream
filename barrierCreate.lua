@@ -199,7 +199,7 @@ function aisle.new (originPointX,originPointY)
 end
 function deskChair.new (originPointX,originPointY)
     local deskChairIMG
-    if deskChair_counter == 1 or deskChair_counter == 18 or deskChair_counter == 34 then
+    if deskChair_counter == 1 or deskChair_counter == 18 or deskChair_counter == 20 or deskChair_counter == 34 or deskChair_counter == 44 then
         deskChairIMG = ("img/world2/deskChair_blood.png")
     else
         deskChairIMG = ("img/world2/deskChair.png")
