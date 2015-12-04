@@ -7,8 +7,8 @@ local delta = 0
 local count
 function question4_load()
     questionImage4 = love.graphics.newImage("img/question4.png")
-    imageWidth4=100
-    imageHeight4=100
+    imageWidth4=614
+    imageHeight4=1092
     for i=1,12 do
         bar[i]= false
         barHeight[i]=1
@@ -168,7 +168,7 @@ function question4_draw(dialogNum)
         end
                 print_dialog(deskChair[dialogNum].dialog[q4_dialog_namestate],deskChair[dialogNum].dialog[q4_dialog_state])
     else
-        love.graphics.draw(questionImage4, 0, 0,0,1100/imageWidth4,614/imageHeight4)
+        love.graphics.draw(questionImage4, 0, 0,0)
         for i=1,12 do
            if bar[i]==true then
                 love.graphics.setColor(255,0,0)
@@ -183,7 +183,7 @@ function question4_draw(dialogNum)
            print_dialog("", "真是麻煩")
         elseif q4_dialog_stateLine == 3 then
            print_dialog("", "又是一個不標準的長條圖，什麼標示都沒有")
-        --elseif q2_dialog_stateLine == 4 then
+        elseif q2_dialog_stateLine == 5 then
             q4_dialogLockLine = true
            q4_dialog_stateLine=1
             question = false

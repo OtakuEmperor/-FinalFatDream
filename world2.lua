@@ -107,8 +107,6 @@ function world2_draw()
     love.audio.stop(fight_bgm)
     fight_bgm2:setVolume(0.3 * getVol())
     fight_bgm2:play()
-    love.graphics.print(character.x+world.x, 200, 200)
-    love.graphics.print(character.y+world.y, 300, 200)
     if character.x+world.x==1700 and character.y+world.y==100 then
        love.graphics.setColor(0,0,0,150)
         love.graphics.rectangle("fill", 0,0, 1100, 614)
