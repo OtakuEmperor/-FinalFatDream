@@ -118,7 +118,8 @@ function love.keypressed(key)
         day_state = 2
         gameStage = 3
     elseif love.keyboard.isDown("6") and love.keyboard.isDown("lalt") then
-        gameStage = 4
+        day_state = 3
+        gameStage = 3
     elseif love.keyboard.isDown("f") and love.keyboard.isDown("lalt") then
         if fps then
             fps=false

@@ -138,7 +138,9 @@ function interface_draw()
         love.graphics.draw(interface.key, interface.width * (9/200) + 32, interface.height * (1/8))
         love.graphics.draw(interface.key, interface.width * (9/200) + 64, interface.height * (1/8))
         if interface.questionLock == false then
-            monsters[8]:summon()
+            if day_state == 1 then
+                monsters[8]:summon()
+            end
             interface.questionLock = true
         end
     end
