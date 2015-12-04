@@ -28,6 +28,11 @@ function loveavg_load()
     press_button3 = love.graphics.newImage("img/next/next3.png")
     press_button_index = 1
     press_button_timer = 0
+    end1 = love.graphics.newImage("img/end/end1.png")
+    end2 = love.graphics.newImage("img/end/end2.png")
+    end3 = love.graphics.newImage("img/end/end3.png")
+    end4 = love.graphics.newImage("img/end/end4.png")
+    end5 = love.graphics.newImage("img/end/end5.png")
     choose = {}
     chooseLock = true
     dialogLock = false
@@ -45,6 +50,7 @@ function loveavg_load()
     waitSpace = false
     world1_success = false
     world2_success = false
+    endding_fade = false
     space = "　"
 
     if day_branch == 0 then
@@ -64,18 +70,22 @@ function loveavg_keypressed(key)
     if not dialogLock then
         if love.keyboard.isDown(" ") then
             clicksound:play()
-            if waitNextDialog then
-                if not isempty(dialog_element[3]) then
-                    dialog_state = tonumber(dialog_element[3])
-                else
-                    dialog_state = dialog_state + 1
-                end
-                says_index = 3
-                dialog_timer = 0
-            elseif waitSpace then
-                waitSpace = false
+            if endding_fade then
+                gameStage = 4
             else
-                says_index = says_length
+                if waitNextDialog then
+                    if not isempty(dialog_element[3]) then
+                        dialog_state = tonumber(dialog_element[3])
+                    else
+                        dialog_state = dialog_state + 1
+                    end
+                    says_index = 3
+                    dialog_timer = 0
+                elseif waitSpace then
+                    waitSpace = false
+                else
+                    says_index = says_length
+                end
             end
         end
     end
@@ -148,11 +158,34 @@ function loveavg_draw()
     end
 
     -- dialog
-    if not (isempty(dialog_element[2])) then
-        if (isempty(dialog_element[1])) then
-            print_dialog("", dialog_element[2])
-        else
-            print_dialog(dialog_element[1], dialog_element[2])
+    if dialog_element[1] == "end" then
+        love.audio.stop()
+        if not endding_fade then
+            love_fade = true
+            if love_fade_timer > 2 then
+                endding_fade = true
+                love_fade = false
+                love_fade_color = 255
+            end
+        end
+        if dialog_element[2] == "1" and endding_fade then
+            love.graphics.draw(end1, 0 ,0)
+        elseif dialog_element[2] == "2" and endding_fade then
+            love.graphics.draw(end2, 0 ,0)
+        elseif dialog_element[2] == "3" and endding_fade then
+            love.graphics.draw(end3, 0 ,0)
+        elseif dialog_element[2] == "4" and endding_fade then
+            love.graphics.draw(end4, 0 ,0)
+        elseif dialog_element[2] == "5" and endding_fade then
+            love.graphics.draw(end5, 0 ,0)
+        end
+    else
+        if not (isempty(dialog_element[2])) then
+            if (isempty(dialog_element[1])) then
+                print_dialog("", dialog_element[2])
+            else
+                print_dialog(dialog_element[1], dialog_element[2])
+            end
         end
     end
 
