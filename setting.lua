@@ -121,9 +121,16 @@ function love_save()
     for i, j in pairs(data[1]) do
         f:write(string.format("%s\n%s\n", i, j))
     end
-    f2:write(tostring(data[2]) .. "\n" .. tostring(data[3]) .. "\n" .. tostring(data[4]) .. "\n" .. tostring(data[5]) .. "\n" .. tostring(data[6]))
+    f2:write(tostring(data[2]) .. "\n" .. tostring(data[3]) .. "\n" .. tostring(data[4]) .. "\n" .. tostring(data[5]) .. "\n" .. tostring(data[6]).. "\n" .. tostring(data[7]))
     f:close()
     f2:close()
     setting.saveSuccess:setVolume(getVol())
     setting.saveSuccess:play()
+    print(data[1])
+    print(data[2])
+    print(data[3])
+    print(data[4])
+    print(data[5])
+    print(data[6])
+    print(data[7])
 end
