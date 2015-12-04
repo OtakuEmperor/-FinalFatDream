@@ -195,13 +195,11 @@ function barrierCreate3()
     bed[1] = bed.new(800, 100)
     bed[2] = bed.new(900, 100)
     --potted
-    counter = 1
-    potted[counter] = potted.new(800, 700)
-    counter = counter + 1
-    potted[counter] = potted.new(100, 1000)
-    counter = counter + 1
-    potted[counter] = potted.new(400, 1000)
-    counter = counter + 1
+    potted[1] = potted.new(800, 700)
+    potted[2] = potted.new(100, 1000)
+    potted[3] = potted.new(400, 1000)
+    potted[4] = potted.new(100, 100)
+    potted[5] = potted.new(400, 100)
     --tv
     tv[1] = tv.new(100, 500)
     tv[2] = tv.new(100, 600)
@@ -209,10 +207,21 @@ function barrierCreate3()
     smallTable[1] = smallTable.new(400, 500)
     smallTable[2] = smallTable.new(400, 600)
     --sofa
-    sofa[1] = sofa.new(600, 400)
-    sofa[2] = sofa.new(600, 500)
-    sofa[3] = sofa.new(600, 600)
-    sofa[4] = sofa.new(600, 700)
+    sofa[1] = sofa.new(600, 500)
+    sofa[2] = sofa.new(600, 600)
+    --bookcase
+    bookcase[1] = bookcase.new(800, 0)
+    bookcase[2] = bookcase.new(1200, 700)
+    bookcase[3] = bookcase.new(200, 1000)
+    bookcase[4] = bookcase.new(500, 100)
+
+    bookcase[5] = bookcase.new(1000, 0)
+    bookcase[6] = bookcase.new(1400, 700)
+    bookcase[7] = bookcase.new(300, 1000)
+    bookcase[8] = bookcase.new(600, 100)
+
+    bookcase[9] = bookcase.new(900, 0)
+    bookcase[10] = bookcase.new(1300, 700)
 
 end
 
@@ -292,6 +301,13 @@ function barrier3_draw()
         love.graphics.draw(bed[i].Image, bed[i].x-world.x, bed[i].y-world.y)
         if bed[i].Barrier then
             isBarrier(bed[i].x-world.x, bed[i].y-world.y)
+        end
+    end
+    --bookcase
+    for i=1, #bookcase, 1 do
+        love.graphics.draw(bookcase[i].Image, bookcase[i].x-world.x, bookcase[i].y-world.y)
+        if bookcase[i].Barrier then
+            isBarrier(bookcase[i].x-world.x, bookcase[i].y-world.y)
         end
     end
 end
