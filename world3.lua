@@ -22,6 +22,9 @@ function world3_load()
     world3_dialogLock = true
     world3_dialog_state = 0
     boss3_summon = false
+    world3_fade_color = 0
+    world3_fade = false
+    world3_fade_timer = 0
 end
 
 function world3_update(dt)
@@ -45,28 +48,30 @@ function world3_update(dt)
     character_run(dt)
     character.py = character.y
     character.px = character.x
-   -- if world1_fade then
-     --   world1_fade_timer = world1_fade_timer + dt
-       -- if world1_fade_timer <= 2 then
-         --   world1_fade_color = world1_fade_color + 4
-           -- if world1_fade_color >= 250 then
-             --   world1_fade_color = 255
-            --end
-        --end
-    --end
+    if world3_fade then
+        world3_fade_timer = world3_fade_timer + dt
+        if world3_fade_timer <= 2 then
+            world3_fade_color = world3_fade_color + 4
+            if world3_fade_color >= 250 then
+                world3_fade_color = 255
+            end
+        end
+    end
     if not (world3_dialogLock) then
        isCharacterWake = false
     else
        isCharacterWake = true
     end
     if character.die then
-       -- world1_fade = true
-        --if world1_fade_timer >= 2 then
-        --    day_state = 2
-          --  dialog_state = 16
-    --        gameStage = 2
-      --      love_reloadDay()
-    --    end
+        world3_fade = true
+        if world3_fade_timer >= 2 then
+            day_state = 4
+            dialog_state = 1
+            gameStage = 2
+            love.audio.stop()
+            state_check()
+            love_reloadDay()
+        end
     end
     if world.backMove == true then
         --if world.rightMove == true or world.leftMove == true or world.upMove == true or world.downMove == true then
@@ -88,6 +93,9 @@ function world3_update(dt)
 end
 
 function world3_draw()
+    if world3_fade then
+        love.graphics.setColor(0,0,0, world3_fade_color)
+    end
     -- print(string.format("%s %s\r\n%s %s\r\n", "hp", character.hp, "max.hp", character.maxHp))
     barrier3_draw()
     character_draw()
@@ -404,6 +412,14 @@ function monster_draw3()
     end
 
     if not monsters[1].alive and monsters[1].hp <= 0 then
-
+        world3_fade = true
+        if world3_fade_timer >= 2 then
+            day_state = 4
+            gameStage = 2
+            world3_success = true
+            love.audio.stop()
+            state_check()
+            love_reloadDay()
+        end
     end
 end

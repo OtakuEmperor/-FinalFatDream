@@ -53,6 +53,11 @@ function character_keyPressed(key)
             atk_range = 100
         end
     end
+
+    if love.keyboard.isDown(",") then
+        character.gunAtk = 50
+        character.bullet = 99
+    end
 end
 
 function character_draw()

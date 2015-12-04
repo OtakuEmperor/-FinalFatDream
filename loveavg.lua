@@ -629,4 +629,11 @@ function state_check()
             end
         end
     end
+    if day_state == 4 then
+        if world3_success then
+            dialog_state = 1
+        else
+            dialog_state = 7
+        end
+    end
 end
