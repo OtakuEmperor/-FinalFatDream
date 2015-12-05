@@ -636,8 +636,10 @@ function state_check()
     if day_state == 4 then
         if world3_success then
             dialog_state = 1
+            day_branch = 0
         else
             dialog_state = 7
+            day_branch = 0
         end
     end
 end
