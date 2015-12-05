@@ -497,7 +497,7 @@ function world1_change()
             q3Trap[1].disappearDelay = 5
         end
     end
-    if not isempty(choose[10136]) then
+    if not isempty(choose[10127]) then
         if choose[10127] % 3 == 1 then
             monsters[8].hp = 70
             character.hp = 100
@@ -510,7 +510,7 @@ function world1_change()
             q3Trap[1].disappearDelay = 8
         end
     end
-    if not isempty(choose[10136]) then
+    if not isempty(choose[1056]) then
         if choose[1056] % 2 == 0 then
             character.atk = 5
         elseif choose[1056] % 2 == 1 then
