@@ -364,6 +364,10 @@ function print_background(day, dialog, branch)
             bg = black
         end
     end
+
+    if day == 4 then
+        bg = room_light
+    end
     love.graphics.setColor(255, 255, 255 ,love_fade_color)
     love.graphics.draw(bg, 0, 0, 0, 1092/bg:getWidth(), 614/bg:getHeight())
 end
