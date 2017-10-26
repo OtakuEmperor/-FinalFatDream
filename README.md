@@ -17,7 +17,7 @@ This Game is Fu Jen Catholic University Independent Study.
 
 Type of game: text adventure and 2D pixel action game
 
-Game engine: Love2D
+Game engine: Love2D 0.9.2
 
 Programming Language: Lua
 
